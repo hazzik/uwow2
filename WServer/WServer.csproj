@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.50727</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{0C8C58AA-445F-49D1-BAE6-E326CBFF6925}</ProjectGuid>
     <OutputType>Exe</OutputType>
@@ -33,9 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ICSharpCode.SharpZipLib, Version=0.84.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.84.0.0, Culture=neutral, PublicKeyToken=1b03e6acf1164f73">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\UWoW_src\bin\Debug\ICSharpCode.SharpZipLib.dll</HintPath>
+      <HintPath>..\..\UWoW\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -43,14 +43,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Net\Packets.cs" />
-    <Compile Include="Objects\ItemObject.cs" />
-    <Compile Include="Objects\Templates\ItemTemplate.cs" />
-    <Compile Include="Objects\Templates\TemplateFactory.cs" />
     <Compile Include="ObjectUpdateSystem\UpdateFields.cs" />
     <Compile Include="OpCodes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Objects\WorldObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">
