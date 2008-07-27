@@ -1,19 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Net.Sockets;
-using System.Security.Cryptography;
-using Helper;
-using System.IO;
-using System.Net;
 using System.Collections;
-using System.Runtime.Serialization;
+using System.Collections.Generic;
+using System.Data.Linq;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading;
+using Helper;
 using UWoW.Net;
 
 namespace UWoW {
-	
+
 	#region stuff
+	
 	public enum eAuthResults {
 		REALM_AUTH_SUCCESS = 0,
 		REALM_AUTH_FAILURE = 0x01,                                ///< Unable to connect
@@ -32,94 +36,14 @@ namespace UWoW {
 		REALM_AUTH_UNKNOWN5 = 0x0e,                               ///< Connected.
 		REALM_AUTH_PARENTAL_CONTROL = 0x0f                        ///< Access to this account has been blocked by parental controls. Your settings may be changed in your account preferences at <site>
 	};
-
-	public class ServerInfo {
-		byte _type;
-		public byte Type {
-			get { return _type; }
-			set { _type = value; }
-		}
-
-		byte _locked;
-		public byte Locked {
-			get { return _locked; }
-			set { _locked = value; }
-		}
-
-		byte _status;
-		public byte Status {
-			get { return _status; }
-			set { _status = value; }
-		}
-
-		string _name;
-		public string Name {
-			get { return _name; }
-			set { _name = value; }
-		}
-
-		string _address;
-		public string Address {
-			get { return _address; }
-			set { _address = value; }
-		}
-
-		float _population;
-		public float Population {
-			get { return _population; }
-			set { _population = value; }
-		}
-
-		byte _charactersCount;
-		public byte CharactersCount {
-			get { return _charactersCount; }
-			set { _charactersCount = value; }
-		}
-
-		byte _language;
-		public byte Language {
-			get { return _language; }
-			set { _language = value; }
-		}
-
-		byte _unk;
-		public byte Unk {
-			get { return _unk; }
-			set { _unk = value; }
-		}
-	}
-
-	public class Account {
-		static BigInteger bi_N = new BigInteger("B79B3E2A87823CAB8F5EBFBF8EB10108535006298B5BADBD5B53E1895E644B89", 16);
-		static BigInteger bi_g = 7;
-		static BigInteger bi_k = 3;
-		static SHA1 sha1 = new SHA1Managed();
-
-		private string _name;
-
-		private byte[] _s;
-		private byte[] _v;
-		public void SetPassword(string password) {
-			var p = (_name + ":" + password).ToUpper();
-			var pHash = sha1.ComputeHash(Encoding.UTF8.GetBytes(p));
-			var x = sha1.ComputeHash(Utility.Concat(_s, pHash));
-			var bi_x = new BigInteger(x.Reverse());
-			var bi_v = bi_g.modPow(bi_x, bi_N);
-		}
-	}
-
+	
 	#endregion
 
+
 	public class RLSClient : AClient {
-		private enum Tag {
-			Client = 0x00576F57, //"WoW"
-			Server = 0x00537276, //"Srv"
-		}
 
-		private Socket _socket;
 
-		static BigInteger bi_N = new BigInteger("B79B3E2A87823CAB8F5EBFBF8EB10108535006298B5BADBD5B53E1895E644B89", 16);
-		static BigInteger bi_Nr = new BigInteger(bi_N.getBytes().Reverse());
+		static BigInteger bi_N = new BigInteger("894B645E89E1535BBDAD5B8B290650530801B18EBFBF5E8FAB3C82872A3E9BB7", 16);
 		static BigInteger bi_g = 7;
 		static BigInteger bi_k = 3;
 		static MD5 md5 = new MD5CryptoServiceProvider();
@@ -132,10 +56,9 @@ namespace UWoW {
 
 		private Account myAccount;
 		public static int s1;
-		private byte[] userName;
 
-		public RLSClient(Socket a) {
-			_socket = a;
+		public RLSClient(Socket socket) :
+			base(4, socket) {
 			_serverList.Add(new ServerInfo {
 				Type = 0,
 				Locked = 0,
@@ -143,63 +66,52 @@ namespace UWoW {
 				Name = "TestRealm",
 				Address = "127.0.0.1:1234",
 				CharactersCount = 1,
-				Language = (byte)0,
+				Language = (byte)8,
 				Population = 1,
 				Unk = 0
 			});
 			Start();
 		}
 
-		public override void Start() {
-			try {
-				receivedBuff = new byte[0xFFFF];
-				int n = 0;
-				while((n = _socket.Receive(receivedBuff, receivedBuff.Length, SocketFlags.None)) > 0)
-					PocessData(receivedBuff, 0, n);
-			} catch(SocketException) {
-			} catch(Exception e) {
-				Console.WriteLine(e.Message);
-				Console.WriteLine(e.StackTrace);
-			}
-			_socket.Close();
-		}
-
 		public override void PocessData(byte[] data, int offset, int length) {
 			MemoryStream ms = new MemoryStream(data, offset, length, false);
-			IGenReader gr = new GenericReader(ms);
+			var r = new BinaryReader(ms);
 			using(TextWriter tw = new StreamWriter("dump1.txt", true)) {
 				Utility.View(tw, data, offset, length);
 			}
+			RMSG code = (RMSG)PacketCode(data);
+			int len = PacketSize(data);
 
-			byte opcode = gr.ReadByte();
+			byte opcode = r.ReadByte();
 			switch(opcode) {
 			case 0:
 			case 2:
-				HandleLogonChallenge(gr);
+				HandleLogonChallenge(r);
+				//_socket.Send(patchAvailable);
 				break;
 
 			case 1:
 			case 3:
-				HandleLogonProof(gr);
+				HandleLogonProof(r);
 				break;
 
 			case 4:
 				break;
 
 			case 0x10:
-				HandleRealmList(gr);
+				HandleRealmList(r);
 				break;
 
 			case 0x32:
-				HandleXferAccept(gr);
+				HandleXferAccept(r);
 				break;
 
 			case 0x33:
-				HandleXferResume(gr);
+				HandleXferResume(r);
 				break;
 
 			case 0x34:
-				HandleXferCancel(gr);
+				HandleXferCancel(r);
 
 				break;
 			default:
@@ -210,80 +122,87 @@ namespace UWoW {
 
 		private List<ServerInfo> _serverList = new List<ServerInfo>();
 
-		private bool canSendPatch = true;
+		private bool _canSendPatch = true;
 		private byte[] patchAvailable {
 			get {
 				using(var s = (Stream)new FileStream("wow-patch.mpq", FileMode.OpenOrCreate)) {
 					MD5 md5 = new MD5CryptoServiceProvider();
 
-					using(var ms = new MemoryStream()) {
-						IGenWriter w = new GenericWriter(ms);
-						w.Write((byte)0x30); // send patch :)
+					using(var w = new BinaryWriter(new MemoryStream())) {
+						w.Write((byte)RMSG.XFER_INITIATE); // send patch :)
 						w.Write("Patch");
 						w.Write(s.Length);
-						w.Write(md5.ComputeHash(s));
-						w.Close();
-						return ms.ToArray();
+						//w.Write(md5.ComputeHash(s));
+						w.Write(md5.ComputeHash(new byte[0]));
+						return (w.BaseStream as MemoryStream).ToArray();
 					}
 				}
-
 			}
 		}
 
 		private void sendPatch(string filename, long offset) {
-			using(var s = (Stream)new FileStream(filename, FileMode.OpenOrCreate)) {
-				byte[] buff = new byte[1503];
-
-				s.Seek(offset, SeekOrigin.Begin);
-				while(canSendPatch && s.Position < s.Length) {
-					int n = s.Read(buff, 3, 1500);
-					buff[0] = 0x31;
-					buff[1] = (byte)n;
-					buff[2] = (byte)(n >> 8);
-					_socket.Send(buff, n + 3, SocketFlags.None);
+			Thread th = new Thread(ThreadedSend);
+			th.IsBackground = true;
+			th.Start(new PatchInfo { FileName = filename, Offset = offset });
+		}
+		struct PatchInfo {
+			public string FileName;
+			public long Offset;
+		}
+		private void ThreadedSend(object state) {
+			var pinfo = (PatchInfo)state;
+			try {
+				using(var s = (Stream)new FileStream(pinfo.FileName, FileMode.OpenOrCreate)) {
+					byte[] buff = new byte[1503];
+					s.Seek(pinfo.Offset, SeekOrigin.Begin);
+					while(_canSendPatch && s.Position < s.Length) {
+						int n = s.Read(buff, 3, 1500);
+						buff[0] = 0x31;
+						buff[1] = (byte)n;
+						buff[2] = (byte)(n >> 8);
+						_socket.Send(buff, n + 3, SocketFlags.None);
+					}
 				}
+			} catch {
 			}
 		}
+		
+		ClientInfo _clientInfo;
+		public void HandleLogonChallenge(BinaryReader gr) {
 
-		//private void process
-		public void HandleLogonChallenge(IGenReader gr) {
-			//0000000000: 00 06 2B 00 57 6F 57 00 02 | 01 00 24 1A 36 38 78  ..+.WoW....$.68x
-			//0000000010: 00 6E 69 57 00 42 47 6E 65 | 2C 01 00 00 7F 00 00  .niW.BGne,.....
-			//0000000020: 01 0D 56 45 4E 47 45 41 4E | 43 45 31 39 37 37 --  ..VENGEANCE1977
+			var unk1 = (uint)gr.ReadByte();
+			var length = (uint)gr.ReadUInt16();
 
-			uint ver = gr.ReadByte();//protocol version?
-			uint length2 = gr.ReadUInt16(); //
-			Tag tag = (Tag)gr.ReadUInt32(); // clienttag
-			switch(tag) {
-			case Tag.Client:
-				Console.WriteLine("Client connected");
-				break;
-			case Tag.Server:
-				Console.WriteLine("World Server connected...");
-				break;
-			default:
-				break;
-			}
-			int ver_major = gr.ReadByte();
-			int ver_minor = gr.ReadByte();
-			int ver_build = gr.ReadByte();
-			int ver_revis = gr.ReadUInt16();
+			var tag = gr.ReadCString();
+			var verMajor = (int)gr.ReadByte();
+			var verMinor = (int)gr.ReadByte();
+			var verBuild = (int)gr.ReadByte();
+			var verRevis = (int)gr.ReadUInt16();
+			var platform = gr.ReadCString();
+			var os = gr.ReadCString();
+			var locale = Encoding.UTF8.GetString(gr.ReadBytes(4).Reverse());
+			var language = gr.ReadInt32();
+			var ip = new IPAddress(gr.ReadBytes(4));
+			var userName = gr.ReadString();
 
-			string r = gr.ReadString0();
+			_clientInfo = new ClientInfo {
+				VersionInfo = new VersionInfo {
+					ClientTag = tag,
+					Version = new Version(verMajor, verMinor, verBuild, verRevis),
+					Platform = platform,
+					OS = os,
+					Locale = locale,
+				},
+				TimeZone = language,
+				IP = ip,
+				AccountName = userName,
+			};
 
-			Console.WriteLine(new string(gr.ReadChars(4)));
-
-			gr.BaseStream.Seek(11, SeekOrigin.Begin);
-			ushort client_version = gr.ReadUInt16();
-			if(client_version < 5595) {
-				_socket.Send(new byte[] { 1, 2 });
-				return;
-			}
-			gr.BaseStream.Seek(33, SeekOrigin.Begin);
-			userName = gr.ReadBytes(gr.ReadByte());
-
-			//this.myAccount.client_build = client_version;
-
+			var dc = new UWoW.Data.UWoWDataContext();
+			var account = (from a in dc.DBAccounts
+								where a.Name == _clientInfo.AccountName
+								select a).FirstOrDefault();
+			/*
 			Random rand = new Random();
 
 			string Temp_str = "ADMIN:WPDIR4PA";
@@ -293,14 +212,20 @@ namespace UWoW {
 
 			byte[] x = sha1.ComputeHash(Utility.Concat(bi_s.getBytes().Reverse(), TempHash));
 			BigInteger bi_x = new BigInteger(x.Reverse());
+			Console.WriteLine(bi_x.ToHexString());
 			bi_v = bi_g.modPow(bi_x, bi_N);
-
+			
+			account.PasswordSalt = bi_s.getBytes().Reverse();
+			account.PasswordVerifier = bi_v.getBytes().Reverse();
+			dc.SubmitChanges();
+			*/
+			bi_s = new BigInteger(account.PasswordSalt.Reverse());
+			bi_v = new BigInteger(account.PasswordVerifier.Reverse());
 			bi_B = (bi_v * bi_k + bi_g.modPow(bi_b, bi_N)) % bi_N;
 
 			#region sending reply to client
-			using(var ms1 = new MemoryStream()) {
-				var w = new BinaryWriter(ms1);
-				w.Write((byte)0);
+			using(var w = new BinaryWriter(new MemoryStream())) {
+				w.Write((byte)RMSG.AUTH_LOGON_CHALLENGE);
 				w.Write((byte)0);
 				w.Write((byte)0);
 				w.Write(bi_B.getBytes().Reverse());
@@ -309,27 +234,26 @@ namespace UWoW {
 				w.Write((byte)32);
 				w.Write(bi_N.getBytes().Reverse());
 				w.Write(bi_s.getBytes().Reverse());
-				w.Write(new byte[17]);
-
-				_socket.Send(ms1.ToArray());
+				w.Write(new byte[16]);
+				w.Write((byte)0);
+				_socket.Send((w.BaseStream as MemoryStream).ToArray());
 			}
 			#endregion
 		}
 
-		public void HandleLogonProof(IGenReader gr) {
-			gr.BaseStream.Seek(1, SeekOrigin.Begin);
+		public void HandleLogonProof(BinaryReader gr) {
 
-			byte[] A = gr.ReadBytes(32);
-			byte[] M1 = gr.ReadBytes(20);
+			BigInteger bi_A = new BigInteger(gr.ReadBytes(32).Reverse());
+			BigInteger bi_M1 = new BigInteger(gr.ReadBytes(20).Reverse());
+			Console.WriteLine(bi_A.ToHexString());
+			Console.WriteLine(bi_M1.ToHexString());
 
-			BigInteger bi_A = new BigInteger(A.Reverse());
-
-			byte[] u = sha1.ComputeHash(Utility.Concat(A, bi_B.getBytes().Reverse()));
+			byte[] u = sha1.ComputeHash(Utility.Concat(bi_A.getBytes().Reverse(), bi_B.getBytes().Reverse()));
 			BigInteger bi_u = new BigInteger(u.Reverse());
 
 			BigInteger bi_Temp2 = (bi_A * bi_v.modPow(bi_u, bi_N)) % bi_N;			// v^u
-			BigInteger bi_S = bi_Temp2.modPow(bi_b, bi_N);				// (Av^u)^b
-
+			BigInteger bi_S = bi_Temp2.modPow(bi_b, bi_N);	// (Av^u)^b
+			Console.WriteLine(bi_S.ToHexString());
 			byte[] S = bi_S.getBytes().Reverse();
 			byte[] S1 = new byte[16];
 			byte[] S2 = new byte[16];
@@ -348,58 +272,50 @@ namespace UWoW {
 			}
 
 			byte[] N_Hash = sha1.ComputeHash(bi_N.getBytes().Reverse());
-			byte[] G_Hash = sha1.ComputeHash(bi_g.getBytes());
+			byte[] G_Hash = sha1.ComputeHash(bi_g.getBytes().Reverse());
 			for(int i = 0; (i < 20); i++) {
 				N_Hash[i] ^= G_Hash[i];
 			}
 
-			byte[] UserHash = sha1.ComputeHash(userName);
-
+			byte[] UserHash = sha1.ComputeHash(Encoding.UTF8.GetBytes(_clientInfo.AccountName));
 
 			byte[] Temp = Utility.Concat(N_Hash, UserHash);
 			Temp = Utility.Concat(Temp, bi_s.getBytes().Reverse());
-			Temp = Utility.Concat(Temp, A);
+			Temp = Utility.Concat(Temp, bi_A.getBytes().Reverse());
 			Temp = Utility.Concat(Temp, bi_B.getBytes().Reverse());
 			Temp = Utility.Concat(Temp, SS_Hash);
 
-			byte[] M1Temp = sha1.ComputeHash(Temp);
-
-			BigInteger bi_M1Temp = new BigInteger(M1Temp);
-			BigInteger bi_M1 = new BigInteger(M1);
+			BigInteger bi_M1Temp = new BigInteger(sha1.ComputeHash(Temp).Reverse());
 			if(bi_M1Temp != bi_M1) {
 				_socket.Send(new byte[] { 1, 4, 3, 0 });
 				return;
 			}
 
-			Temp = Utility.Concat(A, M1Temp);
+			Temp = Utility.Concat(bi_A.getBytes().Reverse(), bi_M1Temp.getBytes().Reverse());
 			Temp = Utility.Concat(Temp, SS_Hash);
 			byte[] M2 = sha1.ComputeHash(Temp);
 
 			#region Sending reply to client
-			using(var ms1 = new MemoryStream()) {
-				var w = new BinaryWriter(ms1);
-				w.Write((byte)1);
+			using(var w = new BinaryWriter(new MemoryStream())) {
+				w.Write((byte)RMSG.AUTH_LOGON_PROOF);
 				w.Write((byte)0);
 				w.Write(M2);
 				w.Write((ushort)0);
 				w.Write((uint)0);
 				w.Write((uint)0);
 
-				_socket.Send(ms1.ToArray());
+				_socket.Send((w.BaseStream as MemoryStream).ToArray());
 			}
 			#endregion
 		}
 
-		public void HandleRealmList(IGenReader gr) {
-			using(var ms = new MemoryStream()) {
+		public void HandleRealmList(BinaryReader gr) {
+			using(var w = new BinaryWriter(new MemoryStream())) {
+				w.Write((byte)0x10);
+				w.Write((ushort)0); // packet size
+				w.Write(1);
 
-				IGenWriter gw = new GenericWriter(ms);
-
-				gw.Write((byte)0x10);
-				gw.Write((ushort)0); // packet size
-				gw.Write(0);
-
-				gw.Write((ushort)_serverList.Count);
+				w.Write((ushort)_serverList.Count);
 				foreach(var info in _serverList) {
 					/*
 					 * 0 = normal
@@ -407,11 +323,11 @@ namespace UWoW {
 					 * 6 = rp
 					 * 8 = pvprp
 					 */
-					gw.Write(info.Type);
+					w.Write(info.Type);
 					/*
 					 * 1 = locked
 					 */
-					gw.Write(info.Locked);
+					w.Write(info.Locked);
 					/*
 					 * 0 = green realmname
 					 * 1 = red realmname
@@ -421,36 +337,65 @@ namespace UWoW {
 					 * 64 = recomended(green)
 					 * 128 = full(red)
 					 */
-					gw.Write(info.Status);
-					gw.WriteString0(info.Name);
-					gw.WriteString0(info.Address);
-					gw.Write(info.Population);
-					gw.Write(info.CharactersCount);
-					gw.Write(info.Language);
-					gw.Write(info.Unk);
+					w.Write(info.Status);
+					w.WriteCString(info.Name);
+					w.WriteCString(info.Address);
+					w.Write(info.Population);
+					w.Write(info.CharactersCount);
+					w.Write(info.Language);
+					w.Write(info.Unk);
 				}
+				w.Write((ushort)2);
 
-				gw.Write((ushort)2);
+				w.BaseStream.Seek(1, SeekOrigin.Begin);
+				w.Write((ushort)(w.BaseStream.Length - 3));
 
-				gw.BaseStream.Seek(1, SeekOrigin.Begin);
-				gw.Write((ushort)(gw.BaseStream.Length - 3));
-
-				_socket.Send(ms.ToArray());
+				_socket.Send((w.BaseStream as MemoryStream).ToArray());
 			}
 		}
 
-		public void HandleXferAccept(IGenReader gr) {
-			//send full patch:)
+		public void HandleXferAccept(BinaryReader gr) {
 			sendPatch("wow-patch.mpq", 0);
 		}
 
-		public void HandleXferResume(IGenReader gr) {
-			// send partial patch:)
+		public void HandleXferResume(BinaryReader gr) {
 			sendPatch("wow-patch.mpq", gr.ReadInt64());
 		}
 
-		public void HandleXferCancel(IGenReader gr) {
-			canSendPatch = false;
+		public void HandleXferCancel(BinaryReader gr) {
+			_canSendPatch = false;
+		}
+
+		public override int PacketSize(byte[] header) {
+			switch((RMSG)this.PacketCode(header)) {
+			case RMSG.AUTH_LOGON_CHALLENGE:
+			case RMSG.AUTH_LOGON_RECODE_CHALLENGE: {
+					return (BitConverter.ToUInt16(header, 2) + 4);
+				}
+			case RMSG.AUTH_LOGON_PROOF: {
+					return 0x4b;
+				}
+			case RMSG.AUTH_LOGON_RECODE_PROOF: {
+					return 0x3a;
+				}
+			case RMSG.REALM_LIST: {
+					return 5;
+				}
+			case RMSG.XFER_ACCEPT: {
+					return 1;
+				}
+			case RMSG.XFER_RESUME: {
+					return 9;
+				}
+			case RMSG.XFER_CANCEL: {
+					return 1;
+				}
+			}
+			return -1;
+		}
+
+		public override int PacketCode(byte[] header) {
+			return header[0];
 		}
 	}
 }

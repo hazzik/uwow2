@@ -6,12 +6,10 @@ using System.IO;
 using System.Net;
 using UWoW.Net;
 
-namespace UWoW
-{
-	public class Program
-	{
+namespace UWoW {
+	public class Program {
 		static AServer RLServer;
-		static unsafe void Main(string[] args) {
+		static void Main(string[] args) {
 			RLServer = new RLServer();
 		}
 	}
