@@ -54,8 +54,8 @@ namespace UWoW {
 		private BigInteger bi_B;
 		private BigInteger bi_s = BigInteger.genPseudoPrime(256, 5, Utility.seed2);
 
-		private Account myAccount;
-		public static int s1;
+		private Account _account;
+		private SRP6 _srp6;
 
 		public RLSClient(Socket socket) :
 			base(4, socket) {
@@ -202,6 +202,9 @@ namespace UWoW {
 			var account = (from a in dc.DBAccounts
 								where a.Name == _clientInfo.AccountName
 								select a).FirstOrDefault();
+			_account = new Account(account);
+			_srp6 = _account.SRP6;
+
 			/*
 			Random rand = new Random();
 

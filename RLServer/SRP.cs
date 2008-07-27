@@ -33,6 +33,10 @@ namespace UWoW {
 			get { return _N; }
 			set { _N = value; }
 		}
+		public BigInteger g {
+			get { return _g; }
+			set { _g = value; }
+		}
 		public BigInteger A {
 			get {
 				if(_A == null) {
@@ -61,9 +65,13 @@ namespace UWoW {
 				}
 			}
 		}
-		public BigInteger Salt {
+		public BigInteger s {
 			get { return _s; }
 			set { _s = value; }
+		}
+		public BigInteger v {
+			get { return _v; }
+			set { _v = value; }
 		}
 		
 		public SRP6(bool isServer) {
@@ -121,5 +129,4 @@ namespace UWoW {
 		}
 		public void CalculateM2(byte[] m1){}
 	}
-
 }
