@@ -31,6 +31,16 @@ namespace UWoW.Net {
 			}
 			_socket.Close();
 		}
+
+		public virtual void Send(IPacket packet) {
+			var stream = packet.GetStream();
+			var buffer = new byte[65536];
+			var n = 0;
+			while(n < packet.Size) {
+				//stream.Read(buffer, n, 256);
+				//_socket.Send (buffer ,n ,
+			}
+		}
 	}
 }
 				  
