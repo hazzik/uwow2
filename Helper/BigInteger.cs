@@ -953,16 +953,18 @@ public class BigInteger
         // Overloading of equality operator
         //***********************************************************************
 
-        public static bool operator ==(BigInteger bi1, BigInteger bi2)
-        {
-                return bi1.Equals(bi2);
-        }
+		  public static bool operator ==(BigInteger bi1, BigInteger bi2) {
+			  if((object)bi1 == null && (object)bi2 == null)
+				  return true;
+			  else if((object)bi1 == null || (object)bi2 == null)
+				  return false;
+			  return bi1.Equals(bi2);
+		  }
 
 
-        public static bool operator !=(BigInteger bi1, BigInteger bi2)
-        {
-                return !(bi1.Equals(bi2));
-        }
+		  public static bool operator !=(BigInteger bi1, BigInteger bi2) {
+			  return !(bi1 == bi2);
+		  }
 
 
         public override bool Equals(object o)

@@ -111,30 +111,29 @@ namespace Helper {
 		}
 
 		public static void View(TextWriter tw, byte[] b, int offset, int len) {
-			int i1;
-			int i2;
-			int i3;
-			for(i1 = 0; (i1 < len); i1 += 16) {
-				tw.Write("{0:X10}: ", i1);
-				for(i2 = i1; ((i2 < (i1 + 16)) && ((i2 + offset) < b.Length)); i2++) {
-					if(i2 >= len)
+			for(int i = 0; i < len; i += 16) {
+				tw.Write("{0:X10}: ", i);
+				for(int j = i; j < i + 16; j++) {
+					if(j < len) {
+						tw.Write("{0:X2} ", b[j + offset]);
+					}
+					else {
 						tw.Write("-- ");
-					else
-						tw.Write("{0:X2} ", b[i2 + offset]);
-					if(i2 == i1 + 7)
+					}
+					if(j == i + 7)
 						tw.Write("| ");
 				}
 				tw.Write(" ");
-				for(i3 = i1; (((i3 + offset) < b.Length) && ((i3 < (i1 + 16)) && (i3 < len))); i3++)
-					if(b[i3 + offset] < 32 || b[i3 + offset] > 127)
+				for(int j = i; (j < i + 16) && j + offset < b.Length; j++)
+					if(b[j + offset] < 32 || b[j + offset] > 127) {
 						tw.Write(".");
-					else
-						tw.Write("{0}", ((char)(b[i3 + offset])).ToString());
-
+					}
+					else {
+						tw.Write("{0}", ((char)(b[j + offset])).ToString());
+					}
 				tw.WriteLine();
 			}
 		}
-
 
 		public static byte[] Reverse(this byte[] from) {
 			byte[] res = new byte[from.Length];
