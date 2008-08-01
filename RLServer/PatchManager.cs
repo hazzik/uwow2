@@ -6,50 +6,6 @@ using System.Text.RegularExpressions;
 
 namespace UWoW {
 	[Serializable]
-	public class VersionInfo {
-		private string _clientTag;
-		[System.Xml.Serialization.XmlAttribute]
-		public string ClientTag {
-			get { return _clientTag; }
-			set { _clientTag = value; }
-		}
-
-		private Version _version;
-		[System.Xml.Serialization.XmlIgnore]
-		public Version Version {
-			get { return _version; }
-			set { _version = value; }
-		}
-
-		[System.Xml.Serialization.XmlAttribute(AttributeName = "Version")]
-		public string VersionTag {
-			get { return _version.ToString(4); }
-			set { _version = new Version(value); }
-		}
-
-		private string _platform;
-		[System.Xml.Serialization.XmlAttribute]
-		public string Platform {
-			get { return _platform; }
-			set { _platform = value; }
-		}
-
-		private string _os;
-		[System.Xml.Serialization.XmlAttribute]
-		public string OS {
-			get { return _os; }
-			set { _os = value; }
-		}
-
-		private string _locale;
-		[System.Xml.Serialization.XmlAttribute]
-		public string Locale {
-			get { return _locale; }
-			set { _locale = value; }
-		}
-	}
-
-	[Serializable]
 	public class PatchInfo {
 		VersionInfo _versionInfo = new VersionInfo();
 		FileInfo _fileInfo;

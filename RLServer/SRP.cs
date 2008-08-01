@@ -24,6 +24,7 @@ namespace UWoW {
 		private BigInteger _x;
 		private BigInteger _v;
 		private BigInteger _S;
+
 		
 		public string I {
 			get { return _I; }
@@ -73,6 +74,13 @@ namespace UWoW {
 			get { return _v; }
 			set { _v = value; }
 		}
+		public BigInteger S {
+			get {
+				CalculateS();
+				return _S;
+			}
+			set { _S = value; }
+		}
 		
 		public SRP6(bool isServer) {
 			_isServer = isServer;
@@ -115,6 +123,7 @@ namespace UWoW {
 			var B = _B.getBytes().Reverse();
 			var u = H.ComputeHash(A.Concat(B));
 			_u = new BigInteger(u.Reverse());
+			Console.WriteLine("u= " + _u.ToHexString());
 		}
 		public void CalculateS() {
 			if(_isServer) {
@@ -123,6 +132,7 @@ namespace UWoW {
 			else {
 				_S = (_B - _k * _g.modPow(_x, _N)).modPow(_a + _u * _x, _N);
 			}
+			Console.WriteLine("S = " + _S.ToHexString());
 		}
 		public void CalculateK(){
 

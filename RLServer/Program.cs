@@ -8,9 +8,13 @@ using UWoW.Net;
 
 namespace UWoW {
 	public class Program {
-		static AServer RLServer;
+		static ServerBase _authServer;
+		static ServerBase _worldServer;
+		static public AddonManager addonManager = new AddonManager();
 		static void Main(string[] args) {
-			RLServer = new RLServer();
+			addonManager.Load("addons.xml");
+			_authServer = new AuthServer();
+			_worldServer = new WorldServer();
 		}
 	}
 }

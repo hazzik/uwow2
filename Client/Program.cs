@@ -19,64 +19,64 @@ namespace Core
 			sock.Connect("localhost", 3724);
 
 			string username = "ADMIN";
-			MemoryStream ms = new MemoryStream();
-			IGenWriter gw = new GenericWriter(ms);
+			string password = "WPDIR4PA";
+			using(var w = new BinaryWriter(new MemoryStream ())) {
+				w.Write((byte)0x00);
+				w.Write((byte)0x03);
+				w.Write((ushort)0x29); //41
+				w.Write(Encoding.UTF8.GetBytes("WoW"));
+				w.Write((byte)0);
+				w.Write((byte)1);		//1	
+				w.Write((byte)12);		//1
+				w.Write((byte)2);		//1
+				w.Write((ushort)6005);	//2
+				w.Write(Encoding.UTF8.GetBytes("x86").Reverse());	//4
+				w.Write((byte)0);
+				w.Write(Encoding.UTF8.GetBytes("Win").Reverse());
+				w.Write((byte)0);
+				w.Write(Encoding.UTF8.GetBytes("enGB").Reverse());
+				w.Write(300);
+				w.Write((sock.RemoteEndPoint as IPEndPoint).Address.GetAddressBytes());
+				w.Write(username);
+				sock.Send((w.BaseStream as MemoryStream).ToArray());
+			}
 
-			gw.Write((byte)0x00);
-			gw.Write((byte)0x03);
-			gw.Write((ushort)0x29); //41
-			gw.WriteString0("vrS");//4
-			gw.Write((byte)1);		//1	
-			gw.Write((byte)12);		//1
-			gw.Write((byte)2);		//1
-			gw.Write((ushort)6005);	//2
-			gw.Write(Utility.Reverse(Encoding.UTF8.GetBytes("x86\0")));	//4
-			gw.Write(Utility.Reverse(Encoding.UTF8.GetBytes("Win\0")));
-			gw.Write(Utility.Reverse(Encoding.UTF8.GetBytes("enGB")));
-			gw.Write(300);
-			gw.Write((sock.RemoteEndPoint as IPEndPoint).Address.GetAddressBytes());
-			gw.Write(username);
-			gw.Close();
-
-			sock.Send(ms.ToArray(), SocketFlags.None);
 			byte[] b = new byte[65536];
 			int n = sock.Receive(b, 65536, SocketFlags.None);
-			ms = new MemoryStream(b, 0, n);
+			MemoryStream ms = new MemoryStream(b, 0, n);
 
-			IGenReader gr = new GenericReader(ms);
+			var gr = new BinaryReader(ms);
 			gr.BaseStream.Seek(3, SeekOrigin.Begin);
 
-			byte[] B = gr.ReadBytes(32);
-			byte[] g = gr.ReadBytes(gr.ReadByte());
-			byte[] N = gr.ReadBytes(gr.ReadByte());
-			byte[] s = gr.ReadBytes(32);
+			BigInteger bi_B = new BigInteger(gr.ReadBytes(32).Reverse());
+			Console.WriteLine("B = " + bi_B.ToHexString());
+			BigInteger bi_g = new BigInteger(gr.ReadBytes(gr.ReadByte()).Reverse());
+			BigInteger bi_N = new BigInteger(gr.ReadBytes(gr.ReadByte()).Reverse());
+			Console.WriteLine(bi_N.isProbablePrime());
+			BigInteger bi_s = new BigInteger(gr.ReadBytes(32).Reverse());
 
 			gr.Close();
 
-			BigInteger bi_N = new BigInteger(Utility.Reverse(N));
-			BigInteger bi_g = new BigInteger(Utility.Reverse(g));
-			BigInteger bi_B = new BigInteger(Utility.Reverse(B));
-
 			BigInteger bi_a = BigInteger.genPseudoPrime(160, 5, Utility.seed2) % bi_N;
 			BigInteger bi_A = bi_g.modPow(bi_a, bi_N);
-
-			byte[] A = Utility.Reverse(bi_A.getBytes());
+			Console.WriteLine("A = " + bi_A.ToHexString());
 
 			SHA1 sha1 = new SHA1Managed();
 
-			byte[] u = sha1.ComputeHash(Utility.Concat(A, B));
-			BigInteger bi_u = new BigInteger(Utility.Reverse(u));
+			byte[] u = sha1.ComputeHash(Utility.Concat(bi_A.getBytes().Reverse(), bi_B.getBytes().Reverse()));
+			BigInteger bi_u = new BigInteger(u.Reverse());
+			Console.WriteLine("u= " + bi_u.ToHexString());
 
-			byte[] temp = sha1.ComputeHash(Encoding.UTF8.GetBytes("ADMIN:WPDIR4PA"));
-			byte[] x = sha1.ComputeHash(Utility.Concat(s, temp));
-			BigInteger bi_x = new BigInteger(Utility.Reverse(x));
+			byte[] temp = sha1.ComputeHash(Encoding.UTF8.GetBytes(username + ":" + password));
+			byte[] x = sha1.ComputeHash(Utility.Concat(bi_s.getBytes().Reverse(), temp));
+			BigInteger bi_x = new BigInteger(x.Reverse());
 
 			BigInteger temp1 = (bi_N * bi_k + bi_B - (bi_k * bi_g.modPow(bi_x, bi_N))) % bi_N;
 			BigInteger temp2 = (bi_a + bi_u * bi_x);
 
 			BigInteger bi_S = temp1.modPow(temp2, bi_N);
-
-			byte[] S = Utility.Reverse(bi_S.getBytes());
+			Console.WriteLine("S= " + bi_S.ToHexString());
+			byte[] S = bi_S.getBytes().Reverse();
 
 			byte[] S1 = new byte[16];
 			byte[] S2 = new byte[16];
@@ -94,8 +94,8 @@ namespace Core
 				SS_Hash[i * 2 + 1] = S2_Hash[i];
 			}
 			//this.myAccount.SS_Hash = SS_Hash;
-			byte[] N_Hash = sha1.ComputeHash(N);
-			byte[] G_Hash = sha1.ComputeHash(bi_g.getBytes());
+			byte[] N_Hash = sha1.ComputeHash(bi_N.getBytes().Reverse());
+			byte[] G_Hash = sha1.ComputeHash(bi_g.getBytes().Reverse());
 
 			for (int i = 0; (i < 20); i++)
 			{
@@ -103,34 +103,32 @@ namespace Core
 			}
 			byte[] UserHash = sha1.ComputeHash(Encoding.UTF8.GetBytes("ADMIN"));
 			byte[] Temp = Utility.Concat(N_Hash, UserHash);
-			Temp = Utility.Concat(Temp, s);
-			Temp = Utility.Concat(Temp, A);
-			Temp = Utility.Concat(Temp, B);
+			Temp = Utility.Concat(Temp, bi_s.getBytes().Reverse());
+			Temp = Utility.Concat(Temp, bi_A.getBytes().Reverse());
+			Temp = Utility.Concat(Temp, bi_B.getBytes().Reverse());
 			Temp = Utility.Concat(Temp, SS_Hash);
 			byte[] M1 = sha1.ComputeHash(Temp);
 
 			//BigInteger K = new BigInteger(sha1.ComputeHash(bi_S.getBytes()));
 
-			ms = new MemoryStream();
-			gw = new GenericWriter(ms);
-			gw.Write((byte)1);
-			gw.Write(A);
-			gw.Write(M1);
-			gw.Write(new byte[22]);
-			gw.Close();
-
-			sock.Send(ms.ToArray());
+			using(var w = new BinaryWriter(new MemoryStream())) {
+				w.Write((byte)1);
+				w.Write(bi_A.getBytes().Reverse());
+				w.Write(M1);
+				w.Write(new byte[22]);
+				sock.Send((w.BaseStream as MemoryStream).ToArray());
+			}
 
 			//BigInteger Temp1 = new BigInteger(
 
 			n = sock.Receive(b, 65536, SocketFlags.None);
 			ms = new MemoryStream(b, 0, n);
 
-			gr = new GenericReader(ms);
+			gr = new BinaryReader(ms);
 			gr.BaseStream.Seek(2, SeekOrigin.Begin);
 			BigInteger bi_M2 = new BigInteger(gr.ReadBytes(20));
 
-			Temp = Utility.Concat(A, M1);
+			Temp = Utility.Concat(bi_A.getBytes().Reverse(), M1);
 			Temp = Utility.Concat(Temp, SS_Hash);
 			byte[] M2Temp = sha1.ComputeHash(Temp);
 			BigInteger bi_M2Temp = new BigInteger(M2Temp);
