@@ -5,7 +5,7 @@ using System.Text;
 using System.Collections;
 using System.Security.Cryptography;
 using System.Runtime.InteropServices;
-using Helper;
+using Hazzik.Helper;
 
 namespace Hazzik {
 	public class SRP6 {

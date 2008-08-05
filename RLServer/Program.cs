@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Helper;
+using Hazzik.Helper;
 using System.IO;
 using System.Net;
 using Hazzik.Net;

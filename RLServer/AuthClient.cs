@@ -11,7 +11,7 @@ using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
-using Helper;
+using Hazzik.Helper;
 using Hazzik.Net;
 
 namespace Hazzik {

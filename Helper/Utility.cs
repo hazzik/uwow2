@@ -5,7 +5,7 @@ using System.Text;
 using System.IO;
 using System.Collections.Generic;
 
-namespace Helper {
+namespace Hazzik.Helper {
 	public static class Utility {
 
 		private static DateTime deltaTime = new DateTime(1970, 1, 1);
@@ -110,7 +110,7 @@ namespace Helper {
 			return deltaTime.AddSeconds((double)unixTimestamp);
 		}
 
-		public static void View(TextWriter tw,this byte[] b, int offset, int len) {
+		public static void View(TextWriter tw, byte[] b, int offset, int len) {
 			for(int i = 0; i < len; i += 16) {
 				tw.Write("{0:X10}: ", i);
 				for(int j = i; j < i + 16; j++) {

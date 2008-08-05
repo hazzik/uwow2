@@ -7,7 +7,7 @@ using System.Net.Sockets;
 using System.IO;
 using System.Security.Cryptography;
 using Hazzik.Cryptography;
-using Helper;
+using Hazzik.Helper;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 
 namespace Hazzik {

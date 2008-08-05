@@ -76,17 +76,17 @@
     <Compile Include="WorldServer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core\Core.csproj">
+    <ProjectReference Include="..\Core\Hazzik.Core.csproj">
       <Project>{16C8A9B2-EC9C-4E83-85BB-E330B6748B7F}</Project>
-      <Name>Core</Name>
+      <Name>Hazzik.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Helper\Helper.csproj">
+    <ProjectReference Include="..\Helper\Hazzik.Helper.csproj">
       <Project>{5BEC7A4C-7CB1-4D6B-B0E5-FD1860168494}</Project>
-      <Name>Helper</Name>
+      <Name>Hazzik.Helper</Name>
     </ProjectReference>
-    <ProjectReference Include="..\UWoW.Data\UWoW.Data.csproj">
+    <ProjectReference Include="..\UWoW.Data\Hazzik.Data.csproj">
       <Project>{EE6E8782-0D57-4E1C-8522-9310B66A6160}</Project>
-      <Name>UWoW.Data</Name>
+      <Name>Hazzik.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
