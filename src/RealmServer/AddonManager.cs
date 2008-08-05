@@ -9,6 +9,16 @@ using System.Collections;
 namespace Hazzik {
 	public class AddonManager {
 		static XmlSerializer _serializer = new XmlSerializer(typeof(List<AddonInfo>));
+		static AddonManager _instance;
+		public static AddonManager Instance {
+			get {
+				if(_instance != null) {
+					_instance = new AddonManager();
+				}
+				return _instance;
+			}
+		}
+
 		List<AddonInfo> _addonInfos = new List<AddonInfo>();
 
 		public void Load(string fileName) {

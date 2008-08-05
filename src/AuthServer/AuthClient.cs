@@ -266,7 +266,7 @@ namespace Hazzik {
 				SS_Hash[i * 2] = S1_Hash[i];
 				SS_Hash[i * 2 + 1] = S2_Hash[i];
 			}
-			WorldClient.SS = (byte[])SS_Hash.Clone();
+			//WorldClient.SS = (byte[])SS_Hash.Clone();
 
 			byte[] N_Hash = sha1.ComputeHash(bi_N.getBytes().Reverse());
 			byte[] G_Hash = sha1.ComputeHash(bi_g.getBytes().Reverse());

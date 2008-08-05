@@ -89,7 +89,7 @@ namespace Hazzik {
 							Crc = r.ReadUInt64(),
 							Status = r.ReadByte(),
 						};
-						Program.addonManager[addonInfo.Name] = addonInfo;
+						AddonManager.Instance[addonInfo.Name] = addonInfo;
 					}
 				} catch(Exception e) {
 
@@ -104,8 +104,7 @@ namespace Hazzik {
 					}
 				}
 
-				using(var w = new BinaryWriter(new MemoryStream())) {
-					//w.Write(
+				using(var w = new BinaryWriter(new NetworkStream(_socket, false))) {
 					w.Write((byte)0);
 					w.Write((byte)13);
 					w.Write((ushort)OpCodes.SMSG_AUTH_RESPONSE);
@@ -117,7 +116,6 @@ namespace Hazzik {
 					w.Write((byte)0x00);
 					w.Write(0);
 					w.Write((byte)1); // 0x01 for enabling Burning Crusade Races
-					_socket.Send((w.BaseStream as MemoryStream).ToArray());
 				}
 			}
 		}
