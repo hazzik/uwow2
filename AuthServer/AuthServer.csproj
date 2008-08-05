@@ -40,10 +40,6 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ICSharpCode.SharpZipLib, Version=0.84.0.0, Culture=neutral, PublicKeyToken=1b03e6acf1164f73">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\UWoW\ICSharpCode.SharpZipLib.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -72,15 +68,15 @@
     <Compile Include="SRP.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Hazzik.Core\Hazzik.Core.csproj">
+    <ProjectReference Include="..\Core\Core.csproj">
       <Project>{16C8A9B2-EC9C-4E83-85BB-E330B6748B7F}</Project>
       <Name>Hazzik.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Hazzik.Helper\Hazzik.Helper.csproj">
+    <ProjectReference Include="..\Helper\Helper.csproj">
       <Project>{5BEC7A4C-7CB1-4D6B-B0E5-FD1860168494}</Project>
       <Name>Hazzik.Helper</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Hazzik.Data\Hazzik.Data.csproj">
+    <ProjectReference Include="..\Data\Data.csproj">
       <Project>{EE6E8782-0D57-4E1C-8522-9310B66A6160}</Project>
       <Name>Hazzik.Data</Name>
     </ProjectReference>

@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hazzik.AuthServer", "Hazzik.AuthServer\Hazzik.AuthServer.csproj", "{9E100F1A-E4B0-4649-9F74-D5C42EF1DF23}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hazzik.AuthServer", "AuthServer\AuthServer.csproj", "{9E100F1A-E4B0-4649-9F74-D5C42EF1DF23}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hazzik.Helper", "Hazzik.Helper\Hazzik.Helper.csproj", "{5BEC7A4C-7CB1-4D6B-B0E5-FD1860168494}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hazzik.Helper", "Helper\Helper.csproj", "{5BEC7A4C-7CB1-4D6B-B0E5-FD1860168494}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hazzik.Core", "Hazzik.Core\Hazzik.Core.csproj", "{16C8A9B2-EC9C-4E83-85BB-E330B6748B7F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hazzik.Core", "Core\Core.csproj", "{16C8A9B2-EC9C-4E83-85BB-E330B6748B7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hazzik.Data", "Hazzik.Data\Hazzik.Data.csproj", "{EE6E8782-0D57-4E1C-8522-9310B66A6160}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hazzik.Data", "Data\Data.csproj", "{EE6E8782-0D57-4E1C-8522-9310B66A6160}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hazzik.RealmServer", "Hazzik.RealmServer\Hazzik.RealmServer.csproj", "{763DE8C6-1140-44CB-84B9-A7E400CB65BF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hazzik.RealmServer", "RealmServer\RealmServer.csproj", "{763DE8C6-1140-44CB-84B9-A7E400CB65BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
