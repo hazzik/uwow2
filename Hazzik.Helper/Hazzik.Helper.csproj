@@ -7,7 +7,7 @@
     <ProjectGuid>{5BEC7A4C-7CB1-4D6B-B0E5-FD1860168494}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Helper</RootNamespace>
+    <RootNamespace>Hazzik</RootNamespace>
     <AssemblyName>Helper</AssemblyName>
     <FileUpgradeFlags>
     </FileUpgradeFlags>

@@ -92,7 +92,7 @@
         <classShapeMoniker Id="53732811-c855-4467-9dd6-3f33168ed820" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.625 : 2.87584607486979); (3.125 : 2.87584607486979); (3.125 : 2.875); (4.29166666666667 : 2.875 : JumpStart); (4.45833333333333 : 2.875 : JumpEnd); (7 : 2.875); (7 : 2.2)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.625 : 2.87584607486979); (3.125 : 2.87584607486979); (3.125 : 2.875); (7 : 2.875); (7 : 2.2)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/UWoWDataContext/DBCharacter/DBCharacter_DBAuctionItem" />
       <nodes>
         <classShapeMoniker Id="7a8b14e3-78df-4bc1-ad42-295e6029bfab" />
