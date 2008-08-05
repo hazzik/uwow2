@@ -53,8 +53,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account.cs" />
-    <Compile Include="Infos\AddonInfo.cs" />
-    <Compile Include="AddonManager.cs" />
     <Compile Include="Infos\ClientInfo.cs" />
     <Compile Include="Enums\RMSG.cs" />
     <Compile Include="Infos\VersionInfo.cs" />
