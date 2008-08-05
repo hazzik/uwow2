@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace UWoW {
+namespace Hazzik {
 	[Serializable]
 	public class VersionInfo {
 		[XmlAttribute]

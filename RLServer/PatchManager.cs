@@ -4,7 +4,7 @@ using System.Text;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace UWoW {
+namespace Hazzik {
 	[Serializable]
 	public class PatchInfo {
 		VersionInfo _versionInfo = new VersionInfo();

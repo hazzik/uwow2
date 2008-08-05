@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UWoW.Properties {
+namespace Hazzik.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

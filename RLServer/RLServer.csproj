@@ -7,7 +7,7 @@
     <ProjectGuid>{9E100F1A-E4B0-4649-9F74-D5C42EF1DF23}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UWoW</RootNamespace>
+    <RootNamespace>Hazzik</RootNamespace>
     <AssemblyName>UWoW.RLServer</AssemblyName>
     <FileUpgradeFlags>
     </FileUpgradeFlags>

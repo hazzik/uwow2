@@ -7,7 +7,7 @@ using System.Security.Cryptography;
 using System.Runtime.InteropServices;
 using Helper;
 
-namespace UWoW {
+namespace Hazzik {
 	public class SRP6 {
 		private bool _isServer;
 		private BigInteger _N = new BigInteger("B79B3E2A87823CAB8F5EBFBF8EB10108535006298B5BADBD5B53E1895E644B89", 16);

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using Helper;
-using UWoW.Data;
+using Hazzik.Data;
 
-namespace UWoW {
+namespace Hazzik {
 	public class Account {
 		private DBAccount _account;
 		public byte[] SS;

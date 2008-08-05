@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 
-namespace UWoW.Cryptography {
+namespace Hazzik.Cryptography {
 	public class SRP6Wow : SymmetricAlgorithm {
 		public enum Direction {
 			Encryption,

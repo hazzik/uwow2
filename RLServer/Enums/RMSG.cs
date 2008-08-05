@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace UWoW {
+namespace Hazzik {
 	public enum RMSG {
 		AUTH_LOGON_CHALLENGE = 0x00,
 		AUTH_LOGON_PROOF = 0x01,

@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 using System.IO;
 using System.Collections;
 
-namespace UWoW {
+namespace Hazzik {
 	public class AddonManager {
 		static XmlSerializer _serializer = new XmlSerializer(typeof(List<AddonInfo>));
 		List<AddonInfo> _addonInfos = new List<AddonInfo>();

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using UWoW.Net;
+using Hazzik.Net;
 using System.Net;
 
-namespace UWoW {
+namespace Hazzik {
 	public class WorldServer : ServerBase {
 		public WorldServer()
 			: base() {

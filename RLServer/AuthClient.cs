@@ -12,9 +12,9 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using Helper;
-using UWoW.Net;
+using Hazzik.Net;
 
-namespace UWoW {
+namespace Hazzik {
 
 	#region stuff
 	
@@ -54,8 +54,8 @@ namespace UWoW {
 		private Account _account;
 		private SRP6 _srp6;
 
-		public AuthClient(Socket socket) :
-			base(1, socket) {
+		public AuthClient(Socket client) :
+			base(1, client) {
 			_serverList.Add(new ServerInfo {
 				Type = 0,
 				Locked = 0,
@@ -220,8 +220,8 @@ namespace UWoW {
 			//bi_v = new BigInteger(account.PasswordVerifier.Reverse());
 			bi_B = (bi_v * bi_k + bi_g.modPow(bi_b, bi_N)) % bi_N;
 
-			#region sending reply to client
-			using(var w = new BinaryWriter(new MemoryStream())) {
+			#region sending reply to socket
+			using(var w = new BinaryWriter(new NetworkStream(_socket, false))) {
 				w.Write((byte)RMSG.AUTH_LOGON_CHALLENGE);
 				w.Write((byte)0);
 				w.Write((byte)0);
@@ -233,7 +233,6 @@ namespace UWoW {
 				w.Write(bi_s.getBytes().Reverse());
 				w.Write(new byte[16]);
 				w.Write((byte)0);
-				_socket.Send((w.BaseStream as MemoryStream).ToArray());
 			}
 			#endregion
 		}
@@ -293,16 +292,14 @@ namespace UWoW {
 			Temp = Utility.Concat(Temp, SS_Hash);
 			byte[] M2 = sha1.ComputeHash(Temp);
 
-			#region Sending reply to client
-			using(var w = new BinaryWriter(new MemoryStream())) {
+			#region Sending reply to socket
+			using(var w = new BinaryWriter(new NetworkStream(_socket, false))) {
 				w.Write((byte)RMSG.AUTH_LOGON_PROOF);
 				w.Write((byte)0);
 				w.Write(M2);
 				w.Write((ushort)0);
 				w.Write((uint)0);
 				w.Write((uint)0);
-
-				_socket.Send((w.BaseStream as MemoryStream).ToArray());
 			}
 			#endregion
 		}

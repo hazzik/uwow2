@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net;
 
-using UWoW.Net;
+using Hazzik.Net;
 
-namespace UWoW {
+namespace Hazzik {
 	public class AuthServer : ServerBase {
 		public AuthServer()
 			: base() {

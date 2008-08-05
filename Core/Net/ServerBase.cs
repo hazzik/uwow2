@@ -5,7 +5,7 @@ using System.Net.Sockets;
 using System.Collections.Generic;
 using System.Threading;
 
-namespace UWoW.Net {
+namespace Hazzik.Net {
 	public abstract class ServerBase : IDisposable {
 		protected List<ClientBase> _clients = new List<ClientBase>();
 

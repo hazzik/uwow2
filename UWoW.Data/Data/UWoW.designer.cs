@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UWoW.Data
+namespace Hazzik.Data
 {
 	using System.Data.Linq;
 	using System.Data.Linq.Mapping;
@@ -60,7 +60,7 @@ namespace UWoW.Data
     #endregion
 		
 		public UWoWDataContext() : 
-				base(global::UWoW.Properties.Settings.Default.uwowConnectionString, mappingSource)
+				base(global::Hazzik.Properties.Settings.Default.uwowConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -3667,7 +3667,7 @@ namespace UWoW.Data
 			}
 		}
 		
-		[Association(Name="Account_DBCharacter", Storage="_DBAccount", ThisKey="AccountID", IsForeignKey=true)]
+		[Association(Name="DBAccount_DBCharacter", Storage="_DBAccount", ThisKey="AccountID", IsForeignKey=true)]
 		public DBAccount DBAccount
 		{
 			get
@@ -5065,7 +5065,7 @@ namespace UWoW.Data
 			}
 		}
 		
-		[Association(Name="Account_DBCharacter", Storage="_DBCharacters", OtherKey="AccountID")]
+		[Association(Name="DBAccount_DBCharacter", Storage="_DBCharacters", OtherKey="AccountID")]
 		public EntitySet<DBCharacter> DBCharacters
 		{
 			get

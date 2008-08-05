@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
-using UWoW.Net;
+using Hazzik.Net;
 using Helper;
 using System.Xml.Serialization;
 
-namespace UWoW {
+namespace Hazzik {
 	[Serializable]
 	public class AddonInfo {
 		[XmlAttribute]

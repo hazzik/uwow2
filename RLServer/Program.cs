@@ -4,9 +4,9 @@ using System.Text;
 using Helper;
 using System.IO;
 using System.Net;
-using UWoW.Net;
+using Hazzik.Net;
 
-namespace UWoW {
+namespace Hazzik {
 	public class Program {
 		static ServerBase _authServer;
 		static ServerBase _worldServer;

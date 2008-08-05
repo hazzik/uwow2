@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace UWoW {
+namespace Hazzik {
 	public class ServerInfo {
 		public byte Type { get; set; }
 		public byte Locked { get; set; }

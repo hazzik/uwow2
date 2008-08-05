@@ -1,4 +1,4 @@
-namespace Server {
+namespace Hazzik {
 	public enum UpdateFields {
 		OBJECT_FIELD_GUID = 0, // 2 4 1
 		OBJECT_FIELD_TYPE = 2, // 1 1 1

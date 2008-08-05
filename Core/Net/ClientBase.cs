@@ -2,10 +2,11 @@
 using System.Net.Sockets;
 using System.IO;
 
-namespace UWoW.Net {
+namespace Hazzik.Net {
 	public abstract class ClientBase {
 		protected int _headerSize;
 		protected Socket _socket;
+		private Stream _stream;
 
 		public ClientBase(int headerSize, Socket socket) {
 			_socket = socket;
@@ -32,6 +33,14 @@ namespace UWoW.Net {
 			_socket.Close();
 		}
 
+		public virtual Stream GetStream() {
+			if(_stream == null) {
+				_stream = new NetworkStream(_socket, false);
+			}
+			return _stream;
+		}
+
+		/*
 		public virtual void Send(IPacket packet) {
 			var stream = packet.GetStream();
 			var buffer = new byte[65536];
@@ -41,6 +50,7 @@ namespace UWoW.Net {
 				//_socket.Send (buffer ,n ,
 			}
 		}
+		 */ 
 	}
 }
 				  

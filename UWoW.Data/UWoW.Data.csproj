@@ -8,7 +8,7 @@
     <ProjectGuid>{EE6E8782-0D57-4E1C-8522-9310B66A6160}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UWoW</RootNamespace>
+    <RootNamespace>Hazzik</RootNamespace>
     <AssemblyName>UWoW.Entities</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

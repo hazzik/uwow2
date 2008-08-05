@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Database Name="uwow" Class="UWoWDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\uwow.mdf;Integrated Security=True;User Instance=True" SettingsObjectName="UWoW.Properties.Settings" SettingsPropertyName="uwowConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\uwow.mdf;Integrated Security=True;User Instance=True" SettingsObjectName="Hazzik.Properties.Settings" SettingsPropertyName="uwowConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Items" Member="DBItems">
     <Type Name="DBItem">
       <Column Name="Guid" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -152,7 +152,7 @@
       <Association Name="DBCharacter_DBCharacterInventory" Member="Inventory" OtherKey="ContainerGuid" Type="DBCharacterInventory" />
       <Association Name="DBCharacter_DBAuctionItem" Member="DBAuctionItems" OtherKey="OwnerGuid" Type="DBAuctionItem" />
       <Association Name="DBCharacter_DBAuctionBid" Member="DBAuctionBids" OtherKey="BidderGuid" Type="DBAuctionBid" />
-      <Association Name="Account_DBCharacter" Member="DBAccount" ThisKey="AccountID" Type="DBAccount" IsForeignKey="true" />
+      <Association Name="DBAccount_DBCharacter" Member="DBAccount" ThisKey="AccountID" Type="DBAccount" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.ItemInventory" Member="DBItemInventories">
@@ -216,7 +216,7 @@
       <Column Name="Expansion" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="PasswordSalt" Type="System.Byte[]" DbType="Binary(32) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
       <Column Name="PasswordVerifier" Type="System.Byte[]" DbType="Binary(32) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
-      <Association Name="Account_DBCharacter" Member="DBCharacters" OtherKey="AccountID" Type="DBCharacter" />
+      <Association Name="DBAccount_DBCharacter" Member="DBCharacters" OtherKey="AccountID" Type="DBCharacter" />
     </Type>
   </Table>
 </Database>

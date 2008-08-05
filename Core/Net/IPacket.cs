@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-namespace UWoW {
+namespace Hazzik {
 	public interface IPacket {
 		int Code { get; set; }
 		int Size { get; }

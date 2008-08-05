@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using UWoW.Net;
+using Hazzik.Net;
 using System.Net.Sockets;
 using System.IO;
 using System.Security.Cryptography;
-using UWoW.Cryptography;
+using Hazzik.Cryptography;
 using Helper;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 
-namespace UWoW {
+namespace Hazzik {
 	public class WorldClient : ClientBase {
 		public static byte[] SS;
 		ICryptoTransform _decryptor;
@@ -18,7 +18,7 @@ namespace UWoW {
 		string _accountName = "ADMIN";
 
 		bool _firstPacket = true;
-		uint _seed = 0xDEADBABE;// (uint)(new Random().Next(0, int.MaxValue));
+		uint _seed = (uint)(new Random().Next(0, int.MaxValue));
 
 		public WorldClient(Socket socket)
 			: base(6, socket) {
@@ -134,10 +134,6 @@ namespace UWoW {
 			_firstPacket = false;
 
 			return data;
-		}
-
-		public virtual void Send(ServerPacket sp) {
-
 		}
 	}
 }

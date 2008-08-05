@@ -5,7 +5,7 @@ using System.IO;
 using System.Collections;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 
-namespace UWoW.Net {
+namespace Hazzik.Net {
 	public class ServerPacket : BinaryWriter, IPacket {
 		public int Code { get; set; }
 		public int Size { get; private set; }
