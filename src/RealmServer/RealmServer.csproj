@@ -59,6 +59,8 @@
     <Compile Include="Packets.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WorldItem.cs" />
+    <Compile Include="WorldUnit.cs" />
     <Compile Include="UpdateFields.cs" />
     <Compile Include="WorldClient.cs" />
     <Compile Include="WorldObject.cs" />
