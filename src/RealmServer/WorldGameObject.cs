@@ -5,6 +5,10 @@ using System.Text;
 
 namespace Hazzik {
 	public class WorldGameObject : WorldObject {
+		public WorldGameObject()
+			: base((int)UpdateFields.GAMEOBJECT_END) {
+
+		}
 		//OBJECT_FIELD_CREATED_BY = OBJECT_END + 0, // 2 4 1
 		public long CreatedByGuid { get; set; }
 		//GAMEOBJECT_DISPLAYID = OBJECT_END + 2, // 1 1 1

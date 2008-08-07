@@ -5,6 +5,10 @@ using System.Text;
 
 namespace Hazzik {
 	public class WorldCorpse : WorldObject {
+		public WorldCorpse()
+			: base((int)UpdateFields.CORPSE_END) {
+
+		}
 		//CORPSE_FIELD_OWNER = OBJECT_END + 0, // 2 4 1
 		public long OwnerGuid { get; set; }
 		//CORPSE_FIELD_PARTY = OBJECT_END + 2, // 2 4 1

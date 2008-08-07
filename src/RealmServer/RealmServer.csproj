@@ -59,6 +59,7 @@
     <Compile Include="Packets.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UpdateValueAttribute.cs" />
     <Compile Include="WorldCorpse.cs" />
     <Compile Include="WorldDynamicObject.cs" />
     <Compile Include="WorldGameObject.cs" />

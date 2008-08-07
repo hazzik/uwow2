@@ -5,6 +5,10 @@ using System.Text;
 
 namespace Hazzik {
 	public class WorldUnit : WorldObject {
+		public WorldUnit()
+			: base((int)UpdateFields.UNIT_END) {
+
+		}
 		//UNIT_FIELD_CHARM = OBJECT_END + 0, // 2 4 1
 		public long CharmGuid { get; set; }
 		//UNIT_FIELD_SUMMON = OBJECT_END + 2, // 2 4 1

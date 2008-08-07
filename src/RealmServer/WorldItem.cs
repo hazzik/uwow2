@@ -5,6 +5,10 @@ using System.Text;
 
 namespace Hazzik {
 	public class WorldItem : WorldObject {
+		public WorldItem()
+			: base((int)UpdateFields.ITEM_END) {
+
+		}
 		//ITEM_FIELD_OWNER = OBJECT_END + 0, // 2 4 1
 		public long OwnerGuid { get; set; }
 		//ITEM_FIELD_CONTAINED = OBJECT_END + 2, // 2 4 1

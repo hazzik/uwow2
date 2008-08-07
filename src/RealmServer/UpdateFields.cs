@@ -1,4 +1,4 @@
-namespace Server
+namespace Hazzik
 {
 	public enum UpdateFields
 	{

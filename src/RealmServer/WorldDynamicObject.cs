@@ -5,6 +5,10 @@ using System.Text;
 
 namespace Hazzik {
 	public class WorldDynamicObject : WorldObject {
+		public WorldDynamicObject()
+			: base((int)UpdateFields.DYNAMICOBJECT_END) {
+
+		}
 		//DYNAMICOBJECT_CASTER = OBJECT_END + 0, // 2 4 1
 		public long CasterGuid { get; set; }
 		//DYNAMICOBJECT_BYTES = OBJECT_END + 2, // 1 5 1
