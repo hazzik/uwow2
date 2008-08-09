@@ -56,6 +56,7 @@
     <Compile Include="Infos\ClientInfo.cs" />
     <Compile Include="Enums\RMSG.cs" />
     <Compile Include="Infos\VersionInfo.cs" />
+    <Compile Include="Net\AuthPacketIn.cs" />
     <Compile Include="PatchManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -171,5 +171,9 @@ namespace Hazzik.Helper {
 			}
 			return encoding.GetString(buff.ToArray());
 		}
+
+		public static string ToCamel(this string @this) {
+			return @this[0].ToString().ToUpper() + @this.Substring(1);
+		}
 	}
 }

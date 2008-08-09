@@ -55,7 +55,7 @@ namespace Hazzik {
 		private SRP6 _srp6;
 
 		public AuthClient(Socket client) :
-			base(1, client) {
+			base(client) {
 			_serverList.Add(new ServerInfo {
 				Type = 0,
 				Locked = 0,
@@ -70,47 +70,44 @@ namespace Hazzik {
 			Start();
 		}
 
-		public override void ProcessData(byte[] data, int offset, int length) {
-			MemoryStream ms = new MemoryStream(data, offset, length, false);
-			var r = new BinaryReader(ms);
-			RMSG code = (RMSG)PacketCode(data);
-			int len = PacketSize(data);
+		public override void ProcessData(IPacket packet) {
+			using(var reader = new BinaryReader(packet.GetStream())) {
+				var code = (RMSG)packet.Code;
 
-			byte opcode = r.ReadByte();
-			switch(opcode) {
-			case 0:
-			case 2:
-				HandleLogonChallenge(r);
-				//_socket.Send(patchAvailable);
-				break;
+				switch(code) {
+				case (RMSG)0:
+				case (RMSG)2:
+					HandleLogonChallenge(reader);
+					break;
 
-			case 1:
-			case 3:
-				HandleLogonProof(r);
-				break;
+				case (RMSG)1:
+				case (RMSG)3:
+					HandleLogonProof(reader);
+					break;
 
-			case 4:
-				break;
+				case (RMSG)4:
+					break;
 
-			case 0x10:
-				HandleRealmList(r);
-				break;
+				case (RMSG)0x10:
+					HandleRealmList(reader);
+					break;
 
-			case 0x32:
-				HandleXferAccept(r);
-				break;
+				case (RMSG)0x32:
+					HandleXferAccept(reader);
+					break;
 
-			case 0x33:
-				HandleXferResume(r);
-				break;
+				case (RMSG)0x33:
+					HandleXferResume(reader);
+					break;
 
-			case 0x34:
-				HandleXferCancel(r);
+				case (RMSG)0x34:
+					HandleXferCancel(reader);
+					break;
 
-				break;
-			default:
-				Console.WriteLine("Receive unknown command {0}", data[0]);
-				break;
+				default:
+					Console.WriteLine("Receive unknown command {0}", code);
+					break;
+				}
 			}
 		}
 
@@ -160,13 +157,9 @@ namespace Hazzik {
 			} catch {
 			}
 		}
-		
+
 		ClientInfo _clientInfo;
 		public void HandleLogonChallenge(BinaryReader gr) {
-
-			var unk1 = (uint)gr.ReadByte();
-			var length = (uint)gr.ReadUInt16();
-
 			var tag = gr.ReadCString();
 			var verMajor = (int)gr.ReadByte();
 			var verMinor = (int)gr.ReadByte();
@@ -361,86 +354,40 @@ namespace Hazzik {
 			_canSendPatch = false;
 		}
 
-		public override byte[] ReadPacket() {
-			int packetLength = 0;
-
-			byte[] data = new byte[1];
-			_socket.Receive(data, 0, 1, SocketFlags.None);
-			Console.WriteLine("Handle {0}", (RMSG)data[0]);
-			switch((RMSG)data[0]) {
-			case RMSG.AUTH_LOGON_CHALLENGE:
-			case RMSG.AUTH_LOGON_RECODE_CHALLENGE:
-				Array.Resize(ref data, 4);
-				_socket.Receive(data, 1, 3, SocketFlags.None);
-				packetLength = BitConverter.ToUInt16(data, 2);
-				break;
-			case RMSG.AUTH_LOGON_PROOF:
-				Console.WriteLine(_socket.Available);
-				packetLength = 74;
-				break;
-			case RMSG.AUTH_LOGON_RECODE_PROOF:
-				packetLength = 57;
-				break;
-			case RMSG.REALM_LIST:
-				packetLength = 4;
-				break;
-			//case RMSG.XFER_INITIATE:
-			//case RMSG.XFER_DATA:
-			case RMSG.XFER_ACCEPT:
-				packetLength = 0;
-				break;
-			case RMSG.XFER_RESUME:
-				packetLength = 8;
-				break;
-			case RMSG.XFER_CANCEL:
-				packetLength = 0;
-				break;
-			default:
-				packetLength = 0;
-				break;
+		public override IPacket ReadPacket() {
+			using(var reader = new BinaryReader(this.GetStream())) {
+				var code = (int)reader.ReadByte();
+				var size = 0;
+				switch((RMSG)code) {
+				case RMSG.AUTH_LOGON_CHALLENGE:
+				case RMSG.AUTH_LOGON_RECODE_CHALLENGE:
+					var unk = reader.ReadByte();
+					size = reader.ReadUInt16();
+					break;
+				case RMSG.AUTH_LOGON_PROOF:
+					size = 74;
+					break;
+				case RMSG.AUTH_LOGON_RECODE_PROOF:
+					size = 57;
+					break;
+				case RMSG.REALM_LIST:
+					size = 4;
+					break;
+				case RMSG.XFER_ACCEPT:
+					size = 0;
+					break;
+				case RMSG.XFER_RESUME:
+					size = 8;
+					break;
+				case RMSG.XFER_CANCEL:
+					size = 0;
+					break;
+				default:
+					size = 0;
+					break;
+				}
+				return new AuthPacketIn(code, reader.ReadBytes(size));
 			}
-
-			int headerLength = data.Length;
-			Array.Resize(ref data, headerLength + packetLength);
-			_socket.Receive(data, headerLength, packetLength, SocketFlags.None);
-
-			using(var tw = new StreamWriter("dump2.txt", true)) {
-				Utility.View(tw, data, 0, data.Length);
-			}
-
-			return data;
-		}
-
-		public override int PacketSize(byte[] header) {
-			switch((RMSG)this.PacketCode(header)) {
-			case RMSG.AUTH_LOGON_CHALLENGE:
-			case RMSG.AUTH_LOGON_RECODE_CHALLENGE: {
-					return (BitConverter.ToUInt16(header, 2) + 4);
-				}
-			case RMSG.AUTH_LOGON_PROOF: {
-					return 0x4b;
-				}
-			case RMSG.AUTH_LOGON_RECODE_PROOF: {
-					return 0x3a;
-				}
-			case RMSG.REALM_LIST: {
-					return 5;
-				}
-			case RMSG.XFER_ACCEPT: {
-					return 1;
-				}
-			case RMSG.XFER_RESUME: {
-					return 9;
-				}
-			case RMSG.XFER_CANCEL: {
-					return 1;
-				}
-			}
-			return -1;
-		}
-
-		public override int PacketCode(byte[] header) {
-			return header[0];
 		}
 	}
 }

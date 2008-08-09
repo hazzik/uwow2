@@ -21,7 +21,7 @@ namespace Hazzik {
 		uint _seed = (uint)(new Random().Next(0, int.MaxValue));
 
 		public WorldClient(Socket socket)
-			: base(6, socket) {
+			: base(socket) {
 			ServerPacket sp = new ServerPacket(OpCodes.SMSG_AUTH_CHALLENGE);
 			sp.Write(_seed);
 			_socket.Send(sp.GetComplete());
@@ -29,7 +29,7 @@ namespace Hazzik {
 			HashAlgorithm hash = new HMACSHA1(new byte[] { 0x38, 0xA7, 0x83, 0x15, 0xF8, 0x92, 0x25, 0x30, 0x71, 0x98, 0x67, 0xB1, 0x8C, 0x4, 0xE2, 0xAA });
 			var key = hash.ComputeHash(SS);
 
-			SymmetricAlgorithm algo = new SRP6Wow(key);
+			var algo = (SymmetricAlgorithm)new SRP6Wow(key);
 			_decryptor = algo.CreateDecryptor();
 			_encryptor = algo.CreateEncryptor();
 			this.Start();
@@ -50,30 +50,17 @@ namespace Hazzik {
 			return buff;
 		}
 
-
-		public override int PacketCode(byte[] header) {
-			return BitConverter.ToInt16(header, 2);
-		}
-
-		public override int PacketSize(byte[] header) {
-			return (int)((header[0] << 8) | header[1]) + 2;
-		}
-
-		public override void ProcessData(byte[] data, int offset, int length) {
-			using(var tw = new StreamWriter(File.OpenWrite("dumpws.txt"))) {
-				Utility.View(tw, data, offset, length);
-			}
-			var size = PacketSize(data);
-			var code = (OpCodes)PacketCode(data);
+		public override void ProcessData(IPacket packet) {
+			var size = packet.Size;
+			var code = (OpCodes)packet.Code;
 			Console.WriteLine("Handle {0}", code);
 			if(code == OpCodes.CMSG_AUTH_SESSION) {
-				Stream dataStream = new MemoryStream(data, offset, length, false);
-				dataStream.Seek(6, SeekOrigin.Begin);
+				var dataStream = packet.GetStream();
 				var r = new BinaryReader(dataStream);
 				var version = r.ReadUInt32();
 				var unk2 = r.ReadUInt32();
 				var accountName = r.ReadCString();
-#if WAR3
+#if WOW3
 				var unk = r.ReadUInt32();
 #endif
 				var clientSeed = r.ReadUInt32();
@@ -94,7 +81,7 @@ namespace Hazzik {
 				} catch(Exception e) {
 
 				}
-				
+
 
 				byte[] serverDigest = computeDigest(clientSeed);
 
@@ -120,18 +107,19 @@ namespace Hazzik {
 			}
 		}
 
-		public override byte[] ReadPacket() {
-			Stream dataStream = new NetworkStream(_socket, false);
+
+		public override IPacket ReadPacket() {
+			Stream dataStream = this.GetStream();
 			Stream headStream = _firstPacket ? dataStream : new CryptoStream(dataStream, _decryptor, CryptoStreamMode.Read);
 
 			var data = new byte[6];
 			headStream.Read(data, 0, 6);
 			int len = data[0] << 8 | data[1];
-			Array.Resize(ref data, 6 + len - 4);
-			dataStream.Read(data, 6, len - 4);
-			_firstPacket = false;
+			int code = data[3] << 8 | data[2];
 
-			return data;
+			using(var reader = new BinaryReader(dataStream)) {
+				return new WorldPacketIn(code, reader.ReadBytes(len - 4));
+			}
 		}
 	}
 }
