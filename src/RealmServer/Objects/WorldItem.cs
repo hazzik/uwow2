@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Hazzik {
+namespace Hazzik.Objects {
 	public class WorldItem : WorldObject {
 		public WorldItem()
 			: base((int)UpdateFields.ITEM_END) {

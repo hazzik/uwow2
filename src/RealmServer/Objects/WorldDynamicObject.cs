@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Hazzik {
+namespace Hazzik.Objects {
 	public class WorldDynamicObject : WorldObject {
 		public WorldDynamicObject()
 			: base((int)UpdateFields.DYNAMICOBJECT_END) {

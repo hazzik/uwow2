@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Collections;
 
-namespace Hazzik {
+namespace Hazzik.Objects {
 	public abstract class WorldObject {
 
 		private BitArray _updateMask;

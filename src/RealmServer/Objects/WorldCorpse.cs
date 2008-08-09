@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Hazzik {
+namespace Hazzik.Objects {
 	public class WorldCorpse : WorldObject {
 		public WorldCorpse()
 			: base((int)UpdateFields.CORPSE_END) {

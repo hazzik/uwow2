@@ -65,7 +65,7 @@
     <Compile Include="Objects\WorldDynamicObject.cs" />
     <Compile Include="Objects\WorldGameObject.cs" />
     <Compile Include="Objects\WorldItem.cs" />
-    <Compile Include="WorldUnit.cs" />
+    <Compile Include="Objects\WorldUnit.cs" />
     <Compile Include="UpdateFields.cs" />
     <Compile Include="WorldClient.cs" />
     <Compile Include="Objects\WorldObject.cs" />
