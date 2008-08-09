@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 
 namespace Hazzik.Objects {
-	public class WorldDynamicObject : WorldObject {
-		public WorldDynamicObject()
+	public class DynamicObject : WorldObject {
+		public DynamicObject()
 			: base((int)UpdateFields.DYNAMICOBJECT_END) {
 
 		}

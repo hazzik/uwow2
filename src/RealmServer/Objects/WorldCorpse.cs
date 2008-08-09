@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 
 namespace Hazzik.Objects {
-	public class WorldCorpse : WorldObject {
-		public WorldCorpse()
+	public class Corpse : WorldObject {
+		public Corpse()
 			: base((int)UpdateFields.CORPSE_END) {
-
 		}
 		//CORPSE_FIELD_OWNER = OBJECT_END + 0, // 2 4 1
 		public long OwnerGuid { get; set; }

@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 
 namespace Hazzik.Objects {
-	public class WorldItem : WorldObject {
-		public WorldItem()
+	public class Item : WorldObject {
+		public Item()
 			: base((int)UpdateFields.ITEM_END) {
 
 		}

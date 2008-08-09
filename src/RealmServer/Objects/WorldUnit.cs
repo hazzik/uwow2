@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 
 namespace Hazzik.Objects {
-	public class WorldUnit : WorldObject {
-		public WorldUnit()
+	public class Unit : WorldObject {
+		public Unit()
 			: base((int)UpdateFields.UNIT_END) {
 
 		}
