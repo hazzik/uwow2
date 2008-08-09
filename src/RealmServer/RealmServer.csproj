@@ -61,14 +61,14 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UpdateValueAttribute.cs" />
-    <Compile Include="WorldCorpse.cs" />
-    <Compile Include="WorldDynamicObject.cs" />
-    <Compile Include="WorldGameObject.cs" />
-    <Compile Include="WorldItem.cs" />
+    <Compile Include="Objects\WorldCorpse.cs" />
+    <Compile Include="Objects\WorldDynamicObject.cs" />
+    <Compile Include="Objects\WorldGameObject.cs" />
+    <Compile Include="Objects\WorldItem.cs" />
     <Compile Include="WorldUnit.cs" />
     <Compile Include="UpdateFields.cs" />
     <Compile Include="WorldClient.cs" />
-    <Compile Include="WorldObject.cs" />
+    <Compile Include="Objects\WorldObject.cs" />
     <Compile Include="WorldServer.cs" />
   </ItemGroup>
   <ItemGroup>
