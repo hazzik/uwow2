@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cryptography\SRP6Wow.cs" />
+    <Compile Include="Net\PacketBase.cs" />
     <Compile Include="Net\ClientBase.cs" />
     <Compile Include="Net\IPacket.cs" />
     <Compile Include="Net\ServerBase.cs" />
