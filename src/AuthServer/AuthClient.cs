@@ -386,7 +386,7 @@ namespace Hazzik {
 					size = 0;
 					break;
 				}
-				return new AuthPacketIn(code, reader.ReadBytes(size));
+				return new AuthPacket(code, reader.ReadBytes(size));
 			}
 		}
 	}
