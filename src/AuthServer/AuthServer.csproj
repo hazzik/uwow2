@@ -62,7 +62,6 @@
     <Compile Include="AuthClient.cs" />
     <Compile Include="AuthServer.cs" />
     <Compile Include="Infos\ServerInfo.cs" />
-    <Compile Include="SRP.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">
