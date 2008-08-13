@@ -118,7 +118,7 @@ namespace Hazzik {
 			int code = data[3] << 8 | data[2];
 
 			using(var reader = new BinaryReader(dataStream)) {
-				return new WorldPacketIn(code, reader.ReadBytes(len - 4));
+				return new WorldPacket(code, reader.ReadBytes(len - 4));
 			}
 		}
 	}

@@ -5,7 +5,7 @@ using System.Text;
 using System.IO;
 
 namespace Hazzik.Net {
-	public class PacketBase : IPacket {
+	public abstract class PacketBase : IPacket {
 		private Stream _stream;
 
 		protected internal PacketBase(int code, byte[] data) {
@@ -14,6 +14,7 @@ namespace Hazzik.Net {
 		}
 
 		protected internal PacketBase(int code) {
+			_stream = new MemoryStream();
 			this.Code = code;
 		}
 

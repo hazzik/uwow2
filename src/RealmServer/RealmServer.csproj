@@ -55,7 +55,7 @@
   <ItemGroup>
     <Compile Include="AddonInfo.cs" />
     <Compile Include="AddonManager.cs" />
-    <Compile Include="Net\WorldPacketIn.cs" />
+    <Compile Include="Net\WorldPacket.cs" />
     <Compile Include="OpCodes.cs" />
     <Compile Include="Packets.cs" />
     <Compile Include="Program.cs" />

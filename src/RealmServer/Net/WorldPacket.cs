@@ -5,13 +5,11 @@ using System.Text;
 using System.IO;
 
 namespace Hazzik.Net {
-	public class AuthPacket : PacketBase, IPacket {
-
-		internal AuthPacket(int code, byte[] data)
+	public class WorldPacket : PacketBase, IPacket {
+		internal WorldPacket(int code, byte[] data)
 			: base(code, data) {
 		}
-
-		internal AuthPacket(int code)
+		internal WorldPacket(int code)
 			: base(code) {
 		}
 	}
