@@ -5,7 +5,7 @@ using System.Text;
 using System.IO;
 
 namespace Hazzik.Net {
-	public abstract class PacketBase : IPacket {
+	public class PacketBase : IPacket {
 		private Stream _stream;
 
 		protected internal PacketBase(int code, byte[] data) {

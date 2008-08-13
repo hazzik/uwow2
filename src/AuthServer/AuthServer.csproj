@@ -52,7 +52,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Account.cs" />
     <Compile Include="Infos\ClientInfo.cs" />
     <Compile Include="Enums\RMSG.cs" />
     <Compile Include="Infos\VersionInfo.cs" />

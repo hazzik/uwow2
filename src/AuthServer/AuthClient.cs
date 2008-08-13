@@ -51,9 +51,6 @@ namespace Hazzik {
 		private BigInteger bi_B;
 		private BigInteger bi_s = BigInteger.genPseudoPrime(256, 5, Utility.seed2);
 
-		private Account _account;
-		private SRP6 _srp6;
-
 		public AuthClient(Socket client) :
 			base(client) {
 			_serverList.Add(new ServerInfo {
@@ -123,8 +120,7 @@ namespace Hazzik {
 						w.Write((byte)RMSG.XFER_INITIATE); // send patch :)
 						w.Write("Patch");
 						w.Write(s.Length);
-						//w.Write(md5.ComputeHash(s));
-						w.Write(md5.ComputeHash(new byte[0]));
+						w.Write(md5.ComputeHash(s));
 						return (w.BaseStream as MemoryStream).ToArray();
 					}
 				}
@@ -148,7 +144,7 @@ namespace Hazzik {
 					s.Seek(pinfo.Offset, SeekOrigin.Begin);
 					while(_canSendPatch && s.Position < s.Length) {
 						int n = s.Read(buff, 3, 1500);
-						buff[0] = 0x31;
+						buff[0] = (byte)RMSG.XFER_DATA;
 						buff[1] = (byte)n;
 						buff[2] = (byte)(n >> 8);
 						_socket.Send(buff, n + 3, SocketFlags.None);
