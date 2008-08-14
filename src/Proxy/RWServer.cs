@@ -5,11 +5,9 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 
-namespace UWoW
-{
+namespace UWoW {
 	public class AServerGeneric<T> : IDisposable
-		where T : AClient, new()
-	{
+		where T : ClientBase, new() {
 		private EndPoint _localEndpoint;
 		private String _name;
 		private Thread _acceptThread;
@@ -19,8 +17,7 @@ namespace UWoW
 
 		#region ctors
 
-		public AServerGeneric(string name, int port)
-		{
+		public AServerGeneric(string name, int port) {
 			_localEndpoint = new IPEndPoint(IPAddress.Any, port);
 		}
 
@@ -28,19 +25,15 @@ namespace UWoW
 
 		#region Methods
 
-		private void __acceptTread()
-		{
-			while (!_disposed)
-			{
+		private void __acceptTread() {
+			while(!_disposed) {
 				Socket s = _listenSocket.Accept();
 				T t = new T();
 			}
 		}
 
-		public void Start()
-		{
-			try
-			{
+		public void Start() {
+			try {
 				_listenSocket = new Socket(_localEndpoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 				_listenSocket.Bind(_localEndpoint);
 				_listenSocket.Listen(1);
@@ -48,9 +41,7 @@ namespace UWoW
 
 				_acceptThread = new Thread(__acceptTread);
 				_acceptThread.Start();
-			}
-			catch (Exception e)
-			{
+			} catch(Exception e) {
 				this.Dispose();
 			}
 		}
@@ -59,23 +50,18 @@ namespace UWoW
 
 		#region IDisposable Members
 
-		public void Dispose()
-		{
-			if (!_disposed)
-			{
-				if (null != _acceptThread)
-				{
+		public void Dispose() {
+			if(!_disposed) {
+				if(null != _acceptThread) {
 					_acceptThread.Abort();
 					_acceptThread = null;
 				}
-				if (null != _listenSocket)
-				{
+				if(null != _listenSocket) {
 					_listenSocket.Shutdown(SocketShutdown.Both);
 					_listenSocket.Close();
 					_listenSocket = null;
 				}
-				if (null != _localEndpoint)
-				{
+				if(null != _localEndpoint) {
 					_localEndpoint = null;
 				}
 				_disposed = true;
@@ -85,17 +71,14 @@ namespace UWoW
 		#endregion
 	}
 
-	public class RWServer : AServer
-	{
+	public class RWServer : ServerBase {
 		#region ctors
 
-		private void Init()
-		{
+		private void Init() {
 			_name = "RW PROXY";
 		}
 
-		public RWServer(int listen_port, string forward_addr)
-		{
+		public RWServer(int listen_port, string forward_addr) {
 			Init();
 
 			_port = listen_port;
@@ -105,16 +88,14 @@ namespace UWoW
 			this.Start();
 		}
 
-		public RWServer(int listen_port, IPEndPoint forward_point)
-		{
+		public RWServer(int listen_port, IPEndPoint forward_point) {
 			_name = "RW PROXY";
 		}
 
 		#endregion
 
-		public override void OnAccept(System.Net.Sockets.Socket s)
-		{
-			AddClient(new RWProxyClient(s));
+		public override void OnAccept(System.Net.Sockets.Socket s) {
+			AddClient(new WorldProxy(s));
 		}
 	}
 }

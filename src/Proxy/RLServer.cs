@@ -3,16 +3,13 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net;
 
-namespace UWoW
-{
-	public class RLServer : AServer
-	{
+namespace UWoW {
+	public class RLServer : ServerBase {
 		private EndPoint _forwdEndPoint;
 		private EndPoint _localEndPoint;
 
 		public RLServer(int listen_port, string forward_host, int forward_port)
-			: base()
-		{
+			: base() {
 			_name = "RL PROXY";
 			_port = listen_port;
 
@@ -24,9 +21,8 @@ namespace UWoW
 			this.Start();
 		}
 
-		public override void OnAccept(System.Net.Sockets.Socket s)
-		{
-			AddClient(new RLProxyClient(s, _forwdEndPoint));
+		public override void OnAccept(System.Net.Sockets.Socket s) {
+			AddClient(new AuthProxy(s, _forwdEndPoint));
 		}
 	}
 }

@@ -3,6 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WoWBC-proxy", "WoWBC-proxy.csproj", "{C11D5041-59D8-46AD-982E-55CCDADCAB2D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helper", "..\Helper\Helper.csproj", "{5BEC7A4C-7CB1-4D6B-B0E5-FD1860168494}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "..\Core\Core.csproj", "{16C8A9B2-EC9C-4E83-85BB-E330B6748B7F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +17,14 @@ Global
 		{C11D5041-59D8-46AD-982E-55CCDADCAB2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C11D5041-59D8-46AD-982E-55CCDADCAB2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C11D5041-59D8-46AD-982E-55CCDADCAB2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BEC7A4C-7CB1-4D6B-B0E5-FD1860168494}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BEC7A4C-7CB1-4D6B-B0E5-FD1860168494}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BEC7A4C-7CB1-4D6B-B0E5-FD1860168494}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BEC7A4C-7CB1-4D6B-B0E5-FD1860168494}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16C8A9B2-EC9C-4E83-85BB-E330B6748B7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16C8A9B2-EC9C-4E83-85BB-E330B6748B7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16C8A9B2-EC9C-4E83-85BB-E330B6748B7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16C8A9B2-EC9C-4E83-85BB-E330B6748B7F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

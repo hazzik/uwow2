@@ -5,11 +5,9 @@ using System.Net.Sockets;
 using System.Collections.Generic;
 using System.Threading;
 
-namespace UWoW
-{
-	public abstract class AServer: IDisposable
-	{
-		private List<AClient> _clients = new List<AClient>();
+namespace UWoW {
+	public abstract class ServerBase : IDisposable {
+		private List<ClientBase> _clients = new List<ClientBase>();
 
 		protected Socket _listenSocket;
 		protected AddressFamily addressFamily;
@@ -19,22 +17,17 @@ namespace UWoW
 
 		private bool disposed = false;
 
-		protected AServer()
-		{ }
+		protected ServerBase() { }
 
-		public bool Start()
-		{
-			try
-			{
+		public bool Start() {
+			try {
 				_listenSocket = new Socket(addressFamily, SocketType.Stream, ProtocolType.Tcp);
 				_listenSocket.Bind(new IPEndPoint(IPAddress.Any, _port));
 				_listenSocket.Listen(100);
 				Console.WriteLine("{0} started, listen {1}", _name, _listenSocket.LocalEndPoint);
 				Thread accept_tread = new Thread(new ThreadStart(acceptTread));
 				accept_tread.Start();
-			}
-			catch (Exception e)
-			{
+			} catch(Exception e) {
 				Console.WriteLine("Failed to list on port {0}\n{1}", this._port, e.Message);
 				this._listenSocket = null;
 				return false;
@@ -42,10 +35,8 @@ namespace UWoW
 			return true;
 		}
 
-		private void acceptTread()
-		{
-			while (!disposed)
-			{
+		private void acceptTread() {
+			while(!disposed) {
 				Socket s = _listenSocket.Accept();
 				OnAccept(s);
 			}
@@ -53,31 +44,26 @@ namespace UWoW
 
 		public abstract void OnAccept(Socket s);
 
-		protected void AddClient(AClient c)
-		{
-			if (!_clients.Contains(c))
+		protected void AddClient(ClientBase c) {
+			if(!_clients.Contains(c))
 				_clients.Add(c);
 		}
 
-		protected void DelClient(AClient c)
-		{
+		protected void DelClient(ClientBase c) {
 			_clients.Remove(c);
 		}
-		
+
 		#region Finalization Methods
 
-		public void Dispose()
-		{
-			if (!disposed)
-			{
+		public void Dispose() {
+			if(!disposed) {
 				disposed = true;
 				_listenSocket.Close();
 				_listenSocket = null;
 			}
 		}
 
-		~AServer()
-		{
+		~ServerBase() {
 			Dispose();
 		}
 
