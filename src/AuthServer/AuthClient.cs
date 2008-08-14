@@ -258,7 +258,12 @@ namespace Hazzik {
 				SS_Hash[i * 2] = S1_Hash[i];
 				SS_Hash[i * 2 + 1] = S2_Hash[i];
 			}
-			//WorldClient.SS = (byte[])SS_Hash.Clone();
+
+			//HACK: we must store to database this value!
+			var fi = new FileInfo(@"..\..\..\key.bin");
+			using(var w = fi.Open(FileMode.Create)) {
+				w.Write(SS_Hash, 0, 40);
+			}
 
 			byte[] N_Hash = sha1.ComputeHash(bi_N.getBytes().Reverse());
 			byte[] G_Hash = sha1.ComputeHash(bi_g.getBytes().Reverse());
@@ -389,19 +394,20 @@ namespace Hazzik {
 		}
 
 		public override void WritePacket(IPacket packet) {
-			using(var w = new BinaryWriter(this.GetStream())) {
-				w.Write((byte)packet.Code);
-				if((RMSG)packet.Code == RMSG.REALM_LIST || (RMSG)packet.Code == RMSG.XFER_DATA) {
-					w.Write((ushort)packet.Size);
-				}
+			var data = this.GetStream();
+			var head = new BinaryWriter(data);
 
-				var buff = new byte[1024];
-				var n = 0;
-				var s = packet.GetStream();
-				s.Seek(0, SeekOrigin.Begin);
-				while((n = s.Read(buff, 0, 1024)) > 0) {
-					w.Write(buff, 0, n);
-				}
+			head.Write((byte)packet.Code);
+			if((RMSG)packet.Code == RMSG.REALM_LIST || (RMSG)packet.Code == RMSG.XFER_DATA) {
+				head.Write((ushort)packet.Size);
+			}
+
+			var buff = new byte[1024];
+			var bytesRead = 0;
+			var packetStream = packet.GetStream();
+			packetStream.Seek(0, SeekOrigin.Begin);
+			while((bytesRead = packetStream.Read(buff, 0, 1024)) > 0) {
+				data.Write(buff, 0, bytesRead);
 			}
 		}
 	}

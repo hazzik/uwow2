@@ -6,6 +6,7 @@ using System.Text;
 namespace Hazzik.RealmServer {
 	class Program {
 		static void Main(string[] args) {
+			var server = new WorldServer();
 		}
 	}
 }

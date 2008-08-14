@@ -12,39 +12,39 @@ namespace Hazzik {
 		static AddonManager _instance;
 		public static AddonManager Instance {
 			get {
-				if(_instance != null) {
+				if(_instance == null) {
 					_instance = new AddonManager();
 				}
 				return _instance;
 			}
 		}
 
-		List<AddonInfo> _addonInfos = new List<AddonInfo>();
+		public List<AddonInfo> AddonInfos = new List<AddonInfo>();
 
 		public void Load(string fileName) {
 			using(var file = new FileInfo(fileName).Open(FileMode.OpenOrCreate, FileAccess.Read)) {
-				_addonInfos = (List<AddonInfo>)_serializer.Deserialize(file);
+				AddonInfos = (List<AddonInfo>)_serializer.Deserialize(file);
 			}
 		}
 
 		public void Save(string filename) {
 			using(var file = new FileInfo(filename).Open(FileMode.Create, FileAccess.Write)) {
-				_serializer.Serialize(file, _addonInfos);
+				_serializer.Serialize(file, AddonInfos);
 			}
 		}
 
 		public AddonInfo this[string name] {
 			get {
-				return (from addon in _addonInfos
+				return (from addon in AddonInfos
 						  where addon.Name == name
 						  select addon).FirstOrDefault();
 			}
 			set {
 				var addon = this[name];
 				if(addon != null) {
-					_addonInfos.Remove(addon);
+					AddonInfos.Remove(addon);
 				}
-				_addonInfos.Add(value);
+				AddonInfos.Add(value);
 			}
 		}
 	}

@@ -9,10 +9,26 @@ using System.Security.Cryptography;
 using Hazzik.Cryptography;
 using Hazzik.Helper;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
+using System.Net;
 
 namespace Hazzik {
 	public class WorldClient : ClientBase {
-		public static byte[] SS;
+
+		//HACK: we must store to database this value!
+		private byte[] _ss;
+		private byte[] SS {
+			get {
+				if(_ss == null) {
+					var fi = new FileInfo(@"..\..\..\key.bin");
+					using(var r = fi.Open(FileMode.OpenOrCreate)) {
+						_ss = new byte[40];
+						r.Read(_ss, 0, 40);
+					}
+				}
+				return _ss;
+			}
+		}
+
 		ICryptoTransform _decryptor;
 		ICryptoTransform _encryptor;
 		string _accountName = "ADMIN";
@@ -22,13 +38,13 @@ namespace Hazzik {
 
 		public WorldClient(Socket socket)
 			: base(socket) {
-			ServerPacket sp = new ServerPacket(WMSG.SMSG_AUTH_CHALLENGE);
-			sp.Write(_seed);
-			_socket.Send(sp.GetComplete());
+			var p = new WorldPacket(WMSG.SMSG_AUTH_CHALLENGE);
+			var w = new BinaryWriter(p.GetStream());
+			w.Write(_seed);
+			this.WritePacket(p);
 
-			HashAlgorithm hash = new HMACSHA1(new byte[] { 0x38, 0xA7, 0x83, 0x15, 0xF8, 0x92, 0x25, 0x30, 0x71, 0x98, 0x67, 0xB1, 0x8C, 0x4, 0xE2, 0xAA });
+			var hash = (HashAlgorithm)new HMACSHA1(new byte[] { 0x38, 0xA7, 0x83, 0x15, 0xF8, 0x92, 0x25, 0x30, 0x71, 0x98, 0x67, 0xB1, 0x8C, 0x4, 0xE2, 0xAA });
 			var key = hash.ComputeHash(SS);
-
 			var algo = (SymmetricAlgorithm)new SRP6Wow(key);
 			_decryptor = algo.CreateDecryptor();
 			_encryptor = algo.CreateEncryptor();
@@ -55,6 +71,8 @@ namespace Hazzik {
 			var code = (WMSG)packet.Code;
 			Console.WriteLine("Handle {0}", code);
 			if(code == WMSG.CMSG_AUTH_SESSION) {
+				_firstPacket = false;
+
 				var dataStream = packet.GetStream();
 				var r = new BinaryReader(dataStream);
 				var version = r.ReadUInt32();
@@ -82,8 +100,7 @@ namespace Hazzik {
 
 				}
 
-
-				byte[] serverDigest = computeDigest(clientSeed);
+				var serverDigest = computeDigest(clientSeed);
 
 				for(int i = 0; i < 20; i++) {
 					if(serverDigest[i] != clientDigest[i]) {
@@ -91,39 +108,70 @@ namespace Hazzik {
 					}
 				}
 
-				using(var w = new BinaryWriter(this.GetStream())) {
-					w.Write((byte)0);
-					w.Write((byte)13);
-					w.Write((ushort)WMSG.SMSG_AUTH_RESPONSE);
-					w.Write((byte)0x0C);
-					w.Write((byte)0xCF);
-					w.Write((byte)0xD2);
-					w.Write((byte)0x07);
-					w.Write((byte)0x00);
-					w.Write((byte)0x00);
-					w.Write(0);
-					w.Write((byte)1); // 0x01 for enabling Burning Crusade Races
+				var p = new WorldPacket(WMSG.SMSG_AUTH_RESPONSE);
+				var w = p.GetWriter();
+				w.Write((byte)0x0C);
+				w.Write((uint)0);
+				w.Write((byte)0);
+				w.Write((uint)0);
+				w.Write((byte)1); // 0x01 for enabling Burning Crusade Races
+				this.WritePacket(p);
+
+				p = new WorldPacket(WMSG.SMSG_ADDON_INFO);
+				w = p.GetWriter();
+				foreach(var item in AddonManager.Instance.AddonInfos) {
+					w.Write((ulong)0x0102);
 				}
+				w.Flush();
+				this.WritePacket(p);
+				return;
+			}
+			if(code == WMSG.CMSG_PING) {
+				var r = packet.GetReader();
+				var p = new WorldPacket(WMSG.SMSG_PONG);
+				var w = p.GetWriter();
+				w.Write(r.ReadUInt32());
+				this.WritePacket(p);
+				return;
+			}
+			if(code == WMSG.CMSG_CHAR_ENUM) {
+				var r = packet.GetReader();
+				var p = new WorldPacket(WMSG.SMSG_CHAR_ENUM);
+				var w = p.GetWriter();
+				w.Write((byte)0);
+				this.WritePacket(p);
+				return;
 			}
 		}
-
 
 		public override IPacket ReadPacket() {
-			Stream dataStream = this.GetStream();
-			Stream headStream = _firstPacket ? dataStream : new CryptoStream(dataStream, _decryptor, CryptoStreamMode.Read);
+			var data = this.GetStream();
+			var head = new BinaryReader(_firstPacket ? data : new CryptoStream(data, _decryptor, CryptoStreamMode.Read));
 
-			var data = new byte[6];
-			headStream.Read(data, 0, 6);
-			int len = data[0] << 8 | data[1];
-			int code = data[3] << 8 | data[2];
+			int size = IPAddress.NetworkToHostOrder(head.ReadInt16());
+			int code = head.ReadInt32();
 
-			using(var reader = new BinaryReader(dataStream)) {
-				return new WorldPacket((WMSG)code, reader.ReadBytes(len - 4));
+			using(var reader = new BinaryReader(data)) {
+				return new WorldPacket((WMSG)code, reader.ReadBytes(size - 4));
 			}
 		}
 
-		public override void WritePacket(IPacket p) {
-			throw new NotImplementedException();
+		public override void WritePacket(IPacket packet) {
+			var data = this.GetStream();
+			var head = new BinaryWriter(_firstPacket ? data : new CryptoStream(data, _encryptor, CryptoStreamMode.Write));
+
+			var len = packet.Size + 2;
+			head.Write((byte)(len << 8));
+			head.Write((byte)len);
+			head.Write((ushort)packet.Code);
+
+			var buff = new byte[1024];
+			var bytesRead = 0;
+			var packetStream = packet.GetStream();
+			packetStream.Seek(0, SeekOrigin.Begin);
+			while((bytesRead = packetStream.Read(buff, 0, 1024)) > 0) {
+				data.Write(buff, 0, bytesRead);
+			}
 		}
 	}
 }

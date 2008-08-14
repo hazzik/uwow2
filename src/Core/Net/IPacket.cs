@@ -9,5 +9,7 @@ namespace Hazzik {
 		int Code { get; set; }
 		int Size { get; }
 		Stream GetStream();
+		BinaryReader GetReader();
+		BinaryWriter GetWriter();
 	}
 }

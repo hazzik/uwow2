@@ -28,5 +28,13 @@ namespace Hazzik.Net {
 			}
 			return _stream;
 		}
+
+		public BinaryReader GetReader() {
+			return new BinaryReader(this.GetStream());
+		}
+
+		public BinaryWriter GetWriter() {
+			return new BinaryWriter(this.GetStream());
+		}
 	}
 }
