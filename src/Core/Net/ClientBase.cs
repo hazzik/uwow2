@@ -12,6 +12,7 @@ namespace Hazzik.Net {
 		}
 
 		public abstract IPacket ReadPacket();
+		public abstract void WritePacket(IPacket p);
 		public abstract void ProcessData(IPacket packet);
 
 		public virtual void Start() {

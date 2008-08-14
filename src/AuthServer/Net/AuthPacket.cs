@@ -7,12 +7,12 @@ using System.IO;
 namespace Hazzik.Net {
 	public class AuthPacket : PacketBase, IPacket {
 
-		internal AuthPacket(int code, byte[] data)
-			: base(code, data) {
+		internal AuthPacket(RMSG code, byte[] data)
+			: base((int)code, data) {
 		}
 
-		internal AuthPacket(int code)
-			: base(code) {
+		internal AuthPacket(RMSG code)
+			: base((int)code) {
 		}
 	}
 }

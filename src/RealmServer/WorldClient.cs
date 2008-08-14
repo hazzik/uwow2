@@ -91,7 +91,7 @@ namespace Hazzik {
 					}
 				}
 
-				using(var w = new BinaryWriter(new NetworkStream(_socket, false))) {
+				using(var w = new BinaryWriter(this.GetStream())) {
 					w.Write((byte)0);
 					w.Write((byte)13);
 					w.Write((ushort)OpCodes.SMSG_AUTH_RESPONSE);
@@ -120,6 +120,10 @@ namespace Hazzik {
 			using(var reader = new BinaryReader(dataStream)) {
 				return new WorldPacket(code, reader.ReadBytes(len - 4));
 			}
+		}
+
+		public override void WritePacket(IPacket p) {
+			throw new NotImplementedException();
 		}
 	}
 }
