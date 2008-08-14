@@ -43,8 +43,9 @@ namespace Hazzik {
 		static BigInteger bi_N = new BigInteger("894B645E89E1535BBDAD5B8B290650530801B18EBFBF5E8FAB3C82872A3E9BB7", 16);
 		static BigInteger bi_g = 7;
 		static BigInteger bi_k = 3;
-		static MD5 md5 = new MD5CryptoServiceProvider();
-		static SHA1 sha1 = new SHA1Managed();
+		static MD5 md5 = MD5.Create();
+		static SHA1 sha1 = SHA1.Create();
+		
 
 		private BigInteger bi_b = BigInteger.genPseudoPrime(160, 5, Utility.seed2);
 		private BigInteger bi_v;
