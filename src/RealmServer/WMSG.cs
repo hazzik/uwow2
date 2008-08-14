@@ -1,6 +1,6 @@
 
 namespace Hazzik {
-	public enum OpCodes {
+	public enum WMSG {
 		MSG_NULL_ACTION = 0,
 		CMSG_BOOTME = 1,
 		CMSG_DBLOOKUP = 2,

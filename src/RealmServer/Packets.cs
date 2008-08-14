@@ -10,7 +10,7 @@ namespace Hazzik.Net {
 		public int Code { get; set; }
 		public int Size { get; private set; }
 
-		public ServerPacket(OpCodes o)
+		public ServerPacket(WMSG o)
 			: base(new MemoryStream()) {
 			Code = (int)o;
 
@@ -56,11 +56,11 @@ namespace Hazzik.Net {
 		}
 
 		public byte[] GetComplete() {
-			if(Code == (int)OpCodes.SMSG_UPDATE_OBJECT) {
+			if(Code == (int)WMSG.SMSG_UPDATE_OBJECT) {
 				MemoryStream m_ms = (MemoryStream)base.BaseStream;
 				int size = (int)m_ms.Length;
 				if(size > 50) {
-					Code = (int)OpCodes.SMSG_COMPRESSED_UPDATE_OBJECT;
+					Code = (int)WMSG.SMSG_COMPRESSED_UPDATE_OBJECT;
 					using(var w = new BinaryWriter(new MemoryStream())) {
 						w.Write((ushort)0);
 						w.Write((ushort)Code);

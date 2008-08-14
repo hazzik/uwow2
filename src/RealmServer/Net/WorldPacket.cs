@@ -6,11 +6,11 @@ using System.IO;
 
 namespace Hazzik.Net {
 	public class WorldPacket : PacketBase, IPacket {
-		internal WorldPacket(int code, byte[] data)
-			: base(code, data) {
+		internal WorldPacket(WMSG code, byte[] data)
+			: base((int)code, data) {
 		}
-		internal WorldPacket(int code)
-			: base(code) {
+		internal WorldPacket(WMSG code)
+			: base((int)code) {
 		}
 	}
 }

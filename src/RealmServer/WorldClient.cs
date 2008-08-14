@@ -22,7 +22,7 @@ namespace Hazzik {
 
 		public WorldClient(Socket socket)
 			: base(socket) {
-			ServerPacket sp = new ServerPacket(OpCodes.SMSG_AUTH_CHALLENGE);
+			ServerPacket sp = new ServerPacket(WMSG.SMSG_AUTH_CHALLENGE);
 			sp.Write(_seed);
 			_socket.Send(sp.GetComplete());
 
@@ -52,9 +52,9 @@ namespace Hazzik {
 
 		public override void ProcessData(IPacket packet) {
 			var size = packet.Size;
-			var code = (OpCodes)packet.Code;
+			var code = (WMSG)packet.Code;
 			Console.WriteLine("Handle {0}", code);
-			if(code == OpCodes.CMSG_AUTH_SESSION) {
+			if(code == WMSG.CMSG_AUTH_SESSION) {
 				var dataStream = packet.GetStream();
 				var r = new BinaryReader(dataStream);
 				var version = r.ReadUInt32();
@@ -94,7 +94,7 @@ namespace Hazzik {
 				using(var w = new BinaryWriter(this.GetStream())) {
 					w.Write((byte)0);
 					w.Write((byte)13);
-					w.Write((ushort)OpCodes.SMSG_AUTH_RESPONSE);
+					w.Write((ushort)WMSG.SMSG_AUTH_RESPONSE);
 					w.Write((byte)0x0C);
 					w.Write((byte)0xCF);
 					w.Write((byte)0xD2);
@@ -118,7 +118,7 @@ namespace Hazzik {
 			int code = data[3] << 8 | data[2];
 
 			using(var reader = new BinaryReader(dataStream)) {
-				return new WorldPacket(code, reader.ReadBytes(len - 4));
+				return new WorldPacket((WMSG)code, reader.ReadBytes(len - 4));
 			}
 		}
 
