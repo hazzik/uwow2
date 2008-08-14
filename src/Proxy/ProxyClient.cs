@@ -16,11 +16,13 @@ namespace UWoW {
 
 		public AuthProxy(Socket s, string forward_host, int forward_port) {
 			c2s = s;
+			s2c.Connect(forward_host, forward_port);
 			Start();
 		}
 
 		public AuthProxy(Socket s, EndPoint forwardEndPoint) {
 			c2s = s;
+			s2c.Connect(forwardEndPoint);
 			Start();
 		}
 
@@ -29,9 +31,6 @@ namespace UWoW {
 
 			ArrayList tmp = new ArrayList(new Socket[] { s2c, c2s });
 			ArrayList checkRead = new ArrayList();
-
-			//s2c.Connect("eu.logon.worldofwarcraft.com", 3724);
-			s2c.Connect("83.219.128.134", 3724);
 
 			int n = buff.Length;
 			TextWriter tw = new StreamWriter("RL-Proxy-" + DateTime.Now.ToString("HH-mm-ss") + ".log");

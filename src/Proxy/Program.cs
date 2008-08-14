@@ -46,7 +46,7 @@ namespace UWoW {
 
 			if(!Directory.Exists("raw"))
 				Directory.CreateDirectory("raw");
-			RLServer s1 = new RLServer(3724, conf.RealmListHost, 3724);
+			RLServer s1 = new RLServer(3724, conf.RealmListHost, conf.RelamListPort);
 			RWServer s2 = new RWServer(3726, "213.248.123.4:3724");
 		}
 	}
