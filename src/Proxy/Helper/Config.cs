@@ -3,10 +3,8 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace UWoW.Helper
-{
-	public class Config
-	{
+namespace UWoW.Helper {
+	public class Config {
 		#region fields
 
 		static Regex rxComment = new Regex(@"#|//.*", RegexOptions.Compiled);
@@ -17,21 +15,17 @@ namespace UWoW.Helper
 		#endregion
 		#region Methods
 
-		public Boolean Load(string fname)
-		{
+		public Boolean Load(string fname) {
 			FileInfo fi = new FileInfo(fname);
-			if (!fi.Exists)
+			if(!fi.Exists)
 				return false;
 
 			string line = null;
-			using (TextReader r = fi.OpenText())
-			{
-				while ((line = r.ReadLine()) != null)
-				{
-					if (rxComment.IsMatch(line))
+			using(TextReader r = fi.OpenText()) {
+				while((line = r.ReadLine()) != null) {
+					if(rxComment.IsMatch(line))
 						continue;
-					if (rxParamet.IsMatch(line))
-					{
+					if(rxParamet.IsMatch(line)) {
 						Match m = rxParamet.Match(line);
 						_options.Add(
 							m.Groups[1].ToString().ToLower().Trim(),
@@ -44,20 +38,17 @@ namespace UWoW.Helper
 			return true;
 		}
 
-		public String GetString(string name)
-		{
+		public String GetString(string name) {
 			return _options[name.ToLower()];
 		}
 
-		public Int32 GetInt32(string name)
-		{
+		public Int32 GetInt32(string name) {
 			Int32 result;
 			Int32.TryParse(_options[name.ToLower()], out result);
 			return result;
 		}
 
-		public Single GetSingle(string name)
-		{
+		public Single GetSingle(string name) {
 			Single result;
 			Single.TryParse(_options[name.ToLower()], out result);
 			return result;

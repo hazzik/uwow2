@@ -8,6 +8,7 @@ using System.Threading;
 using System.Collections;
 using System.Net;
 using Hazzik.Helper;
+using Hazzik;
 
 namespace UWoW {
 	public class AuthProxy : ClientBase {

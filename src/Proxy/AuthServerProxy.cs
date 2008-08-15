@@ -4,11 +4,11 @@ using System.Text;
 using System.Net;
 
 namespace UWoW {
-	public class RLServer : ServerBase {
+	public class AuthServerProxy : ServerBase {
 		private EndPoint _forwdEndPoint;
 		private EndPoint _localEndPoint;
 
-		public RLServer(int listen_port, string forward_host, int forward_port)
+		public AuthServerProxy(int listen_port, string forward_host, int forward_port)
 			: base() {
 			_name = "RL PROXY";
 			_port = listen_port;
