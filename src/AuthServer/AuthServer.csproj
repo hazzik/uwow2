@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Hazzik</RootNamespace>
-    <AssemblyName>UWoW.RLServer</AssemblyName>
+    <AssemblyName>Hazzik.AuthServer</AssemblyName>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>2.0</OldToolsVersion>

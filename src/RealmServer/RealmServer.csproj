@@ -59,7 +59,11 @@
   <ItemGroup>
     <Compile Include="AddonInfo.cs" />
     <Compile Include="AddonManager.cs" />
+    <Compile Include="Attributes\WorldPacketHandler.cs" />
     <Compile Include="Net\WorldPacket.cs" />
+    <Compile Include="PacketHandlers\RealmHandlers.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="WMSG.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

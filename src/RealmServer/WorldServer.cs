@@ -8,7 +8,7 @@ using Hazzik.Attributes ;
 
 namespace Hazzik {
 	public class WorldServer : ServerBase {
-		public PacketHandler<PacketHandlerClassAttribute, PacketHandlerAttribute> Handler { get; set; }
+		public PacketHandler<PacketHandlerClassAttribute, WorldPacketHandlerAttribute> Handler { get; set; }
 		public WorldServer()
 			: base() {
 			_name = "WORLD SERVER";
@@ -17,8 +17,7 @@ namespace Hazzik {
 			_addressFamily = ep.Address.AddressFamily;
 			_address = ep.Address;
 
-			Handler = new PacketHandler<PacketHandlerClassAttribute, PacketHandlerAttribute>();
-			//this.Start();
+			Handler = new PacketHandler<PacketHandlerClassAttribute, WorldPacketHandlerAttribute>();
 		}
 
 		public override void OnAccept(System.Net.Sockets.Socket s) {

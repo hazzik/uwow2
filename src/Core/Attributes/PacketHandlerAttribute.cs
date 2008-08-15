@@ -5,6 +5,8 @@ using System.Text;
 
 namespace Hazzik.Attributes {
 	public class PacketHandlerAttribute : BaseHandlerAttribute {
-
+		public PacketHandlerAttribute(int code)
+			: base(code) {
+		}
 	}
 }
