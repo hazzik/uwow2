@@ -12,7 +12,7 @@ using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 using System.Net;
 using System.Runtime.InteropServices;
 
-namespace Hazzik {
+namespace Hazzik.Net {
 	public class WorldClient : ClientBase {
 		WorldServer server;
 		//HACK: we must store to database this value!

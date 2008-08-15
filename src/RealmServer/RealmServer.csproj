@@ -61,7 +61,7 @@
     <Compile Include="AddonManager.cs" />
     <Compile Include="Attributes\WorldPacketHandler.cs" />
     <Compile Include="Net\WorldPacket.cs" />
-    <Compile Include="PacketHandlers\RealmHandlers.cs">
+    <Compile Include="PacketHandlers\WorldServerHandlers.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="WMSG.cs" />
@@ -74,9 +74,9 @@
     <Compile Include="Objects\WorldItem.cs" />
     <Compile Include="Objects\WorldUnit.cs" />
     <Compile Include="UpdateFields.cs" />
-    <Compile Include="WorldClient.cs" />
+    <Compile Include="Net\WorldClient.cs" />
     <Compile Include="Objects\WorldObject.cs" />
-    <Compile Include="WorldServer.cs" />
+    <Compile Include="Net\WorldServer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">

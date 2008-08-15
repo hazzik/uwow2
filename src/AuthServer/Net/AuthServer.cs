@@ -5,7 +5,7 @@ using System.Net;
 
 using Hazzik.Net;
 
-namespace Hazzik {
+namespace Hazzik.Net {
 	public class AuthServer : ServerBase {
 		public AuthServer()
 			: base() {

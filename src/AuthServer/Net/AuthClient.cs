@@ -14,7 +14,7 @@ using System.Threading;
 using Hazzik.Helper;
 using Hazzik.Net;
 
-namespace Hazzik {
+namespace Hazzik.Net {
 
 	#region stuff
 

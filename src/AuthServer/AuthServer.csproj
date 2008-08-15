@@ -63,8 +63,8 @@
     <Compile Include="PatchManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="AuthClient.cs" />
-    <Compile Include="AuthServer.cs" />
+    <Compile Include="Net\AuthClient.cs" />
+    <Compile Include="Net\AuthServer.cs" />
     <Compile Include="Infos\ServerInfo.cs" />
   </ItemGroup>
   <ItemGroup>

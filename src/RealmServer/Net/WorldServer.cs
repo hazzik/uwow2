@@ -6,7 +6,7 @@ using Hazzik.Net;
 using System.Net;
 using Hazzik.Attributes ;
 
-namespace Hazzik {
+namespace Hazzik.Net {
 	public class WorldServer : ServerBase {
 		public PacketHandler<PacketHandlerClassAttribute, WorldPacketHandlerAttribute> Handler { get; set; }
 		public WorldServer()
