@@ -10,10 +10,11 @@ using Hazzik.Cryptography;
 using Hazzik.Helper;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 using System.Net;
+using System.Runtime.InteropServices;
 
 namespace Hazzik {
 	public class WorldClient : ClientBase {
-
+		WorldServer server;
 		//HACK: we must store to database this value!
 		private byte[] _ss;
 		private byte[] SS {
@@ -36,10 +37,10 @@ namespace Hazzik {
 		bool _firstPacket = true;
 		uint _seed = (uint)(new Random().Next(0, int.MaxValue));
 
-		public WorldClient(Socket socket)
+		public WorldClient(WorldServer server, Socket socket)
 			: base(socket) {
 			var p = new WorldPacket(WMSG.SMSG_AUTH_CHALLENGE);
-			var w = new BinaryWriter(p.GetStream());
+			var w = p.GetWriter();
 			w.Write(_seed);
 			this.WritePacket(p);
 
@@ -48,12 +49,13 @@ namespace Hazzik {
 			var algo = (SymmetricAlgorithm)new SRP6Wow(key);
 			_decryptor = algo.CreateDecryptor();
 			_encryptor = algo.CreateEncryptor();
+			this.server = server;
 			this.Start();
 		}
 
 		private byte[] computeDigest(uint client_seed) {
 			var buff = (byte[])null;
-			using(BinaryWriter w = new BinaryWriter(new MemoryStream())) {
+			using(var w = new BinaryWriter(new MemoryStream())) {
 				w.Write(Encoding.UTF8.GetBytes(_accountName));
 				w.Write(0);
 				w.Write(client_seed);
@@ -142,6 +144,7 @@ namespace Hazzik {
 				this.WritePacket(p);
 				return;
 			}
+			server.Handler.Handle(this, packet);
 		}
 
 		public override IPacket ReadPacket() {
