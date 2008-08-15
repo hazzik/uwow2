@@ -40,17 +40,18 @@ namespace Hazzik.Net {
 	#endregion
 
 	public class AuthClient : ClientBase {
+
 		static BigInteger bi_N = new BigInteger("894B645E89E1535BBDAD5B8B290650530801B18EBFBF5E8FAB3C82872A3E9BB7", 16);
 		static BigInteger bi_g = 7;
 		static BigInteger bi_k = 3;
 		static MD5 md5 = MD5.Create();
 		static SHA1 sha1 = SHA1.Create();
 
-
 		private BigInteger bi_b = BigInteger.genPseudoPrime(160, 5, Utility.seed2);
 		private BigInteger bi_v;
 		private BigInteger bi_B;
 		private BigInteger bi_s = BigInteger.genPseudoPrime(256, 5, Utility.seed2);
+		private Account _account;
 
 		public AuthClient(Socket client) :
 			base(client) {
@@ -69,7 +70,7 @@ namespace Hazzik.Net {
 		}
 
 		public override void ProcessData(IPacket packet) {
-			using(var reader = new BinaryReader(packet.GetStream())) {
+			using(var reader = packet.GetReader()) {
 				var code = (RMSG)packet.Code;
 
 				switch(code) {
@@ -145,7 +146,7 @@ namespace Hazzik.Net {
 					s.Seek(pinfo.Offset, SeekOrigin.Begin);
 					while(_canSendPatch && s.Position < s.Length) {
 						var p = new AuthPacket(RMSG.XFER_DATA);
-						var w = new BinaryWriter(p.GetStream());
+						var w = p.GetWriter();
 						var n = s.Read(buff, 0, 1500);
 						w.Write(buff, 0, n);
 						this.WritePacket(p);
@@ -165,9 +166,9 @@ namespace Hazzik.Net {
 			var platform = gr.ReadCString();
 			var os = gr.ReadCString();
 			var locale = Encoding.UTF8.GetString(gr.ReadBytes(4).Reverse());
-			var language = gr.ReadInt32();
+			var timezone = gr.ReadInt32();
 			var ip = new IPAddress(gr.ReadBytes(4));
-			var userName = gr.ReadString();
+			var accountName = gr.ReadString();
 
 			_clientInfo = new ClientInfo {
 				VersionInfo = new VersionInfo {
@@ -177,42 +178,26 @@ namespace Hazzik.Net {
 					OS = os,
 					Locale = locale,
 				},
-				TimeZone = language,
+				TimeZone = timezone,
 				IP = ip,
-				AccountName = userName,
+				AccountName = accountName,
 			};
 
-			//var dc = new UWoW.Data.UWoWDataContext();
-			//var account = (from a in dc.DBAccounts
-			//               where a.Name == _clientInfo.AccountName
-			//               select a).FirstOrDefault();
-			//_account = new Account(account);
-			//_srp6 = _account.SRP6;
+			_account = AccountManager.Instance.GetByName(accountName);
+			if(_account == null) {
+				_account = AccountManager.Instance.Create(accountName);
+				AccountManager.Instance.SetPassword(_account, accountName);
+				AccountManager.Instance.Save(_account);
+				AccountManager.Instance.SubmitChanges();
+			}
 
-
-			Random rand = new Random();
-
-			string Temp_str = "ADMIN:WPDIR4PA";
-			Temp_str = Temp_str.ToUpper();
-
-			byte[] TempHash = sha1.ComputeHash(Encoding.UTF8.GetBytes(Temp_str));
-
-			byte[] x = sha1.ComputeHash(Utility.Concat(bi_s.getBytes().Reverse(), TempHash));
-			BigInteger bi_x = new BigInteger(x.Reverse());
-			Console.WriteLine(bi_x.ToHexString());
-			bi_v = bi_g.modPow(bi_x, bi_N);
-
-			//account.PasswordSalt = bi_s.getBytes().Reverse();
-			//account.PasswordVerifier = bi_v.getBytes().Reverse();
-			//dc.SubmitChanges();
-
-			//bi_s = new BigInteger(account.PasswordSalt.Reverse());
-			//bi_v = new BigInteger(account.PasswordVerifier.Reverse());
+			bi_s = new BigInteger(_account.PasswordSalt.Reverse());
+			bi_v = new BigInteger(_account.PasswordVerifier.Reverse());
 			bi_B = (bi_v * bi_k + bi_g.modPow(bi_b, bi_N)) % bi_N;
 
 			#region sending reply to client
 			var p = new AuthPacket((int)RMSG.AUTH_LOGON_CHALLENGE);
-			var w = new BinaryWriter(p.GetStream());
+			var w = p.GetWriter();
 			{
 				w.Write((byte)0);
 				w.Write((byte)0);
@@ -259,11 +244,8 @@ namespace Hazzik.Net {
 				SS_Hash[i * 2 + 1] = S2_Hash[i];
 			}
 
-			//HACK: we must store to database this value!
-			var fi = new FileInfo(@"..\..\..\key.bin");
-			using(var w = fi.Open(FileMode.Create)) {
-				w.Write(SS_Hash, 0, 40);
-			}
+			_account.SessionKey = (byte[])SS_Hash.Clone();
+			AccountManager.Instance.SubmitChanges();
 
 			byte[] N_Hash = sha1.ComputeHash(bi_N.getBytes().Reverse());
 			byte[] G_Hash = sha1.ComputeHash(bi_g.getBytes().Reverse());
@@ -282,7 +264,7 @@ namespace Hazzik.Net {
 			BigInteger bi_M1Temp = new BigInteger(sha1.ComputeHash(Temp).Reverse());
 			if(bi_M1Temp != bi_M1) {
 				var p = new AuthPacket(RMSG.AUTH_LOGON_PROOF);
-				var w = new BinaryWriter(p.GetStream());
+				var w = p.GetWriter();
 				w.Write((byte)4);
 				w.Write((byte)3);
 				w.Write((byte)0);
@@ -298,7 +280,7 @@ namespace Hazzik.Net {
 			#region Sending reply to client
 			{
 				var p = new AuthPacket(RMSG.AUTH_LOGON_PROOF);
-				var w = new BinaryWriter(p.GetStream());
+				var w = p.GetWriter();
 				w.Write((byte)0);
 				w.Write(M2);
 				w.Write((ushort)0);
@@ -311,7 +293,7 @@ namespace Hazzik.Net {
 
 		public void HandleRealmList(BinaryReader gr) {
 			var p = new AuthPacket(RMSG.REALM_LIST);
-			var w = new BinaryWriter(p.GetStream());
+			var w = p.GetWriter();
 			{
 				w.Write(1);
 				w.Write((ushort)_serverList.Count);

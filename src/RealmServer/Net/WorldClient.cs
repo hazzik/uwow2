@@ -14,28 +14,14 @@ using System.Runtime.InteropServices;
 
 namespace Hazzik.Net {
 	public class WorldClient : ClientBase {
-		WorldServer server;
-		//HACK: we must store to database this value!
-		private byte[] _ss;
-		private byte[] SS {
-			get {
-				if(_ss == null) {
-					var fi = new FileInfo(@"..\..\..\key.bin");
-					using(var r = fi.Open(FileMode.OpenOrCreate)) {
-						_ss = new byte[40];
-						r.Read(_ss, 0, 40);
-					}
-				}
-				return _ss;
-			}
-		}
+		private Account _account;
+		private WorldServer _server;
 
-		ICryptoTransform _decryptor;
-		ICryptoTransform _encryptor;
-		string _accountName = "ADMIN";
+		private ICryptoTransform _decryptor;
+		private ICryptoTransform _encryptor;
 
-		bool _firstPacket = true;
-		uint _seed = (uint)(new Random().Next(0, int.MaxValue));
+		private bool _firstPacket = true;
+		private uint _seed = (uint)(new Random().Next(0, int.MaxValue));
 
 		public WorldClient(WorldServer server, Socket socket)
 			: base(socket) {
@@ -44,23 +30,18 @@ namespace Hazzik.Net {
 			w.Write(_seed);
 			this.WritePacket(p);
 
-			var hash = (HashAlgorithm)new HMACSHA1(new byte[] { 0x38, 0xA7, 0x83, 0x15, 0xF8, 0x92, 0x25, 0x30, 0x71, 0x98, 0x67, 0xB1, 0x8C, 0x4, 0xE2, 0xAA });
-			var key = hash.ComputeHash(SS);
-			var algo = (SymmetricAlgorithm)new SRP6Wow(key);
-			_decryptor = algo.CreateDecryptor();
-			_encryptor = algo.CreateEncryptor();
-			this.server = server;
+			this._server = server;
 			this.Start();
 		}
 
 		private byte[] computeDigest(uint client_seed) {
 			var buff = (byte[])null;
 			using(var w = new BinaryWriter(new MemoryStream())) {
-				w.Write(Encoding.UTF8.GetBytes(_accountName));
+				w.Write(Encoding.UTF8.GetBytes(_account.Name));
 				w.Write(0);
 				w.Write(client_seed);
 				w.Write(_seed);
-				w.Write(SS);
+				w.Write(_account.SessionKey);
 				w.Flush();
 				buff = (w.BaseStream as MemoryStream).ToArray();
 				buff = SHA1.Create().ComputeHash(buff, 0, buff.Length);
@@ -86,21 +67,13 @@ namespace Hazzik.Net {
 				var clientSeed = r.ReadUInt32();
 				var clientDigest = r.ReadBytes(20);
 
-				var addonInfoBlockSize = r.ReadUInt32();
-				dataStream = new InflaterInputStream(dataStream);//дальше данные запакованы
-				r = new BinaryReader(dataStream);
-				try {
-					while(true) {
-						var addonInfo = new AddonInfo() {
-							Name = r.ReadCString(),
-							Crc = r.ReadUInt64(),
-							Status = r.ReadByte(),
-						};
-						AddonManager.Instance[addonInfo.Name] = addonInfo;
-					}
-				} catch(Exception e) {
+				_account = AccountManager.Instance.GetByName(accountName);
 
-				}
+				var hash = (HashAlgorithm)new HMACSHA1(new byte[] { 0x38, 0xA7, 0x83, 0x15, 0xF8, 0x92, 0x25, 0x30, 0x71, 0x98, 0x67, 0xB1, 0x8C, 0x4, 0xE2, 0xAA });
+				var key = hash.ComputeHash(_account.SessionKey);
+				var algo = (SymmetricAlgorithm)new SRP6Wow(key);
+				_decryptor = algo.CreateDecryptor();
+				_encryptor = algo.CreateEncryptor();
 
 				var serverDigest = computeDigest(clientSeed);
 
@@ -116,8 +89,24 @@ namespace Hazzik.Net {
 				w.Write((uint)0);
 				w.Write((byte)0);
 				w.Write((uint)0);
-				w.Write((byte)1); // 0x01 for enabling Burning Crusade Races
+				w.Write((byte)_account.Expansion);
 				this.WritePacket(p);
+
+				var addonInfoBlockSize = r.ReadUInt32();
+				dataStream = new InflaterInputStream(dataStream);//дальше данные запакованы
+				r = new BinaryReader(dataStream);
+				try {
+					while(true) {
+						var addonInfo = new AddonInfo() {
+							Name = r.ReadCString(),
+							Crc = r.ReadUInt64(),
+							Status = r.ReadByte(),
+						};
+						AddonManager.Instance[addonInfo.Name] = addonInfo;
+					}
+				} catch(Exception e) {
+
+				}
 
 				p = new WorldPacket(WMSG.SMSG_ADDON_INFO);
 				w = p.GetWriter();
@@ -144,7 +133,7 @@ namespace Hazzik.Net {
 				this.WritePacket(p);
 				return;
 			}
-			server.Handler.Handle(this, packet);
+			_server.Handler.Handle(this, packet);
 		}
 
 		public override IPacket ReadPacket() {
