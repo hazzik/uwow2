@@ -7,9 +7,9 @@ using Hazzik.Net;
 using Hazzik.Attributes;
 
 namespace Hazzik {
-	public class PacketHandler<ClassAttribute, HandlerAttribute>
-		where ClassAttribute : BaseClassAttribute
-		where HandlerAttribute : BaseHandlerAttribute {
+	public class PacketHandler<C, H>
+		where C : PacketHandlerClassAttribute
+		where H : PacketHandlerAttribute {
 
 		List<Assembly> _assemblies = new List<Assembly>();
 		Dictionary<int, MethodInfo> _handlers = new Dictionary<int, MethodInfo>();
@@ -27,10 +27,10 @@ namespace Hazzik {
 		}
 
 		protected void LoadType(Type type) {
-			var attribs = (ClassAttribute[])type.GetCustomAttributes(typeof(ClassAttribute), true);
+			var attribs = (C[])type.GetCustomAttributes(typeof(C), true);
 			if(attribs.Length != 0) {
 				foreach(var method in type.GetMethods(BindingFlags.Public | BindingFlags.Static)) {
-					var handlers = (HandlerAttribute[])method.GetCustomAttributes(typeof(HandlerAttribute), true);
+					var handlers = (H[])method.GetCustomAttributes(typeof(H), true);
 					foreach(var handler in handlers) {
 						RegisterPacketHandler(handler.Code, type, method);
 					}
@@ -51,10 +51,10 @@ namespace Hazzik {
 		}
 
 		protected void UnloadType(Type type) {
-			var attribs = (ClassAttribute[])type.GetCustomAttributes(typeof(ClassAttribute), true);
+			var attribs = (C[])type.GetCustomAttributes(typeof(C), true);
 			if(attribs.Length != 0) {
 				foreach(var method in type.GetMethods(BindingFlags.Public | BindingFlags.Static)) {
-					var handlers = (HandlerAttribute[])method.GetCustomAttributes(typeof(HandlerAttribute), true);
+					var handlers = (H[])method.GetCustomAttributes(typeof(H), true);
 					foreach(var handler in handlers) {
 						UnregisterPacketHandler(handler.Code);
 					}

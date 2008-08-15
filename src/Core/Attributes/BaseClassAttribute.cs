@@ -4,6 +4,6 @@ using System.Linq;
 using System.Text;
 
 namespace Hazzik.Attributes {
-	public class BaseClassAttribute : Attribute {
+	public abstract class BaseClassAttribute : Attribute {
 	}
 }

@@ -8,7 +8,7 @@ using Hazzik.Attributes;
 
 namespace Hazzik {
 	[PacketHandlerClass]
-	public static class RealmHandlers {
+	public static class WorldServerHandlers {
 		[WorldPacketHandler(WMSG.CMSG_REALM_SPLIT)]
 		public static void HandleCMSG_REALM_SPLIT(ClientBase client, IPacket packet) {
 			var r = packet.GetReader();
