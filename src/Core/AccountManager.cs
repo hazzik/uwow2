@@ -15,6 +15,10 @@ namespace Hazzik {
 		public byte[] PasswordSalt { get; set; }
 		public byte[] PasswordVerifier { get; set; }
 		public byte[] SessionKey { get; set; }
+		public List<Player> Players { get; set; }
+		public Account() {
+			Players = new List<Player>();
+		}
 	}
 
 	public class AccountManager {

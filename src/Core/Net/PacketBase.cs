@@ -5,8 +5,8 @@ using System.Text;
 using System.IO;
 
 namespace Hazzik.Net {
-	public class PacketBase : IPacket {
-		private Stream _stream;
+	public abstract class PacketBase : IPacket {
+		protected Stream _stream;
 
 		protected internal PacketBase(int code, byte[] data) {
 			_stream = new MemoryStream(data, false);
@@ -18,11 +18,11 @@ namespace Hazzik.Net {
 			this.Code = code;
 		}
 
-		public int Code { get; set; }
+		public int Code { get; protected set; }
 
-		public int Size { get { return (int)_stream.Length; } }
+		public int Size { get { return (int)GetStream().Length; } }
 
-		public Stream GetStream() {
+		public virtual Stream GetStream() {
 			if(_stream == null) {
 				_stream = new MemoryStream();
 			}
@@ -36,5 +36,8 @@ namespace Hazzik.Net {
 		public BinaryWriter GetWriter() {
 			return new BinaryWriter(this.GetStream());
 		}
+
+		public abstract void WriteHead(Stream stream);
+		public abstract void WriteBody(Stream stream);
 	}
 }

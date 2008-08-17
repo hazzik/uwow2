@@ -155,7 +155,9 @@ namespace Hazzik.Helper {
 		}
 
 		public static void WriteCString(this BinaryWriter w, string value, Encoding encoding) {
-			w.Write(encoding.GetBytes(value));
+			if(!string.IsNullOrEmpty(value)) {
+				w.Write(encoding.GetBytes(value));
+			}
 			w.Write((byte)0);
 		}
 

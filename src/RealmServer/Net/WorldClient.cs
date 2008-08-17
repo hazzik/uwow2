@@ -14,7 +14,7 @@ using System.Runtime.InteropServices;
 
 namespace Hazzik.Net {
 	public class WorldClient : ClientBase {
-		private Account _account;
+		public Account Account { get; set; }
 		private WorldServer _server;
 
 		private ICryptoTransform _decryptor;
@@ -37,11 +37,11 @@ namespace Hazzik.Net {
 		private byte[] computeDigest(uint client_seed) {
 			var buff = (byte[])null;
 			using(var w = new BinaryWriter(new MemoryStream())) {
-				w.Write(Encoding.UTF8.GetBytes(_account.Name));
+				w.Write(Encoding.UTF8.GetBytes(Account.Name));
 				w.Write(0);
 				w.Write(client_seed);
 				w.Write(_seed);
-				w.Write(_account.SessionKey);
+				w.Write(Account.SessionKey);
 				w.Flush();
 				buff = (w.BaseStream as MemoryStream).ToArray();
 				buff = SHA1.Create().ComputeHash(buff, 0, buff.Length);
@@ -67,10 +67,10 @@ namespace Hazzik.Net {
 				var clientSeed = r.ReadUInt32();
 				var clientDigest = r.ReadBytes(20);
 
-				_account = AccountManager.Instance.GetByName(accountName);
+				Account = AccountManager.Instance.GetByName(accountName);
 
 				var hash = (HashAlgorithm)new HMACSHA1(new byte[] { 0x38, 0xA7, 0x83, 0x15, 0xF8, 0x92, 0x25, 0x30, 0x71, 0x98, 0x67, 0xB1, 0x8C, 0x4, 0xE2, 0xAA });
-				var key = hash.ComputeHash(_account.SessionKey);
+				var key = hash.ComputeHash(Account.SessionKey);
 				var algo = (SymmetricAlgorithm)new SRP6Wow(key);
 				_decryptor = algo.CreateDecryptor();
 				_encryptor = algo.CreateEncryptor();
@@ -89,7 +89,7 @@ namespace Hazzik.Net {
 				w.Write((uint)0);
 				w.Write((byte)0);
 				w.Write((uint)0);
-				w.Write((byte)_account.Expansion);
+				w.Write((byte)Account.Expansion);
 				this.WritePacket(p);
 
 				var addonInfoBlockSize = r.ReadUInt32();
@@ -125,14 +125,6 @@ namespace Hazzik.Net {
 				this.WritePacket(p);
 				return;
 			}
-			if(code == WMSG.CMSG_CHAR_ENUM) {
-				var r = packet.GetReader();
-				var p = new WorldPacket(WMSG.SMSG_CHAR_ENUM);
-				var w = p.GetWriter();
-				w.Write((byte)0);
-				this.WritePacket(p);
-				return;
-			}
 			_server.Handler.Handle(this, packet);
 		}
 
@@ -150,20 +142,9 @@ namespace Hazzik.Net {
 
 		public override void WritePacket(IPacket packet) {
 			var data = this.GetStream();
-			var head = new BinaryWriter(_firstPacket ? data : new CryptoStream(data, _encryptor, CryptoStreamMode.Write));
-
-			var len = packet.Size + 2;
-			head.Write((byte)(len << 8));
-			head.Write((byte)len);
-			head.Write((ushort)packet.Code);
-
-			var buff = new byte[1024];
-			var bytesRead = 0;
-			var packetStream = packet.GetStream();
-			packetStream.Seek(0, SeekOrigin.Begin);
-			while((bytesRead = packetStream.Read(buff, 0, 1024)) > 0) {
-				data.Write(buff, 0, bytesRead);
-			}
+			var head = _firstPacket ? data : new CryptoStream(data, _encryptor, CryptoStreamMode.Write);
+			packet.WriteHead(head);
+			packet.WriteBody(data);
 		}
 	}
 }

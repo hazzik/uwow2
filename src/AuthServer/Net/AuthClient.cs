@@ -70,43 +70,41 @@ namespace Hazzik.Net {
 		}
 
 		public override void ProcessData(IPacket packet) {
-			using(var reader = packet.GetReader()) {
-				var code = (RMSG)packet.Code;
+			var code = (RMSG)packet.Code;
 
-				switch(code) {
-				case (RMSG)0:
-				case (RMSG)2:
-					HandleLogonChallenge(reader);
-					break;
+			switch(code) {
+			case (RMSG)0:
+			case (RMSG)2:
+				HandleLogonChallenge(packet);
+				break;
 
-				case (RMSG)1:
-				case (RMSG)3:
-					HandleLogonProof(reader);
-					break;
+			case (RMSG)1:
+			case (RMSG)3:
+				HandleLogonProof(packet);
+				break;
 
-				case (RMSG)4:
-					break;
+			case (RMSG)4:
+				break;
 
-				case (RMSG)0x10:
-					HandleRealmList(reader);
-					break;
+			case (RMSG)0x10:
+				HandleRealmList(packet);
+				break;
 
-				case (RMSG)0x32:
-					HandleXferAccept(reader);
-					break;
+			case (RMSG)0x32:
+				HandleXferAccept(packet);
+				break;
 
-				case (RMSG)0x33:
-					HandleXferResume(reader);
-					break;
+			case (RMSG)0x33:
+				HandleXferResume(packet);
+				break;
 
-				case (RMSG)0x34:
-					HandleXferCancel(reader);
-					break;
+			case (RMSG)0x34:
+				HandleXferCancel(packet);
+				break;
 
-				default:
-					Console.WriteLine("Receive unknown command {0}", code);
-					break;
-				}
+			default:
+				Console.WriteLine("Receive unknown command {0}", code);
+				break;
 			}
 		}
 
@@ -157,7 +155,8 @@ namespace Hazzik.Net {
 		}
 
 		ClientInfo _clientInfo;
-		public void HandleLogonChallenge(BinaryReader gr) {
+		public void HandleLogonChallenge(IPacket packet) {
+			var gr = packet.GetReader();
 			var tag = gr.ReadCString();
 			var verMajor = (int)gr.ReadByte();
 			var verMinor = (int)gr.ReadByte();
@@ -214,7 +213,8 @@ namespace Hazzik.Net {
 			#endregion
 		}
 
-		public void HandleLogonProof(BinaryReader gr) {
+		public void HandleLogonProof(IPacket packet) {
+			var gr = packet.GetReader();
 
 			BigInteger bi_A = new BigInteger(gr.ReadBytes(32).Reverse());
 			BigInteger bi_M1 = new BigInteger(gr.ReadBytes(20).Reverse());
@@ -291,7 +291,9 @@ namespace Hazzik.Net {
 			#endregion
 		}
 
-		public void HandleRealmList(BinaryReader gr) {
+		public void HandleRealmList(IPacket packet) {
+			var gr = packet.GetReader();
+
 			var p = new AuthPacket(RMSG.REALM_LIST);
 			var w = p.GetWriter();
 			{
@@ -331,15 +333,18 @@ namespace Hazzik.Net {
 			this.WritePacket(p);
 		}
 
-		public void HandleXferAccept(BinaryReader gr) {
+		public void HandleXferAccept(IPacket packet) {
+			var gr = packet.GetReader();
 			sendPatch("wow-patch.mpq", 0);
 		}
 
-		public void HandleXferResume(BinaryReader gr) {
+		public void HandleXferResume(IPacket packet) {
+			var gr = packet.GetReader();
 			sendPatch("wow-patch.mpq", gr.ReadInt64());
 		}
 
-		public void HandleXferCancel(BinaryReader gr) {
+		public void HandleXferCancel(IPacket packet) {
+			var gr = packet.GetReader();
 			_canSendPatch = false;
 		}
 
@@ -377,20 +382,10 @@ namespace Hazzik.Net {
 
 		public override void WritePacket(IPacket packet) {
 			var data = this.GetStream();
-			var head = new BinaryWriter(data);
+			var head = data;
 
-			head.Write((byte)packet.Code);
-			if((RMSG)packet.Code == RMSG.REALM_LIST || (RMSG)packet.Code == RMSG.XFER_DATA) {
-				head.Write((ushort)packet.Size);
-			}
-
-			var buff = new byte[1024];
-			var bytesRead = 0;
-			var packetStream = packet.GetStream();
-			packetStream.Seek(0, SeekOrigin.Begin);
-			while((bytesRead = packetStream.Read(buff, 0, 1024)) > 0) {
-				data.Write(buff, 0, bytesRead);
-			}
+			packet.WriteHead(head);
+			packet.WriteBody(data);
 		}
 	}
 }
