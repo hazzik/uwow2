@@ -21,9 +21,9 @@ namespace Hazzik.Net {
 				}
 				_stream = new MemoryStream();
 				_stream.WriteByte((byte)(size));
-				_stream.WriteByte((byte)(size << 0x08));
-				_stream.WriteByte((byte)(size << 0x10));
-				_stream.WriteByte((byte)(size << 0x18));
+				_stream.WriteByte((byte)(size >> 0x08));
+				_stream.WriteByte((byte)(size >> 0x10));
+				_stream.WriteByte((byte)(size >> 0x18));
 
 				var compressedStream = new DeflaterOutputStream(_stream);
 				foreach(var packet in _packets) {
