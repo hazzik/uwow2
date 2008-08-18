@@ -55,7 +55,7 @@ namespace Hazzik.Net {
 
 		public AuthClient(Socket client) :
 			base(client) {
-			_serverList.Add(new ServerInfo {
+			_serverList.Add(new WorldServerInfo {
 				Type = 0,
 				Locked = 0,
 				Status = 0,
@@ -108,23 +108,12 @@ namespace Hazzik.Net {
 			}
 		}
 
-		private List<ServerInfo> _serverList = new List<ServerInfo>();
+		private List<WorldServerInfo> _serverList = new List<WorldServerInfo>();
 
-		private bool _canSendPatch = true;
-		private byte[] patchAvailable {
-			get {
-				using(var s = (Stream)new FileStream("wow-patch.mpq", FileMode.OpenOrCreate)) {
-					MD5 md5 = new MD5CryptoServiceProvider();
-
-					using(var w = new BinaryWriter(new MemoryStream())) {
-						w.Write((byte)RMSG.XFER_INITIATE); // send patch :)
-						w.Write("Patch");
-						w.Write(s.Length);
-						w.Write(md5.ComputeHash(s));
-						return (w.BaseStream as MemoryStream).ToArray();
-					}
-				}
-			}
+		private bool _acceptPatch = true;
+		public bool AcceptPatch {
+			get { return _acceptPatch; }
+			set { _acceptPatch = value; }
 		}
 
 		private void sendPatch(string filename, long offset) {
@@ -142,7 +131,7 @@ namespace Hazzik.Net {
 				using(var s = (Stream)new FileStream(pinfo.FileName, FileMode.OpenOrCreate)) {
 					byte[] buff = new byte[1503];
 					s.Seek(pinfo.Offset, SeekOrigin.Begin);
-					while(_canSendPatch && s.Position < s.Length) {
+					while(this.AcceptPatch && s.Position < s.Length) {
 						var p = new AuthPacket(RMSG.XFER_DATA);
 						var w = p.GetWriter();
 						var n = s.Read(buff, 0, 1500);
@@ -334,7 +323,6 @@ namespace Hazzik.Net {
 		}
 
 		public void HandleXferAccept(IPacket packet) {
-			var gr = packet.GetReader();
 			sendPatch("wow-patch.mpq", 0);
 		}
 
@@ -344,8 +332,7 @@ namespace Hazzik.Net {
 		}
 
 		public void HandleXferCancel(IPacket packet) {
-			var gr = packet.GetReader();
-			_canSendPatch = false;
+			this.AcceptPatch = false;
 		}
 
 		public override IPacket ReadPacket() {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace Hazzik {
-	public class ServerInfo {
+	public class WorldServerInfo {
 		public byte Type { get; set; }
 		public byte Locked { get; set; }
 		public byte Status { get; set; }
