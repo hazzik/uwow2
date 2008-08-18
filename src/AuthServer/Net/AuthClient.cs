@@ -52,8 +52,9 @@ namespace Hazzik.Net {
 		private BigInteger bi_B;
 		private BigInteger bi_s = BigInteger.genPseudoPrime(256, 5, Utility.seed2);
 		private Account _account;
+		private AuthServer _server;
 
-		public AuthClient(Socket client) :
+		public AuthClient(AuthServer server, Socket client) :
 			base(client) {
 			_serverList.Add(new WorldServerInfo {
 				Type = 0,
@@ -66,6 +67,7 @@ namespace Hazzik.Net {
 				Population = 1,
 				Unk = 0
 			});
+			_server = server;
 			Start();
 		}
 
@@ -121,6 +123,7 @@ namespace Hazzik.Net {
 			th.IsBackground = true;
 			th.Start(new PatchInfo { FileName = filename, Offset = offset });
 		}
+
 		struct PatchInfo {
 			public string FileName;
 			public long Offset;

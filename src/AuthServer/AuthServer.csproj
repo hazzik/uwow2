@@ -61,7 +61,6 @@
     <Compile Include="Enums\RMSG.cs" />
     <Compile Include="Infos\VersionInfo.cs" />
     <Compile Include="Net\AuthPacket.cs" />
-    <Compile Include="Patcher.cs" />
     <Compile Include="PatchManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

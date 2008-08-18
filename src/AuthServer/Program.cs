@@ -5,12 +5,15 @@ using System.Net;
 using System.Text;
 using Hazzik.Helper;
 using Hazzik.Net;
+using System.Reflection;
 
 namespace Hazzik {
 	public class Program {
-		static ServerBase _authServer;
 		static void Main(string[] args) {
-			_authServer = new AuthServer();
+			var server = new AuthServer();
+			server.Handler.AddAssembly(Assembly.GetExecutingAssembly());
+			server.Handler.Load();
+			server.Start();
 		}
 	}
 }
