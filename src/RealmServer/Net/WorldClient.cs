@@ -57,7 +57,7 @@ namespace Hazzik.Net {
 				_firstPacket = false;
 
 				var dataStream = packet.GetStream();
-				var r = new BinaryReader(dataStream);
+				var r = packet.GetReader();
 				var version = r.ReadUInt32();
 				var unk2 = r.ReadUInt32();
 				var accountName = r.ReadCString();
