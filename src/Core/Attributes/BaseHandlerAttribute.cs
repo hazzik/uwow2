@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace Hazzik.Attributes {
+	[AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
 	public abstract class BaseHandlerAttribute : Attribute {
 		public int Code { get; private set; }
 

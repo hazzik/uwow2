@@ -7,7 +7,6 @@ namespace Hazzik.Net {
 	public abstract class ClientBase {
 		protected Socket _socket;
 		private Stream _stream;
-		private Queue<IPacket> _packets = new Queue<IPacket>();
 
 		public ClientBase(Socket socket) {
 			_socket = socket;

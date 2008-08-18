@@ -56,10 +56,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\AuthPacketHandlerAttribute.cs" />
     <Compile Include="Infos\ClientInfo.cs" />
     <Compile Include="Enums\RMSG.cs" />
     <Compile Include="Infos\VersionInfo.cs" />
     <Compile Include="Net\AuthPacket.cs" />
+    <Compile Include="Patcher.cs" />
     <Compile Include="PatchManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
