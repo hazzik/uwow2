@@ -56,7 +56,6 @@
     <Compile Include="Attributes\PacketHandlerAttribute.cs" />
     <Compile Include="Attributes\PacketHandlerClassAttribute.cs" />
     <Compile Include="Classes.cs" />
-    <Compile Include="Cryptography\SRP.cs" />
     <Compile Include="Cryptography\SRP6Wow.cs" />
     <Compile Include="Net\PacketBase.cs" />
     <Compile Include="Net\ClientBase.cs" />

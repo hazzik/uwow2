@@ -87,8 +87,9 @@ namespace Hazzik.Net {
 		public bool AcceptPatch { get; set; }
 
 		private void sendPatch(string filename, long offset) {
-			Thread th = new Thread(ThreadedSend);
-			th.IsBackground = true;
+			Thread th = new Thread(ThreadedSend) {
+				IsBackground = true
+			};
 			th.Start(new PatchInfo { FileName = filename, Offset = offset });
 		}
 
