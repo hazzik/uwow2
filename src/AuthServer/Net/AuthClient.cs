@@ -143,9 +143,9 @@ namespace Hazzik.Net {
 				AccountName = accountName,
 			};
 
-			_account = AccountManager.Instance.GetByName(accountName);
+			_account = AccountManager.Instance.GetAccountByName(accountName);
 			if(_account == null) {
-				_account = AccountManager.Instance.Create(accountName);
+				_account = AccountManager.Instance.CreateAccount(accountName);
 				AccountManager.Instance.SetPassword(_account, accountName);
 				AccountManager.Instance.Save(_account);
 				AccountManager.Instance.SubmitChanges();

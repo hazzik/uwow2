@@ -31,13 +31,12 @@ namespace Hazzik {
 				var wclient = client as WorldClient;
 				var p = new WorldPacket(WMSG.SMSG_CHAR_ENUM);
 				var w = p.GetWriter();
-				w.Write((byte)wclient.Account.Players.Count);
+				w.Write((byte)wclient.Account.Players.Count());
 				foreach(var player in wclient.Account.Players) {
 					player.WriteSMSG_CHAR_ENUM(w);
 				}
 				client.WritePacket(p);
-			}
-			catch(Exception e) {
+			} catch(Exception e) {
 				Console.WriteLine(e.Message);
 			}
 		}
@@ -46,7 +45,6 @@ namespace Hazzik {
 		public static void HandleCMSG_CHAR_CREATE(ClientBase client, IPacket packet) {
 			var r = packet.GetReader();
 			var player = new Player() {
-				Guid = 1,
 				Name = r.ReadCString(),
 				Race = (Races)r.ReadByte(),
 				Classe = (Classes)r.ReadByte(),
@@ -57,7 +55,7 @@ namespace Hazzik {
 				hairColor = r.ReadByte(),
 				facialHair = r.ReadByte(),
 			};
-			(client as WorldClient).Account.Players.Add(player);
+			(client as WorldClient).Account.AddPlayer(player);
 			var responce = new WorldPacket(WMSG.SMSG_CHAR_CREATE);
 			var w = responce.GetWriter();
 			w.Write((byte)47);

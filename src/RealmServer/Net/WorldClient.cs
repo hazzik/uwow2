@@ -67,7 +67,7 @@ namespace Hazzik.Net {
 				var clientSeed = r.ReadUInt32();
 				var clientDigest = r.ReadBytes(20);
 
-				Account = AccountManager.Instance.GetByName(accountName);
+				Account = AccountManager.Instance.GetAccountByName(accountName);
 
 				var hash = (HashAlgorithm)new HMACSHA1(new byte[] { 0x38, 0xA7, 0x83, 0x15, 0xF8, 0x92, 0x25, 0x30, 0x71, 0x98, 0x67, 0xB1, 0x8C, 0x4, 0xE2, 0xAA });
 				var key = hash.ComputeHash(Account.SessionKey);

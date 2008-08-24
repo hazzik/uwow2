@@ -7,7 +7,7 @@ using System.IO;
 
 namespace Hazzik {
 	public class Player {
-		public long Guid { get; set; }
+		public long Guid { get; private set; }
 		public string Name { get; set; }
 		public Races Race { get; set; }
 		public Classes Classe { get; set; }
@@ -30,6 +30,10 @@ namespace Hazzik {
 		public int PetCreatureFamily;
 		public object[] Items = new object[20];
 		public bool Dead;
+
+		public Player() {
+			Guid = ObjectGuid.NewGuid();
+		}
 
 		public void WriteSMSG_CHAR_ENUM(BinaryWriter w) {
 			w.Write(this.Guid);

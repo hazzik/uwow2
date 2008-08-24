@@ -15,9 +15,14 @@ namespace Hazzik {
 		public byte[] PasswordSalt { get; set; }
 		public byte[] PasswordVerifier { get; set; }
 		public byte[] SessionKey { get; set; }
-		public List<Player> Players { get; set; }
-		public Account() {
-			Players = new List<Player>();
+
+		private readonly List<Player> _players = new List<Player>();
+		public Player[] Players { get { return _players.ToArray(); } }
+		public void AddPlayer(Player player) {
+			_players.Add(player);
+		}
+		public void DelPlayer(Player player) {
+			_players.Remove(player);
 		}
 	}
 
@@ -48,13 +53,16 @@ namespace Hazzik {
 		private XmlSerializer _serializer = new XmlSerializer(typeof(List<Account>));
 		private SHA1 sha1 = SHA1.Create();
 
-		public Account Create(string name) {
-			return new Account() {
+		public Account CreateAccount(string name) {
+			var account = new Account() {
 				ID = Guid.NewGuid(),
-				Name = name ,
+				Name = name,
 			};
+			_accounts.Add(account);
+			return account;
 		}
-		public Account GetByName(string name) {
+
+		public Account GetAccountByName(string name) {
 			return (from account in _accounts
 					  where account.Name.ToUpper() == name.ToUpper()
 					  select account).FirstOrDefault();
