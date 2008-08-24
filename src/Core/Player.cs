@@ -7,7 +7,7 @@ using System.IO;
 
 namespace Hazzik {
 	public class Player {
-		public long Guid { get; private set; }
+		public long Guid { get; protected set; }
 		public string Name { get; set; }
 		public Races Race { get; set; }
 		public Classes Classe { get; set; }
