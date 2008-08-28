@@ -12,11 +12,7 @@ namespace Hazzik.Net {
 		public WorldServer()
 			: base() {
 			_name = "WORLD SERVER";
-			_port = 3725;
-			var ep = new IPEndPoint(IPAddress.Any, _port);
-			_addressFamily = ep.Address.AddressFamily;
-			_address = ep.Address;
-
+			LocalEndPoint = new IPEndPoint(IPAddress.Any, 3725);
 			Handler = new PacketHandler<PacketHandlerClassAttribute, WorldPacketHandlerAttribute>();
 		}
 

@@ -8,13 +8,23 @@ using System.Threading;
 namespace Hazzik.Net {
 	public abstract class ServerBase : IDisposable {
 		protected List<ClientBase> _clients = new List<ClientBase>();
-
 		protected Socket _listenSocket;
-		protected IPAddress _address;
-		protected AddressFamily _addressFamily;
-		protected string ip;
-		protected int _port;
 		protected string _name;
+
+		private IPEndPoint _localEndPoint = new IPEndPoint(IPAddress.Any, 0);
+		public IPEndPoint LocalEndPoint {
+			get { return _localEndPoint; }
+			set { _localEndPoint = value; }
+		}
+		public AddressFamily AddressFamily {
+			get { return _localEndPoint.AddressFamily; }
+		}
+		public IPAddress Address {
+			get { return _localEndPoint.Address; }
+		}
+		public int Port {
+			get { return _localEndPoint.Port; }
+		}
 
 		private bool _disposed = false;
 
@@ -22,15 +32,16 @@ namespace Hazzik.Net {
 
 		public bool Start() {
 			try {
-				_listenSocket = new Socket(_addressFamily, SocketType.Stream, ProtocolType.Tcp);
-				_listenSocket.Bind(new IPEndPoint(IPAddress.Any, _port));
+				_listenSocket = new Socket(_localEndPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+				_listenSocket.Bind(_localEndPoint);
 				_listenSocket.Listen(100);
-				Console.WriteLine("{0} started, listen {1}:{2}", _name, _address, _port);
-				Thread accept_tread = new Thread(new ThreadStart(AcceptTread));
-				//accept_tread.IsBackground = true;
+				Console.WriteLine("{0} started, listen {1}", _name, _localEndPoint);
+				Thread accept_tread = new Thread(AcceptTread) {
+					IsBackground = true,
+				};
 				accept_tread.Start();
 			} catch(Exception e) {
-				Console.WriteLine("Failed to list on port {0}\n{1}", _port, e.Message);
+				Console.WriteLine("Failed to list on {0}\n{1}", _localEndPoint, e.Message);
 				_listenSocket = null;
 				return false;
 			}

@@ -12,10 +12,7 @@ namespace Hazzik.Net {
 		public AuthServer()
 			: base() {
 			_name = "AUTH SERVER";
-			_port = 3724;
-			var ep = new IPEndPoint(IPAddress.Any, _port);
-			_addressFamily = ep.Address.AddressFamily;
-			_address = ep.Address;
+			LocalEndPoint = new IPEndPoint(IPAddress.Any, 3724);
 			this.Handler = new PacketHandler<PacketHandlerClassAttribute, AuthPacketHandlerAttribute>();
 		}
 
