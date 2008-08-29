@@ -161,6 +161,21 @@ namespace Hazzik.Helper {
 			w.Write((byte)0);
 		}
 
+		public static void WritePackGuid(this BinaryWriter w, ulong guid) {
+			var buff = new byte[8];
+			var mask = (byte)0;
+			var offset = 0;
+			for(int i = 0; i < 8; i++) {
+				if((byte)guid != 0) {
+					buff[offset++] = (byte)guid;
+					mask |= (byte)(1 << i);
+				}
+				guid >>= 8;
+			}
+			w.Write(mask);
+			w.Write(buff, 0, offset);
+		}
+
 		public static string ReadCString(this BinaryReader r) {
 			return ReadCString(r, Encoding.UTF8);
 		}
@@ -172,6 +187,18 @@ namespace Hazzik.Helper {
 				buff.Add(b);
 			}
 			return encoding.GetString(buff.ToArray());
+		}
+
+		public static ulong ReadPackGuid(this BinaryReader reader) {
+			ulong guid = 0;
+			byte mask = reader.ReadByte();
+			for(int i = 0; i < 8; i++) {
+				guid >>= 8;
+				if((mask & (1 << i)) != 0) {
+					guid |= (ulong)(reader.ReadByte()) << 56;
+				}
+			}
+			return guid;
 		}
 	}
 }

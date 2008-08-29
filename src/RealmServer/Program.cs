@@ -13,6 +13,7 @@ namespace Hazzik {
 			server.Handler.AddAssembly(Assembly.GetExecutingAssembly());
 			server.Handler.Load();
 			server.Start();
+			Console.ReadLine();
 		}
 	}
 }
