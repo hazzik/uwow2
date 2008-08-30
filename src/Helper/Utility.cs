@@ -7,9 +7,6 @@ using System.Collections.Generic;
 
 namespace Hazzik.Helper {
 	public static class Utility {
-
-		private static DateTime deltaTime = new DateTime(1970, 1, 1);
-
 		public static Random seed2 = new Random();
 
 		public static int Random(int max) {
@@ -102,14 +99,6 @@ namespace Hazzik.Helper {
 			return val;
 		}
 
-		public static uint ToUnixTimestamp(DateTime d) {
-			return (uint)(new TimeSpan(DateTime.Now.Ticks - deltaTime.Ticks)).TotalSeconds;
-		}
-
-		public static DateTime ToDateTime(uint unixTimestamp) {
-			return deltaTime.AddSeconds((double)unixTimestamp);
-		}
-
 		public static void View(TextWriter tw, byte[] b, int offset, int len) {
 			for(int i = 0; i < len; i += 16) {
 				tw.Write("{0:X10}: ", i);
@@ -148,57 +137,6 @@ namespace Hazzik.Helper {
 			Buffer.BlockCopy(a, 0, tmp, 0, a.Length);
 			Buffer.BlockCopy(b, 0, tmp, a.Length, b.Length);
 			return tmp;
-		}
-
-		public static void WriteCString(this BinaryWriter w, string value) {
-			WriteCString(w, value, Encoding.UTF8);
-		}
-
-		public static void WriteCString(this BinaryWriter w, string value, Encoding encoding) {
-			if(!string.IsNullOrEmpty(value)) {
-				w.Write(encoding.GetBytes(value));
-			}
-			w.Write((byte)0);
-		}
-
-		public static void WritePackGuid(this BinaryWriter w, ulong guid) {
-			var buff = new byte[8];
-			var mask = (byte)0;
-			var offset = 0;
-			for(int i = 0; i < 8; i++) {
-				if((byte)guid != 0) {
-					buff[offset++] = (byte)guid;
-					mask |= (byte)(1 << i);
-				}
-				guid >>= 8;
-			}
-			w.Write(mask);
-			w.Write(buff, 0, offset);
-		}
-
-		public static string ReadCString(this BinaryReader r) {
-			return ReadCString(r, Encoding.UTF8);
-		}
-
-		public static string ReadCString(this BinaryReader r, Encoding encoding) {
-			var b = (byte)0;
-			var buff = new List<byte>();
-			while((b = r.ReadByte()) != 0) {
-				buff.Add(b);
-			}
-			return encoding.GetString(buff.ToArray());
-		}
-
-		public static ulong ReadPackGuid(this BinaryReader reader) {
-			ulong guid = 0;
-			byte mask = reader.ReadByte();
-			for(int i = 0; i < 8; i++) {
-				guid >>= 8;
-				if((mask & (1 << i)) != 0) {
-					guid |= (ulong)(reader.ReadByte()) << 56;
-				}
-			}
-			return guid;
 		}
 	}
 }
