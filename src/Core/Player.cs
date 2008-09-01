@@ -56,11 +56,11 @@ namespace Hazzik {
 			w.Write(this.Z);
 			w.Write(this.GuildID);
 
-			uint flag = 0x01000000;
+			uint flag = 0x00000000;
 			if(this.Dead)
 				flag |= 0x20;
 			w.Write(flag);
-			w.Write((byte)1);
+			w.Write((byte)0);
 			w.Write(this.PetDisplayId);
 			w.Write(this.PetLevel);
 			w.Write(this.PetCreatureFamily);

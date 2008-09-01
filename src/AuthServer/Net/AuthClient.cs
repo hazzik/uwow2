@@ -108,7 +108,7 @@ namespace Hazzik.Net {
 						var w = p.GetWriter();
 						var n = s.Read(buff, 0, 1500);
 						w.Write(buff, 0, n);
-						this.WritePacket(p);
+						this.SendPacket(p);
 					}
 				}
 			} catch {
@@ -170,7 +170,7 @@ namespace Hazzik.Net {
 				w.Write(new byte[16]);
 				w.Write((byte)0);
 			}
-			this.WritePacket(p);
+			this.SendPacket(p);
 			#endregion
 		}
 
@@ -230,7 +230,7 @@ namespace Hazzik.Net {
 				w.Write((byte)3);
 				w.Write((byte)0);
 
-				this.WritePacket(p);
+				this.SendPacket(p);
 				return;
 			}
 
@@ -247,7 +247,7 @@ namespace Hazzik.Net {
 				w.Write((ushort)0);
 				w.Write((uint)0);
 				w.Write((uint)0);
-				this.WritePacket(p);
+				this.SendPacket(p);
 			}
 			#endregion
 		}
@@ -291,7 +291,7 @@ namespace Hazzik.Net {
 				}
 				w.Write((ushort)2);
 			}
-			this.WritePacket(p);
+			this.SendPacket(p);
 		}
 
 		public void HandleXferAccept(IPacket packet) {
@@ -341,7 +341,7 @@ namespace Hazzik.Net {
 			}
 		}
 
-		public override void WritePacket(IPacket packet) {
+		public override void SendPacket(IPacket packet) {
 			var data = this.GetStream();
 			var head = data;
 

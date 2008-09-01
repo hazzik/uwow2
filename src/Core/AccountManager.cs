@@ -8,24 +8,6 @@ using System.Security.Cryptography;
 using Hazzik.Helper;
 
 namespace Hazzik {
-	public class Account {
-		public Guid ID { get; set; }
-		public string Name { get; set; }
-		public int Expansion { get; set; }
-		public byte[] PasswordSalt { get; set; }
-		public byte[] PasswordVerifier { get; set; }
-		public byte[] SessionKey { get; set; }
-
-		private readonly List<Player> _players = new List<Player>();
-		public Player[] Players { get { return _players.ToArray(); } }
-		public void AddPlayer(Player player) {
-			_players.Add(player);
-		}
-		public void DelPlayer(Player player) {
-			_players.Remove(player);
-		}
-	}
-
 	public class AccountManager {
 		private static BigInteger bi_N = new BigInteger("894B645E89E1535BBDAD5B8B290650530801B18EBFBF5E8FAB3C82872A3E9BB7", 16);
 		private static BigInteger bi_g = 7;
