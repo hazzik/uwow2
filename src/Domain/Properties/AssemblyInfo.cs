@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("UWoW.Entities")]
+[assembly: AssemblyTitle("Domain")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("ALIZA")]
-[assembly: AssemblyProduct("UWoW.Entities")]
-[assembly: AssemblyCopyright("Copyright © ALIZA 2008")]
+[assembly: AssemblyCompany("Hewlett-Packard")]
+[assembly: AssemblyProduct("Domain")]
+[assembly: AssemblyCopyright("Copyright © Hewlett-Packard 2008")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("f8298e52-9901-4889-b518-598eabf4fdb0")]
+[assembly: Guid("a8dbe0dc-462b-40ad-b6e5-57341087ee7f")]
 
 // Version information for an assembly consists of the following four values:
 //
