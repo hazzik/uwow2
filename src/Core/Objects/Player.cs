@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using Hazzik.Helper;
 using System.IO;
+using Hazzik.Objects;
 
-namespace Hazzik {
-	public class Player {
-		public long Guid { get; protected set; }
+namespace Hazzik.Objects {
+	public class Player : Unit {
 		public string Name { get; set; }
 		public Races Race { get; set; }
 		public Classes Classe { get; set; }
