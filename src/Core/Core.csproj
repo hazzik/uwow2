@@ -63,21 +63,23 @@
     <Compile Include="Net\IPacket.cs" />
     <Compile Include="Net\ServerBase.cs" />
     <Compile Include="Objects\Classes.cs" />
+    <Compile Include="Objects\Container.cs" />
+    <Compile Include="Objects\IObjectVisitor.cs" />
     <Compile Include="Objects\ObjectGuid.cs" />
     <Compile Include="Objects\Player.cs" />
     <Compile Include="Objects\Races.cs" />
     <Compile Include="Objects\UpdateFields.cs" />
-    <Compile Include="Objects\WorldCorpse.cs" />
-    <Compile Include="Objects\WorldDynamicObject.cs" />
-    <Compile Include="Objects\WorldGameObject.cs" />
-    <Compile Include="Objects\WorldItem.cs" />
+    <Compile Include="Objects\Corpse.cs" />
+    <Compile Include="Objects\DynamicObject.cs" />
+    <Compile Include="Objects\GameObject.cs" />
+    <Compile Include="Objects\Item.cs" />
     <Compile Include="Objects\WorldObject.cs" />
-    <Compile Include="Objects\WorldUnit.cs" />
+    <Compile Include="Objects\Unit.cs" />
     <Compile Include="PacketHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Helper\Helper.csproj">
+    <ProjectReference Include="..\..\lib\Helper\Helper.csproj">
       <Project>{5BEC7A4C-7CB1-4D6B-B0E5-FD1860168494}</Project>
       <Name>Helper</Name>
     </ProjectReference>

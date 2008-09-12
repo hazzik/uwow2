@@ -34,5 +34,9 @@ namespace Hazzik.Objects {
 		//GAMEOBJECT_BYTES_1 = OBJECT_END + 17, // 1 5 1
 		public int Bytes1 { get; set; }
 		//GAMEOBJECT_END = OBJECT_END + 18,
+		
+		public override void Accept(IObjectVisitor visitor) {
+			visitor.Visit(this);
+		}
 	}
 }

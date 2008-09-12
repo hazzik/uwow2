@@ -36,5 +36,8 @@ namespace Hazzik.Objects {
 		//CORPSE_FIELD_PAD = OBJECT_END + 33, // 1 1 0
 		public int Pad { get { return 0; } }
 		//CORPSE_END = OBJECT_END + 34,
+		public override void Accept(IObjectVisitor visitor) {
+			visitor.Visit(this);
+		}
 	}
 }

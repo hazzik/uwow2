@@ -27,5 +27,7 @@ namespace Hazzik.Objects {
 		protected void UpdateValue(UpdateFields field) {
 			_updateMask[(int)field] = true;
 		}
+
+		public abstract void Accept(IObjectVisitor visitor);
 	}
 }

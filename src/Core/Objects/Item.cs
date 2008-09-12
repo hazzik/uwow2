@@ -61,5 +61,9 @@ namespace Hazzik.Objects {
 		//ITEM_FIELD_PAD = OBJECT_END + 57, // 1 1 0
 		public int Pad { get { return 0; } }
 		//ITEM_END = OBJECT_END + 58,
+
+		public override void Accept(IObjectVisitor visitor) {
+			visitor.Visit(this);
+		}
 	}
 }

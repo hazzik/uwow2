@@ -35,10 +35,48 @@ namespace Hazzik {
 				var w = p.GetWriter();
 				w.Write((byte)wclient.Account.Players.Count());
 				foreach(var player in wclient.Account.Players) {
-					player.WriteSMSG_CHAR_ENUM(w);
+					w.Write(player.Guid);
+					w.WriteCString(player.Name);
+					w.Write((byte)player.Race);
+					w.Write((byte)player.Classe);
+					w.Write((byte)player.Gender);
+					w.Write(player.skin);
+					w.Write(player.face);
+					w.Write(player.hairStyle);
+					w.Write(player.hairColor);
+					w.Write(player.facialHair);
+					w.Write((byte)player.level);
+
+					w.Write((uint)player.ZoneId);
+					w.Write((uint)player.MapId);
+					w.Write(player.X);
+					w.Write(player.Y);
+					w.Write(player.Z);
+					w.Write(player.GuildID);
+
+					uint flag = 0x00000000;
+					w.Write(flag);
+					w.Write((byte)0);
+					w.Write(player.PetDisplayId);
+					w.Write(player.PetLevel);
+					w.Write(player.PetCreatureFamily);
+					for(int i = 0; i < 20; i++) {
+						var item = player.Items[i];
+						if(item != null) {
+							w.Write(0);
+							w.Write((byte)0);
+							w.Write(0);
+						}
+						else {
+							w.Write(0);
+							w.Write((byte)0);
+							w.Write(0);
+						}
+					}
 				}
 				client.SendPacket(p);
-			} catch(Exception e) {
+			}
+			catch(Exception e) {
 				Console.WriteLine(e.Message);
 			}
 		}
@@ -60,7 +98,7 @@ namespace Hazzik {
 			(client as WorldClient).Account.AddPlayer(player);
 			var responce = new WorldPacket(WMSG.SMSG_CHAR_CREATE);
 			var w = responce.GetWriter();
-			w.Write((byte)47);
+			w.Write((byte)44);
 			client.SendPacket(responce);
 		}
 

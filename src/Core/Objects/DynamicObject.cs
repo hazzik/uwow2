@@ -28,5 +28,8 @@ namespace Hazzik.Objects {
 		//DYNAMICOBJECT_CASTTIME = OBJECT_END + 9, // 1 1 1
 		public int CastTime { get; set; }
 		//DYNAMICOBJECT_END = OBJECT_END + 10,
+		public override void Accept(IObjectVisitor visitor) {
+			visitor.Visit(this);
+		}
 	}
 }

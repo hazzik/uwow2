@@ -129,5 +129,8 @@ namespace Hazzik.Objects {
 		//UNIT_FIELD_HOVERHEIGHT = OBJECT_END + 230, // 1 3 1
 		//UNIT_FIELD_PADDING = OBJECT_END + 231, // 1 1 0
 		//UNIT_END = OBJECT_END + 232,
+		public override void Accept(IObjectVisitor visitor) {
+			visitor.Visit(this);
+		}
 	}
 }
