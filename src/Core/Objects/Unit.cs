@@ -7,7 +7,9 @@ namespace Hazzik.Objects {
 	public class Unit : WorldObject {
 		public Unit()
 			: base((int)UpdateFields.UNIT_END) {
-
+		}
+		protected Unit(int updateMaskLength)
+			: base(updateMaskLength) {
 		}
 		//UNIT_FIELD_CHARM = OBJECT_END + 0, // 2 4 1
 		public long CharmGuid { get; set; }

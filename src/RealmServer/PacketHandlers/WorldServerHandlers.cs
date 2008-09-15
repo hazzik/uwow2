@@ -105,7 +105,7 @@ namespace Hazzik {
 		[WorldPacketHandler(WMSG.CMSG_PLAYER_LOGIN)]
 		public static void HandleCMSG_PLAYER_LOGIN(ClientBase client, IPacket packet) {
 			var reader = packet.GetReader();
-			var guid = reader.ReadInt64();
+			var guid = reader.ReadUInt64();
 			var player = (from players in (client as WorldClient).Account.Players
 							  where players.Guid == guid
 							  select players).FirstOrDefault();

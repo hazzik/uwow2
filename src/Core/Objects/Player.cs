@@ -31,7 +31,8 @@ namespace Hazzik.Objects {
 		public Item[] Items = new Item[20];
 		public bool Dead;
 
-		public Player() {
+		public Player()
+			: base((int)UpdateFields.PLAYER_END) {
 			Guid = ObjectGuid.NewGuid();
 		}
 

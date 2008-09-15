@@ -5,8 +5,8 @@ using System.Text;
 
 namespace Hazzik {
 	public class ObjectGuid {
-		private static long _lastGuid = 1;
-		public static long NewGuid() {
+		private static ulong _lastGuid = 0;
+		public static ulong NewGuid() {
 			return ++_lastGuid;
 		}
 	}
