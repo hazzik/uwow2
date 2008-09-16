@@ -67,13 +67,16 @@ namespace Tests {
 0030: 00 00 00 -- -- -- -- -- -- -- -- -- -- -- -- -- : ................
 
 ");
-
 			var obj = new Unit();
+
 			obj.Guid = 0xF00C0EC40045F4D4;
 			obj.ClearUpdateMask();
 			obj.SetUpdateValue((UpdateFields)22, 0x0000003F);
 			target.Add(obj);
-			var actual = target.BuildUpdatePacket(new Player());
+
+			var pla = new Player();
+			pla.IsKnown(obj);
+			var actual = target.BuildUpdatePacket(pla);
 			ArrayAssert.AreEqual(expected, actual);
 		}
 
@@ -122,7 +125,10 @@ namespace Tests {
 			obj2.SetUpdateValue((UpdateFields)46, 0x00080808);
 			target.Add(obj2);
 
-			byte[] actual = target.BuildUpdatePacket(new Player());
+			var pla = new Player();
+			pla.IsKnown(obj1);
+			pla.IsKnown(obj2);
+			byte[] actual = target.BuildUpdatePacket(pla);
 			ArrayAssert.AreEqual(expected, actual);
 		}
 	}
