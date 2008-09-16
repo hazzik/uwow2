@@ -71,9 +71,9 @@ namespace Tests {
 			var obj = new Unit();
 			obj.Guid = 0xF00C0EC40045F4D4;
 			obj.ClearUpdateMask();
-			obj.UpdateValue((UpdateFields)22, 0x0000003F);
+			obj.SetUpdateValue((UpdateFields)22, 0x0000003F);
 			target.Add(obj);
-			var actual = target.BuildUpdatePacket();
+			var actual = target.BuildUpdatePacket(new Player());
 			ArrayAssert.AreEqual(expected, actual);
 		}
 
@@ -110,19 +110,19 @@ namespace Tests {
 			var obj1 = new Unit();
 			obj1.Guid = 0xF130000C1A0C892E;
 			obj1.ClearUpdateMask();
-			obj1.UpdateValue((UpdateFields)16, 0x01B1346E);
-			obj1.UpdateValue((UpdateFields)17, 0x00000000);
-			obj1.UpdateValue((UpdateFields)46, 0x00080800);
+			obj1.SetUpdateValue((UpdateFields)16, 0x01B1346E);
+			obj1.SetUpdateValue((UpdateFields)17, 0x00000000);
+			obj1.SetUpdateValue((UpdateFields)46, 0x00080800);
 			target.Add(obj1);
 
 			var obj2 = new Player();
 			obj2.Guid = 0x0000000001B1346E;
 			obj2.ClearUpdateMask();
-			obj2.UpdateValue((UpdateFields)22, 0x00000062);
-			obj2.UpdateValue((UpdateFields)46, 0x00080808);
+			obj2.SetUpdateValue((UpdateFields)22, 0x00000062);
+			obj2.SetUpdateValue((UpdateFields)46, 0x00080808);
 			target.Add(obj2);
 
-			byte[] actual = target.BuildUpdatePacket();
+			byte[] actual = target.BuildUpdatePacket(new Player());
 			ArrayAssert.AreEqual(expected, actual);
 		}
 	}

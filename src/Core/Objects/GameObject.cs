@@ -4,11 +4,21 @@ using System.Linq;
 using System.Text;
 
 namespace Hazzik.Objects {
-	public class GameObject : WorldObject {
+	public class GameObject : Positioned {
 		public GameObject()
 			: base((int)UpdateFields.GAMEOBJECT_END) {
-
 		}
+
+		public override byte TypeId {
+			get { return (byte)ObjectTypeId.GameObject; }
+		}
+
+		public override byte UpdateFlag {
+			get { return (byte)(UpdateFlags.LowGuid | UpdateFlags.HighGuid); }
+		}
+
+		#region UpdateFields
+
 		//OBJECT_FIELD_CREATED_BY = OBJECT_END + 0, // 2 4 1
 		public long CreatedByGuid { get; set; }
 		//GAMEOBJECT_DISPLAYID = OBJECT_END + 2, // 1 1 1
@@ -34,7 +44,9 @@ namespace Hazzik.Objects {
 		//GAMEOBJECT_BYTES_1 = OBJECT_END + 17, // 1 5 1
 		public int Bytes1 { get; set; }
 		//GAMEOBJECT_END = OBJECT_END + 18,
-		
+
+		#endregion		 
+
 		public override void Accept(IObjectVisitor visitor) {
 			visitor.Visit(this);
 		}

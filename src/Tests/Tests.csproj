@@ -54,7 +54,6 @@
     <Compile Include="PacketsHelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UpdateMgrTest.cs" />
-    <Compile Include="WorldObjectTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AuthoringTests.txt" />

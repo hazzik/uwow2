@@ -126,28 +126,10 @@ namespace Hazzik {
 
 				r = new WorldPacket(WMSG.SMSG_UPDATE_OBJECT);
 				w = r.GetWriter();
-				w.Write(1);
-				w.Write((byte)0);
-				w.Write((byte)3);
-				w.Write((byte)4);
-				w.Write((byte)(1 | 0x20 | 0x40));
-				w.Write(0);
-				w.Write((byte)0);
-				w.Write(0);
-				w.Write(0);
-				w.Write(0);
-				w.Write(0);
-				w.Write(0);
-				w.Write(0);
-				w.Write(0);
-				w.Write(0);
-				w.Write(0);
-				w.Write(0);
-				w.Write(0);
-				w.Write(0);
-				w.Write(0);
-				w.Write(0);
-				w.Write((byte)0);
+
+				UpdateMgr mgr = new UpdateMgr();
+				mgr.Add(player);
+				w.Write(mgr.BuildUpdatePacket(player));
 				client.SendPacket(r);
 			}
 		}

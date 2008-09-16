@@ -4,13 +4,25 @@ using System.Linq;
 using System.Text;
 
 namespace Hazzik.Objects {
-	public class Unit : WorldObject {
+	public class Unit : Mobile {
 		public Unit()
 			: base((int)UpdateFields.UNIT_END) {
 		}
+
 		protected Unit(int updateMaskLength)
 			: base(updateMaskLength) {
 		}
+
+		public override byte TypeId {
+			get { return (byte)ObjectTypeId.Unit; }
+		}
+
+		public override byte UpdateFlag {
+			get { return base.UpdateFlag; }
+		} 
+
+		#region UpdateFields
+
 		//UNIT_FIELD_CHARM = OBJECT_END + 0, // 2 4 1
 		public long CharmGuid { get; set; }
 		//UNIT_FIELD_SUMMON = OBJECT_END + 2, // 2 4 1
@@ -131,6 +143,9 @@ namespace Hazzik.Objects {
 		//UNIT_FIELD_HOVERHEIGHT = OBJECT_END + 230, // 1 3 1
 		//UNIT_FIELD_PADDING = OBJECT_END + 231, // 1 1 0
 		//UNIT_END = OBJECT_END + 232,
+
+		#endregion
+
 		public override void Accept(IObjectVisitor visitor) {
 			visitor.Visit(this);
 		}

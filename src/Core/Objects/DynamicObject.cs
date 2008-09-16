@@ -4,11 +4,21 @@ using System.Linq;
 using System.Text;
 
 namespace Hazzik.Objects {
-	public class DynamicObject : WorldObject {
+	public class DynamicObject : Positioned {
 		public DynamicObject()
 			: base((int)UpdateFields.DYNAMICOBJECT_END) {
-
 		}
+
+		public override byte TypeId {
+			get { return (byte)ObjectTypeId.DynamicObject; }
+		}
+
+		public override byte UpdateFlag {
+			get { return (byte)(UpdateFlags.LowGuid | UpdateFlags.HighGuid); }
+		}
+
+		#region UpdateFields
+
 		//DYNAMICOBJECT_CASTER = OBJECT_END + 0, // 2 4 1
 		public long CasterGuid { get; set; }
 		//DYNAMICOBJECT_BYTES = OBJECT_END + 2, // 1 5 1
@@ -27,7 +37,10 @@ namespace Hazzik.Objects {
 		public float Facing { get; set; }
 		//DYNAMICOBJECT_CASTTIME = OBJECT_END + 9, // 1 1 1
 		public int CastTime { get; set; }
-		//DYNAMICOBJECT_END = OBJECT_END + 10,
+		//DYNAMICOBJECT_END = OBJECT_END + 10, 
+
+		#endregion
+
 		public override void Accept(IObjectVisitor visitor) {
 			visitor.Visit(this);
 		}

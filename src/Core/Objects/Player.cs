@@ -8,6 +8,19 @@ using Hazzik.Objects;
 
 namespace Hazzik.Objects {
 	public class Player : Unit {
+
+		public Player()
+			: base((int)UpdateFields.PLAYER_END) {
+		}
+
+		public override byte TypeId {
+			get { return (byte)ObjectTypeId.Player; }
+		}
+
+		public override byte UpdateFlag {
+			get { return base.UpdateFlag; }
+		}
+
 		public string Name { get; set; }
 		public Races Race { get; set; }
 		public Classes Classe { get; set; }
@@ -31,13 +44,17 @@ namespace Hazzik.Objects {
 		public Item[] Items = new Item[20];
 		public bool Dead;
 
-		public Player()
-			: base((int)UpdateFields.PLAYER_END) {
-			Guid = ObjectGuid.NewGuid();
-		}
-
 		public override void Accept(IObjectVisitor visitor) {
 			visitor.Visit(this);
+		}
+
+		private Dictionary<ulong, WorldObject> _knownObjects = new Dictionary<ulong, WorldObject>();
+		public bool IsKnown(WorldObject obj) {
+			if(_knownObjects.ContainsKey(obj.Guid)) {
+				return true;
+			}
+			_knownObjects[obj.Guid] = obj;
+			return false;
 		}
 	}
 }

@@ -9,6 +9,16 @@ namespace Hazzik.Objects {
 			: base((int)UpdateFields.ITEM_END) {
 
 		}
+
+		protected Item(int updateMaskLength)
+			: base(updateMaskLength) {
+		}
+
+		public override byte TypeId {
+			get { return (byte)ObjectTypeId.Item; }
+		}
+
+		#region UpdateFields
 		//ITEM_FIELD_OWNER = OBJECT_END + 0, // 2 4 1
 		public long OwnerGuid { get; set; }
 		//ITEM_FIELD_CONTAINED = OBJECT_END + 2, // 2 4 1
@@ -61,6 +71,7 @@ namespace Hazzik.Objects {
 		//ITEM_FIELD_PAD = OBJECT_END + 57, // 1 1 0
 		public int Pad { get { return 0; } }
 		//ITEM_END = OBJECT_END + 58,
+		#endregion
 
 		public override void Accept(IObjectVisitor visitor) {
 			visitor.Visit(this);

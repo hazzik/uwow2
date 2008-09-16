@@ -4,10 +4,17 @@ using System.Linq;
 using System.Text;
 
 namespace Hazzik.Objects {
-	public class Corpse : WorldObject {
+	public class Corpse : Positioned {
 		public Corpse()
 			: base((int)UpdateFields.CORPSE_END) {
 		}
+
+		public override byte TypeId {
+			get { return (byte)ObjectTypeId.Corpse; }
+		}
+
+		#region UpdateFields
+		
 		//CORPSE_FIELD_OWNER = OBJECT_END + 0, // 2 4 1
 		public long OwnerGuid { get; set; }
 		//CORPSE_FIELD_PARTY = OBJECT_END + 2, // 2 4 1
@@ -36,6 +43,9 @@ namespace Hazzik.Objects {
 		//CORPSE_FIELD_PAD = OBJECT_END + 33, // 1 1 0
 		public int Pad { get { return 0; } }
 		//CORPSE_END = OBJECT_END + 34,
+
+		#endregion
+		
 		public override void Accept(IObjectVisitor visitor) {
 			visitor.Visit(this);
 		}
