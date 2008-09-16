@@ -54,11 +54,11 @@ namespace Hazzik.Objects {
 	public abstract class WorldObject {
 
 		private BitArray _updateMask;
-		private uint[] _updateValues;
+		private UpdateFieldValue[] _updateValues;
 
 		protected WorldObject(int updateMaskLength) {
 			_updateMask = new BitArray(updateMaskLength);
-			_updateValues = new uint[updateMaskLength];
+			_updateValues = new UpdateFieldValue[updateMaskLength];
 
 			this.Guid = ObjectGuid.NewGuid();
 		}
@@ -77,7 +77,7 @@ namespace Hazzik.Objects {
 
 		//OBJECT_FIELD_GUID = 0, // 2 4 1
 		public virtual ulong Guid {
-			get { return (ulong)_updateValues[0] << 32 | (ulong)_updateValues[1]; }
+			get { return (ulong)_updateValues[0].UInt32 << 32 | (ulong)_updateValues[1].UInt32; }
 			set {
 				SetUpdateValue(UpdateFields.OBJECT_FIELD_GUID, (int)(value >> 32));
 				SetUpdateValue(UpdateFields.OBJECT_FIELD_GUID + 1, (int)(value));
@@ -86,7 +86,7 @@ namespace Hazzik.Objects {
 		
 		//OBJECT_FIELD_TYPE = 2, // 1 1 1
 		public virtual int Type {
-			get { return (int)_updateValues[(int)UpdateFields.OBJECT_FIELD_TYPE]; }
+			get { return (int)_updateValues[(int)UpdateFields.OBJECT_FIELD_TYPE].UInt32; }
 			set { SetUpdateValue(UpdateFields.OBJECT_FIELD_TYPE, (int)value); }
 		}
 
@@ -99,7 +99,7 @@ namespace Hazzik.Objects {
 
 		public void SetUpdateValue(UpdateFields field, int value) {
 			_updateMask[(int)field] = true;
-			_updateValues[(int)field] = (uint)value;
+			_updateValues[(int)field].UInt32 = (uint)value;
 		}
 
 		#endregion
@@ -114,7 +114,7 @@ namespace Hazzik.Objects {
 			w.Write(buff);
 			for(int i = 0; i < _updateMask.Length; i++) {
 				if(_updateMask[i]) {
-					w.Write(_updateValues[i]);
+					w.Write(_updateValues[i].UInt32);
 				}
 			}
 		}

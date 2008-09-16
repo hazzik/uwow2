@@ -75,6 +75,7 @@
     <Compile Include="Objects\DynamicObject.cs" />
     <Compile Include="Objects\GameObject.cs" />
     <Compile Include="Objects\Item.cs" />
+    <Compile Include="Objects\UpdateFieldValue.cs" />
     <Compile Include="Objects\WorldObject.cs" />
     <Compile Include="Objects\Unit.cs" />
     <Compile Include="PacketHandler.cs" />
