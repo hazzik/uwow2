@@ -6,7 +6,11 @@ using System.Text;
 namespace Hazzik.Objects {
 	public class GameObject : Positioned {
 		public GameObject()
-			: base((int)UpdateFields.GAMEOBJECT_END) {
+			: this((int)UpdateFields.GAMEOBJECT_END, 0x21) {
+		}
+
+		protected GameObject(int updateMaskLength, uint type)
+			: base(updateMaskLength, type) {
 		}
 
 		public override byte TypeId {

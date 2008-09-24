@@ -6,11 +6,10 @@ using System.Text;
 namespace Hazzik.Objects {
 	public class Unit : Mobile {
 		public Unit()
-			: base((int)UpdateFields.UNIT_END) {
-		}
+			: this((int)UpdateFields.UNIT_END, 0x09) { }
 
-		protected Unit(int updateMaskLength)
-			: base(updateMaskLength) {
+		protected Unit(int updateMaskLength, uint type)
+			: base(updateMaskLength, type) {
 		}
 
 		public override byte TypeId {

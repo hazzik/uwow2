@@ -37,8 +37,8 @@ namespace Hazzik.Objects {
 	}
 
 	public abstract class Mobile : Positioned {
-		protected Mobile(int updateMaskLength)
-			: base(updateMaskLength) {
+		protected Mobile(int updateMaskLength, uint type)
+			: base(updateMaskLength, type) {
 		}
 
 		public override byte UpdateFlag {

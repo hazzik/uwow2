@@ -6,8 +6,8 @@ using System.IO;
 
 namespace Hazzik.Objects {
 	public abstract class Positioned : WorldObject {
-		protected Positioned(int updateMaskLength)
-			: base(updateMaskLength) {
+		protected Positioned(int updateMaskLength, uint type)
+			: base(updateMaskLength, type) {
 		}
 
 		public override byte UpdateFlag {

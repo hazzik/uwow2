@@ -6,7 +6,11 @@ using System.Text;
 namespace Hazzik.Objects {
 	public class DynamicObject : Positioned {
 		public DynamicObject()
-			: base((int)UpdateFields.DYNAMICOBJECT_END) {
+			: this((int)UpdateFields.DYNAMICOBJECT_END, 0x41) {
+		}
+
+		protected DynamicObject(int updateMaskLength, uint type)
+			: base(updateMaskLength, type) {
 		}
 
 		public override byte TypeId {

@@ -6,7 +6,11 @@ using System.Text;
 namespace Hazzik.Objects {
 	public class Container : Item {
 		public Container()
-			: base((int)UpdateFields.CONTAINER_END) {
+			: this((int)UpdateFields.CONTAINER_END, 0x07) {
+		}
+
+		protected Container(int updateMaskLength, uint type)
+			: base(updateMaskLength, type) {
 		}
 
 		public override byte TypeId {

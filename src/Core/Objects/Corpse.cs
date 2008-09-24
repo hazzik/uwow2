@@ -6,7 +6,11 @@ using System.Text;
 namespace Hazzik.Objects {
 	public class Corpse : Positioned {
 		public Corpse()
-			: base((int)UpdateFields.CORPSE_END) {
+			: this((int)UpdateFields.CORPSE_END, 0x81) {
+		}
+
+		protected Corpse(int updateMaskLength, uint type)
+			: base(updateMaskLength, type) {
 		}
 
 		public override byte TypeId {

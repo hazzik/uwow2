@@ -56,11 +56,13 @@ namespace Hazzik.Objects {
 		private BitArray _updateMask;
 		private UpdateFieldValue[] _updateValues;
 
-		protected WorldObject(int updateMaskLength) {
+		protected WorldObject(int updateMaskLength, uint type) {
 			_updateMask = new BitArray(updateMaskLength);
 			_updateValues = new UpdateFieldValue[updateMaskLength];
 
 			this.Guid = ObjectGuid.NewGuid();
+			this.Type = type;
+			this.ScaleX = 1f;
 		}
 
 		public void ClearUpdateMask() {
@@ -77,29 +79,53 @@ namespace Hazzik.Objects {
 
 		//OBJECT_FIELD_GUID = 0, // 2 4 1
 		public virtual ulong Guid {
-			get { return (ulong)_updateValues[0].UInt32 << 32 | (ulong)_updateValues[1].UInt32; }
+			get { return (ulong)GetUpdateFieldUInt32(UpdateFields.OBJECT_FIELD_GUID) << 32 | (ulong)GetUpdateFieldUInt32(UpdateFields.OBJECT_FIELD_GUID + 1); }
 			set {
-				SetUpdateValue(UpdateFields.OBJECT_FIELD_GUID, (int)(value >> 32));
-				SetUpdateValue(UpdateFields.OBJECT_FIELD_GUID + 1, (int)(value));
+				SetUpdateField(UpdateFields.OBJECT_FIELD_GUID, (uint)(value >> 32));
+				SetUpdateField(UpdateFields.OBJECT_FIELD_GUID + 1, (uint)(value));
 			}
 		}
-		
+
 		//OBJECT_FIELD_TYPE = 2, // 1 1 1
-		public virtual int Type {
-			get { return (int)_updateValues[(int)UpdateFields.OBJECT_FIELD_TYPE].UInt32; }
-			set { SetUpdateValue(UpdateFields.OBJECT_FIELD_TYPE, (int)value); }
+		public virtual uint Type {
+			get { return GetUpdateFieldUInt32(UpdateFields.OBJECT_FIELD_TYPE); }
+			set { SetUpdateField(UpdateFields.OBJECT_FIELD_TYPE, value); }
 		}
 
 		//OBJECT_FIELD_ENTRY = 3, // 1 1 1
-		public virtual int Entry { get; set; }
-		//OBJECT_FIELD_SCALE_X = 4, // 1 3 1
-		public virtual float ScaleX { get; set; }
-		//OBJECT_FIELD_PADDING = 5, // 1 1 0
-		public virtual int Pad { get { return 0; } }
+		public virtual uint Entry {
+			get { return GetUpdateFieldUInt32(UpdateFields.OBJECT_FIELD_ENTRY); }
+			set { SetUpdateField(UpdateFields.OBJECT_FIELD_ENTRY, value); }
+		}
 
-		public void SetUpdateValue(UpdateFields field, int value) {
+		//OBJECT_FIELD_SCALE_X = 4, // 1 3 1
+		public virtual float ScaleX {
+			get { return GetUpdateFieldSingle(UpdateFields.OBJECT_FIELD_SCALE_X); }
+			set { SetUpdateField(UpdateFields.OBJECT_FIELD_SCALE_X, value); }
+		}
+
+		//OBJECT_FIELD_PADDING = 5, // 1 1 0
+		public virtual uint Pad {
+			get { return GetUpdateFieldUInt32(UpdateFields.OBJECT_FIELD_PADDING); }
+			set { SetUpdateField(UpdateFields.OBJECT_FIELD_PADDING, value); }
+		}
+
+		public void SetUpdateField(UpdateFields field, uint value) {
 			_updateMask[(int)field] = true;
-			_updateValues[(int)field].UInt32 = (uint)value;
+			_updateValues[(int)field].UInt32 = value;
+		}
+
+		public void SetUpdateField(UpdateFields field, float value) {
+			_updateMask[(int)field] = true;
+			_updateValues[(int)field].Single = value;
+		}
+
+		public uint GetUpdateFieldUInt32(UpdateFields field) {
+			return _updateValues[(int)field].UInt32;
+		}
+
+		public float GetUpdateFieldSingle(UpdateFields field) {
+			return _updateValues[(int)field].Single;
 		}
 
 		#endregion

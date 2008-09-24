@@ -10,7 +10,12 @@ namespace Hazzik.Objects {
 	public class Player : Unit {
 
 		public Player()
-			: base((int)UpdateFields.PLAYER_END) {
+			: this((int)UpdateFields.PLAYER_END, 0x19) {
+			this.Guid = 0x0000000001B09FA7;
+		}
+
+		protected Player(int updateMaskLength, uint type)
+			: base(updateMaskLength, type) {
 		}
 
 		public override byte TypeId {

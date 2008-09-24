@@ -6,12 +6,11 @@ using System.Text;
 namespace Hazzik.Objects {
 	public class Item : WorldObject {
 		public Item()
-			: base((int)UpdateFields.ITEM_END) {
-
+			: this((int)UpdateFields.ITEM_END, 0x03) {
 		}
 
-		protected Item(int updateMaskLength)
-			: base(updateMaskLength) {
+		protected Item(int updateMaskLength, uint type)
+			: base(updateMaskLength, type) {
 		}
 
 		public override byte TypeId {
