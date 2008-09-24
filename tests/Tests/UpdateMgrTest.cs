@@ -56,8 +56,8 @@ namespace Tests {
 		/// <summary>
 		///A test for BuildUpdateObject
 		///</summary>
-		[TestMethod()]
-		public void BuildUpdateObjectTest1() {
+		[TestMethod]
+		public void BuildUpdateObjectTest01() {
 			var target = new UpdateMgr();
 			var expected = PacketsHelper.GetBytes(@"
 
@@ -84,7 +84,7 @@ namespace Tests {
 		///A test for BuildUpdateObject
 		///</summary>
 		[TestMethod()]
-		public void BuildUpdateObjectTest2() {
+		public void BuildUpdateObjectTest02() {
 			UpdateMgr target = new UpdateMgr();
 			byte[] expected = PacketsHelper.GetBytes(@"
 

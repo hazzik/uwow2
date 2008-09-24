@@ -1,7 +1,9 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics;
 
 namespace Tests {
+	[DebuggerNonUserCode]
 	public static class ArrayAssert {
 		public static void AreEqual(Array expected, Array actual) {
 			if(!Object.ReferenceEquals(expected, actual)) {
