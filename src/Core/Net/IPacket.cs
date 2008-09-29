@@ -10,8 +10,8 @@ namespace Hazzik.Net {
 		int Code { get; }
 		int Size { get; }
 		Stream GetStream();
-		BinaryReader GetReader();
-		BinaryWriter GetWriter();
+		BinaryReader CreateReader();
+		BinaryWriter CreateWriter();
 		void WriteHead(Stream stream);
 		void WriteBody(Stream stream);
 	}

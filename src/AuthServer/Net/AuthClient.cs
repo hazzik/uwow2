@@ -105,7 +105,7 @@ namespace Hazzik.Net {
 					s.Seek(pinfo.Offset, SeekOrigin.Begin);
 					while(this.AcceptPatch && s.Position < s.Length) {
 						var p = new AuthPacket(RMSG.XFER_DATA);
-						var w = p.GetWriter();
+						var w = p.CreateWriter();
 						var n = s.Read(buff, 0, 1500);
 						w.Write(buff, 0, n);
 						this.SendPacket(p);
@@ -117,7 +117,7 @@ namespace Hazzik.Net {
 
 		ClientInfo _clientInfo;
 		public void HandleLogonChallenge(IPacket packet) {
-			var gr = packet.GetReader();
+			var gr = packet.CreateReader();
 			var tag = gr.ReadCString();
 			var verMajor = (int)gr.ReadByte();
 			var verMinor = (int)gr.ReadByte();
@@ -157,7 +157,7 @@ namespace Hazzik.Net {
 
 			#region sending reply to client
 			var p = new AuthPacket((int)RMSG.AUTH_LOGON_CHALLENGE);
-			var w = p.GetWriter();
+			var w = p.CreateWriter();
 			{
 				w.Write((byte)0);
 				w.Write((byte)0);
@@ -175,7 +175,7 @@ namespace Hazzik.Net {
 		}
 
 		public void HandleLogonProof(IPacket packet) {
-			var gr = packet.GetReader();
+			var gr = packet.CreateReader();
 
 			BigInteger bi_A = new BigInteger(gr.ReadBytes(32).Reverse());
 			BigInteger bi_M1 = new BigInteger(gr.ReadBytes(20).Reverse());
@@ -225,7 +225,7 @@ namespace Hazzik.Net {
 			BigInteger bi_M1Temp = new BigInteger(sha1.ComputeHash(Temp).Reverse());
 			if(bi_M1Temp != bi_M1) {
 				var p = new AuthPacket(RMSG.AUTH_LOGON_PROOF);
-				var w = p.GetWriter();
+				var w = p.CreateWriter();
 				w.Write((byte)4);
 				w.Write((byte)3);
 				w.Write((byte)0);
@@ -241,7 +241,7 @@ namespace Hazzik.Net {
 			#region Sending reply to client
 			{
 				var p = new AuthPacket(RMSG.AUTH_LOGON_PROOF);
-				var w = p.GetWriter();
+				var w = p.CreateWriter();
 				w.Write((byte)0);
 				w.Write(M2);
 				w.Write((ushort)0);
@@ -253,10 +253,10 @@ namespace Hazzik.Net {
 		}
 
 		public void HandleRealmList(IPacket packet) {
-			var gr = packet.GetReader();
+			var gr = packet.CreateReader();
 
 			var p = new AuthPacket(RMSG.REALM_LIST);
-			var w = p.GetWriter();
+			var w = p.CreateWriter();
 			{
 				w.Write(1);
 				w.Write((ushort)_serverList.Count);
@@ -301,7 +301,7 @@ namespace Hazzik.Net {
 
 		public void HandleXferResume(IPacket packet) {
 			this.AcceptPatch = true;
-			var gr = packet.GetReader();
+			var gr = packet.CreateReader();
 			sendPatch("wow-patch.mpq", gr.ReadInt64());
 		}
 

@@ -29,11 +29,11 @@ namespace Hazzik.Net {
 			return _stream;
 		}
 
-		public BinaryReader GetReader() {
+		public BinaryReader CreateReader() {
 			return new BinaryReader(this.GetStream());
 		}
 
-		public BinaryWriter GetWriter() {
+		public BinaryWriter CreateWriter() {
 			return new BinaryWriter(this.GetStream());
 		}
 

@@ -26,7 +26,7 @@ namespace Hazzik.Net {
 		public WorldClient(WorldServer server, Socket socket)
 			: base(socket) {
 			var p = new WorldPacket(WMSG.SMSG_AUTH_CHALLENGE);
-			var w = p.GetWriter();
+			var w = p.CreateWriter();
 			w.Write(_seed);
 			this.SendPacket(p);
 
@@ -57,7 +57,7 @@ namespace Hazzik.Net {
 				_firstPacket = false;
 
 				var dataStream = packet.GetStream();
-				var r = packet.GetReader();
+				var r = packet.CreateReader();
 				var version = r.ReadUInt32();
 				var unk2 = r.ReadUInt32();
 				var accountName = r.ReadCString();
@@ -84,7 +84,7 @@ namespace Hazzik.Net {
 				}
 
 				var p = new WorldPacket(WMSG.SMSG_AUTH_RESPONSE);
-				var w = p.GetWriter();
+				var w = p.CreateWriter();
 				w.Write((byte)0x0C);
 				w.Write((uint)0);
 				w.Write((byte)0);
@@ -109,7 +109,7 @@ namespace Hazzik.Net {
 				}
 
 				p = new WorldPacket(WMSG.SMSG_ADDON_INFO);
-				w = p.GetWriter();
+				w = p.CreateWriter();
 				foreach(var item in AddonManager.Instance.AddonInfos) {
 					w.Write((ulong)0x0102);
 				}
@@ -118,9 +118,9 @@ namespace Hazzik.Net {
 				return;
 			}
 			if(code == WMSG.CMSG_PING) {
-				var r = packet.GetReader();
+				var r = packet.CreateReader();
 				var p = new WorldPacket(WMSG.SMSG_PONG);
-				var w = p.GetWriter();
+				var w = p.CreateWriter();
 				w.Write(r.ReadUInt32());
 				this.SendPacket(p);
 				return;
