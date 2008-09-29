@@ -1,6 +1,6 @@
 ﻿using System;
 namespace Hazzik.Net {
-	interface IClient {
+	public interface IClient {
 		System.IO.Stream GetStream();
 		void ProcessData(IPacket packet);
 		IPacket ReadPacket();
