@@ -58,6 +58,7 @@
     <Compile Include="Attributes\PacketHandlerClassAttribute.cs" />
     <Compile Include="Math\BigInteger.cs" />
     <Compile Include="Cryptography\SRP6Wow.cs" />
+    <Compile Include="Net\IClient.cs" />
     <Compile Include="Net\PacketBase.cs" />
     <Compile Include="Net\ClientBase.cs" />
     <Compile Include="Net\IPacket.cs" />

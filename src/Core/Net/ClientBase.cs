@@ -4,7 +4,7 @@ using System.IO;
 using System.Collections.Generic;
 
 namespace Hazzik.Net {
-	public abstract class ClientBase {
+	public abstract class ClientBase : IClient {
 		protected Socket _socket;
 		private Stream _stream;
 
