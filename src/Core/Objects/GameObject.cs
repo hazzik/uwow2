@@ -50,9 +50,5 @@ namespace Hazzik.Objects {
 		//GAMEOBJECT_END = OBJECT_END + 18,
 
 		#endregion		 
-
-		public override void Accept(IObjectVisitor visitor) {
-			visitor.Visit(this);
-		}
 	}
 }

@@ -71,9 +71,5 @@ namespace Hazzik.Objects {
 		public int Pad { get { return 0; } }
 		//ITEM_END = OBJECT_END + 58,
 		#endregion
-
-		public override void Accept(IObjectVisitor visitor) {
-			visitor.Visit(this);
-		}
 	}
 }

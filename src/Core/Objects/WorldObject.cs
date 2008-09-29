@@ -130,8 +130,6 @@ namespace Hazzik.Objects {
 
 		#endregion
 
-		public abstract void Accept(IObjectVisitor visitor);
-
 		public virtual void WriteUpdateBlock(BinaryWriter w) {
 			var dwordLength = _updateMask.Length / 32 + (_updateMask.Length % 32 != 0 ? 1 : 0);
 			var buff = new byte[dwordLength * 4];

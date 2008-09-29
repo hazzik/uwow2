@@ -144,9 +144,5 @@ namespace Hazzik.Objects {
 		//UNIT_END = OBJECT_END + 232,
 
 		#endregion
-
-		public override void Accept(IObjectVisitor visitor) {
-			visitor.Visit(this);
-		}
 	}
 }

@@ -49,10 +49,6 @@ namespace Hazzik.Objects {
 		public Item[] Items = new Item[20];
 		public bool Dead;
 
-		public override void Accept(IObjectVisitor visitor) {
-			visitor.Visit(this);
-		}
-
 		private Dictionary<ulong, WorldObject> _knownObjects = new Dictionary<ulong, WorldObject>();
 		public bool IsKnown(WorldObject obj) {
 			if(_knownObjects.ContainsKey(obj.Guid)) {

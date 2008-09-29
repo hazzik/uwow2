@@ -65,7 +65,6 @@
     <Compile Include="Net\ServerBase.cs" />
     <Compile Include="Objects\Classes.cs" />
     <Compile Include="Objects\Container.cs" />
-    <Compile Include="Objects\IObjectVisitor.cs" />
     <Compile Include="Objects\Mobile.cs" />
     <Compile Include="Objects\ObjectGuid.cs" />
     <Compile Include="Objects\Player.cs" />

@@ -20,9 +20,5 @@ namespace Hazzik.Objects {
 		public override byte UpdateFlag {
 			get { return (byte)(UpdateFlags.LowGuid | UpdateFlags.HighGuid); }
 		}
-
-		public override void Accept(IObjectVisitor visitor) {
-			visitor.Visit(this);
-		}
 	}
 }

@@ -44,9 +44,5 @@ namespace Hazzik.Objects {
 		//DYNAMICOBJECT_END = OBJECT_END + 10, 
 
 		#endregion
-
-		public override void Accept(IObjectVisitor visitor) {
-			visitor.Visit(this);
-		}
 	}
 }
