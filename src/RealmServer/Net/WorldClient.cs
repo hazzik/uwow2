@@ -14,7 +14,7 @@ using System.Runtime.InteropServices;
 
 namespace Hazzik.Net {
 	public class WorldClient : ClientBase {
-		public DbAccount Account { get; set; }
+		public Account Account { get; set; }
 		private WorldServer _server;
 
 		private ICryptoTransform _decryptor;
@@ -37,11 +37,11 @@ namespace Hazzik.Net {
 		private byte[] computeDigest(uint client_seed) {
 			var buff = (byte[])null;
 			using(var w = new BinaryWriter(new MemoryStream())) {
-				w.Write(Encoding.UTF8.GetBytes(Account.Name));
+				w.Write(Encoding.UTF8.GetBytes(Account.DbAccount.Name));
 				w.Write(0);
 				w.Write(client_seed);
 				w.Write(_seed);
-				w.Write(Account.SessionKey);
+				w.Write(Account.DbAccount.SessionKey);
 				w.Flush();
 				buff = (w.BaseStream as MemoryStream).ToArray();
 				buff = SHA1.Create().ComputeHash(buff, 0, buff.Length);
@@ -67,10 +67,10 @@ namespace Hazzik.Net {
 				var clientSeed = r.ReadUInt32();
 				var clientDigest = r.ReadBytes(20);
 
-				Account = AccountDao.Instance.GetAccountByName(accountName);
+				Account = Account.GetByName(accountName);
 
 				var hash = (HashAlgorithm)new HMACSHA1(new byte[] { 0x38, 0xA7, 0x83, 0x15, 0xF8, 0x92, 0x25, 0x30, 0x71, 0x98, 0x67, 0xB1, 0x8C, 0x4, 0xE2, 0xAA });
-				var key = hash.ComputeHash(Account.SessionKey);
+				var key = hash.ComputeHash(Account.DbAccount.SessionKey);
 				var algo = (SymmetricAlgorithm)new SRP6Wow(key);
 				_decryptor = algo.CreateDecryptor();
 				_encryptor = algo.CreateEncryptor();
@@ -89,7 +89,7 @@ namespace Hazzik.Net {
 				w.Write((uint)0);
 				w.Write((byte)0);
 				w.Write((uint)0);
-				w.Write((byte)Account.Expansion);
+				w.Write((byte)Account.DbAccount.Expansion);
 				this.SendPacket(p);
 
 				var addonInfoBlockSize = r.ReadUInt32();

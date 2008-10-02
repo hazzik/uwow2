@@ -26,7 +26,7 @@ namespace Hazzik.Net {
 		private BigInteger bi_v;
 		private BigInteger bi_B;
 		private BigInteger bi_s = BigInteger.genPseudoPrime(256, 5, Utility.seed2);
-		private DbAccount _account;
+		private Account _account;
 		private AuthServer _server;
 
 		public AuthClient(AuthServer server, Socket client) :
@@ -143,16 +143,15 @@ namespace Hazzik.Net {
 				AccountName = accountName,
 			};
 
-			_account = AccountDao.Instance.GetAccountByName(accountName);
+			_account = Account.GetByName(accountName);
 			if(_account == null) {
-				_account = AccountDao.Instance.CreateAccount(accountName);
-				AccountDao.Instance.SetPassword(_account, accountName);
-				AccountDao.Instance.Save(_account);
-				AccountDao.Instance.SubmitChanges();
+				_account = Account.Create(accountName);
+				_account.SetPassword(accountName);
+				_account.Save();
 			}
 
-			bi_s = new BigInteger(_account.PasswordSalt.Reverse());
-			bi_v = new BigInteger(_account.PasswordVerifier.Reverse());
+			bi_s = new BigInteger(_account.DbAccount.PasswordSalt.Reverse());
+			bi_v = new BigInteger(_account.DbAccount.PasswordVerifier.Reverse());
 			bi_B = (bi_v * bi_k + bi_g.modPow(bi_b, bi_N)) % bi_N;
 
 			#region sending reply to client
@@ -205,8 +204,8 @@ namespace Hazzik.Net {
 				SS_Hash[i * 2 + 1] = S2_Hash[i];
 			}
 
-			_account.SessionKey = (byte[])SS_Hash.Clone();
-			AccountDao.Instance.SubmitChanges();
+			_account.DbAccount.SessionKey = (byte[])SS_Hash.Clone();
+			_account.Save();
 
 			byte[] N_Hash = sha1.ComputeHash(bi_N.getBytes().Reverse());
 			byte[] G_Hash = sha1.ComputeHash(bi_g.getBytes().Reverse());

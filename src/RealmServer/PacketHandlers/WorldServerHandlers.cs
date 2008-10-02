@@ -40,8 +40,8 @@ namespace Hazzik {
 				var wclient = client as WorldClient;
 				var p = new WorldPacket(WMSG.SMSG_CHAR_ENUM);
 				var w = p.CreateWriter();
-				w.Write((byte)wclient.Account.Players.Count());
-				foreach(var player in wclient.Account.Players) {
+				w.Write((byte)wclient.Account.DbAccount.Players.Count());
+				foreach(var player in wclient.Account.DbAccount.Players) {
 					w.Write(player.Guid);
 					w.WriteCString(player.Name);
 					w.Write((byte)player.Race);
@@ -101,7 +101,7 @@ namespace Hazzik {
 				hairColor = r.ReadByte(),
 				facialHair = r.ReadByte(),
 			};
-			(client as WorldClient).Account.AddPlayer(player);
+			(client as WorldClient).Account.DbAccount.AddPlayer(player);
 			var responce = new WorldPacket(WMSG.SMSG_CHAR_CREATE);
 			var w = responce.CreateWriter();
 			w.Write((byte)47);
@@ -112,7 +112,7 @@ namespace Hazzik {
 		public static void HandleCMSG_PLAYER_LOGIN(ClientBase client, IPacket packet) {
 			var reader = packet.CreateReader();
 			var guid = reader.ReadUInt64();
-			var player = (from players in (client as WorldClient).Account.Players
+			var player = (from players in (client as WorldClient).Account.DbAccount.Players
 							  where players.Guid == guid
 							  select players).FirstOrDefault();
 			var r = (WorldPacket)null;
