@@ -51,7 +51,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account.cs" />
-    <Compile Include="AccountManager.cs" />
+    <Compile Include="DbAccount.cs" />
+    <Compile Include="AccountDao.cs" />
     <Compile Include="Attributes\BaseClassAttribute.cs" />
     <Compile Include="Attributes\BaseHandlerAttribute.cs" />
     <Compile Include="Attributes\PacketHandlerAttribute.cs" />

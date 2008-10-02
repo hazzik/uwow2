@@ -5,7 +5,7 @@ using System.Text;
 using Hazzik.Objects;
 
 namespace Hazzik {
-	public class Account {
+	public class DbAccount {
 		public Guid ID { get; set; }
 		public string Name { get; set; }
 		public int Expansion { get; set; }

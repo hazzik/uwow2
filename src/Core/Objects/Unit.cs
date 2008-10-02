@@ -71,7 +71,7 @@ namespace Hazzik.Objects {
 		//UNIT_FIELD_MAXPOWER7 = OBJECT_END + 31, // 1 1 1
 		public int MaxPower7 { get; set; }
 		//UNIT_FIELD_LEVEL = OBJECT_END + 32, // 1 1 1
-		public int Level { get; set; }
+		public uint Level { get; set; }
 		//UNIT_FIELD_FACTIONTEMPLATE = OBJECT_END + 33, // 1 1 1
 		public int FactionTemplate { get; set; }
 		//UNIT_FIELD_BYTES_0 = OBJECT_END + 34, // 1 5 1

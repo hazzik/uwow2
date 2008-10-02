@@ -26,7 +26,7 @@ namespace Hazzik.Net {
 		private BigInteger bi_v;
 		private BigInteger bi_B;
 		private BigInteger bi_s = BigInteger.genPseudoPrime(256, 5, Utility.seed2);
-		private Account _account;
+		private DbAccount _account;
 		private AuthServer _server;
 
 		public AuthClient(AuthServer server, Socket client) :
@@ -143,12 +143,12 @@ namespace Hazzik.Net {
 				AccountName = accountName,
 			};
 
-			_account = AccountManager.Instance.GetAccountByName(accountName);
+			_account = AccountDao.Instance.GetAccountByName(accountName);
 			if(_account == null) {
-				_account = AccountManager.Instance.CreateAccount(accountName);
-				AccountManager.Instance.SetPassword(_account, accountName);
-				AccountManager.Instance.Save(_account);
-				AccountManager.Instance.SubmitChanges();
+				_account = AccountDao.Instance.CreateAccount(accountName);
+				AccountDao.Instance.SetPassword(_account, accountName);
+				AccountDao.Instance.Save(_account);
+				AccountDao.Instance.SubmitChanges();
 			}
 
 			bi_s = new BigInteger(_account.PasswordSalt.Reverse());
@@ -206,7 +206,7 @@ namespace Hazzik.Net {
 			}
 
 			_account.SessionKey = (byte[])SS_Hash.Clone();
-			AccountManager.Instance.SubmitChanges();
+			AccountDao.Instance.SubmitChanges();
 
 			byte[] N_Hash = sha1.ComputeHash(bi_N.getBytes().Reverse());
 			byte[] G_Hash = sha1.ComputeHash(bi_g.getBytes().Reverse());

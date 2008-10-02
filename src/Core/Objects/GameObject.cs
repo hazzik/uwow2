@@ -50,5 +50,6 @@ namespace Hazzik.Objects {
 		//GAMEOBJECT_END = OBJECT_END + 18,
 
 		#endregion		 
+
 	}
 }
