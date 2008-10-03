@@ -56,11 +56,11 @@
     <Compile Include="Data\IPlayerDao.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Data\SQLite\AccountDaoSqLite.cs">
+    <Compile Include="Data\SQLite\SQLiteAccountDao.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Data\SQLite\SQLiteDaoFactory.cs" />
-    <Compile Include="Data\Xml\AccountDaoXml.cs" />
+    <Compile Include="Data\Xml\XmlAccountDao.cs" />
     <Compile Include="Attributes\BaseClassAttribute.cs" />
     <Compile Include="Attributes\BaseHandlerAttribute.cs" />
     <Compile Include="Attributes\PacketHandlerAttribute.cs" />
@@ -70,6 +70,8 @@
     <Compile Include="Data\IDaoFactory.cs" />
     <Compile Include="Data\IGuided.cs" />
     <Compile Include="Data\INamed.cs" />
+    <Compile Include="Data\Xml\XmlPlayerDao.cs" />
+    <Compile Include="Data\Xml\XmlDao.cs" />
     <Compile Include="Data\Xml\XmlDaoFactory.cs" />
     <Compile Include="Math\BigInteger.cs" />
     <Compile Include="Cryptography\SRP6Wow.cs" />

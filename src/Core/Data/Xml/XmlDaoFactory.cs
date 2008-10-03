@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Hazzik.Data.Xml {
+﻿namespace Hazzik.Data.Xml {
 	public class XmlDaoFactory : IDaoFactory {
 		private static XmlDaoFactory _instance;
 		public static XmlDaoFactory Instance {
@@ -19,11 +14,11 @@ namespace Hazzik.Data.Xml {
 		}
 
 		public IAccountDao GetAccountDao() {
-			return new AccountDaoXml();
+			return new XmlAccountDao();
 		}
 
 		public IPlayerDao GetPlayerDao() {
-			throw new NotImplementedException();
+			return new XmlPlayerDao();
 		}
 	}
 }

@@ -5,5 +5,7 @@ using System.Text;
 
 namespace Hazzik.Data {
 	public class DbPlayer {
+		public ulong Guid { get; set; }
+		public string Name { get; set; }
 	}
 }
