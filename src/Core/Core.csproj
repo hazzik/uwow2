@@ -51,17 +51,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account.cs" />
-    <Compile Include="DbAccount.cs" />
-    <Compile Include="AccountDaoXml.cs" />
+    <Compile Include="Data\DbAccount.cs" />
+    <Compile Include="Data\Xml\AccountDaoXml.cs" />
     <Compile Include="Attributes\BaseClassAttribute.cs" />
     <Compile Include="Attributes\BaseHandlerAttribute.cs" />
     <Compile Include="Attributes\PacketHandlerAttribute.cs" />
     <Compile Include="Attributes\PacketHandlerClassAttribute.cs" />
-    <Compile Include="IAccountDao.cs" />
-    <Compile Include="IDao.cs" />
-    <Compile Include="IDaoFactory.cs" />
-    <Compile Include="IGuided.cs" />
-    <Compile Include="INamed.cs" />
+    <Compile Include="Data\IAccountDao.cs" />
+    <Compile Include="Data\IDao.cs" />
+    <Compile Include="Data\IDaoFactory.cs" />
+    <Compile Include="Data\IGuided.cs" />
+    <Compile Include="Data\INamed.cs" />
     <Compile Include="Math\BigInteger.cs" />
     <Compile Include="Cryptography\SRP6Wow.cs" />
     <Compile Include="Net\IClient.cs" />
@@ -95,7 +95,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Data\" />
+    <Folder Include="Data\SQLite\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
