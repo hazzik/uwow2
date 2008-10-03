@@ -7,7 +7,7 @@ using System.Security.Cryptography;
 
 namespace Hazzik {
 	public class Account {
-		private static readonly IAccountDao _dao = AccountDaoXml.Instance;
+		private static readonly IAccountDao _dao = AccountDaoSQLite.Instance;
 		private DbAccount _account;
 
 		private SHA1 sha1 = SHA1.Create();
