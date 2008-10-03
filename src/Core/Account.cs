@@ -5,58 +5,64 @@ using System.Text;
 using Hazzik.Helper;
 using System.Security.Cryptography;
 using Hazzik.Data;
+using Hazzik.Objects;
 
 namespace Hazzik {
-	public class Account {
+	public partial class Account {
 		private static readonly IAccountDao _dao = Hazzik.Data.SQLite.SQLiteDaoFactory.Instance.GetAccountDao();
 
 		private SHA1 _sha1 = SHA1.Create();
 		private static BigInteger bi_N = new BigInteger("894B645E89E1535BBDAD5B8B290650530801B18EBFBF5E8FAB3C82872A3E9BB7", 16);
 		private static BigInteger bi_g = 7;
-		
-		private DbAccount _account;
 
-		public DbAccount DbAccount {
-			get { return _account; }
-		}
-
-		public Account(DbAccount account) {
-			_account = account;
-		}
-
-		public Account()
-			: this(new DbAccount()) {
+		public Account() {
 		}
 
 		public static Account Create(string name) {
-			return new Account(_dao.Create(name));
+			return new Account() { Name = name };
 		}
 
 		public static Account GetByName(string name) {
-			var acc = _dao.GetByName(name);
-			return acc != null ? new Account(acc) : null;
+			return _dao.GetByName(name);
 		}
 
 		public void SetPassword(string password) {
 			BigInteger bi_s = BigInteger.genPseudoPrime(256, 5, new Random());
-			_account.PasswordSalt = bi_s.getBytes().Reverse();
+			this.PasswordSalt = bi_s.getBytes().Reverse();
 
-			var p = (_account.Name + ":" + password).ToUpper();
+			var p = (this.Name + ":" + password).ToUpper();
 			var pHash = _sha1.ComputeHash(Encoding.UTF8.GetBytes(p));
 			var x = _sha1.ComputeHash(Utility.Concat(bi_s.getBytes().Reverse(), pHash));
 			BigInteger bi_x = new BigInteger(x.Reverse());
 			BigInteger bi_v = bi_g.modPow(bi_x, bi_N);
-			_account.PasswordVerifier = bi_v.getBytes().Reverse();
+			this.PasswordVerifier = bi_v.getBytes().Reverse();
 		}
 
 		public void Save() {
-			_dao.Save(_account);
+			_dao.Save(this);
 			_dao.SubmitChanges();
 		}
 
 		public void Delete() {
-			_dao.Delete(_account);
-			_account = null;
+			_dao.Delete(this);
+		}
+
+		public Player GetPlayer(ulong guid) {
+			return (from player in this._players
+					  where player.Guid == guid
+					  select player).FirstOrDefault();
+		}
+
+		public void AddPlayer(Player player) {
+			_players.Add(player);
+		}
+
+		public void DelPlayer(Player player) {
+			_players.Remove(player);
+		}
+
+		public int PlayersCount {
+			get { return _players.Count; }
 		}
 	}
 }

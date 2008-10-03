@@ -15,7 +15,7 @@ using Hazzik.Helper;
 using Hazzik.Net;
 
 namespace Hazzik.Net {
-	public class AuthClient : ClientBase {
+	public class AuthClient : ClientBase, IClient {
 
 		static BigInteger bi_N = new BigInteger("894B645E89E1535BBDAD5B8B290650530801B18EBFBF5E8FAB3C82872A3E9BB7", 16);
 		static BigInteger bi_g = 7;
@@ -111,7 +111,8 @@ namespace Hazzik.Net {
 						this.SendPacket(p);
 					}
 				}
-			} catch {
+			}
+			catch {
 			}
 		}
 
@@ -150,8 +151,8 @@ namespace Hazzik.Net {
 				_account.Save();
 			}
 
-			bi_s = new BigInteger(_account.DbAccount.PasswordSalt.Reverse());
-			bi_v = new BigInteger(_account.DbAccount.PasswordVerifier.Reverse());
+			bi_s = new BigInteger(_account.PasswordSalt.Reverse());
+			bi_v = new BigInteger(_account.PasswordVerifier.Reverse());
 			bi_B = (bi_v * bi_k + bi_g.modPow(bi_b, bi_N)) % bi_N;
 
 			#region sending reply to client
@@ -204,7 +205,7 @@ namespace Hazzik.Net {
 				SS_Hash[i * 2 + 1] = S2_Hash[i];
 			}
 
-			_account.DbAccount.SessionKey = (byte[])SS_Hash.Clone();
+			_account.SessionKey = (byte[])SS_Hash.Clone();
 			_account.Save();
 
 			byte[] N_Hash = sha1.ComputeHash(bi_N.getBytes().Reverse());

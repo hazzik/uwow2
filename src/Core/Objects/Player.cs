@@ -7,8 +7,7 @@ using System.IO;
 using Hazzik.Objects;
 
 namespace Hazzik.Objects {
-	public class Player : Unit {
-
+	public partial class Player : Unit {
 		public Player()
 			: this((int)UpdateFields.PLAYER_END, 0x19) {
 			this.Guid = 0x0000000001B09FA7;

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Linq;
+using Hazzik.Objects;
 
 namespace Hazzik.Data.Xml {
-	public class XmlPlayerDao : XmlDao<DbPlayer>, IPlayerDao {
+	public class XmlPlayerDao : XmlDao<Player>, IPlayerDao {
 		#region ctors
 
 		internal XmlPlayerDao() {
@@ -13,7 +14,7 @@ namespace Hazzik.Data.Xml {
 
 		#region IGuided<DbPlayer> Members
 
-		public DbPlayer GetByGuid(ulong guid) {
+		public Player GetByGuid(ulong guid) {
 			return (from player in _entities
 					  where player.Guid == guid
 					  select player).FirstOrDefault();
@@ -23,13 +24,13 @@ namespace Hazzik.Data.Xml {
 
 		#region INamed<DbPlayer> Members
 
-		public DbPlayer Create(string name) {
-			return new DbPlayer() {
+		public Player Create(string name) {
+			return new Player() {
 				Name = name,
 			};
 		}
 
-		public DbPlayer GetByName(string name) {
+		public Player GetByName(string name) {
 			name = name.ToUpper();
 			return (from player in _entities
 					  where player.Name == name

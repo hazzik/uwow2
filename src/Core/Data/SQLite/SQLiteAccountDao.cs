@@ -12,14 +12,7 @@ namespace Hazzik.Data.SQLite {
 		internal AccountDaoSQLite() {
 		}
 
-		public DbAccount Create(string name) {
-			return new DbAccount {
-				ID = Guid.NewGuid(),
-				Name = name,
-			};
-		}
-
-		public DbAccount GetByName(string name) {
+		public Account GetByName(string name) {
 			_conection = _factory.CreateConnection();
 			_conection.ConnectionString = @"data source=E:\WowwoW\uwow2\uwow2.sqlite";
 			_conection.Open();
@@ -29,7 +22,7 @@ SELECT * FROM ACCOUNTS WHERE AccountName = '{0}'
 ", name);
 			using(var r = cmd.ExecuteReader()) {
 				while(r.Read()) {
-					var acc = new DbAccount {
+					var acc = new Account {
 						//	 ID = 
 					};
 					return acc;
@@ -38,13 +31,13 @@ SELECT * FROM ACCOUNTS WHERE AccountName = '{0}'
 			}
 		}
 
-		public void Save(DbAccount account) {
+		public void Save(Account account) {
 			var cmd = _conection.CreateCommand();
 			
 			throw new NotImplementedException();
 		}
 
-		public void Delete(DbAccount account) {
+		public void Delete(Account account) {
 			throw new NotImplementedException();
 		}
 

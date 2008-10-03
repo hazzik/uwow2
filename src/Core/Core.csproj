@@ -51,8 +51,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account.cs" />
-    <Compile Include="Data\DbAccount.cs" />
-    <Compile Include="Data\DbPlayer.cs" />
+    <Compile Include="Data\Objects\Account.cs" />
+    <Compile Include="Data\Objects\Player.cs" />
     <Compile Include="Data\IPlayerDao.cs">
       <SubType>Code</SubType>
     </Compile>

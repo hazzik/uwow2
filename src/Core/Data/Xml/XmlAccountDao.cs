@@ -2,7 +2,7 @@
 using System.Linq;
 
 namespace Hazzik.Data.Xml {
-	public class XmlAccountDao : XmlDao<DbAccount>, IAccountDao {
+	public class XmlAccountDao : XmlDao<Account>, IAccountDao {
 		#region ctors
 
 		internal XmlAccountDao() {
@@ -12,16 +12,7 @@ namespace Hazzik.Data.Xml {
 
 		#region INamed<DbAccount> Members
 
-		public DbAccount Create(string name) {
-			var account = new DbAccount() {
-				ID = Guid.NewGuid(),
-				Name = name,
-			};
-			_entities.Add(account);
-			return account;
-		}
-
-		public DbAccount GetByName(string name) {
+		public Account GetByName(string name) {
 			return (from account in _entities
 					  where account.Name.ToUpper() == name.ToUpper()
 					  select account).FirstOrDefault();
