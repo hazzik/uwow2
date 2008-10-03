@@ -8,30 +8,19 @@ using System.Security.Cryptography;
 using Hazzik.Helper;
 using Hazzik.Data;
 
-namespace Hazzik {
+namespace Hazzik.Data.Xml {
 	public class AccountDaoXml : IAccountDao {
-
-		private static AccountDaoXml _instance;
-		public static AccountDaoXml Instance {
-			get {
-				if(null == _instance) {
-					_instance = new AccountDaoXml();
-				}
-				return _instance;
-			}
-		}
-
-		private AccountDaoXml() {
+		private List<DbAccount> _accounts = new List<DbAccount>();
+		private FileInfo _fi = new FileInfo(@"..\..\..\accounts.xml");
+		private XmlSerializer _serializer = new XmlSerializer(typeof(List<DbAccount>));
+		
+		internal AccountDaoXml() {
 			if(_fi.Exists) {
 				using(var s = _fi.Open(FileMode.Open, FileAccess.Read)) {
 					_accounts = (List<DbAccount>)_serializer.Deserialize(s);
 				}
 			}
 		}
-
-		private List<DbAccount> _accounts = new List<DbAccount>();
-		private FileInfo _fi = new FileInfo(@"..\..\..\accounts.xml");
-		private XmlSerializer _serializer = new XmlSerializer(typeof(List<DbAccount>));
 
 		public DbAccount Create(string name) {
 			var account = new DbAccount() {

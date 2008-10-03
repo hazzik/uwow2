@@ -4,19 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Data.Common;
 
-namespace Hazzik.Data {
+namespace Hazzik.Data.SQLite {
 	public class AccountDaoSQLite : IAccountDao {
 		private static readonly DbProviderFactory _factory = DbProviderFactories.GetFactory("System.Data.SQLite");
 		private DbConnection _conection;
 
-		private static AccountDaoSQLite _instance;
-		public static AccountDaoSQLite Instance {
-			get {
-				if(null == _instance) {
-					_instance = new AccountDaoSQLite();
-				}
-				return _instance;
-			}
+		internal AccountDaoSQLite() {
 		}
 
 		public DbAccount Create(string name) {
