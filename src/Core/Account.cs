@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Hazzik.Helper;
 using System.Security.Cryptography;
+using Hazzik.Data;
 
 namespace Hazzik {
 	public class Account {

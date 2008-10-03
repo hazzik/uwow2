@@ -6,6 +6,7 @@ using System.Xml.Serialization;
 using System.IO;
 using System.Security.Cryptography;
 using Hazzik.Helper;
+using Hazzik.Data;
 
 namespace Hazzik {
 	public class AccountDaoXml : IAccountDao {

@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Hazzik {
+namespace Hazzik.Data {
 	public interface INamed {
 		object GetByName(string name);
 	}

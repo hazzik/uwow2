@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Hazzik.Objects;
 
-namespace Hazzik {
+namespace Hazzik.Data {
 	public class DbAccount {
 		public Guid ID { get; set; }
 		public string Name { get; set; }

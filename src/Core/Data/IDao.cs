@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Hazzik {
+namespace Hazzik.Data {
 	public interface IDao<T> {
 		T Create(string name);
 		void Delete(T entity);

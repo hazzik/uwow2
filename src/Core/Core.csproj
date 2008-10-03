@@ -52,6 +52,13 @@
   <ItemGroup>
     <Compile Include="Account.cs" />
     <Compile Include="Data\DbAccount.cs" />
+    <Compile Include="Data\DbPlayer.cs" />
+    <Compile Include="Data\IPlayerDao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\SQLite\AccountDaoSqLite.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Data\Xml\AccountDaoXml.cs" />
     <Compile Include="Attributes\BaseClassAttribute.cs" />
     <Compile Include="Attributes\BaseHandlerAttribute.cs" />
@@ -93,9 +100,6 @@
       <Project>{5BEC7A4C-7CB1-4D6B-B0E5-FD1860168494}</Project>
       <Name>Helper</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Data\SQLite\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
