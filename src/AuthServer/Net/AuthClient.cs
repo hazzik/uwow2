@@ -174,30 +174,28 @@ namespace Hazzik.Net {
 		public void HandleLogonProof(IPacket packet) {
 			var gr = packet.CreateReader();
 
-			BigInteger bi_A = new BigInteger(gr.ReadBytes(32).Reverse());
-			BigInteger bi_M1 = new BigInteger(gr.ReadBytes(20).Reverse());
-			Console.WriteLine(bi_A.ToHexString());
-			Console.WriteLine(bi_M1.ToHexString());
+			var bi_A = new BigInteger(gr.ReadBytes(32).Reverse());
+			var bi_M1 = new BigInteger(gr.ReadBytes(20).Reverse());
 
-			byte[] u = sha1.ComputeHash(Utility.Concat(bi_A.getBytes().Reverse(), bi_B.getBytes().Reverse()));
-			BigInteger bi_u = new BigInteger(u.Reverse());
+			var u = sha1.ComputeHash(Utility.Concat(bi_A.getBytes().Reverse(), bi_B.getBytes().Reverse()));
+			var bi_u = new BigInteger(u.Reverse());
 
-			BigInteger bi_Temp2 = (bi_A * bi_v.modPow(bi_u, bi_N)) % bi_N; // v^u
-			BigInteger bi_S = bi_Temp2.modPow(bi_b, bi_N); // (Av^u)^b
+			var bi_Temp2 = (bi_A * bi_v.modPow(bi_u, bi_N)) % bi_N; // v^u
+			var bi_S = bi_Temp2.modPow(bi_b, bi_N); // (Av^u)^b
 			Console.WriteLine(bi_S.ToHexString());
-			byte[] S = bi_S.getBytes().Reverse();
-			byte[] S1 = new byte[16];
-			byte[] S2 = new byte[16];
+			var S = bi_S.getBytes().Reverse();
+			var S1 = new byte[16];
+			var S2 = new byte[16];
 
-			for(int i = 0; i < 16; i++) {
+			for(var i = 0; i < 16; i++) {
 				S1[i] = S[i * 2];
 				S2[i] = S[i * 2 + 1];
 			}
 
-			byte[] SS_Hash = new byte[40];
-			byte[] S1_Hash = sha1.ComputeHash(S1);
-			byte[] S2_Hash = sha1.ComputeHash(S2);
-			for(int i = 0; i < 20; i++) {
+			var SS_Hash = new byte[40];
+			var S1_Hash = sha1.ComputeHash(S1);
+			var S2_Hash = sha1.ComputeHash(S2);
+			for(var i = 0; i < 20; i++) {
 				SS_Hash[i * 2] = S1_Hash[i];
 				SS_Hash[i * 2 + 1] = S2_Hash[i];
 			}
@@ -205,21 +203,21 @@ namespace Hazzik.Net {
 			_account.SessionKey = (byte[])SS_Hash.Clone();
 			_account.Save();
 
-			byte[] N_Hash = sha1.ComputeHash(bi_N.getBytes().Reverse());
-			byte[] G_Hash = sha1.ComputeHash(bi_g.getBytes().Reverse());
-			for(int i = 0; (i < 20); i++) {
+			var N_Hash = sha1.ComputeHash(bi_N.getBytes().Reverse());
+			var G_Hash = sha1.ComputeHash(bi_g.getBytes().Reverse());
+			for(var i = 0; (i < 20); i++) {
 				N_Hash[i] ^= G_Hash[i];
 			}
 
-			byte[] UserHash = sha1.ComputeHash(Encoding.UTF8.GetBytes(_clientInfo.AccountName));
+			var UserHash = sha1.ComputeHash(Encoding.UTF8.GetBytes(_clientInfo.AccountName));
 
-			byte[] Temp = Utility.Concat(N_Hash, UserHash);
+			var Temp = Utility.Concat(N_Hash, UserHash);
 			Temp = Utility.Concat(Temp, bi_s.getBytes().Reverse());
 			Temp = Utility.Concat(Temp, bi_A.getBytes().Reverse());
 			Temp = Utility.Concat(Temp, bi_B.getBytes().Reverse());
 			Temp = Utility.Concat(Temp, SS_Hash);
 
-			BigInteger bi_M1Temp = new BigInteger(sha1.ComputeHash(Temp).Reverse());
+			var bi_M1Temp = new BigInteger(sha1.ComputeHash(Temp).Reverse());
 			if(bi_M1Temp != bi_M1) {
 				var p = new AuthPacket(RMSG.AUTH_LOGON_PROOF);
 				var w = p.CreateWriter();
@@ -252,26 +250,24 @@ namespace Hazzik.Net {
 		}
 
 		public void HandleRealmList(IPacket packet) {
-			var gr = packet.CreateReader();
-
 			var p = new AuthPacket(RMSG.REALM_LIST);
+			
 			var w = p.CreateWriter();
-			{
-				w.Write(1);
-				w.Write((ushort)_serverList.Count);
-				foreach(var info in _serverList) {
-					/*
+			w.Write(1);
+			w.Write((ushort)_serverList.Count);
+			foreach(var info in _serverList) {
+				/*
 					 * 0 = normal
 					 * 1 = pvp
 					 * 6 = rp
 					 * 8 = pvprp
 					 */
-					w.Write(info.Type);
-					/*
+				w.Write(info.Type);
+				/*
 					 * 1 = locked
 					 */
-					w.Write(info.Locked);
-					/*
+				w.Write(info.Locked);
+				/*
 					 * 0 = green realmname
 					 * 1 = red realmname
 					 * 2 = offline
@@ -280,16 +276,15 @@ namespace Hazzik.Net {
 					 * 64 = recomended(green)
 					 * 128 = full(red)
 					 */
-					w.Write(info.Status);
-					w.WriteCString(info.Name);
-					w.WriteCString(info.Address);
-					w.Write(info.Population);
-					w.Write(info.CharactersCount);
-					w.Write(info.Language);
-					w.Write(info.Unk);
-				}
-				w.Write((ushort)2);
+				w.Write(info.Status);
+				w.WriteCString(info.Name);
+				w.WriteCString(info.Address);
+				w.Write(info.Population);
+				w.Write(info.CharactersCount);
+				w.Write(info.Language);
+				w.Write(info.Unk);
 			}
+			w.Write((ushort)2);
 			Send(p);
 		}
 
