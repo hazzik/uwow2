@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System;
 
 namespace Hazzik.Objects {
 	public class Unit : Mobile {
 		public Unit()
-			: this((int)UpdateFields.UNIT_END, 0x09) { }
+			: this((int)UpdateFields.UNIT_END, 0x09) {
+		}
 
 		protected Unit(int updateMaskLength, uint type)
 			: base(updateMaskLength, type) {
@@ -18,7 +16,7 @@ namespace Hazzik.Objects {
 
 		public override byte UpdateFlag {
 			get { return base.UpdateFlag; }
-		} 
+		}
 
 		#region UpdateFields
 

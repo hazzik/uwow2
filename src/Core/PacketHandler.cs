@@ -1,18 +1,15 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Reflection;
-using Hazzik.Net;
 using Hazzik.Attributes;
+using Hazzik.Net;
 
 namespace Hazzik {
 	public class PacketHandler<C, H>
 		where C : PacketHandlerClassAttribute
 		where H : PacketHandlerAttribute {
-
-		List<Assembly> _assemblies = new List<Assembly>();
-		Dictionary<int, MethodInfo> _handlers = new Dictionary<int, MethodInfo>();
+		private List<Assembly> _assemblies = new List<Assembly>();
+		private Dictionary<int, MethodInfo> _handlers = new Dictionary<int, MethodInfo>();
 
 		public void AddAssembly(Assembly assembly) {
 			_assemblies.Add(assembly);
@@ -72,5 +69,5 @@ namespace Hazzik {
 				method.Invoke(null, new object[] { client, packet });
 			}
 		}
-	}
+		}
 }

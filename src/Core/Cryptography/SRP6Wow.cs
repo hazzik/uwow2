@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Security.Cryptography;
 
 namespace Hazzik.Cryptography {
@@ -9,7 +9,6 @@ namespace Hazzik.Cryptography {
 		}
 
 		public class Transform : ICryptoTransform {
-
 			protected Direction _direction;
 			protected byte[] _key;
 			protected byte _iv;

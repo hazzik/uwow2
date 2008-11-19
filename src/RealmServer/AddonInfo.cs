@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
-using Hazzik.Net;
-using Hazzik.Helper;
+using System;
 using System.Xml.Serialization;
 
 namespace Hazzik {
@@ -20,7 +14,6 @@ namespace Hazzik {
 		public byte Status { get; set; }
 
 		public AddonInfo() {
-
 		}
 
 		public AddonInfo(string name)

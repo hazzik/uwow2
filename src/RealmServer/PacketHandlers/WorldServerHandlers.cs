@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Hazzik.Net;
-using Hazzik.Helper;
-using Hazzik.Attributes;
+using System;
 using System.IO;
+using System.Linq;
+using Hazzik.Attributes;
+using Hazzik.Helper;
+using Hazzik.Net;
 using Hazzik.Objects;
 
 namespace Hazzik {
@@ -82,7 +80,8 @@ namespace Hazzik {
 					}
 				}
 				client.SendPacket(p);
-			} catch(Exception e) {
+			}
+			catch(Exception e) {
 				Console.WriteLine(e.Message);
 			}
 		}
@@ -127,7 +126,9 @@ namespace Hazzik {
 				//0010: 1A 42 00 00 00 00 -- -- -- -- -- -- -- -- -- -- : .B....
 				r = new WorldPacket(WMSG.SMSG_LOGIN_VERIFY_WORLD);
 				w = r.CreateWriter();
-				var bytes = PacketsHelper.GetBytes(@"
+				var bytes =
+					PacketsHelper.GetBytes(
+						@"
 0000: 01 00 00 00 00 00 00 00 00 00 00 00 00 00 : 6.....'...\...;.
 0010: 00 00 00 00 00 00 -- -- -- -- -- -- -- -- -- -- : .B....
 ");

@@ -1,10 +1,7 @@
-п»їusing System;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Hazzik.Objects;
 using System.IO;
-using System.Collections;
+using Hazzik.Objects;
 
 namespace Hazzik {
 	public class UpdateMgr {
@@ -13,8 +10,8 @@ namespace Hazzik {
 		public byte[] BuildUpdatePacket(Player to) {
 			var s = new MemoryStream();
 			var w = new BinaryWriter(s);
-			w.Write(_objects.Count); //РєРѕР»-РІРѕ РѕР±СЉРµРєС‚РѕРІ
-			w.Write((byte)0); //РЅРµРёР·РІРµСЃС‚РЅРѕРµ Р·РЅР°С‡РµРЅРёРµ, РІСЃРµРіРґР° 0
+			w.Write(_objects.Count); //кол-во объектов
+			w.Write((byte)0); //неизвестное значение, всегда 0
 			foreach(var obj in _objects) {
 				if(to.IsKnown(obj)) {
 					WriteUpdateObject(w, obj);

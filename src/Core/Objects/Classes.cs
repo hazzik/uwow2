@@ -1,4 +1,3 @@
-
 namespace Hazzik {
 	public enum Classes {
 		Any = 0,

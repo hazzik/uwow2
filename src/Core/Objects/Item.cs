@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System;
 
 namespace Hazzik.Objects {
 	public class Item : WorldObject {
@@ -18,6 +15,7 @@ namespace Hazzik.Objects {
 		}
 
 		#region UpdateFields
+
 		//ITEM_FIELD_OWNER = OBJECT_END + 0, // 2 4 1
 		public long OwnerGuid { get; set; }
 		//ITEM_FIELD_CONTAINED = OBJECT_END + 2, // 2 4 1
@@ -68,8 +66,12 @@ namespace Hazzik.Objects {
 		//ITEM_FIELD_MAXDURABILITY = OBJECT_END + 56, // 1 1 20
 		public int MaxDurability { get; set; }
 		//ITEM_FIELD_PAD = OBJECT_END + 57, // 1 1 0
-		public int Pad { get { return 0; } }
+		public int Pad {
+			get { return 0; }
+		}
+
 		//ITEM_END = OBJECT_END + 58,
+
 		#endregion
 	}
 }

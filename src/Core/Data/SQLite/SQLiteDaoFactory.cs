@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System;
 
 namespace Hazzik.Data.SQLite {
 	public class SQLiteDaoFactory : IDaoFactory {
 		private static SQLiteDaoFactory _instance;
+
 		public static SQLiteDaoFactory Instance {
 			get {
 				if(_instance == null) {

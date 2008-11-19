@@ -1,7 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Hazzik.Objects;
 
 namespace Hazzik {
@@ -14,6 +13,7 @@ namespace Hazzik {
 		public byte[] SessionKey { get; set; }
 
 		private readonly IList<Player> _players = new List<Player>();
+
 		public Player[] Players {
 			get { return _players.ToArray(); }
 		}

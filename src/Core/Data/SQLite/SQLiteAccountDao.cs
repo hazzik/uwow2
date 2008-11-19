@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System;
 using System.Data.Common;
 
 namespace Hazzik.Data.SQLite {
@@ -33,7 +30,7 @@ SELECT * FROM ACCOUNTS WHERE AccountName = '{0}'
 
 		public void Save(Account account) {
 			var cmd = _conection.CreateCommand();
-			
+
 			throw new NotImplementedException();
 		}
 

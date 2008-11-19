@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System;
 using System.IO;
-using Hazzik.Net;
 
 namespace Hazzik.Net {
 	public interface IPacket {

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System;
 using System.Collections;
 using System.IO;
 
 namespace Hazzik.Objects {
+
 	#region UpdateType
 
 	public enum UpdateType : byte {
@@ -52,7 +50,6 @@ namespace Hazzik.Objects {
 	#endregion
 
 	public abstract class WorldObject {
-
 		private BitArray _updateMask;
 		private UpdateFieldValue[] _updateValues;
 
@@ -60,9 +57,9 @@ namespace Hazzik.Objects {
 			_updateMask = new BitArray(updateMaskLength);
 			_updateValues = new UpdateFieldValue[updateMaskLength];
 
-			this.Guid = ObjectGuid.NewGuid();
-			this.Type = type;
-			this.ScaleX = 1f;
+			Guid = ObjectGuid.NewGuid();
+			Type = type;
+			ScaleX = 1f;
 		}
 
 		public void ClearUpdateMask() {
@@ -79,7 +76,10 @@ namespace Hazzik.Objects {
 
 		//OBJECT_FIELD_GUID = 0, // 2 4 1
 		public virtual ulong Guid {
-			get { return (ulong)GetUpdateFieldUInt32(UpdateFields.OBJECT_FIELD_GUID) << 32 | (ulong)GetUpdateFieldUInt32(UpdateFields.OBJECT_FIELD_GUID + 1); }
+			get {
+				return (ulong)GetUpdateFieldUInt32(UpdateFields.OBJECT_FIELD_GUID) << 32 |
+				       (ulong)GetUpdateFieldUInt32(UpdateFields.OBJECT_FIELD_GUID + 1);
+			}
 			set {
 				SetUpdateField(UpdateFields.OBJECT_FIELD_GUID, (uint)(value >> 32));
 				SetUpdateField(UpdateFields.OBJECT_FIELD_GUID + 1, (uint)(value));

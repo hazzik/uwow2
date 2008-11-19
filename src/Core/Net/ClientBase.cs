@@ -1,7 +1,6 @@
-﻿using System;
-using System.Net.Sockets;
+using System;
 using System.IO;
-using System.Collections.Generic;
+using System.Net.Sockets;
 
 namespace Hazzik.Net {
 	public abstract class ClientBase : IClient {
@@ -40,4 +39,3 @@ namespace Hazzik.Net {
 		}
 	}
 }
-				  

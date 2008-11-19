@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System;
 
 namespace Hazzik.Objects {
 	public class Corpse : Positioned {
@@ -18,7 +15,7 @@ namespace Hazzik.Objects {
 		}
 
 		#region UpdateFields
-		
+
 		//CORPSE_FIELD_OWNER = OBJECT_END + 0, // 2 4 1
 		public long OwnerGuid { get; set; }
 		//CORPSE_FIELD_PARTY = OBJECT_END + 2, // 2 4 1
@@ -45,7 +42,10 @@ namespace Hazzik.Objects {
 		//CORPSE_FIELD_DYNAMIC_FLAGS = OBJECT_END + 32, // 1 1 256
 		public int DynamicFlags { get; set; }
 		//CORPSE_FIELD_PAD = OBJECT_END + 33, // 1 1 0
-		public int Pad { get { return 0; } }
+		public int Pad {
+			get { return 0; }
+		}
+
 		//CORPSE_END = OBJECT_END + 34,
 
 		#endregion

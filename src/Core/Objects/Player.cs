@@ -1,16 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Hazzik.Helper;
-using System.IO;
-using Hazzik.Objects;
 
 namespace Hazzik.Objects {
 	public partial class Player : Unit {
 		public Player()
 			: this((int)UpdateFields.PLAYER_END, 0x19) {
-			this.Guid = 0x0000000001B09FA7;
+			Guid = 0x0000000001B09FA7;
 		}
 
 		protected Player(int updateMaskLength, uint type)
@@ -49,6 +44,7 @@ namespace Hazzik.Objects {
 		public bool Dead;
 
 		private Dictionary<ulong, WorldObject> _knownObjects = new Dictionary<ulong, WorldObject>();
+
 		public bool IsKnown(WorldObject obj) {
 			if(_knownObjects.ContainsKey(obj.Guid)) {
 				return true;

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System;
 using System.IO;
 
 namespace Hazzik.Net {
@@ -10,17 +7,19 @@ namespace Hazzik.Net {
 
 		protected internal PacketBase(int code, byte[] data) {
 			_stream = new MemoryStream(data, false);
-			this.Code = code;
+			Code = code;
 		}
 
 		protected internal PacketBase(int code) {
 			_stream = new MemoryStream();
-			this.Code = code;
+			Code = code;
 		}
 
 		public int Code { get; protected set; }
 
-		public int Size { get { return (int)GetStream().Length; } }
+		public int Size {
+			get { return (int)GetStream().Length; }
+		}
 
 		public virtual Stream GetStream() {
 			if(_stream == null) {
@@ -30,11 +29,11 @@ namespace Hazzik.Net {
 		}
 
 		public BinaryReader CreateReader() {
-			return new BinaryReader(this.GetStream());
+			return new BinaryReader(GetStream());
 		}
 
 		public BinaryWriter CreateWriter() {
-			return new BinaryWriter(this.GetStream());
+			return new BinaryWriter(GetStream());
 		}
 
 		public abstract void WriteHead(Stream stream);

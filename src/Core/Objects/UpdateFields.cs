@@ -1,7 +1,5 @@
-namespace Hazzik
-{
-	public enum UpdateFields
-	{
+namespace Hazzik {
+	public enum UpdateFields {
 		OBJECT_FIELD_GUID = 0, // 2 4 1
 		OBJECT_FIELD_TYPE = 2, // 1 1 1
 		OBJECT_FIELD_ENTRY = 3, // 1 1 1

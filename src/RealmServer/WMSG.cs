@@ -1,4 +1,3 @@
-
 namespace Hazzik {
 	public enum WMSG {
 		MSG_NULL_ACTION = 0,

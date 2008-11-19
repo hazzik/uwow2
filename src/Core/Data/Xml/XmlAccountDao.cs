@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 
 namespace Hazzik.Data.Xml {
@@ -14,8 +14,8 @@ namespace Hazzik.Data.Xml {
 
 		public Account GetByName(string name) {
 			return (from account in _entities
-					  where account.Name.ToUpper() == name.ToUpper()
-					  select account).FirstOrDefault();
+			        where account.Name.ToUpper() == name.ToUpper()
+			        select account).FirstOrDefault();
 		}
 
 		#endregion

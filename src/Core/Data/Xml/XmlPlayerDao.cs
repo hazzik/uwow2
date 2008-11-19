@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using Hazzik.Objects;
 
@@ -7,7 +7,6 @@ namespace Hazzik.Data.Xml {
 		#region ctors
 
 		internal XmlPlayerDao() {
-
 		}
 
 		#endregion
@@ -16,8 +15,8 @@ namespace Hazzik.Data.Xml {
 
 		public Player GetByGuid(ulong guid) {
 			return (from player in _entities
-					  where player.Guid == guid
-					  select player).FirstOrDefault();
+			        where player.Guid == guid
+			        select player).FirstOrDefault();
 		}
 
 		#endregion
@@ -33,8 +32,8 @@ namespace Hazzik.Data.Xml {
 		public Player GetByName(string name) {
 			name = name.ToUpper();
 			return (from player in _entities
-					  where player.Name == name
-					  select player).FirstOrDefault();
+			        where player.Name == name
+			        select player).FirstOrDefault();
 		}
 
 		#endregion

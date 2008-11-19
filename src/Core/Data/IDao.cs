@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+
 namespace Hazzik.Data {
 	public interface IDao<T> {
 		void Delete(T entity);

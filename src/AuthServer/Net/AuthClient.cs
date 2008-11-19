@@ -1,26 +1,19 @@
-﻿using System;
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using System.Data.Linq;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Runtime.InteropServices;
-using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using Hazzik.Helper;
-using Hazzik.Net;
 
 namespace Hazzik.Net {
 	public class AuthClient : ClientBase, IClient {
-
-		static BigInteger bi_N = new BigInteger("894B645E89E1535BBDAD5B8B290650530801B18EBFBF5E8FAB3C82872A3E9BB7", 16);
-		static BigInteger bi_g = 7;
-		static BigInteger bi_k = 3;
-		static SHA1 sha1 = SHA1.Create();
+		private static BigInteger bi_N = new BigInteger("894B645E89E1535BBDAD5B8B290650530801B18EBFBF5E8FAB3C82872A3E9BB7", 16);
+		private static BigInteger bi_g = 7;
+		private static BigInteger bi_k = 3;
+		private static SHA1 sha1 = SHA1.Create();
 
 		private BigInteger bi_b = BigInteger.genPseudoPrime(160, 5, Utility.seed2);
 		private BigInteger bi_v;
@@ -93,22 +86,23 @@ namespace Hazzik.Net {
 			th.Start(new PatchInfo { FileName = filename, Offset = offset });
 		}
 
-		struct PatchInfo {
+		private struct PatchInfo {
 			public string FileName;
 			public long Offset;
 		}
+
 		private void ThreadedSend(object state) {
 			var pinfo = (PatchInfo)state;
 			try {
 				using(var s = (Stream)new FileStream(pinfo.FileName, FileMode.OpenOrCreate)) {
 					byte[] buff = new byte[1503];
 					s.Seek(pinfo.Offset, SeekOrigin.Begin);
-					while(this.AcceptPatch && s.Position < s.Length) {
+					while(AcceptPatch && s.Position < s.Length) {
 						var p = new AuthPacket(RMSG.XFER_DATA);
 						var w = p.CreateWriter();
 						var n = s.Read(buff, 0, 1500);
 						w.Write(buff, 0, n);
-						this.SendPacket(p);
+						SendPacket(p);
 					}
 				}
 			}
@@ -116,7 +110,8 @@ namespace Hazzik.Net {
 			}
 		}
 
-		ClientInfo _clientInfo;
+		private ClientInfo _clientInfo;
+
 		public void HandleLogonChallenge(IPacket packet) {
 			var gr = packet.CreateReader();
 			var tag = gr.ReadCString();
@@ -156,6 +151,7 @@ namespace Hazzik.Net {
 			bi_B = (bi_v * bi_k + bi_g.modPow(bi_b, bi_N)) % bi_N;
 
 			#region sending reply to client
+
 			var p = new AuthPacket((int)RMSG.AUTH_LOGON_CHALLENGE);
 			var w = p.CreateWriter();
 			{
@@ -170,7 +166,8 @@ namespace Hazzik.Net {
 				w.Write(new byte[16]);
 				w.Write((byte)0);
 			}
-			this.SendPacket(p);
+			SendPacket(p);
+
 			#endregion
 		}
 
@@ -185,8 +182,8 @@ namespace Hazzik.Net {
 			byte[] u = sha1.ComputeHash(Utility.Concat(bi_A.getBytes().Reverse(), bi_B.getBytes().Reverse()));
 			BigInteger bi_u = new BigInteger(u.Reverse());
 
-			BigInteger bi_Temp2 = (bi_A * bi_v.modPow(bi_u, bi_N)) % bi_N;			// v^u
-			BigInteger bi_S = bi_Temp2.modPow(bi_b, bi_N);	// (Av^u)^b
+			BigInteger bi_Temp2 = (bi_A * bi_v.modPow(bi_u, bi_N)) % bi_N; // v^u
+			BigInteger bi_S = bi_Temp2.modPow(bi_b, bi_N); // (Av^u)^b
 			Console.WriteLine(bi_S.ToHexString());
 			byte[] S = bi_S.getBytes().Reverse();
 			byte[] S1 = new byte[16];
@@ -230,7 +227,7 @@ namespace Hazzik.Net {
 				w.Write((byte)3);
 				w.Write((byte)0);
 
-				this.SendPacket(p);
+				SendPacket(p);
 				return;
 			}
 
@@ -239,6 +236,7 @@ namespace Hazzik.Net {
 			byte[] M2 = sha1.ComputeHash(Temp);
 
 			#region Sending reply to client
+
 			{
 				var p = new AuthPacket(RMSG.AUTH_LOGON_PROOF);
 				var w = p.CreateWriter();
@@ -247,8 +245,9 @@ namespace Hazzik.Net {
 				w.Write((ushort)0);
 				w.Write((uint)0);
 				w.Write((uint)0);
-				this.SendPacket(p);
+				SendPacket(p);
 			}
+
 			#endregion
 		}
 
@@ -291,26 +290,26 @@ namespace Hazzik.Net {
 				}
 				w.Write((ushort)2);
 			}
-			this.SendPacket(p);
+			SendPacket(p);
 		}
 
 		public void HandleXferAccept(IPacket packet) {
-			this.AcceptPatch = true;
+			AcceptPatch = true;
 			sendPatch("wow-patch.mpq", 0);
 		}
 
 		public void HandleXferResume(IPacket packet) {
-			this.AcceptPatch = true;
+			AcceptPatch = true;
 			var gr = packet.CreateReader();
 			sendPatch("wow-patch.mpq", gr.ReadInt64());
 		}
 
 		public void HandleXferCancel(IPacket packet) {
-			this.AcceptPatch = false;
+			AcceptPatch = false;
 		}
 
 		public override IPacket ReadPacket() {
-			using(var reader = new BinaryReader(this.GetStream())) {
+			using(var reader = new BinaryReader(GetStream())) {
 				var code = (RMSG)reader.ReadByte();
 				var size = 0;
 				switch(code) {
@@ -342,7 +341,7 @@ namespace Hazzik.Net {
 		}
 
 		public override void SendPacket(IPacket packet) {
-			var data = this.GetStream();
+			var data = GetStream();
 			var head = data;
 
 			packet.WriteHead(head);

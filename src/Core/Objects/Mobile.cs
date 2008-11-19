@@ -1,7 +1,4 @@
-п»їusing System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System;
 using System.IO;
 
 namespace Hazzik.Objects {
@@ -24,15 +21,15 @@ namespace Hazzik.Objects {
 		UNK4 = 0x00002000,
 		FALLING = 0x00004000,
 		// 0x8000, 0x10000, 0x20000, 0x40000, 0x80000, 0x100000
-		SWIMMING = 0x00200000,               // appears with fly flag also
+		SWIMMING = 0x00200000, // appears with fly flag also
 		FLY_UP = 0x00400000,
 		CAN_FLY = 0x00800000,
 		FLYING = 0x01000000,
 		UNK5 = 0x02000000,
-		SPLINE = 0x04000000,               // probably wrong name
+		SPLINE = 0x04000000, // probably wrong name
 		SPLINE2 = 0x08000000,
 		WATERWALKING = 0x10000000,
-		SAFE_FALL = 0x20000000,               // active rogue safe fall spell (passive)
+		SAFE_FALL = 0x20000000, // active rogue safe fall spell (passive)
 		UNK3 = 0x40000000,
 	}
 
@@ -44,7 +41,7 @@ namespace Hazzik.Objects {
 		public override byte UpdateFlag {
 			get { return (byte)(base.UpdateFlag | (byte)UpdateFlags.Mobile); }
 		}
-		
+
 		public uint MovementFlag { get; set; }
 
 		public float Speed0 { get; set; }
@@ -57,24 +54,24 @@ namespace Hazzik.Objects {
 		public float TurnRate { get; set; }
 
 		public override void WriteCreateBlock(BinaryWriter w) {
-			w.Write(this.MovementFlag);
-			w.Write((byte)0);//РІСЃРµРіРґР° 0
-			w.Write((uint)0);//Р°РїС‚Р°Р№Рј СЃРµСЂРІРµСЂР°
+			w.Write(MovementFlag);
+			w.Write((byte)0); //всегда 0
+			w.Write((uint)0); //аптайм сервера
 
 			base.WriteCreateBlock(w);
-			this.WriteMovementBlock(w);
+			WriteMovementBlock(w);
 		}
 
 		private void WriteMovementBlock(BinaryWriter w) {
-			w.Write((uint)0); // РїРѕС…РѕР¶Рµ РЅР° РІСЂРµРјСЏ
-			w.Write(this.Speed0);
-			w.Write(this.Speed1);
-			w.Write(this.Speed2);
-			w.Write(this.Speed3);
-			w.Write(this.Speed4);
-			w.Write(this.Speed5);
-			w.Write(this.Speed6);
-			w.Write(this.TurnRate);
+			w.Write((uint)0); // похоже на время
+			w.Write(Speed0);
+			w.Write(Speed1);
+			w.Write(Speed2);
+			w.Write(Speed3);
+			w.Write(Speed4);
+			w.Write(Speed5);
+			w.Write(Speed6);
+			w.Write(TurnRate);
 		}
 	}
 }

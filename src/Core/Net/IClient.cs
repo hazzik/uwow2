@@ -1,7 +1,9 @@
-﻿using System;
+using System;
+using System.IO;
+
 namespace Hazzik.Net {
 	public interface IClient {
-		System.IO.Stream GetStream();
+		Stream GetStream();
 		void ProcessData(IPacket packet);
 		IPacket ReadPacket();
 		void SendPacket(IPacket packet);

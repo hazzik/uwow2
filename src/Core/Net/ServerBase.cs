@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections;
+using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
-using System.Collections.Generic;
 using System.Threading;
 
 namespace Hazzik.Net {
@@ -12,23 +11,28 @@ namespace Hazzik.Net {
 		protected string _name;
 
 		private IPEndPoint _localEndPoint = new IPEndPoint(IPAddress.Any, 0);
+
 		public IPEndPoint LocalEndPoint {
 			get { return _localEndPoint; }
 			set { _localEndPoint = value; }
 		}
+
 		public AddressFamily AddressFamily {
 			get { return _localEndPoint.AddressFamily; }
 		}
+
 		public IPAddress Address {
 			get { return _localEndPoint.Address; }
 		}
+
 		public int Port {
 			get { return _localEndPoint.Port; }
 		}
 
 		private bool _disposed = false;
 
-		protected ServerBase() { }
+		protected ServerBase() {
+		}
 
 		public bool Start() {
 			try {
@@ -40,7 +44,8 @@ namespace Hazzik.Net {
 					IsBackground = true,
 				};
 				accept_tread.Start();
-			} catch(Exception e) {
+			}
+			catch(Exception e) {
 				Console.WriteLine("Failed to list on {0}\n{1}", _localEndPoint, e.Message);
 				_listenSocket = null;
 				return false;
@@ -70,7 +75,6 @@ namespace Hazzik.Net {
 				_listenSocket = null;
 			}
 		}
-
 
 		#endregion
 	}

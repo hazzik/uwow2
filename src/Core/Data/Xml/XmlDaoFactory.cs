@@ -1,6 +1,7 @@
-﻿namespace Hazzik.Data.Xml {
+namespace Hazzik.Data.Xml {
 	public class XmlDaoFactory : IDaoFactory {
 		private static XmlDaoFactory _instance;
+
 		public static XmlDaoFactory Instance {
 			get {
 				if(null == _instance) {

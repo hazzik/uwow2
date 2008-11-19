@@ -1,16 +1,11 @@
-Ôªøusing System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Hazzik.Net;
-using System.Net.Sockets;
+using System;
 using System.IO;
-using System.Security.Cryptography;
-using Hazzik.Cryptography;
-using Hazzik.Helper;
-using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 using System.Net;
-using System.Runtime.InteropServices;
+using System.Net.Sockets;
+using System.Security.Cryptography;
+using System.Text;
+using Hazzik.Cryptography;
+using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 
 namespace Hazzik.Net {
 	public class WorldClient : ClientBase {
@@ -28,10 +23,10 @@ namespace Hazzik.Net {
 			var p = new WorldPacket(WMSG.SMSG_AUTH_CHALLENGE);
 			var w = p.CreateWriter();
 			w.Write(_seed);
-			this.SendPacket(p);
+			SendPacket(p);
 
-			this._server = server;
-			this.Start();
+			_server = server;
+			Start();
 		}
 
 		private byte[] computeDigest(uint client_seed) {
@@ -69,7 +64,10 @@ namespace Hazzik.Net {
 
 				Account = Account.GetByName(accountName);
 
-				var hash = (HashAlgorithm)new HMACSHA1(new byte[] { 0x38, 0xA7, 0x83, 0x15, 0xF8, 0x92, 0x25, 0x30, 0x71, 0x98, 0x67, 0xB1, 0x8C, 0x4, 0xE2, 0xAA });
+				var hash =
+					(HashAlgorithm)
+					new HMACSHA1(new byte[]
+					             { 0x38, 0xA7, 0x83, 0x15, 0xF8, 0x92, 0x25, 0x30, 0x71, 0x98, 0x67, 0xB1, 0x8C, 0x4, 0xE2, 0xAA });
 				var key = hash.ComputeHash(Account.SessionKey);
 				var algo = (SymmetricAlgorithm)new SRP6Wow(key);
 				_decryptor = algo.CreateDecryptor();
@@ -90,10 +88,10 @@ namespace Hazzik.Net {
 				w.Write((byte)0);
 				w.Write((uint)0);
 				w.Write((byte)Account.Expansion);
-				this.SendPacket(p);
+				SendPacket(p);
 
 				var addonInfoBlockSize = r.ReadUInt32();
-				dataStream = new InflaterInputStream(dataStream);//–¥–∞–ª—å—à–µ –¥–∞–Ω–Ω—ã–µ –∑–∞–ø–∞–∫–æ–≤–∞–Ω—ã
+				dataStream = new InflaterInputStream(dataStream); //‰‡Î¸¯Â ‰‡ÌÌ˚Â Á‡Ô‡ÍÓ‚‡Ì˚
 				r = new BinaryReader(dataStream);
 				try {
 					while(true) {
@@ -104,8 +102,8 @@ namespace Hazzik.Net {
 						};
 						AddonManager.Instance[addonInfo.Name] = addonInfo;
 					}
-				} catch(Exception e) {
-
+				}
+				catch(Exception e) {
 				}
 
 				p = new WorldPacket(WMSG.SMSG_ADDON_INFO);
@@ -114,7 +112,7 @@ namespace Hazzik.Net {
 					w.Write((ulong)0x0102);
 				}
 				w.Flush();
-				this.SendPacket(p);
+				SendPacket(p);
 				return;
 			}
 			if(code == WMSG.CMSG_PING) {
@@ -122,14 +120,14 @@ namespace Hazzik.Net {
 				var p = new WorldPacket(WMSG.SMSG_PONG);
 				var w = p.CreateWriter();
 				w.Write(r.ReadUInt32());
-				this.SendPacket(p);
+				SendPacket(p);
 				return;
 			}
 			_server.Handler.Handle(this, packet);
 		}
 
 		public override IPacket ReadPacket() {
-			var data = this.GetStream();
+			var data = GetStream();
 			var head = new BinaryReader(_firstPacket ? data : new CryptoStream(data, _decryptor, CryptoStreamMode.Read));
 
 			int size = IPAddress.NetworkToHostOrder(head.ReadInt16());
@@ -141,7 +139,7 @@ namespace Hazzik.Net {
 		}
 
 		public override void SendPacket(IPacket packet) {
-			var data = this.GetStream();
+			var data = GetStream();
 			var head = _firstPacket ? data : new CryptoStream(data, _encryptor, CryptoStreamMode.Write);
 			packet.WriteHead(head);
 			packet.WriteBody(data);

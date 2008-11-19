@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System;
 
 namespace Hazzik.Attributes {
 	[AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
@@ -9,7 +6,7 @@ namespace Hazzik.Attributes {
 		public int Code { get; private set; }
 
 		public BaseHandlerAttribute(int code) {
-			this.Code = code;
+			Code = code;
 		}
 	}
 }

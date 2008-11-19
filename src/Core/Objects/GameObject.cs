@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System;
 
 namespace Hazzik.Objects {
 	public class GameObject : Positioned {
@@ -49,7 +46,6 @@ namespace Hazzik.Objects {
 		public int Bytes1 { get; set; }
 		//GAMEOBJECT_END = OBJECT_END + 18,
 
-		#endregion		 
-
+		#endregion
 	}
 }

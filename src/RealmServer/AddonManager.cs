@@ -1,15 +1,14 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml.Serialization;
 using System.IO;
-using System.Collections;
+using System.Linq;
+using System.Xml.Serialization;
 
 namespace Hazzik {
 	public class AddonManager {
-		static XmlSerializer _serializer = new XmlSerializer(typeof(List<AddonInfo>));
-		static AddonManager _instance;
+		private static XmlSerializer _serializer = new XmlSerializer(typeof(List<AddonInfo>));
+		private static AddonManager _instance;
+
 		public static AddonManager Instance {
 			get {
 				if(_instance == null) {
@@ -36,8 +35,8 @@ namespace Hazzik {
 		public AddonInfo this[string name] {
 			get {
 				return (from addon in AddonInfos
-						  where addon.Name == name
-						  select addon).FirstOrDefault();
+				        where addon.Name == name
+				        select addon).FirstOrDefault();
 			}
 			set {
 				var addon = this[name];
