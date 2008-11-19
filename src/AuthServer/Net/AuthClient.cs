@@ -9,7 +9,7 @@ using System.Threading;
 using Hazzik.Helper;
 
 namespace Hazzik.Net {
-	public class AuthClient : ClientBase, IClient {
+	public class AuthClient : ClientBase, ISession {
 		private static BigInteger bi_N = new BigInteger("894B645E89E1535BBDAD5B8B290650530801B18EBFBF5E8FAB3C82872A3E9BB7", 16);
 		private static BigInteger bi_g = 7;
 		private static BigInteger bi_k = 3;
@@ -102,7 +102,7 @@ namespace Hazzik.Net {
 						var w = p.CreateWriter();
 						var n = s.Read(buff, 0, 1500);
 						w.Write(buff, 0, n);
-						SendPacket(p);
+						Send(p);
 					}
 				}
 			}
@@ -166,7 +166,7 @@ namespace Hazzik.Net {
 				w.Write(new byte[16]);
 				w.Write((byte)0);
 			}
-			SendPacket(p);
+			Send(p);
 
 			#endregion
 		}
@@ -227,7 +227,7 @@ namespace Hazzik.Net {
 				w.Write((byte)3);
 				w.Write((byte)0);
 
-				SendPacket(p);
+				Send(p);
 				return;
 			}
 
@@ -245,7 +245,7 @@ namespace Hazzik.Net {
 				w.Write((ushort)0);
 				w.Write((uint)0);
 				w.Write((uint)0);
-				SendPacket(p);
+				Send(p);
 			}
 
 			#endregion
@@ -290,7 +290,7 @@ namespace Hazzik.Net {
 				}
 				w.Write((ushort)2);
 			}
-			SendPacket(p);
+			Send(p);
 		}
 
 		public void HandleXferAccept(IPacket packet) {
@@ -340,7 +340,7 @@ namespace Hazzik.Net {
 			}
 		}
 
-		public override void SendPacket(IPacket packet) {
+		public override void Send(IPacket packet) {
 			var data = GetStream();
 			var head = data;
 

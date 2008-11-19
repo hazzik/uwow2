@@ -23,7 +23,7 @@ namespace Hazzik.Net {
 			var p = new WorldPacket(WMSG.SMSG_AUTH_CHALLENGE);
 			var w = p.CreateWriter();
 			w.Write(_seed);
-			SendPacket(p);
+			Send(p);
 
 			_server = server;
 			Start();
@@ -88,7 +88,7 @@ namespace Hazzik.Net {
 				w.Write((byte)0);
 				w.Write((uint)0);
 				w.Write((byte)Account.Expansion);
-				SendPacket(p);
+				Send(p);
 
 				var addonInfoBlockSize = r.ReadUInt32();
 				dataStream = new InflaterInputStream(dataStream); //дальше данные запакованы
@@ -112,7 +112,7 @@ namespace Hazzik.Net {
 					w.Write((ulong)0x0102);
 				}
 				w.Flush();
-				SendPacket(p);
+				Send(p);
 				return;
 			}
 			if(code == WMSG.CMSG_PING) {
@@ -120,7 +120,7 @@ namespace Hazzik.Net {
 				var p = new WorldPacket(WMSG.SMSG_PONG);
 				var w = p.CreateWriter();
 				w.Write(r.ReadUInt32());
-				SendPacket(p);
+				Send(p);
 				return;
 			}
 			_server.Handler.Handle(this, packet);
@@ -138,7 +138,7 @@ namespace Hazzik.Net {
 			}
 		}
 
-		public override void SendPacket(IPacket packet) {
+		public override void Send(IPacket packet) {
 			var data = GetStream();
 			var head = _firstPacket ? data : new CryptoStream(data, _encryptor, CryptoStreamMode.Write);
 			packet.WriteHead(head);

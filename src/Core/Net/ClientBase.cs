@@ -3,7 +3,7 @@ using System.IO;
 using System.Net.Sockets;
 
 namespace Hazzik.Net {
-	public abstract class ClientBase : IClient {
+	public abstract class ClientBase : ISession {
 		protected Socket _socket;
 		private Stream _stream;
 
@@ -12,7 +12,7 @@ namespace Hazzik.Net {
 		}
 
 		public abstract IPacket ReadPacket();
-		public abstract void SendPacket(IPacket packet);
+		public abstract void Send(IPacket packet);
 		public abstract void ProcessData(IPacket packet);
 
 		public virtual void Start() {

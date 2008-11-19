@@ -29,7 +29,7 @@ namespace Hazzik {
 			w.WriteCString(DateTime.Now.AddDays(1).ToShortDateString());
 			w.WriteCString("hello");
 			w.WriteCString("world");
-			client.SendPacket(responce);
+			client.Send(responce);
 		}
 
 		[WorldPacketHandler(WMSG.CMSG_CHAR_ENUM)]
@@ -79,7 +79,7 @@ namespace Hazzik {
 						}
 					}
 				}
-				client.SendPacket(p);
+				client.Send(p);
 			}
 			catch(Exception e) {
 				Console.WriteLine(e.Message);
@@ -104,7 +104,7 @@ namespace Hazzik {
 			var responce = new WorldPacket(WMSG.SMSG_CHAR_CREATE);
 			var w = responce.CreateWriter();
 			w.Write((byte)47);
-			client.SendPacket(responce);
+			client.Send(responce);
 		}
 
 		[WorldPacketHandler(WMSG.CMSG_PLAYER_LOGIN)]
@@ -118,7 +118,7 @@ namespace Hazzik {
 				r = new WorldPacket(WMSG.SMSG_CHARACTER_LOGIN_FAILED);
 				w = r.CreateWriter();
 				w.Write((byte)0x44);
-				client.SendPacket(r);
+				client.Send(r);
 			}
 			else {
 				//pkt = 00022, 0x0236: SMSG_LOGIN_VERIFY_WORLD
@@ -133,20 +133,20 @@ namespace Hazzik {
 0010: 00 00 00 00 00 00 -- -- -- -- -- -- -- -- -- -- : .B....
 ");
 				w.Write(bytes);
-				client.SendPacket(r);
+				client.Send(r);
 
 				r = new WorldPacket(WMSG.SMSG_ACCOUNT_DATA_TIMES);
 				w = r.CreateWriter();
 				for(int i = 0; i < 0x80; i++) {
 					w.Write((byte)0);
 				}
-				client.SendPacket(r);
+				client.Send(r);
 
 				r = new WorldPacket(WMSG.SMSG_LOGIN_SETTIMESPEED);
 				w = r.CreateWriter();
 				w.Write(Program.GetActualTime());
 				w.Write(0.01666667F);
-				client.SendPacket(r);
+				client.Send(r);
 
 
 				r = new WorldPacket(WMSG.SMSG_UPDATE_OBJECT);
@@ -174,7 +174,7 @@ namespace Hazzik {
 				player.SetUpdateField((UpdateFields)46, 0x8);
 				bytes = mgr.BuildUpdatePacket(player);
 				w.Write(bytes);
-				client.SendPacket(r);
+				client.Send(r);
 
 				//r = new WorldPacket(WMSG.SMSG_TIME_SYNC_REQ);
 				//w = r.GetWriter();
