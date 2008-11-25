@@ -112,7 +112,7 @@ namespace Hazzik.Net {
 
 		private ClientInfo _clientInfo;
 
-		public void HandleLogonChallenge(IPacket packet) {
+		private void HandleLogonChallenge(IPacket packet) {
 			var gr = packet.CreateReader();
 			var tag = gr.ReadCString();
 			var verMajor = (int)gr.ReadByte();
@@ -171,7 +171,7 @@ namespace Hazzik.Net {
 			#endregion
 		}
 
-		public void HandleLogonProof(IPacket packet) {
+		private void HandleLogonProof(IPacket packet) {
 			var gr = packet.CreateReader();
 
 			var bi_A = new BigInteger(gr.ReadBytes(32).Reverse());
@@ -249,7 +249,7 @@ namespace Hazzik.Net {
 			#endregion
 		}
 
-		public void HandleRealmList(IPacket packet) {
+		private void HandleRealmList(IPacket packet) {
 			var p = new AuthPacket(RMSG.REALM_LIST);
 			
 			var w = p.CreateWriter();
@@ -288,59 +288,72 @@ namespace Hazzik.Net {
 			Send(p);
 		}
 
-		public void HandleXferAccept(IPacket packet) {
+		private void HandleXferAccept(IPacket packet) {
 			AcceptPatch = true;
 			sendPatch("wow-patch.mpq", 0);
 		}
 
-		public void HandleXferResume(IPacket packet) {
+		private void HandleXferResume(IPacket packet) {
 			AcceptPatch = true;
 			var gr = packet.CreateReader();
 			sendPatch("wow-patch.mpq", gr.ReadInt64());
 		}
 
-		public void HandleXferCancel(IPacket packet) {
+		private void HandleXferCancel(IPacket packet) {
 			AcceptPatch = false;
 		}
 
 		public override IPacket ReadPacket() {
 			using(var reader = new BinaryReader(GetStream())) {
 				var code = (RMSG)reader.ReadByte();
-				var size = 0;
-				switch(code) {
-				case RMSG.AUTH_LOGON_CHALLENGE:
-				case RMSG.AUTH_LOGON_RECODE_CHALLENGE:
-					var unk = reader.ReadByte();
-					size = reader.ReadUInt16();
-					break;
-				case RMSG.AUTH_LOGON_PROOF:
-					size = 0x4A;
-					break;
-				case RMSG.AUTH_LOGON_RECODE_PROOF:
-					size = 0x39;
-					break;
-				case RMSG.REALM_LIST:
-					size = 0x04;
-					break;
-				case RMSG.XFER_RESUME:
-					size = 0x08;
-					break;
-				case RMSG.XFER_ACCEPT:
-				case RMSG.XFER_CANCEL:
-				default:
-					size = 0x00;
-					break;
-				}
+				var size = ReadSize(reader, code);
 				return new AuthPacket(code, reader.ReadBytes(size));
 			}
 		}
-
+	
 		public override void Send(IPacket packet) {
 			var data = GetStream();
 			var head = data;
 
-			packet.WriteHead(head);
+			head.WriteByte((byte)packet.Code);
+			WriteSize(head, packet);
 			packet.WriteBody(data);
+		}
+
+		private static int ReadSize(BinaryReader reader, RMSG code) {
+			var size = 0;
+			switch(code) {
+			case RMSG.AUTH_LOGON_CHALLENGE:
+			case RMSG.AUTH_LOGON_RECODE_CHALLENGE:
+				var unk = reader.ReadByte();
+				size = reader.ReadUInt16();
+				break;
+			case RMSG.AUTH_LOGON_PROOF:
+				size = 0x4A;
+				break;
+			case RMSG.AUTH_LOGON_RECODE_PROOF:
+				size = 0x39;
+				break;
+			case RMSG.REALM_LIST:
+				size = 0x04;
+				break;
+			case RMSG.XFER_RESUME:
+				size = 0x08;
+				break;
+			case RMSG.XFER_ACCEPT:
+			case RMSG.XFER_CANCEL:
+			default:
+				size = 0x00;
+				break;
+			}
+			return size;
+		}
+
+		private static void WriteSize(Stream stream, IPacket packet) {
+			if((RMSG)packet.Code == RMSG.REALM_LIST || (RMSG)packet.Code == RMSG.XFER_DATA) {
+				stream.WriteByte((byte)(packet.Size));
+				stream.WriteByte((byte)(packet.Size >> 0x08));
+			}
 		}
 	}
 }

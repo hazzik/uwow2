@@ -128,10 +128,10 @@ namespace Hazzik.Net {
 
 		public override IPacket ReadPacket() {
 			var data = GetStream();
-			var head = new BinaryReader(_firstPacket ? data : new CryptoStream(data, _decryptor, CryptoStreamMode.Read));
+			var head = _firstPacket ? data : new CryptoStream(data, _decryptor, CryptoStreamMode.Read);
 
-			int size = IPAddress.NetworkToHostOrder(head.ReadInt16());
-			int code = head.ReadInt32();
+			int size = ReadSize(head);
+			int code = ReadCode(head);
 
 			using(var reader = new BinaryReader(data)) {
 				return new WorldPacket((WMSG)code, reader.ReadBytes(size - 4));
@@ -141,8 +141,41 @@ namespace Hazzik.Net {
 		public override void Send(IPacket packet) {
 			var data = GetStream();
 			var head = _firstPacket ? data : new CryptoStream(data, _encryptor, CryptoStreamMode.Write);
-			packet.WriteHead(head);
+			WriteSize(head, packet.Size + 2);
+			WriteCode(head, packet);
 			packet.WriteBody(data);
+		}
+
+		private static int ReadSize(Stream stream) {
+			int len = stream.ReadByte();
+			if((len & 0x80) != 0x00) {
+				len &= 0x7f;
+				len = (len << 0x08) | stream.ReadByte();
+			}
+			len = (len << 0x08) | stream.ReadByte();
+			return len;
+		}
+
+		private static int ReadCode(Stream stream) {
+			int code = 0;
+			code |= stream.ReadByte();
+			code |= stream.ReadByte() << 0x08;
+			code |= stream.ReadByte() << 0x10;
+			code |= stream.ReadByte() << 0x18;
+			return code;
+		}
+
+		private static void WriteSize(Stream stream, int size) {
+			if(size > short.MaxValue) {
+				stream.WriteByte((byte)(size >> 0x10));
+			}
+			stream.WriteByte((byte)(size >> 0x08));
+			stream.WriteByte((byte)(size));
+		}
+
+		private static void WriteCode(Stream stream, IPacket packet) {
+			stream.WriteByte((byte)(packet.Code));
+			stream.WriteByte((byte)(packet.Code >> 0x08));
 		}
 	}
 }

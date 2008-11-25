@@ -8,7 +8,6 @@ namespace Hazzik.Net {
 		Stream GetStream();
 		BinaryReader CreateReader();
 		BinaryWriter CreateWriter();
-		void WriteHead(Stream stream);
 		void WriteBody(Stream stream);
 	}
 }

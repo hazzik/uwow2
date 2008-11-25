@@ -27,7 +27,9 @@ namespace Hazzik.Net {
 
 				var compressedStream = new DeflaterOutputStream(_stream);
 				foreach(var packet in _packets) {
-					packet.WriteHead(compressedStream);
+					compressedStream.WriteByte((byte)(packet.Size + 2));
+					compressedStream.WriteByte((byte)(Code));
+					compressedStream.WriteByte((byte)(Code >> 0x08));
 					packet.WriteBody(compressedStream);
 				}
 			}

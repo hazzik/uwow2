@@ -36,7 +36,14 @@ namespace Hazzik.Net {
 			return new BinaryWriter(GetStream());
 		}
 
-		public abstract void WriteHead(Stream stream);
-		public abstract void WriteBody(Stream stream);
+		public virtual void WriteBody(Stream stream) {
+			var bytesRead = 0;
+			var buffer = new byte[1024];
+			var packetStream = GetStream();
+			packetStream.Seek(0, SeekOrigin.Begin);
+			while((bytesRead = packetStream.Read(buffer, 0, 1024)) > 0) {
+				stream.Write(buffer, 0, bytesRead);
+			}
+		}
 	}
 }
