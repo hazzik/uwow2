@@ -1,11 +1,10 @@
-﻿using Hazzik;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Hazzik.Objects;
 using System;
+using Hazzik;
 using Hazzik.Helper;
+using Hazzik.Objects;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests {
-
 	/// <summary>
 	///This is a test class for UpdateMgrTest and is intended
 	///to contain all UpdateMgrTest Unit Tests
@@ -24,6 +23,7 @@ namespace Tests {
 		}
 
 		#region Additional test attributes
+
 		// 
 		//You can use the following additional attributes as you write your tests:
 		//
@@ -51,6 +51,7 @@ namespace Tests {
 		//{
 		//}
 		//
+
 		#endregion
 
 		/// <summary>
@@ -59,7 +60,9 @@ namespace Tests {
 		[TestMethod]
 		public void BuildUpdateObjectTest01() {
 			var target = new UpdateMgr();
-			var expected = PacketsHelper.GetBytes(@"
+			var expected =
+				PacketsHelper.GetBytes(
+					@"
 
 0000: 01 00 00 00 00 00 F7 D4 F4 45 C4 0E 0C F0 08 00 : .........E......
 0010: 00 40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 : .@..............
@@ -86,7 +89,9 @@ namespace Tests {
 		[TestMethod()]
 		public void BuildUpdateObjectTest02() {
 			UpdateMgr target = new UpdateMgr();
-			byte[] expected = PacketsHelper.GetBytes(@"
+			byte[] expected =
+				PacketsHelper.GetBytes(
+					@"
 
 0000: 02 00 00 00 00 00 DF 2E 89 0C 1A 0C 30 F1 : ..............0.
 0010: 08 00 00 03 00 00 40 00 00 00 00 00 00 00 00 00 : ......@.........

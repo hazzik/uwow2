@@ -251,7 +251,7 @@ namespace Hazzik.Net {
 
 		private void HandleRealmList(IPacket packet) {
 			var p = new AuthPacket(RMSG.REALM_LIST);
-			
+
 			var w = p.CreateWriter();
 			w.Write(1);
 			w.Write((ushort)_serverList.Count);

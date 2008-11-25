@@ -3,7 +3,6 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using Hazzik.Data;
-using Hazzik.Data.SQLite;
 using Hazzik.Data.Xml;
 using Hazzik.Helper;
 using Hazzik.Objects;
