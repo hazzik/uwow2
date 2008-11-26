@@ -139,7 +139,7 @@ namespace Hazzik.Net {
 				AccountName = accountName,
 			};
 
-			_account = Account.GetByName(accountName);
+			_account = Account.FindByName(accountName);
 			if(_account == null) {
 				_account = Account.Create(accountName);
 				_account.SetPassword(accountName);

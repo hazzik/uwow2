@@ -62,7 +62,7 @@ namespace Hazzik.Net {
 				var clientSeed = r.ReadUInt32();
 				var clientDigest = r.ReadBytes(20);
 
-				Account = Account.GetByName(accountName);
+				Account = Account.FindByName(accountName);
 
 				var hash =
 					(HashAlgorithm)

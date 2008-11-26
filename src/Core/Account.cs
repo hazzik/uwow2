@@ -22,7 +22,7 @@ namespace Hazzik {
 			return new Account() { Name = name };
 		}
 
-		public static Account GetByName(string name) {
+		public static Account FindByName(string name) {
 			return _dao.GetByName(name);
 		}
 
