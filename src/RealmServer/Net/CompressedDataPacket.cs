@@ -5,8 +5,8 @@ using System.IO;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 
 namespace Hazzik.Net {
-	public class CompressedDataPacket : WorldPacket, IPacket, ICollection<IPacket> {
-		private List<IPacket> _packets = new List<IPacket>();
+	public class CompressedDataPacket : WorldPacket, ICollection<IPacket> {
+		private readonly IList<IPacket> _packets = new List<IPacket>();
 		private bool _dirty;
 
 		public CompressedDataPacket()

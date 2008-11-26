@@ -52,8 +52,8 @@ namespace Hazzik {
 					w.Write(player.facialHair);
 					w.Write((byte)player.level);
 
-					w.Write((uint)player.ZoneId);
-					w.Write((uint)player.MapId);
+					w.Write(player.ZoneId);
+					w.Write(player.MapId);
 					w.Write(player.X);
 					w.Write(player.Y);
 					w.Write(player.Z);
@@ -65,7 +65,7 @@ namespace Hazzik {
 					w.Write(player.PetDisplayId);
 					w.Write(player.PetLevel);
 					w.Write(player.PetCreatureFamily);
-					for(int i = 0; i < 20; i++) {
+					for(var i = 0; i < 20; i++) {
 						var item = player.Items[i];
 						if(item != null) {
 							w.Write(0);
@@ -100,7 +100,7 @@ namespace Hazzik {
 				hairColor = r.ReadByte(),
 				facialHair = r.ReadByte(),
 			};
-			(client as WorldClient).Account.AddPlayer(player);
+			((WorldClient)client).Account.AddPlayer(player);
 			var responce = new WorldPacket(WMSG.SMSG_CHAR_CREATE);
 			var w = responce.CreateWriter();
 			w.Write((byte)47);
@@ -111,21 +111,16 @@ namespace Hazzik {
 		public static void HandleCMSG_PLAYER_LOGIN(ClientBase client, IPacket packet) {
 			var reader = packet.CreateReader();
 			var guid = reader.ReadUInt64();
-			var player = (client as WorldClient).Account.GetPlayer(guid);
-			var r = (WorldPacket)null;
-			var w = (BinaryWriter)null;
+			var player = ((WorldClient)client).Account.GetPlayer(guid);
 			if(null == player) {
-				r = new WorldPacket(WMSG.SMSG_CHARACTER_LOGIN_FAILED);
-				w = r.CreateWriter();
-				w.Write((byte)0x44);
-				client.Send(r);
+				client.Send(GetCharacterLoginFiledPkt(0x44));
 			}
 			else {
 				//pkt = 00022, 0x0236: SMSG_LOGIN_VERIFY_WORLD
 				//0000: 36 02 01 00 00 00 27 A1 1A C4 5C DD 84 C5 3B DF : 6.....'...\...;.
 				//0010: 1A 42 00 00 00 00 -- -- -- -- -- -- -- -- -- -- : .B....
-				r = new WorldPacket(WMSG.SMSG_LOGIN_VERIFY_WORLD);
-				w = r.CreateWriter();
+				var r = new WorldPacket(WMSG.SMSG_LOGIN_VERIFY_WORLD);
+				var w = r.CreateWriter();
 				var bytes =
 					PacketsHelper.GetBytes(
 						@"
@@ -135,18 +130,9 @@ namespace Hazzik {
 				w.Write(bytes);
 				client.Send(r);
 
-				r = new WorldPacket(WMSG.SMSG_ACCOUNT_DATA_TIMES);
-				w = r.CreateWriter();
-				for(int i = 0; i < 0x80; i++) {
-					w.Write((byte)0);
-				}
-				client.Send(r);
+				client.Send(GetAccountDataTimesPkt());
 
-				r = new WorldPacket(WMSG.SMSG_LOGIN_SETTIMESPEED);
-				w = r.CreateWriter();
-				w.Write(Program.GetActualTime());
-				w.Write(0.01666667F);
-				client.Send(r);
+				client.Send(GetLoginSetTimeSpeed());
 
 
 				r = new WorldPacket(WMSG.SMSG_UPDATE_OBJECT);
@@ -181,6 +167,28 @@ namespace Hazzik {
 
 				//client.SendPacket(r);
 			}
+		}
+
+		private static IPacket GetLoginSetTimeSpeed() {
+			var result = (IPacket)new WorldPacket(WMSG.SMSG_LOGIN_SETTIMESPEED);
+			var w = result.CreateWriter();
+			w.Write(Program.GetActualTime());
+			w.Write(0.01666667F);
+			return result;
+		}
+
+		private static IPacket GetAccountDataTimesPkt() {
+			var result = new WorldPacket(WMSG.SMSG_ACCOUNT_DATA_TIMES);
+			var w = result.CreateWriter();
+			w.Write(new byte[0x80]);
+			return result;
+		}
+
+		private static IPacket GetCharacterLoginFiledPkt(int error) {
+			var result = new WorldPacket(WMSG.SMSG_CHARACTER_LOGIN_FAILED);
+			var w = result.CreateWriter();
+			w.Write((byte)error);
+			return result;
 		}
 	}
 }
