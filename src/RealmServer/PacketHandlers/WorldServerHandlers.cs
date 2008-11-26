@@ -34,62 +34,57 @@ namespace Hazzik {
 
 		[WorldPacketHandler(WMSG.CMSG_CHAR_ENUM)]
 		public static void HandleCMSG_CHAR_ENUM(ClientBase client, IPacket packet) {
-			try {
-				var wclient = client as WorldClient;
-				var p = new WorldPacket(WMSG.SMSG_CHAR_ENUM);
-				var w = p.CreateWriter();
-				w.Write((byte)wclient.Account.Players.Count());
-				foreach(var player in wclient.Account.Players) {
-					w.Write(player.Guid);
-					w.WriteCString(player.Name);
-					w.Write((byte)player.Race);
-					w.Write((byte)player.Classe);
-					w.Write((byte)player.Gender);
-					w.Write(player.skin);
-					w.Write(player.face);
-					w.Write(player.hairStyle);
-					w.Write(player.hairColor);
-					w.Write(player.facialHair);
-					w.Write((byte)player.level);
+			var wclient = client as WorldClient;
+			var p = new WorldPacket(WMSG.SMSG_CHAR_ENUM);
+			var w = p.CreateWriter();
+			w.Write((byte)wclient.Account.Players.Count());
+			foreach(var player in wclient.Account.Players) {
+				w.Write(player.Guid);
+				w.WriteCString(player.Name);
+				w.Write((byte)player.Race);
+				w.Write((byte)player.Classe);
+				w.Write((byte)player.Gender);
+				w.Write(player.skin);
+				w.Write(player.face);
+				w.Write(player.hairStyle);
+				w.Write(player.hairColor);
+				w.Write(player.facialHair);
+				w.Write((byte)player.level);
 
-					w.Write(player.ZoneId);
-					w.Write(player.MapId);
-					w.Write(player.X);
-					w.Write(player.Y);
-					w.Write(player.Z);
-					w.Write(player.GuildID);
+				w.Write(player.ZoneId);
+				w.Write(player.MapId);
+				w.Write(player.X);
+				w.Write(player.Y);
+				w.Write(player.Z);
+				w.Write(player.GuildID);
 
-					uint flag = 0x00000000;
-					w.Write(flag);
-					w.Write((byte)0);
-					w.Write(player.PetDisplayId);
-					w.Write(player.PetLevel);
-					w.Write(player.PetCreatureFamily);
-					for(var i = 0; i < 20; i++) {
-						var item = player.Items[i];
-						if(item != null) {
-							w.Write(0);
-							w.Write((byte)0);
-							w.Write(0);
-						}
-						else {
-							w.Write(0);
-							w.Write((byte)0);
-							w.Write(0);
-						}
+				uint flag = 0x00000000;
+				w.Write(flag);
+				w.Write((byte)0);
+				w.Write(player.PetDisplayId);
+				w.Write(player.PetLevel);
+				w.Write(player.PetCreatureFamily);
+				for(var i = 0; i < 20; i++) {
+					var item = player.Items[i];
+					if(item != null) {
+						w.Write(0);
+						w.Write((byte)0);
+						w.Write(0);
+					}
+					else {
+						w.Write(0);
+						w.Write((byte)0);
+						w.Write(0);
 					}
 				}
-				client.Send(p);
 			}
-			catch(Exception e) {
-				Console.WriteLine(e.Message);
-			}
+			client.Send(p);
 		}
 
 		[WorldPacketHandler(WMSG.CMSG_CHAR_CREATE)]
 		public static void HandleCMSG_CHAR_CREATE(ClientBase client, IPacket packet) {
 			var r = packet.CreateReader();
-			var player = new Player() {
+			var player = new Player {
 				Name = r.ReadCString(),
 				Race = (Races)r.ReadByte(),
 				Classe = (Classes)r.ReadByte(),
@@ -138,7 +133,7 @@ namespace Hazzik {
 				r = new WorldPacket(WMSG.SMSG_UPDATE_OBJECT);
 				w = r.CreateWriter();
 
-				UpdateMgr mgr = new UpdateMgr();
+				var mgr = new UpdateMgr();
 				mgr.Add(player);
 				player.ClearUpdateMask();
 				player.SetUpdateField((UpdateFields)0, 0x1B09FA7);
@@ -178,14 +173,14 @@ namespace Hazzik {
 		}
 
 		private static IPacket GetAccountDataTimesPkt() {
-			var result = new WorldPacket(WMSG.SMSG_ACCOUNT_DATA_TIMES);
+			var result = (IPacket)new WorldPacket(WMSG.SMSG_ACCOUNT_DATA_TIMES);
 			var w = result.CreateWriter();
 			w.Write(new byte[0x80]);
 			return result;
 		}
 
 		private static IPacket GetCharacterLoginFiledPkt(int error) {
-			var result = new WorldPacket(WMSG.SMSG_CHARACTER_LOGIN_FAILED);
+			var result = (IPacket)new WorldPacket(WMSG.SMSG_CHARACTER_LOGIN_FAILED);
 			var w = result.CreateWriter();
 			w.Write((byte)error);
 			return result;
