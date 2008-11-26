@@ -9,7 +9,7 @@ namespace Hazzik.Data.SQLite {
 		internal AccountDaoSQLite() {
 		}
 
-		public Account GetByName(string name) {
+		public Account FindByName(string name) {
 			_conection = _factory.CreateConnection();
 			_conection.ConnectionString = @"data source=E:\WowwoW\uwow2\uwow2.sqlite";
 			_conection.Open();

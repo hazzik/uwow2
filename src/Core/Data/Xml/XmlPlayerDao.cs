@@ -13,7 +13,7 @@ namespace Hazzik.Data.Xml {
 
 		#region IGuided<DbPlayer> Members
 
-		public Player GetByGuid(ulong guid) {
+		public Player FindByGuid(ulong guid) {
 			return (from player in _entities
 			        where player.Guid == guid
 			        select player).FirstOrDefault();
@@ -29,7 +29,7 @@ namespace Hazzik.Data.Xml {
 			};
 		}
 
-		public Player GetByName(string name) {
+		public Player FindByName(string name) {
 			name = name.ToUpper();
 			return (from player in _entities
 			        where player.Name == name

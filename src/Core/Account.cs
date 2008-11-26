@@ -23,7 +23,7 @@ namespace Hazzik {
 		}
 
 		public static Account FindByName(string name) {
-			return _dao.GetByName(name);
+			return _dao.FindByName(name);
 		}
 
 		public void SetPassword(string password) {

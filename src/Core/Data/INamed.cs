@@ -1,11 +1,7 @@
 using System;
 
 namespace Hazzik.Data {
-	public interface INamed {
-		object GetByName(string name);
-	}
-
-	public interface INamed<T> {
-		T GetByName(string name);
+	public interface INamedSearch<T> {
+		T FindByName(string name);
 	}
 }

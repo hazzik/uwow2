@@ -12,7 +12,7 @@ namespace Hazzik.Data.Xml {
 
 		#region INamed<DbAccount> Members
 
-		public Account GetByName(string name) {
+		public Account FindByName(string name) {
 			return (from account in _entities
 			        where account.Name.ToUpper() == name.ToUpper()
 			        select account).FirstOrDefault();
