@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using System.Net;
 using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Text;
@@ -10,13 +9,13 @@ using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 namespace Hazzik.Net {
 	public class WorldClient : ClientBase {
 		public Account Account { get; set; }
-		private WorldServer _server;
+		private readonly WorldServer _server;
 
 		private ICryptoTransform _decryptor;
 		private ICryptoTransform _encryptor;
 
 		private bool _firstPacket = true;
-		private uint _seed = (uint)(new Random().Next(0, int.MaxValue));
+		private readonly uint _seed = (uint)(new Random().Next(0, int.MaxValue));
 
 		public WorldClient(WorldServer server, Socket socket)
 			: base(socket) {
@@ -30,7 +29,7 @@ namespace Hazzik.Net {
 		}
 
 		private byte[] computeDigest(uint client_seed) {
-			var buff = (byte[])null;
+			byte[] buff;
 			using(var w = new BinaryWriter(new MemoryStream())) {
 				w.Write(Encoding.UTF8.GetBytes(Account.Name));
 				w.Write(0);
@@ -38,7 +37,7 @@ namespace Hazzik.Net {
 				w.Write(_seed);
 				w.Write(Account.SessionKey);
 				w.Flush();
-				buff = (w.BaseStream as MemoryStream).ToArray();
+				buff = ((MemoryStream)w.BaseStream).ToArray();
 				buff = SHA1.Create().ComputeHash(buff, 0, buff.Length);
 			}
 			return buff;
@@ -56,9 +55,7 @@ namespace Hazzik.Net {
 				var version = r.ReadUInt32();
 				var unk2 = r.ReadUInt32();
 				var accountName = r.ReadCString();
-#if WOW3
 				var unk = r.ReadUInt32();
-#endif
 				var clientSeed = r.ReadUInt32();
 				var clientDigest = r.ReadBytes(20);
 
@@ -95,7 +92,7 @@ namespace Hazzik.Net {
 				r = new BinaryReader(dataStream);
 				try {
 					while(true) {
-						var addonInfo = new AddonInfo() {
+						var addonInfo = new AddonInfo {
 							Name = r.ReadCString(),
 							Crc = r.ReadUInt64(),
 							Status = r.ReadByte(),
@@ -130,8 +127,8 @@ namespace Hazzik.Net {
 			var data = GetStream();
 			var head = _firstPacket ? data : new CryptoStream(data, _decryptor, CryptoStreamMode.Read);
 
-			int size = ReadSize(head);
-			int code = ReadCode(head);
+			var size = ReadSize(head);
+			var code = ReadCode(head);
 
 			using(var reader = new BinaryReader(data)) {
 				return new WorldPacket((WMSG)code, reader.ReadBytes(size - 4));

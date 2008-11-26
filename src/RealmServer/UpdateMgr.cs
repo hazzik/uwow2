@@ -5,7 +5,7 @@ using Hazzik.Objects;
 
 namespace Hazzik {
 	public class UpdateMgr {
-		private List<WorldObject> _objects = new List<WorldObject>();
+		private readonly List<WorldObject> _objects = new List<WorldObject>();
 
 		public byte[] BuildUpdatePacket(Player to) {
 			var s = new MemoryStream();
@@ -24,7 +24,7 @@ namespace Hazzik {
 			return s.ToArray();
 		}
 
-		private void WriteCreateObject(BinaryWriter w, WorldObject obj, Player to) {
+		private static void WriteCreateObject(BinaryWriter w, WorldObject obj, Player to) {
 			w.Write((byte)(obj != to ? UpdateType.CreateObject : UpdateType.CreateObject2));
 			w.WritePackGuid(obj.Guid);
 			w.Write(obj.TypeId);
@@ -37,13 +37,13 @@ namespace Hazzik {
 			obj.WriteUpdateBlock(w);
 		}
 
-		private void WriteUpdateObject(BinaryWriter w, WorldObject obj) {
+		private static void WriteUpdateObject(BinaryWriter w, WorldObject obj) {
 			w.Write((byte)0); //
 			w.WritePackGuid(obj.Guid);
 			obj.WriteUpdateBlock(w);
 		}
 
-		public void Add(Unit obj) {
+		public void Add(WorldObject obj) {
 			_objects.Add(obj);
 		}
 	}

@@ -1,8 +1,7 @@
 using System;
-using System.IO;
 
 namespace Hazzik.Net {
-	public class WorldPacket : PacketBase, IPacket {
+	public class WorldPacket : PacketBase {
 		internal WorldPacket(WMSG code, byte[] data)
 			: base((int)code, data) {
 		}

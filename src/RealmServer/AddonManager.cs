@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 
 namespace Hazzik {
 	public class AddonManager {
-		private static XmlSerializer _serializer = new XmlSerializer(typeof(List<AddonInfo>));
+		private static readonly XmlSerializer _serializer = new XmlSerializer(typeof(List<AddonInfo>));
 		private static AddonManager _instance;
 
 		public static AddonManager Instance {
