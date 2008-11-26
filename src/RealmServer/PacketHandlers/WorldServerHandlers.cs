@@ -127,7 +127,7 @@ namespace Hazzik {
 
 				client.Send(GetAccountDataTimesPkt());
 
-				client.Send(GetLoginSetTimeSpeed());
+				client.Send(GetLoginSetTimeSpeedPkt());
 
 
 				r = new WorldPacket(WMSG.SMSG_UPDATE_OBJECT);
@@ -164,7 +164,7 @@ namespace Hazzik {
 			}
 		}
 
-		private static IPacket GetLoginSetTimeSpeed() {
+		private static IPacket GetLoginSetTimeSpeedPkt() {
 			var result = (IPacket)new WorldPacket(WMSG.SMSG_LOGIN_SETTIMESPEED);
 			var w = result.CreateWriter();
 			w.Write(Program.GetActualTime());
