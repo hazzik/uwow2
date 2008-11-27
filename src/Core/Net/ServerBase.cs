@@ -29,7 +29,7 @@ namespace Hazzik.Net {
 			get { return _localEndPoint.Port; }
 		}
 
-		private bool _disposed = false;
+		private bool _disposed;
 
 		protected ServerBase() {
 		}
@@ -40,7 +40,7 @@ namespace Hazzik.Net {
 				_listenSocket.Bind(_localEndPoint);
 				_listenSocket.Listen(100);
 				Console.WriteLine("{0} started, listen {1}", _name, _localEndPoint);
-				Thread accept_tread = new Thread(AcceptTread) {
+				var accept_tread = new Thread(AcceptTread) {
 					IsBackground = true,
 				};
 				accept_tread.Start();
@@ -68,12 +68,12 @@ namespace Hazzik.Net {
 		#region IDisposable Members
 
 		public void Dispose() {
-			if(!_disposed) {
-				_disposed = true;
-				//foreach (
-				_listenSocket.Close();
-				_listenSocket = null;
+			if(_disposed) {
+				return;
 			}
+			_disposed = true;
+			_listenSocket.Close();
+			_listenSocket = null;
 		}
 
 		#endregion
