@@ -24,9 +24,9 @@ namespace Hazzik.Net {
 
 		public AuthClient(AuthServer server, Socket client) :
 			base(client) {
-			_serverList.Add(new WorldServerInfo {
+			_realmList.Add(new WorldServerInfo {
 				Type = 0,
-				Locked = 0,
+				Locked = false,
 				Status = 0,
 				Name = "TestRealm",
 				Address = "127.0.0.1:3725",
@@ -40,42 +40,31 @@ namespace Hazzik.Net {
 		}
 
 		public override void ProcessData(IPacket packet) {
-			var code = (RMSG)packet.Code;
-
-			switch(code) {
+			switch((RMSG)packet.Code) {
 			case RMSG.AUTH_LOGON_CHALLENGE:
 			case RMSG.AUTH_LOGON_RECODE_CHALLENGE:
 				HandleLogonChallenge(packet);
 				break;
-
 			case RMSG.AUTH_LOGON_PROOF:
 			case RMSG.AUTH_LOGON_RECODE_PROOF:
 				HandleLogonProof(packet);
 				break;
-
 			case RMSG.REALM_LIST:
 				HandleRealmList(packet);
 				break;
-
 			case RMSG.XFER_ACCEPT:
 				HandleXferAccept(packet);
 				break;
-
 			case RMSG.XFER_RESUME:
 				HandleXferResume(packet);
 				break;
-
 			case RMSG.XFER_CANCEL:
 				HandleXferCancel(packet);
-				break;
-
-			default:
-				Console.WriteLine("Receive unknown command {0}", code);
 				break;
 			}
 		}
 
-		private List<WorldServerInfo> _serverList = new List<WorldServerInfo>();
+		private List<WorldServerInfo> _realmList = new List<WorldServerInfo>();
 
 		public bool AcceptPatch { get; set; }
 
@@ -95,19 +84,23 @@ namespace Hazzik.Net {
 			var pinfo = (PatchInfo)state;
 			try {
 				using(var s = (Stream)new FileStream(pinfo.FileName, FileMode.OpenOrCreate)) {
-					byte[] buff = new byte[1503];
+					var buff = new byte[1503];
 					s.Seek(pinfo.Offset, SeekOrigin.Begin);
 					while(AcceptPatch && s.Position < s.Length) {
-						var p = new AuthPacket(RMSG.XFER_DATA);
-						var w = p.CreateWriter();
 						var n = s.Read(buff, 0, 1500);
-						w.Write(buff, 0, n);
-						Send(p);
+						Send(GetXferData(buff, 0, n));
 					}
 				}
 			}
 			catch {
 			}
+		}
+
+		private static IPacket GetXferData(byte[] buff, int index, int count) {
+			var result = new AuthPacket(RMSG.XFER_DATA);
+			var w = result.CreateWriter();
+			w.Write(buff, index, count);
+			return result;
 		}
 
 		private ClientInfo _clientInfo;
@@ -150,25 +143,23 @@ namespace Hazzik.Net {
 			bi_v = new BigInteger(_account.PasswordVerifier.Reverse());
 			bi_B = (bi_v * bi_k + bi_g.modPow(bi_b, bi_N)) % bi_N;
 
-			#region sending reply to client
+			Send(GetLogonChallenge());
+		}
 
-			var p = new AuthPacket((int)RMSG.AUTH_LOGON_CHALLENGE);
-			var w = p.CreateWriter();
-			{
-				w.Write((byte)0);
-				w.Write((byte)0);
-				w.Write(bi_B.getBytes().Reverse());
-				w.Write((byte)1);
-				w.Write(bi_g.getBytes().Reverse());
-				w.Write((byte)32);
-				w.Write(bi_N.getBytes().Reverse());
-				w.Write(bi_s.getBytes().Reverse());
-				w.Write(new byte[16]);
-				w.Write((byte)0);
-			}
-			Send(p);
-
-			#endregion
+		private IPacket GetLogonChallenge() {
+			var result = new AuthPacket(RMSG.AUTH_LOGON_CHALLENGE);
+			var w = result.CreateWriter();
+			w.Write((byte)0);
+			w.Write((byte)0);
+			w.Write(bi_B.getBytes().Reverse());
+			w.Write((byte)1);
+			w.Write(bi_g.getBytes().Reverse());
+			w.Write((byte)32);
+			w.Write(bi_N.getBytes().Reverse());
+			w.Write(bi_s.getBytes().Reverse());
+			w.Write(new byte[16]);
+			w.Write((byte)0);
+			return result;
 		}
 
 		private void HandleLogonProof(IPacket packet) {
@@ -219,13 +210,7 @@ namespace Hazzik.Net {
 
 			var bi_M1Temp = new BigInteger(sha1.ComputeHash(Temp).Reverse());
 			if(bi_M1Temp != bi_M1) {
-				var p = new AuthPacket(RMSG.AUTH_LOGON_PROOF);
-				var w = p.CreateWriter();
-				w.Write((byte)4);
-				w.Write((byte)3);
-				w.Write((byte)0);
-
-				Send(p);
+				Send(GetLogonProof());
 				return;
 			}
 
@@ -233,50 +218,43 @@ namespace Hazzik.Net {
 			Temp = Utility.Concat(Temp, SS_Hash);
 			byte[] M2 = sha1.ComputeHash(Temp);
 
-			#region Sending reply to client
+			Send(GetLogonProof(M2));
+		}
 
-			{
-				var p = new AuthPacket(RMSG.AUTH_LOGON_PROOF);
-				var w = p.CreateWriter();
-				w.Write((byte)0);
-				w.Write(M2);
-				w.Write((ushort)0);
-				w.Write((uint)0);
-				w.Write((uint)0);
-				Send(p);
-			}
+		private static IPacket GetLogonProof() {
+			var result = new AuthPacket(RMSG.AUTH_LOGON_PROOF);
+			var w = result.CreateWriter();
+			w.Write((byte)4);
+			w.Write((byte)3);
+			w.Write((byte)0);
+			return result;
+		}
 
-			#endregion
+		private static IPacket GetLogonProof(byte[] M2) {
+			var result = new AuthPacket(RMSG.AUTH_LOGON_PROOF);
+			var w = result.CreateWriter();
+			w.Write((byte)0);
+			w.Write(M2);
+			w.Write((ushort)0);
+			w.Write((uint)0);
+			w.Write((uint)0);
+			return result;
 		}
 
 		private void HandleRealmList(IPacket packet) {
-			var p = new AuthPacket(RMSG.REALM_LIST);
+			Send(GetRealmList());
+		}
 
-			var w = p.CreateWriter();
+		private IPacket GetRealmList() {
+			var result = new AuthPacket(RMSG.REALM_LIST);
+
+			var w = result.CreateWriter();
 			w.Write(1);
-			w.Write((ushort)_serverList.Count);
-			foreach(var info in _serverList) {
-				/*
-					 * 0 = normal
-					 * 1 = pvp
-					 * 6 = rp
-					 * 8 = pvprp
-					 */
-				w.Write(info.Type);
-				/*
-					 * 1 = locked
-					 */
-				w.Write(info.Locked);
-				/*
-					 * 0 = green realmname
-					 * 1 = red realmname
-					 * 2 = offline
-
-					 * 32 = recomended(blue)
-					 * 64 = recomended(green)
-					 * 128 = full(red)
-					 */
-				w.Write(info.Status);
+			w.Write((ushort)_realmList.Count);
+			foreach(var info in _realmList) {
+				w.Write((byte)info.Type);
+				w.Write((byte)(info.Locked ? 1 : 0));
+				w.Write((byte)info.Status);
 				w.WriteCString(info.Name);
 				w.WriteCString(info.Address);
 				w.Write(info.Population);
@@ -285,7 +263,7 @@ namespace Hazzik.Net {
 				w.Write(info.Unk);
 			}
 			w.Write((ushort)2);
-			Send(p);
+			return result;
 		}
 
 		private void HandleXferAccept(IPacket packet) {
@@ -321,32 +299,25 @@ namespace Hazzik.Net {
 		}
 
 		private static int ReadSize(BinaryReader reader, RMSG code) {
-			var size = 0;
 			switch(code) {
 			case RMSG.AUTH_LOGON_CHALLENGE:
 			case RMSG.AUTH_LOGON_RECODE_CHALLENGE:
 				var unk = reader.ReadByte();
-				size = reader.ReadUInt16();
-				break;
+				return reader.ReadUInt16();
 			case RMSG.AUTH_LOGON_PROOF:
-				size = 0x4A;
-				break;
+				return 0x4A;
 			case RMSG.AUTH_LOGON_RECODE_PROOF:
-				size = 0x39;
-				break;
+				return 0x39;
 			case RMSG.REALM_LIST:
-				size = 0x04;
-				break;
+				return 0x04;
 			case RMSG.XFER_RESUME:
-				size = 0x08;
-				break;
-			case RMSG.XFER_ACCEPT:
-			case RMSG.XFER_CANCEL:
-			default:
-				size = 0x00;
-				break;
+				return 0x08;
+			//case RMSG.XFER_ACCEPT:
+			//case RMSG.XFER_CANCEL:
+			//default:
+			//   return 0x00;
 			}
-			return size;
+			return 0x00;
 		}
 
 		private static void WriteSize(Stream stream, IPacket packet) {
