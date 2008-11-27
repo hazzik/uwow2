@@ -27,8 +27,6 @@ namespace Hazzik {
 			//0-normal, 1-split, 2-split pending;
 			w.Write(0);
 			w.WriteCString(DateTime.Now.AddDays(1).ToShortDateString());
-			w.WriteCString("hello");
-			w.WriteCString("world");
 			client.Send(responce);
 		}
 

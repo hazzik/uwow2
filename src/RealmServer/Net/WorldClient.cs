@@ -19,21 +19,25 @@ namespace Hazzik.Net {
 
 		public WorldClient(WorldServer server, Socket socket)
 			: base(socket) {
-			var p = new WorldPacket(WMSG.SMSG_AUTH_CHALLENGE);
-			var w = p.CreateWriter();
-			w.Write(_seed);
-			Send(p);
+			Send(GetAuthChallengePkt());
 
 			_server = server;
 			Start();
 		}
 
-		private byte[] computeDigest(uint client_seed) {
+		private IPacket GetAuthChallengePkt() {
+			var result = new WorldPacket(WMSG.SMSG_AUTH_CHALLENGE);
+			var w = result.CreateWriter();
+			w.Write(_seed);
+			return result;
+		}
+
+		private byte[] ComputeServerDigest(uint clientSeed) {
 			byte[] buff;
 			using(var w = new BinaryWriter(new MemoryStream())) {
 				w.Write(Encoding.UTF8.GetBytes(Account.Name));
 				w.Write(0);
-				w.Write(client_seed);
+				w.Write(clientSeed);
 				w.Write(_seed);
 				w.Write(Account.SessionKey);
 				w.Flush();
@@ -48,79 +52,111 @@ namespace Hazzik.Net {
 			var code = (WMSG)packet.Code;
 			Console.WriteLine("Handle {0}", code);
 			if(code == WMSG.CMSG_AUTH_SESSION) {
-				_firstPacket = false;
-
-				var dataStream = packet.GetStream();
-				var r = packet.CreateReader();
-				var version = r.ReadUInt32();
-				var unk2 = r.ReadUInt32();
-				var accountName = r.ReadCString();
-				var unk = r.ReadUInt32();
-				var clientSeed = r.ReadUInt32();
-				var clientDigest = r.ReadBytes(20);
-
-				Account = Account.FindByName(accountName);
-
-				var hash =
-					(HashAlgorithm)
-					new HMACSHA1(new byte[]
-					             { 0x38, 0xA7, 0x83, 0x15, 0xF8, 0x92, 0x25, 0x30, 0x71, 0x98, 0x67, 0xB1, 0x8C, 0x4, 0xE2, 0xAA });
-				var key = hash.ComputeHash(Account.SessionKey);
-				var algo = (SymmetricAlgorithm)new SRP6Wow(key);
-				_decryptor = algo.CreateDecryptor();
-				_encryptor = algo.CreateEncryptor();
-
-				var serverDigest = computeDigest(clientSeed);
-
-				for(int i = 0; i < 20; i++) {
-					if(serverDigest[i] != clientDigest[i]) {
-						throw new Exception();
-					}
-				}
-
-				var p = new WorldPacket(WMSG.SMSG_AUTH_RESPONSE);
-				var w = p.CreateWriter();
-				w.Write((byte)0x0C);
-				w.Write((uint)0);
-				w.Write((byte)0);
-				w.Write((uint)0);
-				w.Write((byte)Account.Expansion);
-				Send(p);
-
-				var addonInfoBlockSize = r.ReadUInt32();
-				dataStream = new InflaterInputStream(dataStream); //дальше данные запакованы
-				r = new BinaryReader(dataStream);
-				try {
-					while(true) {
-						var addonInfo = new AddonInfo {
-							Name = r.ReadCString(),
-							Crc = r.ReadUInt64(),
-							Status = r.ReadByte(),
-						};
-						AddonManager.Instance[addonInfo.Name] = addonInfo;
-					}
-				}
-				catch(Exception e) {
-				}
-
-				p = new WorldPacket(WMSG.SMSG_ADDON_INFO);
-				w = p.CreateWriter();
-				foreach(var item in AddonManager.Instance.AddonInfos) {
-					w.Write((ulong)0x0102);
-				}
-				w.Flush();
-				Send(p);
-				return;
+				HandleAuthSession(packet);
 			}
-			if(code == WMSG.CMSG_PING) {
+			else if(code == WMSG.CMSG_PING) {
 				var r = packet.CreateReader();
-				var p = new WorldPacket(WMSG.SMSG_PONG);
-				var w = p.CreateWriter();
-				w.Write(r.ReadUInt32());
-				Send(p);
-				return;
+				Send(GetPongPkt(r.ReadUInt32()));
 			}
-			_server.Handler.Handle(this, packet);
+			else {
+				_server.Handler.Handle(this, packet);
+			}
+		}
+
+		private static IPacket GetPongPkt(uint ping) {
+			var result = new WorldPacket(WMSG.SMSG_PONG);
+			var w = result.CreateWriter();
+			w.Write(ping);
+			return result;
+		}
+
+		private void HandleAuthSession(IPacket packet) {
+			_firstPacket = false;
+
+			var dataStream = packet.GetStream();
+			var r = packet.CreateReader();
+			var version = r.ReadUInt32();
+			var unk2 = r.ReadUInt32();
+			var accountName = r.ReadCString();
+			var unk = r.ReadUInt32();
+			var clientSeed = r.ReadUInt32();
+			var clientDigest = r.ReadBytes(20);
+
+			Account = Account.FindByName(accountName);
+
+			var hmac =
+				(HashAlgorithm)
+				new HMACSHA1(new byte[] { 0x38, 0xA7, 0x83, 0x15, 0xF8, 0x92, 0x25, 0x30, 0x71, 0x98, 0x67, 0xB1, 0x8C, 0x4, 0xE2, 0xAA });
+			var key = hmac.ComputeHash(Account.SessionKey);
+			var algo = (SymmetricAlgorithm)new SRP6Wow(key);
+			_decryptor = algo.CreateDecryptor();
+			_encryptor = algo.CreateEncryptor();
+
+			if(!Equals(clientDigest, ComputeServerDigest(clientSeed))) {
+				throw new Exception();
+			}
+
+			Send(GetAuthResponcePkt());
+
+			var addonInfoBlockSize = r.ReadUInt32();
+			dataStream = new InflaterInputStream(dataStream); //дальше данные запакованы
+			r = new BinaryReader(dataStream);
+			try {
+				while(true) {
+					var addonInfo = new AddonInfo {
+						Name = r.ReadCString(),
+						Crc = r.ReadUInt64(),
+						Status = r.ReadByte(),
+					};
+					AddonManager.Instance[addonInfo.Name] = addonInfo;
+				}
+			} catch(Exception e) {
+			}
+			Send(GetAddonInfoPkt());
+			Send(GetTutorialFlagsPkt());
+		}
+
+		private IPacket GetTutorialFlagsPkt() {
+			var result = new WorldPacket(WMSG.SMSG_TUTORIAL_FLAGS);
+			var w = result.CreateWriter();
+			for(int i = 0; i < 32; i++) {
+				w.Write((byte)0xff);
+			}
+			return result;
+		}
+
+		//TODO: move to Utility
+		private static bool Equals(byte[] left, byte[] right) {
+			if(left.Length != right.Length) {
+				return false;
+			}
+			for(int i = 0; i < left.Length; i++) {
+				if(right[i] != left[i]) {
+					return false;
+				}
+			}
+			return true;
+		}
+
+		private IPacket GetAddonInfoPkt() {
+			var result = new WorldPacket(WMSG.SMSG_ADDON_INFO);
+			var w = result.CreateWriter();
+			foreach(var item in AddonManager.Instance.AddonInfos) {
+				w.Write((ulong)0x0102);
+			}
+			w.Flush();
+			return result;
+		}
+
+		private IPacket GetAuthResponcePkt() {
+			var result = new WorldPacket(WMSG.SMSG_AUTH_RESPONSE);
+			var w = result.CreateWriter();
+			w.Write((byte)0x0C);
+			w.Write((uint)0);
+			w.Write((byte)0);
+			w.Write((uint)0);
+			w.Write((byte)Account.Expansion);
+			return result;
 		}
 
 		public override IPacket ReadPacket() {
