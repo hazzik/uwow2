@@ -16,11 +16,11 @@ namespace Hazzik.Objects {
 		public virtual float Z { get; set; }
 		public virtual float O { get; set; }
 
-		public override void WriteCreateBlock(BinaryWriter w) {
-			w.Write(X);
-			w.Write(Y);
-			w.Write(Z);
-			w.Write(O);
+		public override void WriteCreateBlock(BinaryWriter writer) {
+			writer.Write(X);
+			writer.Write(Y);
+			writer.Write(Z);
+			writer.Write(O);
 		}
 	}
 }
