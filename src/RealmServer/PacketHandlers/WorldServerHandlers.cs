@@ -47,14 +47,14 @@ namespace Hazzik {
 				w.Write(player.hairStyle);
 				w.Write(player.hairColor);
 				w.Write(player.facialHair);
-				w.Write((byte)player.level);
+				w.Write((byte)player.Level);
 
 				w.Write(player.ZoneId);
 				w.Write(player.MapId);
 				w.Write(player.X);
 				w.Write(player.Y);
 				w.Write(player.Z);
-				w.Write(player.GuildID);
+				w.Write(player.GuildId);
 
 				uint flag = 0x00000000;
 				w.Write(flag);
@@ -62,6 +62,7 @@ namespace Hazzik {
 				w.Write(player.PetDisplayId);
 				w.Write(player.PetLevel);
 				w.Write(player.PetCreatureFamily);
+				w.Write(0);
 				for(var i = 0; i < 20; i++) {
 					var item = player.Items[i];
 					if(item != null) {
@@ -107,59 +108,30 @@ namespace Hazzik {
 			var player = ((WorldClient)client).Account.GetPlayer(guid);
 			if(null == player) {
 				client.Send(GetCharacterLoginFiledPkt(0x44));
+				return;
 			}
-			else {
-				//pkt = 00022, 0x0236: SMSG_LOGIN_VERIFY_WORLD
-				//0000: 36 02 01 00 00 00 27 A1 1A C4 5C DD 84 C5 3B DF : 6.....'...\...;.
-				//0010: 1A 42 00 00 00 00 -- -- -- -- -- -- -- -- -- -- : .B....
-				var r = new WorldPacket(WMSG.SMSG_LOGIN_VERIFY_WORLD);
-				var w = r.CreateWriter();
-				var bytes =
-					PacketsHelper.GetBytes(
-						@"
-0000: 01 00 00 00 00 00 00 00 00 00 00 00 00 00 : 6.....'...\...;.
-0010: 00 00 00 00 00 00 -- -- -- -- -- -- -- -- -- -- : .B....
-");
-				w.Write(bytes);
-				client.Send(r);
 
-				client.Send(GetAccountDataTimesPkt());
+			client.Send(GetLoginVerifyWorldPkt(player));
 
-				client.Send(GetLoginSetTimeSpeedPkt());
+			client.Send(GetAccountDataTimesPkt());
 
+			client.Send(GetLoginSetTimeSpeedPkt());
 
-				r = new WorldPacket(WMSG.SMSG_UPDATE_OBJECT);
-				w = r.CreateWriter();
+			var r = new WorldPacket(WMSG.SMSG_UPDATE_OBJECT);
+			var w = r.CreateWriter();
+			w.Write(player.UpdateObjects());
+			client.Send(r);
+		}
 
-				var mgr = new UpdateMgr();
-				mgr.Add(player);
-				player.ClearUpdateMask();
-				player.SetUpdateField((UpdateFields)0, 0x1B09FA7);
-				player.SetUpdateField((UpdateFields)2, 0x19);
-				player.SetUpdateField((UpdateFields)4, 0x3F800000);
-				player.SetUpdateField((UpdateFields)22, 0x43);
-				player.SetUpdateField((UpdateFields)23, 0x48);
-				player.SetUpdateField((UpdateFields)24, 0x3E8);
-				player.SetUpdateField((UpdateFields)25, 0x64);
-				player.SetUpdateField((UpdateFields)26, 0x64);
-				player.SetUpdateField((UpdateFields)28, 0x43);
-				player.SetUpdateField((UpdateFields)29, 0x48);
-				player.SetUpdateField((UpdateFields)30, 0x3E8);
-				player.SetUpdateField((UpdateFields)31, 0x64);
-				player.SetUpdateField((UpdateFields)32, 0x64);
-				player.SetUpdateField((UpdateFields)34, 0x1);
-				player.SetUpdateField((UpdateFields)35, 0x74);
-				player.SetUpdateField((UpdateFields)36, 0x10708);
-				player.SetUpdateField((UpdateFields)46, 0x8);
-				bytes = mgr.BuildUpdatePacket(player);
-				w.Write(bytes);
-				client.Send(r);
-
-				//r = new WorldPacket(WMSG.SMSG_TIME_SYNC_REQ);
-				//w = r.GetWriter();
-
-				//client.SendPacket(r);
-			}
+		private static IPacket GetLoginVerifyWorldPkt(Player player) {
+			var result = new WorldPacket(WMSG.SMSG_LOGIN_VERIFY_WORLD);
+			var w = result.CreateWriter();
+			w.Write(1);
+			w.Write(player.X);
+			w.Write(player.Y);
+			w.Write(player.Z);
+			w.Write(0);
+			return result;
 		}
 
 		private static IPacket GetLoginSetTimeSpeedPkt() {

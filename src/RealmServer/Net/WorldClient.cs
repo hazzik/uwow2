@@ -112,7 +112,7 @@ namespace Hazzik.Net {
 				}
 			} catch(Exception e) {
 			}
-			Send(GetAddonInfoPkt());
+			//Send(GetAddonInfoPkt());
 			Send(GetTutorialFlagsPkt());
 		}
 
@@ -144,6 +144,7 @@ namespace Hazzik.Net {
 			foreach(var item in AddonManager.Instance.AddonInfos) {
 				w.Write((ulong)0x0102);
 			}
+			w.Write(0);
 			w.Flush();
 			return result;
 		}
@@ -153,7 +154,7 @@ namespace Hazzik.Net {
 			var w = result.CreateWriter();
 			w.Write((byte)0x0C);
 			w.Write((uint)0);
-			w.Write((byte)0);
+			w.Write((byte)2);
 			w.Write((uint)0);
 			w.Write((byte)Account.Expansion);
 			return result;

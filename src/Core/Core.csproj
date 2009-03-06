@@ -52,7 +52,6 @@
   <ItemGroup>
     <Compile Include="Account.cs" />
     <Compile Include="Data\Objects\Account.cs" />
-    <Compile Include="Data\Objects\Player.cs" />
     <Compile Include="Data\IPlayerDao.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -82,19 +81,32 @@
     <Compile Include="Net\ServerBase.cs" />
     <Compile Include="Objects\Classes.cs" />
     <Compile Include="Objects\Container.cs" />
+    <Compile Include="Objects\Container.Update.cs" />
+    <Compile Include="Objects\Corpse.Update.cs" />
+    <Compile Include="Objects\DynamicObject.Update.cs" />
+    <Compile Include="Objects\GameObject.Update.cs" />
+    <Compile Include="Objects\Item.Update.cs" />
     <Compile Include="Objects\Mobile.cs" />
+    <Compile Include="Objects\MovementFlags.cs" />
     <Compile Include="Objects\ObjectGuid.cs" />
+    <Compile Include="Objects\ObjectTypeId.cs" />
     <Compile Include="Objects\Player.cs" />
+    <Compile Include="Objects\Player.Update.cs" />
     <Compile Include="Objects\Positioned.cs" />
     <Compile Include="Objects\Races.cs" />
+    <Compile Include="Objects\Unit.Update.cs" />
     <Compile Include="Objects\UpdateFields.cs" />
     <Compile Include="Objects\Corpse.cs" />
     <Compile Include="Objects\DynamicObject.cs" />
     <Compile Include="Objects\GameObject.cs" />
     <Compile Include="Objects\Item.cs" />
     <Compile Include="Objects\UpdateFieldValue.cs" />
+    <Compile Include="Objects\UpdateFlags.cs" />
+    <Compile Include="Objects\UpdateType.cs" />
     <Compile Include="Objects\WorldObject.cs" />
     <Compile Include="Objects\Unit.cs" />
+    <Compile Include="Objects\WorldObject.Update.cs" />
+    <Compile Include="ObjectUpdater.cs" />
     <Compile Include="PacketHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UpdateField.cs" />

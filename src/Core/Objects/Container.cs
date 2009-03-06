@@ -1,7 +1,7 @@
 using System;
 
 namespace Hazzik.Objects {
-	public class Container : Item {
+	public partial class Container : Item {
 		public Container()
 			: this((int)UpdateFields.CONTAINER_END, 0x07) {
 		}
@@ -12,10 +12,6 @@ namespace Hazzik.Objects {
 
 		public override byte TypeId {
 			get { return (byte)ObjectTypeId.Container; }
-		}
-
-		public override byte UpdateFlag {
-			get { return (byte)(UpdateFlags.LowGuid | UpdateFlags.HighGuid); }
 		}
 	}
 }

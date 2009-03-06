@@ -69,5 +69,5 @@ namespace Hazzik {
 				method.Invoke(null, new object[] { client, packet });
 			}
 		}
-		}
+	}
 }

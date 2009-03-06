@@ -10,7 +10,7 @@ namespace Hazzik.Net {
 		private bool _dirty;
 
 		public CompressedDataPacket()
-			: base(WMSG.SMSG_COMPRESSED_DATA) {
+			: base(WMSG.SMSG_COMPRESSED_UPDATE_OBJECT) {
 		}
 
 		public override Stream GetStream() {
