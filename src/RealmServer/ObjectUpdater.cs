@@ -43,7 +43,7 @@ namespace Hazzik {
 
 			var mask = new BitArray(Math.Min(_required.Length, values.Length));
 			for(var i = 0; i < mask.Length; i++) {
-				mask[i] = _required[i] && _sendedValues[i] != (values[i] = _obj.GetValueUInt32(i));
+				mask[i] = _required[i] && _sendedValues[i] != (values[i] = _obj.GetValue(i));
 			}
 			WriteMask(writer, mask);
 			for(var i = 0; i < mask.Length; i++) {

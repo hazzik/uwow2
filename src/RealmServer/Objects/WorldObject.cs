@@ -37,37 +37,39 @@ namespace Hazzik.Objects {
 
 		public int MaxValues { get { return _values.Length; } }
 
-		protected internal UpdateValue[] UpdateValues { get { return _values; } }
-
 		public abstract byte TypeId { get; }
 
 		public virtual byte UpdateFlag { get { return (byte)(UpdateFlags.HighGuid | UpdateFlags.LowGuid); } }
 
 		#region GetValue
 
-		protected internal uint GetValueUInt32(int index) {
-			return _values[index].UInt32;
+		protected internal uint GetValue(int field) {
+			return GetUInt32((UpdateFields)field);
 		}
 
-		protected internal int GetValueInt32(int index) {
-			return (int)GetValueUInt32(index);
+		protected internal uint GetUInt32(UpdateFields field) {
+			return _values[(int)field].UInt32;
 		}
 
-		protected internal ulong GetValueUInt64(int index) {
-			return (ulong)GetValueUInt32(index + 1) << 32 | GetValueUInt32(index);
+		protected internal int GetInt32(UpdateFields field) {
+			return (int)GetUInt32(field);
 		}
 
-		protected internal long GetValueInt64(int index) {
-			return (long)GetValueUInt64(index);
+		protected internal ulong GetUInt64(UpdateFields field) {
+			return (ulong)GetUInt32(field + 1) << 32 | GetUInt32(field);
 		}
 
-		protected internal float GetValueSingle(int index) {
-			return _values[index].Single;
+		protected internal long GetInt64(UpdateFields field) {
+			return (long)GetUInt64(field);
 		}
 
-		protected internal byte GetValueByte(int index, int index2) {
-			var value = _values[index];
-			switch(index2) {
+		protected internal float GetSingle(UpdateFields field) {
+			return _values[(int)field].Single;
+		}
+
+		protected internal byte GetByte(UpdateFields field, int index) {
+			var value = _values[(int)field];
+			switch(index) {
 			case 0:
 				return value.Uint8_0;
 			case 1:
@@ -77,54 +79,54 @@ namespace Hazzik.Objects {
 			case 3:
 				return value.Uint8_3;
 			default:
-				throw new ArgumentException("index2");
+				throw new ArgumentException("index");
 			}
 		}
 
-		protected internal ushort GetValueUInt16(int index, int index2) {
-			var value = _values[index];
-			switch(index2) {
+		protected internal ushort GetUInt16(UpdateFields field, int index) {
+			var value = _values[(int)field];
+			switch(index) {
 			case 0:
 				return value.UInt16_0;
 			case 1:
 				return value.UInt16_1;
 			default:
-				throw new ArgumentException("index2");
+				throw new ArgumentException("index");
 			}
 		}
 
-		protected internal short GetValueInt16(int index,int index2) {
-			return (short)GetValueUInt16(index, index2);
+		protected internal short GetInt16(UpdateFields field, int index) {
+			return (short)GetUInt16(field, index);
 		}
 
 		#endregion
 
 		#region SetValue
 
-		protected internal void SetValue(int index, uint value) {
-			_values[index].UInt32 = value;
+		protected internal void SetUInt32(UpdateFields field, uint value) {
+			_values[(int)field].UInt32 = value;
 		}
 
-		protected internal void SetValue(int index, int value) {
-			SetValue(index, (uint)value);
+		protected internal void SetInt32(UpdateFields field, int value) {
+			SetUInt32(field, (uint)value);
 		}
 
-		protected internal void SetValue(int index, ulong value) {
-			SetValue(index, (uint)value);
-			SetValue(index + 1, (uint)(value >> 32));
+		protected internal void SetUInt64(UpdateFields field, ulong value) {
+			SetUInt32(field, (uint)value);
+			SetUInt32(field + 1, (uint)(value >> 32));
 		}
 
-		protected internal void SetValue(int index, long value) {
-			SetValue(index, (ulong)value);
+		protected internal void SetInt64(UpdateFields field, long value) {
+			SetUInt64(field, (ulong)value);
 		}
 
-		protected internal void SetValue(int index, float value) {
-			_values[index].Single = value;
+		protected internal void SetSingle(UpdateFields field, float value) {
+			_values[(int)field].Single = value;
 		}
 
-		protected internal void SetValue(int index, int index2, byte value) {
-			var updateValue = _values[index];
-			switch(index2) {
+		protected internal void SetByte(UpdateFields field, int index, byte value) {
+			var updateValue = _values[(int)field];
+			switch(index) {
 			case 0:
 				updateValue.Uint8_0 = value;
 				break;
@@ -138,14 +140,14 @@ namespace Hazzik.Objects {
 				updateValue.Uint8_3 = value;
 				break;
 			default:
-				throw new ArgumentException("index2");
+				throw new ArgumentException("index");
 			}
-			_values[index] = updateValue;
+			_values[(int)field] = updateValue;
 		}
 
-		protected internal void SetValue(int index, int index2, ushort value) {
-			var updateValue = _values[index];
-			switch(index2) {
+		protected internal void SetUInt16(UpdateFields field, int index, ushort value) {
+			var updateValue = _values[(int)field];
+			switch(index) {
 			case 0:
 				updateValue.UInt16_0 = value;
 				break;
@@ -153,13 +155,13 @@ namespace Hazzik.Objects {
 				updateValue.UInt16_1 = value;
 				break;
 			default:
-				throw new ArgumentException("index2");
+				throw new ArgumentException("index");
 			}
-			_values[index] = updateValue;
+			_values[(int)field] = updateValue;
 		}
 
-		protected internal void SetValue(int index, int index2, short value) {
-			SetValue(index, index2, (ushort)value);
+		protected internal void SetInt16(UpdateFields field, int index, short value) {
+			SetUInt16(field, index, (ushort)value);
 		}
 
 		#endregion

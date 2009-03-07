@@ -5,8 +5,8 @@ namespace Hazzik.Objects {
 		#region CONTAINER_FIELD_NUM_SLOTS
 		//CONTAINER_FIELD_NUM_SLOTS : type = Int, size = 1, flag = Public
 		public virtual UInt32 NumSlots {
-			get { return GetValueUInt32((int)UpdateFields.CONTAINER_FIELD_NUM_SLOTS); }
-			set { SetValue((int)UpdateFields.CONTAINER_FIELD_NUM_SLOTS, value); }
+			get { return GetUInt32(UpdateFields.CONTAINER_FIELD_NUM_SLOTS); }
+			set { SetUInt32(UpdateFields.CONTAINER_FIELD_NUM_SLOTS, value); }
 		}
 		#endregion
 
