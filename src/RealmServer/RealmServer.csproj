@@ -73,6 +73,10 @@
     <Compile Include="Net\WorldServer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CoreBase\CoreBase.csproj">
+      <Project>{0638B5D2-AA98-4FD3-8F2E-8DEDFB9F5A97}</Project>
+      <Name>CoreBase</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{16C8A9B2-EC9C-4E83-85BB-E330B6748B7F}</Project>
       <Name>Core</Name>

@@ -60,10 +60,6 @@
     </Compile>
     <Compile Include="Data\SQLite\SQLiteDaoFactory.cs" />
     <Compile Include="Data\Xml\XmlAccountDao.cs" />
-    <Compile Include="Attributes\BaseClassAttribute.cs" />
-    <Compile Include="Attributes\BaseHandlerAttribute.cs" />
-    <Compile Include="Attributes\PacketHandlerAttribute.cs" />
-    <Compile Include="Attributes\PacketHandlerClassAttribute.cs" />
     <Compile Include="Data\IAccountDao.cs" />
     <Compile Include="Data\IDaoFactory.cs" />
     <Compile Include="Data\IGuided.cs" />
@@ -71,11 +67,6 @@
     <Compile Include="Data\Xml\XmlDaoFactory.cs" />
     <Compile Include="Math\BigInteger.cs" />
     <Compile Include="Cryptography\SRP6Wow.cs" />
-    <Compile Include="Net\ISession.cs" />
-    <Compile Include="Net\PacketBase.cs" />
-    <Compile Include="Net\ClientBase.cs" />
-    <Compile Include="Net\IPacket.cs" />
-    <Compile Include="Net\ServerBase.cs" />
     <Compile Include="Objects\Classes.cs" />
     <Compile Include="Objects\Container.cs" />
     <Compile Include="Objects\Container.Update.cs" />
@@ -104,7 +95,6 @@
     <Compile Include="Objects\Unit.cs" />
     <Compile Include="Objects\WorldObject.Update.cs" />
     <Compile Include="ObjectUpdater.cs" />
-    <Compile Include="PacketHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UpdateField.cs" />
   </ItemGroup>

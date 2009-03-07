@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{9E100F1A-E4B0-4649-9F74-D5C42EF1DF23}</ProjectGuid>
     <OutputType>Exe</OutputType>
@@ -69,6 +69,10 @@
     <Compile Include="Infos\ServerInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CoreBase\CoreBase.csproj">
+      <Project>{0638B5D2-AA98-4FD3-8F2E-8DEDFB9F5A97}</Project>
+      <Name>CoreBase</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{16C8A9B2-EC9C-4E83-85BB-E330B6748B7F}</Project>
       <Name>Core</Name>
