@@ -13,11 +13,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "..\tests\Tests\Tes
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{270659A2-04CD-4B14-A18D-7442536E3FB5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{6959839C-CE87-4006-9B2E-84544C5AA1C0}"
+EndProject
 Global
-	GlobalSection(SubversionScc) = preSolution
-		Svn-Managed = True
-		Manager = AnkhSVN - Subversion Support for Visual Studio
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -43,11 +41,19 @@ Global
 		{1B9CF5BD-8660-4754-9A15-B84B11754232}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B9CF5BD-8660-4754-9A15-B84B11754232}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B9CF5BD-8660-4754-9A15-B84B11754232}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6959839C-CE87-4006-9B2E-84544C5AA1C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6959839C-CE87-4006-9B2E-84544C5AA1C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6959839C-CE87-4006-9B2E-84544C5AA1C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6959839C-CE87-4006-9B2E-84544C5AA1C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{1B9CF5BD-8660-4754-9A15-B84B11754232} = {270659A2-04CD-4B14-A18D-7442536E3FB5}
+	EndGlobalSection
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
 	EndGlobalSection
 EndGlobal
