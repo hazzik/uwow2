@@ -6,10 +6,14 @@ using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
+using Hazzik.Data;
+using Hazzik.Data.NH;
 using Hazzik.Helper;
 
 namespace Hazzik.Net {
 	public class AuthClient : ClientBase, ISession {
+		private readonly IAuthAccountDao _dao = new NHAuthAccountRepository();
+
 		private static BigInteger bi_N = new BigInteger("894B645E89E1535BBDAD5B8B290650530801B18EBFBF5E8FAB3C82872A3E9BB7", 16);
 		private static BigInteger bi_g = 7;
 		private static BigInteger bi_k = 3;
@@ -132,11 +136,12 @@ namespace Hazzik.Net {
 				AccountName = accountName,
 			};
 
-			_account = AuthAccount.FindByName(accountName);
+			_account = _dao.FindByName(accountName);
 			if(_account == null) {
-				_account = AuthAccount.Create(accountName);
+				_account = new AuthAccount { Name = accountName };
 				_account.SetPassword(accountName);
-				_account.Save();
+				_dao.Save(_account);
+				_dao.SubmitChanges();
 			}
 
 			bi_s = new BigInteger(_account.PasswordSalt.Reverse());
@@ -192,7 +197,8 @@ namespace Hazzik.Net {
 			}
 
 			_account.SessionKey = (byte[])SS_Hash.Clone();
-			_account.Save();
+			_dao.Save(_account);
+			_dao.SubmitChanges();
 
 			var N_Hash = sha1.ComputeHash(bi_N.getBytes().Reverse());
 			var G_Hash = sha1.ComputeHash(bi_g.getBytes().Reverse());

@@ -2,11 +2,11 @@ using System;
 
 namespace Hazzik {
 	public class Account {
-		public Guid ID { get; set; }
-		public string Name { get; set; }
-		public int Expansion { get; set; }
-		public byte[] PasswordSalt { get; set; }
-		public byte[] PasswordVerifier { get; set; }
-		public byte[] SessionKey { get; set; }
+		public virtual int Id { get; set; }
+		public virtual string Name { get; set; }
+		public virtual int Expansion { get; set; }
+		public virtual byte[] PasswordSalt { get; set; }
+		public virtual byte[] PasswordVerifier { get; set; }
+		public virtual byte[] SessionKey { get; set; }
 	}
 }

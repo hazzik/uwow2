@@ -4,11 +4,14 @@ using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Text;
 using Hazzik.Cryptography;
+using Hazzik.Data;
+using Hazzik.Data.NH;
 using Hazzik.Objects;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 
 namespace Hazzik.Net {
 	public class WorldClient : ClientBase {
+		private static readonly IRealmAccountDao _dao = new NHRealmAccountRepository();
 		public RealmAccount Account { get; set; }
 		private readonly WorldServer _server;
 
@@ -16,7 +19,7 @@ namespace Hazzik.Net {
 		private ICryptoTransform _encryptor;
 
 		private bool _firstPacket = true;
-		private readonly uint _seed = (uint)(new Random().Next(0, int.MaxValue));
+		private readonly uint _seed = (uint)(new Random().Next(0, Int32.MaxValue));
 		public Player Player { get; set; }
 
 		public WorldClient(WorldServer server, Socket socket)
@@ -84,7 +87,7 @@ namespace Hazzik.Net {
 			var clientSeed = r.ReadUInt32();
 			var clientDigest = r.ReadBytes(20);
 
-			Account = RealmAccount.FindByName(accountName);
+			Account = _dao.FindByName(accountName);
 
 			var hmac =
 				(HashAlgorithm)
@@ -202,7 +205,7 @@ namespace Hazzik.Net {
 		}
 
 		private static void WriteSize(Stream stream, int size) {
-			if(size > short.MaxValue) {
+			if(size > Int16.MaxValue) {
 				stream.WriteByte((byte)(size >> 0x10));
 			}
 			stream.WriteByte((byte)(size >> 0x08));
