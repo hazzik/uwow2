@@ -60,6 +60,7 @@
     <Compile Include="AddonInfo.cs" />
     <Compile Include="AddonManager.cs" />
     <Compile Include="Attributes\WorldPacketHandler.cs" />
+    <Compile Include="Cryptography\SRP6Wow.cs" />
     <Compile Include="Net\CompressedDataPacket.cs" />
     <Compile Include="Net\WorldPacket.cs" />
     <Compile Include="PacketHandlers\WorldServerHandlers.cs">

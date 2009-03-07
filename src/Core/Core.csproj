@@ -66,7 +66,6 @@
     <Compile Include="Data\Xml\XmlPlayerDao.cs" />
     <Compile Include="Data\Xml\XmlDaoFactory.cs" />
     <Compile Include="Math\BigInteger.cs" />
-    <Compile Include="Cryptography\SRP6Wow.cs" />
     <Compile Include="Objects\Classes.cs" />
     <Compile Include="Objects\Container.cs" />
     <Compile Include="Objects\Container.Update.cs" />
