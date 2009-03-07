@@ -89,6 +89,7 @@
     <Compile Include="Objects\Player.Update.cs" />
     <Compile Include="Objects\Positioned.cs" />
     <Compile Include="Objects\Races.cs" />
+    <Compile Include="Objects\StandStates.cs" />
     <Compile Include="Objects\Unit.cs" />
     <Compile Include="Objects\Unit.Update.cs" />
     <Compile Include="Objects\UpdateFields.cs" />

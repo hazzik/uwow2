@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Text;
 using Hazzik.Cryptography;
+using Hazzik.Objects;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 
 namespace Hazzik.Net {
@@ -16,6 +17,7 @@ namespace Hazzik.Net {
 
 		private bool _firstPacket = true;
 		private readonly uint _seed = (uint)(new Random().Next(0, int.MaxValue));
+		public Player Player { get; set; }
 
 		public WorldClient(WorldServer server, Socket socket)
 			: base(socket) {

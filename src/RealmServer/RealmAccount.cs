@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Hazzik.Data;
 using Hazzik.Data.Xml;
+using Hazzik.Net;
 using Hazzik.Objects;
 
 namespace Hazzik {
@@ -45,5 +46,78 @@ namespace Hazzik {
 		public void DelPlayer(Player player) {
 			_players.Remove(player);
 		}
+		
+		#region packets
+
+		public IPacket GetCharEnumPkt() {
+			var p = new WorldPacket(WMSG.SMSG_CHAR_ENUM);
+			var w = p.CreateWriter();
+			w.Write((byte)Players.Count());
+			foreach(var player in Players) {
+				w.Write(player.Guid);
+				w.WriteCString(player.Name);
+				w.Write((byte)player.Race);
+				w.Write((byte)player.Classe);
+				w.Write((byte)player.Gender);
+				w.Write(player.skin);
+				w.Write(player.face);
+				w.Write(player.hairStyle);
+				w.Write(player.hairColor);
+				w.Write(player.facialHair);
+				w.Write((byte)player.Level);
+
+				w.Write(player.ZoneId);
+				w.Write(player.MapId);
+				w.Write(player.X);
+				w.Write(player.Y);
+				w.Write(player.Z);
+				w.Write(player.GuildId);
+
+				uint flag = 0x00000000;
+				w.Write(flag);
+				w.Write((byte)0);
+				w.Write(player.PetDisplayId);
+				w.Write(player.PetLevel);
+				w.Write(player.PetCreatureFamily);
+				w.Write(0);
+				for(var i = 0; i < 20; i++) {
+					var item = player.Items[i];
+					if(item != null) {
+						w.Write(0);
+						w.Write((byte)0);
+						w.Write(0);
+					}
+					else {
+						w.Write(0);
+						w.Write((byte)0);
+						w.Write(0);
+					}
+				}
+			}
+			return p;
+		}
+		
+		public static IPacket GetCharCreatePkt(int error) {
+			var responce = new WorldPacket(WMSG.SMSG_CHAR_CREATE);
+			var w = responce.CreateWriter();
+			w.Write((byte)error);
+			return responce;
+		}
+
+		public static IPacket GetAccountDataTimesPkt() {
+			var result = new WorldPacket(WMSG.SMSG_ACCOUNT_DATA_TIMES);
+			var w = result.CreateWriter();
+			w.Write(new byte[0x80]);
+			return result;
+		}
+
+		public static IPacket GetCharacterLoginFiledPkt(int error) {
+			var result = new WorldPacket(WMSG.SMSG_CHARACTER_LOGIN_FAILED);
+			var w = result.CreateWriter();
+			w.Write((byte)error);
+			return result;
+		}
+
+		#endregion
 	}
 }

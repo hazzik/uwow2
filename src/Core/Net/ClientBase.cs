@@ -7,7 +7,7 @@ namespace Hazzik.Net {
 		protected Socket _socket;
 		private Stream _stream;
 
-		public ClientBase(Socket socket) {
+		protected ClientBase(Socket socket) {
 			_socket = socket;
 		}
 
