@@ -111,7 +111,7 @@
     <Compile Include="XmlRealmAccountDao.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CoreBase\CoreBase.csproj">
+    <ProjectReference Include="..\Core\Core.csproj">
       <Project>{0638B5D2-AA98-4FD3-8F2E-8DEDFB9F5A97}</Project>
       <Name>CoreBase</Name>
     </ProjectReference>
