@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IDao.cs" />
+    <Compile Include="IGuided.cs" />
     <Compile Include="INamed.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Xml\XmlDao.cs" />
