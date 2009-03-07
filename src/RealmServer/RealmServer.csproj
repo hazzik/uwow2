@@ -68,11 +68,9 @@
     <Compile Include="AddonManager.cs" />
     <Compile Include="Attributes\WorldPacketHandler.cs" />
     <Compile Include="Cryptography\SRP6Wow.cs" />
-    <Compile Include="Data\IDaoFactory.cs" />
     <Compile Include="Data\IPlayerDao.cs" />
     <Compile Include="Data\IRealmAccountDao.cs" />
     <Compile Include="Data\NH\NHRealmAccountRepository.cs" />
-    <Compile Include="Data\Xml\XmlDaoFactory.cs" />
     <Compile Include="Data\Xml\XmlPlayerDao.cs" />
     <Compile Include="Data\Xml\XmlRealmAccountDao.cs" />
     <Compile Include="Net\CompressedDataPacket.cs" />
@@ -142,9 +140,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Data\Objects\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
