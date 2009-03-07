@@ -50,22 +50,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Account.cs" />
-    <Compile Include="Data\Objects\Account.cs" />
     <Compile Include="Data\IPlayerDao.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Data\SQLite\SQLiteAccountDao.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Data\SQLite\SQLiteDaoFactory.cs" />
-    <Compile Include="Data\Xml\XmlAccountDao.cs" />
-    <Compile Include="Data\IAccountDao.cs" />
     <Compile Include="Data\IDaoFactory.cs" />
     <Compile Include="Data\IGuided.cs" />
     <Compile Include="Data\Xml\XmlPlayerDao.cs" />
     <Compile Include="Data\Xml\XmlDaoFactory.cs" />
-    <Compile Include="Math\BigInteger.cs" />
     <Compile Include="Objects\Classes.cs" />
     <Compile Include="Objects\Container.cs" />
     <Compile Include="Objects\Container.Update.cs" />
@@ -109,6 +100,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="TODO.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\Objects\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

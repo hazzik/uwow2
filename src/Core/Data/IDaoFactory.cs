@@ -2,7 +2,7 @@ using System;
 
 namespace Hazzik.Data {
 	public interface IDaoFactory {
-		IAccountDao GetAccountDao();
+		//IAccountDao GetAccountDao();
 		IPlayerDao GetPlayerDao();
 	}
 }

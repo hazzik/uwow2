@@ -14,9 +14,9 @@ namespace Hazzik.Data.Xml {
 		private XmlDaoFactory() {
 		}
 
-		public IAccountDao GetAccountDao() {
-			return new XmlAccountDao();
-		}
+		//public IAccountDao GetAccountDao() {
+		//   return new XmlAccountDao();
+		//}
 
 		public IPlayerDao GetPlayerDao() {
 			return new XmlPlayerDao();

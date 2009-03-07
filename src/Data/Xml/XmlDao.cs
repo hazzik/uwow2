@@ -7,15 +7,17 @@ namespace Hazzik.Data.Xml {
 	public class XmlDao<T> : IDao<T> {
 		#region Fields
 
-		private FileInfo _file = new FileInfo(@"..\..\..\" + typeof(T).Name + @".xml");
-		private XmlSerializer _serializer = new XmlSerializer(typeof(List<T>));
+		private readonly FileInfo _file;
+		private readonly XmlSerializer _serializer;
 		protected List<T> _entities = new List<T>();
 
 		#endregion
 
 		#region ctors
 
-		protected XmlDao() {
+		protected XmlDao(string filename) {
+			_serializer = new XmlSerializer(typeof(List<T>), new XmlRootAttribute(filename + "s"));
+			_file = new FileInfo(string.Format(@"..\..\..\{0}.xml", filename));
 			if(_file.Exists) {
 				using(var s = _file.Open(FileMode.Open, FileAccess.Read)) {
 					_entities = (List<T>)_serializer.Deserialize(s);

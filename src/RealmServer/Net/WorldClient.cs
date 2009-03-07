@@ -8,7 +8,7 @@ using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 
 namespace Hazzik.Net {
 	public class WorldClient : ClientBase {
-		public Account Account { get; set; }
+		public RealmAccount Account { get; set; }
 		private readonly WorldServer _server;
 
 		private ICryptoTransform _decryptor;
@@ -82,7 +82,7 @@ namespace Hazzik.Net {
 			var clientSeed = r.ReadUInt32();
 			var clientDigest = r.ReadBytes(20);
 
-			Account = Account.FindByName(accountName);
+			Account = RealmAccount.FindByName(accountName);
 
 			var hmac =
 				(HashAlgorithm)

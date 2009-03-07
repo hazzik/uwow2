@@ -6,7 +6,8 @@ namespace Hazzik.Data.Xml {
 	public class XmlPlayerDao : XmlDao<Player>, IPlayerDao {
 		#region ctors
 
-		internal XmlPlayerDao() {
+		internal XmlPlayerDao()
+		:base("player") {
 		}
 
 		#endregion

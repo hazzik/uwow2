@@ -19,7 +19,7 @@ namespace Hazzik.Net {
 		private BigInteger bi_v;
 		private BigInteger bi_B;
 		private BigInteger bi_s = BigInteger.genPseudoPrime(256, 5, Utility.seed2);
-		private Account _account;
+		private AuthAccount _account;
 		private AuthServer _server;
 
 		public AuthClient(AuthServer server, Socket client) :
@@ -132,9 +132,9 @@ namespace Hazzik.Net {
 				AccountName = accountName,
 			};
 
-			_account = Account.FindByName(accountName);
+			_account = AuthAccount.FindByName(accountName);
 			if(_account == null) {
-				_account = Account.Create(accountName);
+				_account = AuthAccount.Create(accountName);
 				_account.SetPassword(accountName);
 				_account.Save();
 			}
