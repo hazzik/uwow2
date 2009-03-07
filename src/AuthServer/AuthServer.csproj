@@ -58,7 +58,7 @@
   <ItemGroup>
     <Compile Include="Attributes\AuthPacketHandlerAttribute.cs" />
     <Compile Include="AuthAccount.cs" />
-    <Compile Include="IAuthAccountDao.cs" />
+    <Compile Include="Data\IAuthAccountDao.cs" />
     <Compile Include="Infos\ClientInfo.cs" />
     <Compile Include="Enums\RMSG.cs" />
     <Compile Include="Infos\VersionInfo.cs" />

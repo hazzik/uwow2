@@ -64,9 +64,10 @@
     <Compile Include="Data\IDaoFactory.cs" />
     <Compile Include="Data\IGuided.cs" />
     <Compile Include="Data\IPlayerDao.cs" />
+    <Compile Include="Data\IRealmAccountDao.cs" />
     <Compile Include="Data\Xml\XmlDaoFactory.cs" />
     <Compile Include="Data\Xml\XmlPlayerDao.cs" />
-    <Compile Include="IRealmAccountDao.cs" />
+    <Compile Include="Data\Xml\XmlRealmAccountDao.cs" />
     <Compile Include="Net\CompressedDataPacket.cs" />
     <Compile Include="Net\WorldPacket.cs" />
     <Compile Include="Objects\Classes.cs" />
@@ -108,7 +109,6 @@
     <Compile Include="Attributes\UpdateValueAttribute.cs" />
     <Compile Include="Net\WorldClient.cs" />
     <Compile Include="Net\WorldServer.cs" />
-    <Compile Include="XmlRealmAccountDao.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">
