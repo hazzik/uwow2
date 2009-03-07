@@ -61,13 +61,47 @@
     <Compile Include="AddonManager.cs" />
     <Compile Include="Attributes\WorldPacketHandler.cs" />
     <Compile Include="Cryptography\SRP6Wow.cs" />
+    <Compile Include="Data\IDaoFactory.cs" />
+    <Compile Include="Data\IGuided.cs" />
+    <Compile Include="Data\IPlayerDao.cs" />
+    <Compile Include="Data\Xml\XmlDaoFactory.cs" />
+    <Compile Include="Data\Xml\XmlPlayerDao.cs" />
     <Compile Include="IRealmAccountDao.cs" />
     <Compile Include="Net\CompressedDataPacket.cs" />
     <Compile Include="Net\WorldPacket.cs" />
+    <Compile Include="Objects\Classes.cs" />
+    <Compile Include="Objects\Container.cs" />
+    <Compile Include="Objects\Container.Update.cs" />
+    <Compile Include="Objects\Corpse.cs" />
+    <Compile Include="Objects\Corpse.Update.cs" />
+    <Compile Include="Objects\DynamicObject.cs" />
+    <Compile Include="Objects\DynamicObject.Update.cs" />
+    <Compile Include="Objects\GameObject.cs" />
+    <Compile Include="Objects\GameObject.Update.cs" />
+    <Compile Include="Objects\Item.cs" />
+    <Compile Include="Objects\Item.Update.cs" />
+    <Compile Include="Objects\Mobile.cs" />
+    <Compile Include="Objects\MovementFlags.cs" />
+    <Compile Include="Objects\ObjectGuid.cs" />
+    <Compile Include="Objects\ObjectTypeId.cs" />
+    <Compile Include="Objects\Player.cs" />
+    <Compile Include="Objects\Player.Update.cs" />
+    <Compile Include="Objects\Positioned.cs" />
+    <Compile Include="Objects\Races.cs" />
+    <Compile Include="Objects\Unit.cs" />
+    <Compile Include="Objects\Unit.Update.cs" />
+    <Compile Include="Objects\UpdateFields.cs" />
+    <Compile Include="Objects\UpdateFieldValue.cs" />
+    <Compile Include="Objects\UpdateFlags.cs" />
+    <Compile Include="Objects\UpdateType.cs" />
+    <Compile Include="Objects\WorldObject.cs" />
+    <Compile Include="Objects\WorldObject.Update.cs" />
+    <Compile Include="ObjectUpdater.cs" />
     <Compile Include="PacketHandlers\WorldServerHandlers.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="RealmAccount.cs" />
+    <Compile Include="UpdateField.cs" />
     <Compile Include="WMSG.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -81,10 +115,6 @@
       <Project>{0638B5D2-AA98-4FD3-8F2E-8DEDFB9F5A97}</Project>
       <Name>CoreBase</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Core\Core.csproj">
-      <Project>{16C8A9B2-EC9C-4E83-85BB-E330B6748B7F}</Project>
-      <Name>Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\lib\Helper\Helper.csproj">
       <Project>{5BEC7A4C-7CB1-4D6B-B0E5-FD1860168494}</Project>
       <Name>Helper</Name>
@@ -93,6 +123,12 @@
       <Project>{6959839C-CE87-4006-9B2E-84544C5AA1C0}</Project>
       <Name>Data</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TODO.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\Objects\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
