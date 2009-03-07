@@ -117,20 +117,33 @@ namespace Hazzik {
 
 			client.Send(GetLoginSetTimeSpeedPkt());
 
+			client.Send(GetUpdateObjectPkt(player));
+
+			client.Send(GetTimeSyncReqPkt());
+		}
+
+		private static IPacket GetTimeSyncReqPkt() {
+			var r = new WorldPacket(WMSG.SMSG_TIME_SYNC_REQ);
+			var w = r.CreateWriter();
+			w.Write(0);
+			return r;
+		}
+
+		private static IPacket GetUpdateObjectPkt(Player player) {
 			var r = new WorldPacket(WMSG.SMSG_UPDATE_OBJECT);
 			var w = r.CreateWriter();
 			w.Write(player.UpdateObjects());
-			client.Send(r);
+			return r;
 		}
 
 		private static IPacket GetLoginVerifyWorldPkt(Player player) {
 			var result = new WorldPacket(WMSG.SMSG_LOGIN_VERIFY_WORLD);
 			var w = result.CreateWriter();
-			w.Write(1);
+			w.Write(player.MapId);
 			w.Write(player.X);
 			w.Write(player.Y);
 			w.Write(player.Z);
-			w.Write(0);
+			w.Write(player.O);
 			return result;
 		}
 

@@ -11,6 +11,7 @@ namespace Hazzik.Objects {
 			: base((int)UpdateFields.PLAYER_END, 0x19) {
 			//Level = 1;
 
+			MapId = 530;
 			X = -3961.64F;
 			Y = -13931.2F;
 			Z = 100.615F;
@@ -249,8 +250,6 @@ namespace Hazzik.Objects {
 		public byte hairStyle;
 		public byte hairColor;
 		public byte facialHair;
-		public uint ZoneId;
-		public uint MapId;
 		public byte RestState;
 		public int PetDisplayId;
 		public int PetLevel;
