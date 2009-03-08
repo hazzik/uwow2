@@ -32,7 +32,7 @@ namespace Hazzik.Objects {
 			set { SetByte(UpdateFields.UNIT_FIELD_BYTES_0, 3, (byte)value); }
 		}
 
-		public StandStates StandState {
+		public virtual StandStates StandState {
 			get { return (StandStates)GetByte(UpdateFields.UNIT_FIELD_BYTES_1, 0); }
 			set { SetByte(UpdateFields.UNIT_FIELD_BYTES_1, 0, (byte)value); }
 		}

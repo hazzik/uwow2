@@ -7,22 +7,27 @@ using Hazzik.Objects;
 namespace Hazzik.Net {
 	public class WorldClient : ClientBase {
 		public RealmAccount Account { get; set; }
-		public readonly WorldServer _server;
 
 		private ICryptoTransform _decryptor;
 		private ICryptoTransform _encryptor;
 
 		private bool _firstPacket = true;
-		public Player Player { get; set; }
-		public readonly Timer2 _updateTimer;
+		private Player _player;
+		public Player Player {
+			get { return _player; }
+			set { _player = value;
+				_player.Client = this;
+			}
+		}
 
-		public WorldClient(WorldServer server, Socket socket)
+		private readonly Timer2 _updateTimer;
+
+		public WorldClient(Socket socket)
 			: base(socket) {
 			SetProcessor(new WorldPacketProcessor(this));
 
 			_updateTimer = new UpdateTimer(this);
 
-			_server = server;
 			Start();
 		}
 		

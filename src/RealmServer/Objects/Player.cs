@@ -259,6 +259,19 @@ namespace Hazzik.Objects {
 		public Item[] Items = new Item[20];
 		public bool Dead;
 
+		public override StandStates StandState {
+			get {return base.StandState;}
+			set {
+				if(value == base.StandState) {
+					return;
+				}
+				base.StandState = value;
+				Client.Send(new WorldPacket(WMSG.SMSG_STANDSTATE_UPDATE, new[] { (byte)value }));
+			}
+		}
+
+		public WorldClient Client { get; protected internal set; }
+
 		#region packets
 
 		public IPacket GetLoginVerifyWorldPkt() {

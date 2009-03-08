@@ -1,8 +1,5 @@
 using System;
-using System.IO;
-using System.Linq;
 using Hazzik.Attributes;
-using Hazzik.Helper;
 using Hazzik.Net;
 using Hazzik.Objects;
 
@@ -108,6 +105,12 @@ namespace Hazzik {
 		public static void HandleCMSG_SETSHEATHED(ClientBase client, IPacket packet) {
 			var r = packet.CreateReader();
 			((WorldClient)client).Player.Sheath = (SheathType)r.ReadInt32();
+		}
+
+		[WorldPacketHandler(WMSG.CMSG_STANDSTATECHANGE)]
+		public static void HandleCMSG_STANDSTATECHANGE(ClientBase client, IPacket packet) {
+			var r = packet.CreateReader();
+			((WorldClient)client).Player.StandState = (StandStates)r.ReadByte();
 		}
 	}
 }
