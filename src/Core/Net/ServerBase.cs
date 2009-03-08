@@ -31,19 +31,13 @@ namespace Hazzik.Net {
 
 		private bool _disposed;
 
-		protected ServerBase() {
-		}
-
 		public bool Start() {
 			try {
 				_listenSocket = new Socket(_localEndPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 				_listenSocket.Bind(_localEndPoint);
 				_listenSocket.Listen(100);
 				Console.WriteLine("{0} started, listen {1}", _name, _localEndPoint);
-				var accept_tread = new Thread(AcceptTread) {
-					IsBackground = true,
-				};
-				accept_tread.Start();
+				AcceptTread();
 			}
 			catch(Exception e) {
 				Console.WriteLine("Failed to list on {0}\n{1}", _localEndPoint, e.Message);
@@ -53,9 +47,17 @@ namespace Hazzik.Net {
 			return true;
 		}
 
+		private static readonly ManualResetEvent allDone = new ManualResetEvent(false);
+
 		private void AcceptTread() {
 			while(!_disposed) {
-				OnAccept(_listenSocket.Accept());
+				allDone.Reset();
+				_listenSocket.BeginAccept(ar => {
+				                          	allDone.Set();
+				                          	var accept = _listenSocket.EndAccept(ar);
+				                          	OnAccept(accept);
+				                          }, null);
+				allDone.WaitOne();
 			}
 		}
 

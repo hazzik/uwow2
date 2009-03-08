@@ -37,7 +37,7 @@ namespace Hazzik.Net {
 		}
 
 		public virtual void WriteBody(Stream stream) {
-			var bytesRead = 0;
+			int bytesRead;
 			var buffer = new byte[1024];
 			var packetStream = GetStream();
 			packetStream.Seek(0, SeekOrigin.Begin);

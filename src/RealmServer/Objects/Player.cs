@@ -231,6 +231,9 @@ namespace Hazzik.Objects {
 		}
 
 		public byte[] UpdateObjects() {
+			foreach(var player in Program.AllConnected) {
+				AddSeenObject(player);
+			}
 			using(var output = new MemoryStream()) {
 				using(var writer = new BinaryWriter(output)) {
 					writer.Write(_objectUpdaters.Count);

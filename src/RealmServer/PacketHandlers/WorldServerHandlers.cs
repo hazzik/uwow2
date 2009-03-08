@@ -85,6 +85,8 @@ namespace Hazzik {
 			client.Send(GetTimeSyncReqPkt());
 
 			wclient.Player = player;
+			Program.AllConnected.Add(player);
+			wclient.StartUpdateTimer();
 		}
 
 		private static IPacket GetTimeSyncReqPkt() {

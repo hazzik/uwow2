@@ -76,6 +76,7 @@
     <Compile Include="Enums\RMSG.cs" />
     <Compile Include="Infos\VersionInfo.cs" />
     <Compile Include="Net\AuthPacket.cs" />
+    <Compile Include="Net\AuthPacketProcessor.cs" />
     <Compile Include="PatchInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -95,6 +96,10 @@
     <ProjectReference Include="..\Data.NHibernate\Data.NHibernate.csproj">
       <Project>{5515693F-1E28-4C9C-8BC8-7A9BFAE4EE78}</Project>
       <Name>Data.NHibernate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Data.Xml\Data.Xml.csproj">
+      <Project>{29756EEA-300A-43DB-A116-E5BDE0F747E8}</Project>
+      <Name>Data.Xml</Name>
     </ProjectReference>
     <ProjectReference Include="..\Data\Data.csproj">
       <Project>{6959839C-CE87-4006-9B2E-84544C5AA1C0}</Project>

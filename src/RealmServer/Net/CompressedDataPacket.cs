@@ -10,30 +10,7 @@ namespace Hazzik.Net {
 		private bool _dirty;
 
 		public CompressedDataPacket()
-			: base(WMSG.SMSG_COMPRESSED_UPDATE_OBJECT) {
-		}
-
-		public override Stream GetStream() {
-			if(null == _stream || _dirty) {
-				var size = 0;
-				foreach(var packet in _packets) {
-					size += 4 + packet.Size;
-				}
-				_stream = new MemoryStream();
-				_stream.WriteByte((byte)(size));
-				_stream.WriteByte((byte)(size >> 0x08));
-				_stream.WriteByte((byte)(size >> 0x10));
-				_stream.WriteByte((byte)(size >> 0x18));
-
-				var compressedStream = new DeflaterOutputStream(_stream);
-				foreach(var packet in _packets) {
-					compressedStream.WriteByte((byte)(packet.Size + 2));
-					compressedStream.WriteByte((byte)(Code));
-					compressedStream.WriteByte((byte)(Code >> 0x08));
-					packet.WriteBody(compressedStream);
-				}
-			}
-			return _stream;
+			: base(WMSG.SMSG_COMPRESSED_MOVES) {
 		}
 
 		#region ICollection<IPacket> Members
@@ -69,22 +46,37 @@ namespace Hazzik.Net {
 			return _packets.Remove(item);
 		}
 
-		#endregion
-
-		#region IEnumerable<IPacket> Members
-
-		public IEnumerator<IPacket> GetEnumerator() {
-			return _packets.GetEnumerator();
-		}
-
-		#endregion
-
-		#region IEnumerable Members
-
 		IEnumerator IEnumerable.GetEnumerator() {
 			return _packets.GetEnumerator();
 		}
 
+		IEnumerator<IPacket> IEnumerable<IPacket>.GetEnumerator() {
+			return _packets.GetEnumerator();
+		}
+
 		#endregion
+
+		public override Stream GetStream() {
+			if(null == _stream || _dirty) {
+				var size = 0;
+				foreach(var packet in _packets) {
+					size += 3 + packet.Size;
+				}
+				_stream = new MemoryStream();
+				_stream.WriteByte((byte)(size));
+				_stream.WriteByte((byte)(size >> 0x08));
+				_stream.WriteByte((byte)(size >> 0x10));
+				_stream.WriteByte((byte)(size >> 0x18));
+
+				var compressedStream = new DeflaterOutputStream(_stream);
+				foreach(var packet in _packets) {
+					compressedStream.WriteByte((byte)(packet.Size + 2));
+					compressedStream.WriteByte((byte)(Code));
+					compressedStream.WriteByte((byte)(Code >> 0x08));
+					packet.WriteBody(compressedStream);
+				}
+			}
+			return _stream;
+		}
 	}
 }

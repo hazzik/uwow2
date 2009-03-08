@@ -15,7 +15,7 @@ namespace Hazzik.Net {
 		}
 
 		public override void OnAccept(Socket s) {
-			_clients.Add(new AuthClient(this, s));
+			_clients.Add(new AuthClient(s));
 		}
 	}
 }

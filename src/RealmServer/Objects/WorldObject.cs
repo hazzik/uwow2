@@ -30,7 +30,7 @@ namespace Hazzik.Objects {
 
 		protected WorldObject(int maxValues, uint type) {
 			_values = new UpdateValue[maxValues];
-			Guid = 1;
+			Guid = ObjectGuid.NewGuid();
 			ScaleX = 1f;
 			Type = type;
 		}

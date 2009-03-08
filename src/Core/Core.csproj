@@ -51,8 +51,10 @@
     <Compile Include="Attributes\PacketHandlerAttribute.cs" />
     <Compile Include="Attributes\PacketHandlerClassAttribute.cs" />
     <Compile Include="Math\BigInteger.cs" />
+    <Compile Include="Net\AssyncStreamExtensions.cs" />
     <Compile Include="Net\ClientBase.cs" />
     <Compile Include="Net\IPacket.cs" />
+    <Compile Include="Net\IPacketProcessor.cs" />
     <Compile Include="Net\ISession.cs" />
     <Compile Include="Net\PacketBase.cs" />
     <Compile Include="Net\ServerBase.cs" />

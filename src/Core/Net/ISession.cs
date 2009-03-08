@@ -1,8 +1,7 @@
 using System;
 
 namespace Hazzik.Net {
-	public interface ISession {
-		void ProcessData(IPacket packet);
+	public interface ISession  {
 		IPacket ReadPacket();
 		void Send(IPacket packet);
 	}

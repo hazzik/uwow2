@@ -5,6 +5,7 @@ using System.Net.Sockets;
 namespace Hazzik.Net {
 	public abstract class ClientBase : ISession {
 		protected Socket _socket;
+		protected IPacketProcessor _processor;
 		private Stream _stream;
 
 		protected ClientBase(Socket socket) {
@@ -13,14 +14,13 @@ namespace Hazzik.Net {
 
 		public abstract IPacket ReadPacket();
 		public abstract void Send(IPacket packet);
-		public abstract void ProcessData(IPacket packet);
 
 		public virtual void Start() {
 			try {
-				while(true) {
-					IPacket data = ReadPacket();
-					ProcessData(data);
-				}
+				ReadPacketAsync(packet => {
+				                	_processor.Process(packet);
+				                	Start();
+				                });
 			}
 			catch(SocketException) {
 			}
@@ -28,7 +28,7 @@ namespace Hazzik.Net {
 				Console.WriteLine(e.Message);
 				Console.WriteLine(e.StackTrace);
 			}
-			_socket.Close();
+			//_socket.Close();
 		}
 
 		public virtual Stream GetStream() {
@@ -36,6 +36,12 @@ namespace Hazzik.Net {
 			_stream = new NetworkStream(_socket, false);
 			//}
 			return _stream;
+		}
+
+		public abstract void ReadPacketAsync(Action<IPacket> func);
+
+		protected void SetProcessor(IPacketProcessor processor) {
+			_processor = processor;
 		}
 	}
 }

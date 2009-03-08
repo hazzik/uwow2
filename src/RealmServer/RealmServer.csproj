@@ -70,10 +70,12 @@
     <Compile Include="Cryptography\SRP6Wow.cs" />
     <Compile Include="Data\IPlayerDao.cs" />
     <Compile Include="Data\IRealmAccountDao.cs" />
+    <Compile Include="Data\NH\NHPlayerRepository.cs" />
     <Compile Include="Data\NH\NHRealmAccountRepository.cs" />
     <Compile Include="Data\Xml\XmlPlayerDao.cs" />
     <Compile Include="Data\Xml\XmlRealmAccountDao.cs" />
     <Compile Include="Net\CompressedDataPacket.cs" />
+    <Compile Include="Net\WorldPacketProcessor.cs" />
     <Compile Include="Net\WorldPacket.cs" />
     <Compile Include="Objects\Classes.cs" />
     <Compile Include="Objects\Container.cs" />
@@ -108,6 +110,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="RealmAccount.cs" />
+    <Compile Include="Timer2.cs" />
     <Compile Include="UpdateField.cs" />
     <Compile Include="WMSG.cs" />
     <Compile Include="Program.cs" />
