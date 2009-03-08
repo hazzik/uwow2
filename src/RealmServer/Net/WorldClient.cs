@@ -26,9 +26,9 @@ namespace Hazzik.Net {
 			Start();
 		}
 		
-		public void SetSymmetricAlgorithm(SymmetricAlgorithm algo) {
-			_decryptor = algo.CreateDecryptor();
-			_encryptor = algo.CreateEncryptor();
+		public void SetSymmetricAlgorithm(SymmetricAlgorithm algorithm) {
+			_decryptor = algorithm.CreateDecryptor();
+			_encryptor = algorithm.CreateEncryptor();
 			_firstPacket = false;
 		}
 
