@@ -8,8 +8,8 @@ namespace Hazzik {
 	public class PacketHandler<C, H>
 		where C : PacketHandlerClassAttribute
 		where H : PacketHandlerAttribute {
-		private List<Assembly> _assemblies = new List<Assembly>();
-		private Dictionary<int, MethodInfo> _handlers = new Dictionary<int, MethodInfo>();
+		private readonly IList<Assembly> _assemblies = new List<Assembly>();
+		private readonly IDictionary<int, MethodInfo> _handlers = new Dictionary<int, MethodInfo>();
 
 		public void AddAssembly(Assembly assembly) {
 			_assemblies.Add(assembly);
@@ -29,13 +29,13 @@ namespace Hazzik {
 				foreach(var method in type.GetMethods(BindingFlags.Public | BindingFlags.Static)) {
 					var handlers = (H[])method.GetCustomAttributes(typeof(H), true);
 					foreach(var handler in handlers) {
-						RegisterPacketHandler(handler.Code, type, method);
+						RegisterPacketHandler(handler.Code, method);
 					}
 				}
 			}
 		}
 
-		private void RegisterPacketHandler(int msg, Type type, MethodInfo method) {
+		private void RegisterPacketHandler(int msg, MethodInfo method) {
 			_handlers[msg] = method;
 		}
 

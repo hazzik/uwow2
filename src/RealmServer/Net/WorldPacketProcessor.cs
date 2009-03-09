@@ -10,7 +10,7 @@ using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 
 namespace Hazzik.Net {
 	public class WorldPacketProcessor : IPacketProcessor {
-		private static readonly IRealmAccountDao _dao = new NHRealmAccountRepository();
+		private static readonly IAccountDao _dao = new NHAccountRepository();
 
 		private readonly WorldClient _client;
 		public readonly uint _seed = (uint)(new Random().Next(0, Int32.MaxValue));

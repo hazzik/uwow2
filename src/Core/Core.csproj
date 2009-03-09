@@ -45,12 +45,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Account.cs" />
     <Compile Include="Attributes\BaseClassAttribute.cs" />
     <Compile Include="Attributes\BaseHandlerAttribute.cs" />
     <Compile Include="Attributes\PacketHandlerAttribute.cs" />
     <Compile Include="Attributes\PacketHandlerClassAttribute.cs" />
-    <Compile Include="Math\BigInteger.cs" />
     <Compile Include="Net\AssyncStreamExtensions.cs" />
     <Compile Include="Net\ClientBase.cs" />
     <Compile Include="Net\IClientAcceptor.cs" />
@@ -59,7 +57,6 @@
     <Compile Include="Net\ISession.cs" />
     <Compile Include="Net\PacketBase.cs" />
     <Compile Include="Net\Server.cs" />
-    <Compile Include="PacketHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

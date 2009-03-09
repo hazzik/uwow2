@@ -6,12 +6,19 @@ using Hazzik.Objects;
 
 namespace Hazzik {
 	[System.Xml.Serialization.XmlType("account")]
-	public class RealmAccount : Account {
+	public class Account {
 		protected readonly IList<Player> _players = new List<Player>();
 
 		public Player[] Players {
 			get { return _players.ToArray(); }
 		}
+
+		public virtual int Id { get; set; }
+		public virtual string Name { get; set; }
+		public virtual int Expansion { get; set; }
+		public virtual byte[] PasswordSalt { get; set; }
+		public virtual byte[] PasswordVerifier { get; set; }
+		public virtual byte[] SessionKey { get; set; }
 
 		public Player GetPlayer(ulong guid) {
 			return (from player in _players

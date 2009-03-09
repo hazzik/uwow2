@@ -69,9 +69,9 @@
     <Compile Include="Attributes\WorldPacketHandler.cs" />
     <Compile Include="Cryptography\SRP6Wow.cs" />
     <Compile Include="Data\IPlayerDao.cs" />
-    <Compile Include="Data\IRealmAccountDao.cs" />
+    <Compile Include="Data\IAccountDao.cs" />
     <Compile Include="Data\NH\NHPlayerRepository.cs" />
-    <Compile Include="Data\NH\NHRealmAccountRepository.cs" />
+    <Compile Include="Data\NH\NHAccountRepository.cs" />
     <Compile Include="Data\Xml\XmlPlayerDao.cs" />
     <Compile Include="Data\Xml\XmlRealmAccountDao.cs" />
     <Compile Include="Map\ObjectManager.cs" />
@@ -109,11 +109,12 @@
     <Compile Include="Objects\WorldObject.cs" />
     <Compile Include="Objects\WorldObject.Update.cs" />
     <Compile Include="ObjectUpdater.cs" />
+    <Compile Include="PacketHandler.cs" />
     <Compile Include="PacketHandlers\MoveHandlers.cs" />
     <Compile Include="PacketHandlers\WorldServerHandlers.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="RealmAccount.cs" />
+    <Compile Include="Account.cs" />
     <Compile Include="Timer2.cs" />
     <Compile Include="UpdateField.cs" />
     <Compile Include="WMSG.cs" />

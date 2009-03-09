@@ -6,7 +6,7 @@ using Hazzik.Objects;
 
 namespace Hazzik.Net {
 	public class WorldClient : ClientBase {
-		public RealmAccount Account { get; set; }
+		public Account Account { get; set; }
 
 		private ICryptoTransform _decryptor;
 		private ICryptoTransform _encryptor;

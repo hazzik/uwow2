@@ -59,7 +59,7 @@ namespace Hazzik {
 				facialHair = r.ReadByte(),
 			};
 			account.AddPlayer(player);
-			client.Send(RealmAccount.GetCharCreatePkt(47));
+			client.Send(Account.GetCharCreatePkt(47));
 		}
 
 		[WorldPacketHandler(WMSG.CMSG_PLAYER_LOGIN)]
@@ -70,13 +70,13 @@ namespace Hazzik {
 			var guid = reader.ReadUInt64();
 			var player = wclient.Account.GetPlayer(guid);
 			if(null == player) {
-				client.Send(RealmAccount.GetCharacterLoginFiledPkt(0x44));
+				client.Send(Account.GetCharacterLoginFiledPkt(0x44));
 				return;
 			}
 
 			wclient.Send(player.GetLoginVerifyWorldPkt());
 
-			wclient.Send(RealmAccount.GetAccountDataTimesPkt());
+			wclient.Send(Account.GetAccountDataTimesPkt());
 
 			wclient.Send(GetLoginSetTimeSpeedPkt());
 
