@@ -115,5 +115,18 @@ namespace Hazzik {
 			var r = packet.CreateReader();
 			((WorldClient)client).Player.StandState = (StandStates)r.ReadByte();
 		}
+
+		[WorldPacketHandler(WMSG.CMSG_LOGOUT_REQUEST)]
+		private static void __handleCMSG_LOGOUT_REQUEST(ClientBase client, IPacket packet) {
+			client.Send(GetLogoutResponse());
+		}
+
+		private static WorldPacket GetLogoutResponse() {
+			var response = new WorldPacket(WMSG.SMSG_LOGOUT_RESPONSE);
+			var writer = response.CreateWriter();
+			writer.Write((uint)0);
+			writer.Write((byte)0);
+			return response;
+		}
 	}
 }
