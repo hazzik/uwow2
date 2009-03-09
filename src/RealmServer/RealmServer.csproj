@@ -78,6 +78,7 @@
     <Compile Include="Data\Xml\XmlRealmAccountDao.cs" />
     <Compile Include="Map\ObjectManager.cs" />
     <Compile Include="Net\CompressedDataPacket.cs" />
+    <Compile Include="Net\ISession.cs" />
     <Compile Include="Net\WorldClientAcceptor.cs" />
     <Compile Include="Net\WorldPacketProcessor.cs" />
     <Compile Include="Net\WorldPacket.cs" />

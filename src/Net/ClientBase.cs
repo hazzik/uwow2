@@ -3,7 +3,7 @@ using System.IO;
 using System.Net.Sockets;
 
 namespace Hazzik.Net {
-	public abstract class ClientBase : ISession {
+	public abstract class ClientBase {
 		protected IPacketProcessor _processor;
 		protected Socket _socket;
 

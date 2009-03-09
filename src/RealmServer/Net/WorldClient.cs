@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using Hazzik.Objects;
 
 namespace Hazzik.Net {
-	public class WorldClient : ClientBase {
+	public class WorldClient : ClientBase, ISession {
 		public Account Account { get; set; }
 
 		private ICryptoTransform _decryptor;

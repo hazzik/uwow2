@@ -50,7 +50,6 @@
     <Compile Include="IClientAcceptor.cs" />
     <Compile Include="IPacket.cs" />
     <Compile Include="IPacketProcessor.cs" />
-    <Compile Include="ISession.cs" />
     <Compile Include="PacketBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server.cs" />
