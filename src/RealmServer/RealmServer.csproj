@@ -76,6 +76,7 @@
     <Compile Include="Data\Xml\XmlRealmAccountDao.cs" />
     <Compile Include="Map\ObjectManager.cs" />
     <Compile Include="Net\CompressedDataPacket.cs" />
+    <Compile Include="Net\WorldClientAcceptor.cs" />
     <Compile Include="Net\WorldPacketProcessor.cs" />
     <Compile Include="Net\WorldPacket.cs" />
     <Compile Include="Objects\Classes.cs" />
@@ -120,7 +121,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Attributes\UpdateValueAttribute.cs" />
     <Compile Include="Net\WorldClient.cs" />
-    <Compile Include="Net\WorldServer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">

@@ -1,13 +1,18 @@
 using System;
+using System.Net;
 using System.Reflection;
+using Hazzik.Attributes;
 using Hazzik.Net;
 
 namespace Hazzik {
 	internal class Program {
+		public static PacketHandler<PacketHandlerClassAttribute, WorldPacketHandlerAttribute> Handler { get; set; }
+
 		private static void Main(string[] args) {
-			var server = new WorldServer();
-			WorldServer.Handler.AddAssembly(Assembly.GetExecutingAssembly());
-			WorldServer.Handler.Load();
+			Handler = new PacketHandler<PacketHandlerClassAttribute, WorldPacketHandlerAttribute>();
+			Handler.AddAssembly(Assembly.GetExecutingAssembly());
+			Handler.Load();
+			var server = new Server("WORLD SERVER", new WorldClientAcceptor(), new IPEndPoint(IPAddress.Any, 3725));
 			server.Start();
 			Console.ReadLine();
 		}

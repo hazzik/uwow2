@@ -34,7 +34,7 @@ namespace Hazzik.Net {
 				_client.Send(GetPongPkt(r.ReadUInt32()));
 			}
 			else {
-				WorldServer.Handler.Handle(_client, packet);
+				Program.Handler.Handle(_client, packet);
 			}
 		}
 

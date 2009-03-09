@@ -1,16 +1,23 @@
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 
 namespace Hazzik.Net {
-	public abstract class ServerBase : IDisposable {
-		protected List<ClientBase> _clients = new List<ClientBase>();
+	public class Server : IDisposable {
+		private static readonly ManualResetEvent allDone = new ManualResetEvent(false);
+		private readonly IClientAcceptor _acceptor;
+		private bool _disposed;
 		protected Socket _listenSocket;
-		protected string _name;
 
 		private IPEndPoint _localEndPoint = new IPEndPoint(IPAddress.Any, 0);
+		protected string _name;
+
+		public Server(string name, IClientAcceptor acceptor, IPEndPoint localEndPoint) {
+			_name = name;
+			_localEndPoint = localEndPoint;
+			_acceptor = acceptor;
+		}
 
 		public IPEndPoint LocalEndPoint {
 			get { return _localEndPoint; }
@@ -29,7 +36,18 @@ namespace Hazzik.Net {
 			get { return _localEndPoint.Port; }
 		}
 
-		private bool _disposed;
+		#region IDisposable Members
+
+		public void Dispose() {
+			if(_disposed) {
+				return;
+			}
+			_disposed = true;
+			_listenSocket.Close();
+			_listenSocket = null;
+		}
+
+		#endregion
 
 		public bool Start() {
 			try {
@@ -47,37 +65,19 @@ namespace Hazzik.Net {
 			return true;
 		}
 
-		private static readonly ManualResetEvent allDone = new ManualResetEvent(false);
-
 		private void AcceptTread() {
 			while(!_disposed) {
 				allDone.Reset();
 				_listenSocket.BeginAccept(ar => {
 				                          	allDone.Set();
-				                          	var accept = _listenSocket.EndAccept(ar);
-				                          	OnAccept(accept);
+				                          	_acceptor.OnAccept(_listenSocket.EndAccept(ar));
 				                          }, null);
 				allDone.WaitOne();
 			}
 		}
 
-		public abstract void OnAccept(Socket s);
-
-		~ServerBase() {
+		~Server() {
 			Dispose();
 		}
-
-		#region IDisposable Members
-
-		public void Dispose() {
-			if(_disposed) {
-				return;
-			}
-			_disposed = true;
-			_listenSocket.Close();
-			_listenSocket = null;
-		}
-
-		#endregion
 	}
 }
