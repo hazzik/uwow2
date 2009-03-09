@@ -9,7 +9,10 @@ namespace Hazzik.Net {
 		#region IClientAcceptor Members
 
 		public void OnAccept(Socket s) {
-			_clients.Add(new WorldClient(s));
+			var client = new WorldClient(s);
+			client.SetProcessor(new WorldPacketProcessor(client));
+			client.Start();	
+			_clients.Add(client);
 		}
 
 		#endregion

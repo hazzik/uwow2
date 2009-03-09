@@ -24,11 +24,7 @@ namespace Hazzik.Net {
 
 		public WorldClient(Socket socket)
 			: base(socket) {
-			SetProcessor(new WorldPacketProcessor(this));
-
 			_updateTimer = new UpdateTimer(this);
-
-			Start();
 		}
 		
 		public void SetSymmetricAlgorithm(SymmetricAlgorithm algorithm) {

@@ -34,22 +34,21 @@ namespace Hazzik.PacketHandlers {
 		[WorldPacketHandler(WMSG.MSG_MOVE_HOVER)]
 		public static void HandleMSG_MOVE_(ClientBase client, IPacket packet) {
 			var me = ((WorldClient)client).Player;
-			var responce = GetMoveResponce(packet, me.Guid);
-			foreach(var player in ObjectManager.GetPlayersNear(me)) {
-				if(player != me) {
-					player.Client.Send(responce);
-				}
-			}
+			ObjectManager.SendNearExceptMe(me, GetMoveResponce(packet, me.Guid));
 			var reader = packet.CreateReader();
 			reader.BaseStream.Seek(0, SeekOrigin.Begin);
 			me.MovementInfo.Read(reader);
 		}
 
 		private static IPacket GetMoveResponce(IPacket packet, ulong guid) {
+			var reader = packet.CreateReader();
+			reader.BaseStream.Seek(0, SeekOrigin.Begin);
+			var bytes = reader.ReadBytes(packet.Size);
+
 			var responce = new WorldPacket((WMSG)packet.Code);
 			var w = responce.CreateWriter();
 			w.WritePackGuid(guid);
-			w.Write(packet.CreateReader().ReadBytes(packet.Size));
+			w.Write(bytes);
 			return responce;
 		}
 	}

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Hazzik.Net;
 using Hazzik.Objects;
 
 namespace Hazzik.Map {
@@ -22,6 +23,14 @@ namespace Hazzik.Map {
 
 		public static IEnumerable<Positioned> GetObjectsNear(Player me) {
 			return _allObjects.Values;
+		}
+
+		public static void SendNearExceptMe(Player me, IPacket responce) {
+			foreach(var player in GetPlayersNear(me)) {
+				if(player != me) {
+					player.Client.Send(responce);
+				}
+			}
 		}
 	}
 }

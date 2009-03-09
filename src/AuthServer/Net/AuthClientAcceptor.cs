@@ -9,7 +9,10 @@ namespace Hazzik.Net {
 		#region IClientAcceptor Members
 
 		public void OnAccept(Socket s) {
-			_clients.Add(new AuthClient(s));
+			var client = new AuthClient(s);
+			client.SetProcessor(new AuthPacketProcessor(client));
+			client.Start();
+			_clients.Add(client);
 		}
 
 		#endregion

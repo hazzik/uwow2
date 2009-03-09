@@ -6,8 +6,6 @@ namespace Hazzik.Net {
 	public class AuthClient : ClientBase {
 		public AuthClient(Socket client) :
 			base(client) {
-			SetProcessor(new AuthPacketProcessor(this));
-			Start();
 		}
 
 		public override IPacket ReadPacket() {

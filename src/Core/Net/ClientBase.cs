@@ -4,16 +4,19 @@ using System.Net.Sockets;
 
 namespace Hazzik.Net {
 	public abstract class ClientBase : ISession {
-		protected Socket _socket;
 		protected IPacketProcessor _processor;
-		private Stream _stream;
+		protected Socket _socket;
 
 		protected ClientBase(Socket socket) {
 			_socket = socket;
 		}
 
+		#region ISession Members
+
 		public abstract IPacket ReadPacket();
 		public abstract void Send(IPacket packet);
+
+		#endregion
 
 		public virtual void Start() {
 			try {
@@ -32,15 +35,12 @@ namespace Hazzik.Net {
 		}
 
 		public virtual Stream GetStream() {
-			//if(_stream == null) {
-			_stream = new NetworkStream(_socket, false);
-			//}
-			return _stream;
+			return new NetworkStream(_socket, false);
 		}
 
 		public abstract void ReadPacketAsync(Action<IPacket> func);
 
-		protected void SetProcessor(IPacketProcessor processor) {
+		public void SetProcessor(IPacketProcessor processor) {
 			_processor = processor;
 		}
 	}
