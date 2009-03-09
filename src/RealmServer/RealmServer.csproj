@@ -126,9 +126,9 @@
     <Compile Include="Net\WorldClient.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core\Core.csproj">
+    <ProjectReference Include="..\Net\Net.csproj">
       <Project>{0638B5D2-AA98-4FD3-8F2E-8DEDFB9F5A97}</Project>
-      <Name>CoreBase</Name>
+      <Name>Net</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\lib\Helper\Helper.csproj">
       <Project>{5BEC7A4C-7CB1-4D6B-B0E5-FD1860168494}</Project>
