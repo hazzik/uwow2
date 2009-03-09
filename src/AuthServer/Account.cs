@@ -5,7 +5,7 @@ using Hazzik.Helper;
 
 namespace Hazzik {
 	[System.Xml.Serialization.XmlType("account")]
-	public class AuthAccount : Account {
+	public class Account {
 		protected SHA1 _sha1 = SHA1.Create();
 		protected static BigInteger bi_N = new BigInteger("894B645E89E1535BBDAD5B8B290650530801B18EBFBF5E8FAB3C82872A3E9BB7", 16);
 		protected static BigInteger bi_g = 7;
@@ -13,6 +13,13 @@ namespace Hazzik {
 		public int PlayersCount {
 			get { return 0; }
 		}
+
+		public virtual int Id { get; set; }
+		public virtual string Name { get; set; }
+		public virtual int Expansion { get; set; }
+		public virtual byte[] PasswordSalt { get; set; }
+		public virtual byte[] PasswordVerifier { get; set; }
+		public virtual byte[] SessionKey { get; set; }
 
 		public void SetPassword(string password) {
 			BigInteger bi_s = BigInteger.genPseudoPrime(256, 5, new Random());

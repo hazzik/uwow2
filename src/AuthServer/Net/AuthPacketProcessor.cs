@@ -19,10 +19,10 @@ namespace Hazzik.Net {
 
 		private static readonly SHA1 sha1 = SHA1.Create();
 		private readonly AuthClient _client;
-		private readonly IAuthAccountDao _dao = new NHAuthAccountRepository();
+		private readonly IAccountDao _dao = new NHAccountRepository();
 		private readonly IList<WorldServerInfo> _realmList = new List<WorldServerInfo>();
 		private readonly BigInteger bi_b = BigInteger.genPseudoPrime(160, 5, Utility.seed2);
-		public AuthAccount _account;
+		public Account _account;
 		private BigInteger bi_B;
 		private BigInteger bi_s = BigInteger.genPseudoPrime(256, 5, Utility.seed2);
 		private BigInteger bi_v;
@@ -105,7 +105,7 @@ namespace Hazzik.Net {
 
 			_account = _dao.FindByName(accountName);
 			if(_account == null) {
-				_account = new AuthAccount { Name = accountName };
+				_account = new Account { Name = accountName };
 				_account.SetPassword(accountName);
 				_dao.Save(_account);
 				_dao.SubmitChanges();

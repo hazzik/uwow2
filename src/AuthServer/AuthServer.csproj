@@ -67,13 +67,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuthAccount.cs" />
-    <Compile Include="Data\IAuthAccountDao.cs" />
-    <Compile Include="Data\NH\NHAuthAccountRepository.cs" />
-    <Compile Include="Data\Xml\XmlAuthAccountDao.cs" />
+    <Compile Include="Account.cs" />
+    <Compile Include="Data\IAccountDao.cs" />
+    <Compile Include="Data\NH\NHAccountRepository.cs" />
+    <Compile Include="Data\Xml\XmlAccountDao.cs" />
     <Compile Include="Infos\ClientInfo.cs" />
     <Compile Include="Enums\RMSG.cs" />
     <Compile Include="Infos\VersionInfo.cs" />
+    <Compile Include="Math\BigInteger.cs" />
     <Compile Include="Net\AuthClientAcceptor.cs" />
     <Compile Include="Net\AuthPacket.cs" />
     <Compile Include="Net\AuthPacketProcessor.cs" />
@@ -84,13 +85,13 @@
     <Compile Include="Infos\ServerInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core\Core.csproj">
-      <Project>{0638B5D2-AA98-4FD3-8F2E-8DEDFB9F5A97}</Project>
-      <Name>CoreBase</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\lib\Helper\Helper.csproj">
       <Project>{5BEC7A4C-7CB1-4D6B-B0E5-FD1860168494}</Project>
       <Name>Helper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{0638B5D2-AA98-4FD3-8F2E-8DEDFB9F5A97}</Project>
+      <Name>Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Data.NHibernate\Data.NHibernate.csproj">
       <Project>{5515693F-1E28-4C9C-8BC8-7A9BFAE4EE78}</Project>
