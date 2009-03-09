@@ -12,10 +12,6 @@ namespace Hazzik.Net {
 	public class WorldPacketProcessor : IPacketProcessor {
 		private static readonly IRealmAccountDao _dao = new NHRealmAccountRepository();
 
-		private static readonly HashAlgorithm _hmac =
-			new HMACSHA1(new byte[]
-			             { 0x38, 0xA7, 0x83, 0x15, 0xF8, 0x92, 0x25, 0x30, 0x71, 0x98, 0x67, 0xB1, 0x8C, 0x4, 0xE2, 0xAA });
-
 		private readonly WorldClient _client;
 		public readonly uint _seed = (uint)(new Random().Next(0, Int32.MaxValue));
 
@@ -63,7 +59,7 @@ namespace Hazzik.Net {
 
 			_client.Account = _dao.FindByName(accountName);
 
-			_client.SetSymmetricAlgorithm(new SRP6Wow(_hmac.ComputeHash(_client.Account.SessionKey)));
+			_client.SetSymmetricAlgorithm(new SRP6Wow(_client.Account.SessionKey));
 
 			if(!Utility.Equals(clientDigest, ComputeServerDigest(clientSeed))) {
 				throw new Exception();
@@ -89,7 +85,7 @@ namespace Hazzik.Net {
 			//_client.Send(GetAddonInfoPkt());
 			_client.Send(GetTutorialFlagsPkt());
 		}
- 
+
 		private IPacket GetAuthResponcePkt() {
 			var result = new WorldPacket(WMSG.SMSG_AUTH_RESPONSE);
 			BinaryWriter w = result.CreateWriter();

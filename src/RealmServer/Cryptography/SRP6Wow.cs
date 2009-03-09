@@ -3,15 +3,53 @@ using System.Security.Cryptography;
 
 namespace Hazzik.Cryptography {
 	public class SRP6Wow : SymmetricAlgorithm {
+		#region Direction enum
+
 		public enum Direction {
 			Encryption,
 			Decryption,
 		}
 
+		#endregion
+
+		private static readonly HashAlgorithm _hmac =
+			new HMACSHA1(new byte[]
+			             { 0x38, 0xA7, 0x83, 0x15, 0xF8, 0x92, 0x25, 0x30, 0x71, 0x98, 0x67, 0xB1, 0x8C, 0x4, 0xE2, 0xAA });
+
+		public SRP6Wow(byte[] key) {
+			KeyValue = _hmac.ComputeHash(key);
+			IVValue = new byte[1];
+			IVValue[0] = 0;
+		}
+
+		public override ICryptoTransform CreateDecryptor(byte[] rgbKey, byte[] rgbIV) {
+			if(rgbIV.Length != 1) {
+				throw new ArgumentException("IV should only be one byte long");
+			}
+			return new Transform(Direction.Decryption, rgbKey, rgbIV[0]);
+		}
+
+		public override ICryptoTransform CreateEncryptor(byte[] rgbKey, byte[] rgbIV) {
+			if(rgbIV.Length != 1) {
+				throw new ArgumentException("IV should only be one byte long");
+			}
+			return new Transform(Direction.Encryption, rgbKey, rgbIV[0]);
+		}
+
+		public override void GenerateIV() {
+			throw new NotImplementedException();
+		}
+
+		public override void GenerateKey() {
+			throw new NotImplementedException();
+		}
+
+		#region Nested type: Transform
+
 		public class Transform : ICryptoTransform {
 			protected Direction _direction;
-			protected byte[] _key;
 			protected byte _iv;
+			protected byte[] _key;
 			protected int _keyPosition;
 
 			internal Transform(Direction direction, byte[] key, byte iv) {
@@ -65,14 +103,10 @@ namespace Hazzik.Cryptography {
 			}
 
 			public byte[] TransformFinalBlock(byte[] inputBuffer, int inputOffset, int inputCount) {
-				byte[] outputBuffer = new byte[inputCount];
+				var outputBuffer = new byte[inputCount];
 				TransformBlock(inputBuffer, inputOffset, inputCount, outputBuffer, 0);
 				return outputBuffer;
 			}
-
-			#endregion
-
-			#region IDisposable Members
 
 			public void Dispose() {
 				for(int i = 0; i < _key.Length; i++) {
@@ -85,32 +119,6 @@ namespace Hazzik.Cryptography {
 			#endregion
 		}
 
-		public SRP6Wow(byte[] key) {
-			KeyValue = key;
-			IVValue = new byte[1];
-			IVValue[0] = 0;
-		}
-
-		public override ICryptoTransform CreateDecryptor(byte[] rgbKey, byte[] rgbIV) {
-			if(rgbIV.Length != 1) {
-				throw new ArgumentException("IV should only be one byte long");
-			}
-			return new Transform(Direction.Decryption, rgbKey, rgbIV[0]);
-		}
-
-		public override ICryptoTransform CreateEncryptor(byte[] rgbKey, byte[] rgbIV) {
-			if(rgbIV.Length != 1) {
-				throw new ArgumentException("IV should only be one byte long");
-			}
-			return new Transform(Direction.Encryption, rgbKey, rgbIV[0]);
-		}
-
-		public override void GenerateIV() {
-			throw new NotImplementedException();
-		}
-
-		public override void GenerateKey() {
-			throw new NotImplementedException();
-		}
+		#endregion
 	}
 }
