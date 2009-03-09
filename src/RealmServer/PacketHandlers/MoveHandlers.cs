@@ -1,7 +1,9 @@
 ﻿using System;
+using System.IO;
 using Hazzik.Attributes;
 using Hazzik.Map;
 using Hazzik.Net;
+using Hazzik.Objects;
 
 namespace Hazzik.PacketHandlers {
 	[PacketHandlerClass]
@@ -38,6 +40,9 @@ namespace Hazzik.PacketHandlers {
 					player.Client.Send(responce);
 				}
 			}
+			var reader = packet.CreateReader();
+			reader.BaseStream.Seek(0, SeekOrigin.Begin);
+			me.MovementInfo.Read(reader);
 		}
 
 		private static IPacket GetMoveResponce(IPacket packet, ulong guid) {

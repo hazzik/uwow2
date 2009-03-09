@@ -91,6 +91,7 @@
     <Compile Include="Objects\Item.Update.cs" />
     <Compile Include="Objects\Mobile.cs" />
     <Compile Include="Objects\MovementFlags.cs" />
+    <Compile Include="Objects\MovementInfo.cs" />
     <Compile Include="Objects\ObjectGuid.cs" />
     <Compile Include="Objects\ObjectTypeId.cs" />
     <Compile Include="Objects\Player.cs" />

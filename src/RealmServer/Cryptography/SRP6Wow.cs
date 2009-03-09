@@ -5,7 +5,7 @@ namespace Hazzik.Cryptography {
 	public class SRP6Wow : SymmetricAlgorithm {
 		#region Direction enum
 
-		public enum Direction {
+		private enum Direction {
 			Encryption,
 			Decryption,
 		}
@@ -18,8 +18,7 @@ namespace Hazzik.Cryptography {
 
 		public SRP6Wow(byte[] key) {
 			KeyValue = _hmac.ComputeHash(key);
-			IVValue = new byte[1];
-			IVValue[0] = 0;
+			IVValue = new byte[] { 0 };
 		}
 
 		public override ICryptoTransform CreateDecryptor(byte[] rgbKey, byte[] rgbIV) {
@@ -46,7 +45,7 @@ namespace Hazzik.Cryptography {
 
 		#region Nested type: Transform
 
-		public class Transform : ICryptoTransform {
+		private class Transform : ICryptoTransform {
 			protected Direction _direction;
 			protected byte _iv;
 			protected byte[] _key;

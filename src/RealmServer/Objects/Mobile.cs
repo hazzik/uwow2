@@ -1,14 +1,37 @@
+using System;
 using System.IO;
 
 namespace Hazzik.Objects {
 	public abstract class Mobile : Positioned {
+		private readonly MovementInfo _movementInfo = new MovementInfo();
+
 		protected Mobile(int updateMaskLength, uint type)
 			: base(updateMaskLength, type) {
 		}
 
-		public override byte UpdateFlag { get { return (byte)(base.UpdateFlag | (byte)UpdateFlags.Mobile); } }
+		public override byte UpdateFlag {
+			get { return (byte)(base.UpdateFlag | (byte)UpdateFlags.Mobile); }
+		}
 
-		public uint MovementFlag { get; set; }
+		public override float X {
+			get { return _movementInfo.X; }
+			set { _movementInfo.X = value; }
+		}
+
+		public override float Y {
+			get { return _movementInfo.Y; }
+			set { _movementInfo.Y = value; }
+		}
+
+		public override float Z {
+			get { return _movementInfo.Z; }
+			set { _movementInfo.Z = value; }
+		}
+
+		public override float O {
+			get { return _movementInfo.O; }
+			set { _movementInfo.O = value; }
+		}
 
 		public float Speed0 { get; set; }
 		public float Speed1 { get; set; }
@@ -19,17 +42,12 @@ namespace Hazzik.Objects {
 		public float Speed6 { get; set; }
 		public float TurnRate { get; set; }
 
-		public override void WriteCreateBlock(BinaryWriter w) {
-			w.Write(MovementFlag);
-			w.Write((ushort)0); //всегда 0
-			w.Write(0xDD57244F); //аптайм сервера
-
-			base.WriteCreateBlock(w);
-			WriteMovementBlock(w);
+		public MovementInfo MovementInfo {
+			get { return _movementInfo; }
 		}
 
-		private void WriteMovementBlock(BinaryWriter w) {
-			w.Write((uint)0); // похоже на время
+		public override void WriteCreateBlock(BinaryWriter w) {
+			_movementInfo.Write(w);
 			w.Write(Speed0);
 			w.Write(Speed1);
 			w.Write(Speed2);
