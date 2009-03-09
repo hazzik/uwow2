@@ -3,9 +3,8 @@ using System.IO;
 using Hazzik.Attributes;
 using Hazzik.Map;
 using Hazzik.Net;
-using Hazzik.Objects;
 
-namespace Hazzik.PacketHandlers {
+namespace Hazzik {
 	[PacketHandlerClass]
 	public class MoveHandlers {
 		[WorldPacketHandler(WMSG.MSG_MOVE_START_FORWARD)]
@@ -32,8 +31,8 @@ namespace Hazzik.PacketHandlers {
 		[WorldPacketHandler(WMSG.MSG_MOVE_HEARTBEAT)]
 		[WorldPacketHandler(WMSG.MSG_MOVE_KNOCK_BACK)]
 		[WorldPacketHandler(WMSG.MSG_MOVE_HOVER)]
-		public static void HandleMSG_MOVE_(ClientBase client, IPacket packet) {
-			var me = ((WorldClient)client).Player;
+		public static void HandleMSG_MOVE_(ISession client, IPacket packet) {
+			var me = client.Player;
 			ObjectManager.SendNearExceptMe(me, GetMoveResponce(packet, me.Guid));
 			var reader = packet.CreateReader();
 			reader.BaseStream.Seek(0, SeekOrigin.Begin);

@@ -63,7 +63,7 @@ namespace Hazzik {
 			_handlers.Remove(msg);
 		}
 
-		public void Handle(ClientBase client, IPacket packet) {
+		public void Handle(ISession client, IPacket packet) {
 			MethodInfo method;
 			if(_handlers.TryGetValue(packet.Code, out method)) {
 				method.Invoke(null, new object[] { client, packet });
