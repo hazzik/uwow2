@@ -1,13 +1,9 @@
 using System;
-using System.Collections.Generic;
 using System.Reflection;
 using Hazzik.Net;
-using Hazzik.Objects;
 
 namespace Hazzik {
 	internal class Program {
-		public static IList<Player> AllConnected = new List<Player>();
-
 		private static void Main(string[] args) {
 			var server = new WorldServer();
 			WorldServer.Handler.AddAssembly(Assembly.GetExecutingAssembly());

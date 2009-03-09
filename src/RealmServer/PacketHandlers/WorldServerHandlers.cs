@@ -1,5 +1,7 @@
 using System;
+using System.Linq;
 using Hazzik.Attributes;
+using Hazzik.Map;
 using Hazzik.Net;
 using Hazzik.Objects;
 
@@ -9,9 +11,10 @@ namespace Hazzik {
 		[WorldPacketHandler(WMSG.CMSG_NAME_QUERY)]
 		public static void HandleCMSG_NAME_QUERY(ClientBase client, IPacket packet) {
 			var reader = packet.CreateReader();
-			var guid = reader.ReadUInt32();
+			var guid = reader.ReadUInt64();
 
-			var player = ((WorldClient)client).Account.GetPlayer(guid);
+			var player = ObjectManager.GetPlayersNear(((WorldClient)client).Player).FirstOrDefault(x => x.Guid == guid);
+
 			if(player != null) {
 				client.Send(player.GetNameQueryResponcePkt());
 			}
@@ -71,18 +74,18 @@ namespace Hazzik {
 				return;
 			}
 
-			client.Send(player.GetLoginVerifyWorldPkt());
+			wclient.Send(player.GetLoginVerifyWorldPkt());
 
-			client.Send(RealmAccount.GetAccountDataTimesPkt());
+			wclient.Send(RealmAccount.GetAccountDataTimesPkt());
 
-			client.Send(GetLoginSetTimeSpeedPkt());
+			wclient.Send(GetLoginSetTimeSpeedPkt());
 
-			client.Send(player.GetUpdateObjectPkt());
+			wclient.Send(player.GetUpdateObjectPkt());
 
-			client.Send(GetTimeSyncReqPkt());
+			wclient.Send(GetTimeSyncReqPkt());
 
 			wclient.Player = player;
-			Program.AllConnected.Add(player);
+			ObjectManager.Add(player);
 			wclient.StartUpdateTimer();
 		}
 

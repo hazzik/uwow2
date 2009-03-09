@@ -74,6 +74,7 @@
     <Compile Include="Data\NH\NHRealmAccountRepository.cs" />
     <Compile Include="Data\Xml\XmlPlayerDao.cs" />
     <Compile Include="Data\Xml\XmlRealmAccountDao.cs" />
+    <Compile Include="Map\ObjectManager.cs" />
     <Compile Include="Net\CompressedDataPacket.cs" />
     <Compile Include="Net\WorldPacketProcessor.cs" />
     <Compile Include="Net\WorldPacket.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="Objects\WorldObject.cs" />
     <Compile Include="Objects\WorldObject.Update.cs" />
     <Compile Include="ObjectUpdater.cs" />
+    <Compile Include="PacketHandlers\MoveHandlers.cs" />
     <Compile Include="PacketHandlers\WorldServerHandlers.cs">
       <SubType>Code</SubType>
     </Compile>

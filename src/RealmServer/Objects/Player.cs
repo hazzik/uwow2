@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Hazzik.Map;
 using Hazzik.Net;
 
 namespace Hazzik.Objects {
@@ -231,14 +232,14 @@ namespace Hazzik.Objects {
 		}
 
 		public byte[] UpdateObjects() {
-			foreach(var player in Program.AllConnected) {
+			foreach(var player in ObjectManager.GetPlayersNear(this)) {
 				AddSeenObject(player);
 			}
 			using(var output = new MemoryStream()) {
 				using(var writer = new BinaryWriter(output)) {
 					writer.Write(_objectUpdaters.Count);
-					foreach(var value in _objectUpdaters.Values) {
-						value.WriteUpdate(writer);
+					foreach(var updater in _objectUpdaters.Values) {
+						updater.WriteUpdate(writer);
 					}
 					return output.ToArray();
 				}
