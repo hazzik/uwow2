@@ -67,7 +67,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\AuthPacketHandlerAttribute.cs" />
     <Compile Include="AuthAccount.cs" />
     <Compile Include="Data\IAuthAccountDao.cs" />
     <Compile Include="Data\NH\NHAuthAccountRepository.cs" />
