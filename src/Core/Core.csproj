@@ -45,10 +45,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\BaseClassAttribute.cs" />
-    <Compile Include="Attributes\BaseHandlerAttribute.cs" />
-    <Compile Include="Attributes\PacketHandlerAttribute.cs" />
-    <Compile Include="Attributes\PacketHandlerClassAttribute.cs" />
     <Compile Include="Net\AssyncStreamExtensions.cs" />
     <Compile Include="Net\ClientBase.cs" />
     <Compile Include="Net\IClientAcceptor.cs" />
