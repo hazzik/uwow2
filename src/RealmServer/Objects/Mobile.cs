@@ -13,22 +13,22 @@ namespace Hazzik.Objects {
 			get { return (byte)(base.UpdateFlag | (byte)UpdateFlags.Mobile); }
 		}
 
-		public override float X {
+		public override float PosX {
 			get { return _movementInfo.X; }
 			set { _movementInfo.X = value; }
 		}
 
-		public override float Y {
+		public override float PosY {
 			get { return _movementInfo.Y; }
 			set { _movementInfo.Y = value; }
 		}
 
-		public override float Z {
+		public override float PosZ {
 			get { return _movementInfo.Z; }
 			set { _movementInfo.Z = value; }
 		}
 
-		public override float O {
+		public override float Facing {
 			get { return _movementInfo.O; }
 			set { _movementInfo.O = value; }
 		}

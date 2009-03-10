@@ -55,9 +55,9 @@ namespace Hazzik {
 
 				w.Write(player.ZoneId);
 				w.Write(player.MapId);
-				w.Write(player.X);
-				w.Write(player.Y);
-				w.Write(player.Z);
+				w.Write(player.PosX);
+				w.Write(player.PosY);
+				w.Write(player.PosZ);
 				w.Write(player.GuildId);
 
 				uint flag = 0x00000000;

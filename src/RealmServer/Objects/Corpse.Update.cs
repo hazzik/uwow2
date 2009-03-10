@@ -20,7 +20,7 @@ namespace Hazzik.Objects {
 
 		#region CORPSE_FIELD_FACING
 		//CORPSE_FIELD_FACING : type = Single, size = 1, flag = Public
-		public virtual Single Facing {
+		public override Single Facing {
 			get { return GetSingle(UpdateFields.CORPSE_FIELD_FACING); }
 			set { SetSingle(UpdateFields.CORPSE_FIELD_FACING, value); }
 		}
@@ -28,7 +28,7 @@ namespace Hazzik.Objects {
 
 		#region CORPSE_FIELD_POS_X
 		//CORPSE_FIELD_POS_X : type = Single, size = 1, flag = Public
-		public virtual Single PosX {
+		public override Single PosX {
 			get { return GetSingle(UpdateFields.CORPSE_FIELD_POS_X); }
 			set { SetSingle(UpdateFields.CORPSE_FIELD_POS_X, value); }
 		}
@@ -36,7 +36,7 @@ namespace Hazzik.Objects {
 
 		#region CORPSE_FIELD_POS_Y
 		//CORPSE_FIELD_POS_Y : type = Single, size = 1, flag = Public
-		public virtual Single PosY {
+		public override Single PosY {
 			get { return GetSingle(UpdateFields.CORPSE_FIELD_POS_Y); }
 			set { SetSingle(UpdateFields.CORPSE_FIELD_POS_Y, value); }
 		}
@@ -44,7 +44,7 @@ namespace Hazzik.Objects {
 
 		#region CORPSE_FIELD_POS_Z
 		//CORPSE_FIELD_POS_Z : type = Single, size = 1, flag = Public
-		public virtual Single PosZ {
+		public override Single PosZ {
 			get { return GetSingle(UpdateFields.CORPSE_FIELD_POS_Z); }
 			set { SetSingle(UpdateFields.CORPSE_FIELD_POS_Z, value); }
 		}
@@ -78,7 +78,7 @@ namespace Hazzik.Objects {
 
 		#region CORPSE_FIELD_GUILD
 		//CORPSE_FIELD_GUILD : type = Int, size = 1, flag = Public
-		public virtual UInt32 Guild {
+		public virtual UInt32 GuildId {
 			get { return GetUInt32(UpdateFields.CORPSE_FIELD_GUILD); }
 			set { SetUInt32(UpdateFields.CORPSE_FIELD_GUILD, value); }
 		}

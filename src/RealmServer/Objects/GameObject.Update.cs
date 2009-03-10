@@ -64,7 +64,7 @@ namespace Hazzik.Objects {
 
 		#region GAMEOBJECT_POS_X
 		//GAMEOBJECT_POS_X : type = Single, size = 1, flag = Public
-		public override Single X {
+		public override Single PosX {
 			get { return GetSingle(UpdateFields.GAMEOBJECT_POS_X); }
 			set { SetSingle(UpdateFields.GAMEOBJECT_POS_X, value); }
 		}
@@ -72,7 +72,7 @@ namespace Hazzik.Objects {
 
 		#region GAMEOBJECT_POS_Y
 		//GAMEOBJECT_POS_Y : type = Single, size = 1, flag = Public
-		public override Single Y {
+		public override Single PosY {
 			get { return GetSingle(UpdateFields.GAMEOBJECT_POS_Y); }
 			set { SetSingle(UpdateFields.GAMEOBJECT_POS_Y, value); }
 		}
@@ -80,7 +80,7 @@ namespace Hazzik.Objects {
 
 		#region GAMEOBJECT_POS_Z
 		//GAMEOBJECT_POS_Z : type = Single, size = 1, flag = Public
-		public override Single Z {
+		public override Single PosZ {
 			get { return GetSingle(UpdateFields.GAMEOBJECT_POS_Z); }
 			set { SetSingle(UpdateFields.GAMEOBJECT_POS_Z, value); }
 		}
@@ -88,7 +88,7 @@ namespace Hazzik.Objects {
 
 		#region GAMEOBJECT_FACING
 		//GAMEOBJECT_FACING : type = Single, size = 1, flag = Public
-		public override Single O {
+		public override Single Facing {
 			get { return GetSingle(UpdateFields.GAMEOBJECT_FACING); }
 			set { SetSingle(UpdateFields.GAMEOBJECT_FACING, value); }
 		}

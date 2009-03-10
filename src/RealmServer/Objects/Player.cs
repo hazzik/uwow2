@@ -14,10 +14,10 @@ namespace Hazzik.Objects {
 			//Level = 1;
 
 			MapId = 530;
-			X = -3961.64F;
-			Y = -13931.2F;
-			Z = 100.615F;
-			O = 2.083644F;
+			PosX = -3961.64F;
+			PosY = -13931.2F;
+			PosZ = 100.615F;
+			Facing = 2.083644F;
 
 			Speed0 = 2.5F;
 			Speed1 = 7F;
@@ -279,10 +279,10 @@ namespace Hazzik.Objects {
 			var result = new WorldPacket(WMSG.SMSG_LOGIN_VERIFY_WORLD);
 			var w = result.CreateWriter();
 			w.Write(MapId);
-			w.Write(X);
-			w.Write(Y);
-			w.Write(Z);
-			w.Write(O);
+			w.Write(PosX);
+			w.Write(PosY);
+			w.Write(PosZ);
+			w.Write(Facing);
 			return result;
 		}
 

@@ -14,16 +14,16 @@ namespace Hazzik.Objects {
 
 		public virtual uint MapId { get; set; }
 		public virtual uint ZoneId { get; set; }
-		public virtual float X { get; set; }
-		public virtual float Y { get; set; }
-		public virtual float Z { get; set; }
-		public virtual float O { get; set; }
+		public virtual float PosX { get; set; }
+		public virtual float PosY { get; set; }
+		public virtual float PosZ { get; set; }
+		public virtual float Facing { get; set; }
 
 		public override void WriteCreateBlock(BinaryWriter writer) {
-			writer.Write(X);
-			writer.Write(Y);
-			writer.Write(Z);
-			writer.Write(O);
+			writer.Write(PosX);
+			writer.Write(PosY);
+			writer.Write(PosZ);
+			writer.Write(Facing);
 		}
 	}
 }
