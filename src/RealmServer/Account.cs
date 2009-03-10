@@ -46,11 +46,11 @@ namespace Hazzik {
 				w.Write((byte)player.Race);
 				w.Write((byte)player.Classe);
 				w.Write((byte)player.Gender);
-				w.Write(player.skin);
-				w.Write(player.face);
-				w.Write(player.hairStyle);
-				w.Write(player.hairColor);
-				w.Write(player.facialHair);
+				w.Write(player.Skin);
+				w.Write(player.Face);
+				w.Write(player.HairStyle);
+				w.Write(player.HairColor);
+				w.Write(player.FacialHair);
 				w.Write((byte)player.Level);
 
 				w.Write(player.ZoneId);

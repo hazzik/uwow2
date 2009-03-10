@@ -596,7 +596,7 @@ namespace Hazzik.Objects {
 
 		#region UNIT_FIELD_BYTES_2
 		//UNIT_FIELD_BYTES_2 : type = Bytes, size = 1, flag = Public
-		public SheathType SheathType {
+		public SheathType Sheath {
 			get { return (SheathType)GetByte(UpdateFields.UNIT_FIELD_BYTES_2, 0); }
 			set { SetByte(UpdateFields.UNIT_FIELD_BYTES_2, 0, (byte)value); }
 		}
