@@ -14,5 +14,29 @@ namespace Hazzik.Objects {
 		public override byte TypeId {
 			get { return (byte)ObjectTypeId.Corpse; }
 		}
+
+		public static Corpse Create(Player player) {
+			var corpse = new Corpse {
+				OwnerGuid = player.Guid,
+				//PartyGuid = ,
+				Facing = player.Facing,
+				PosX = player.PosX,
+				PosY = player.PosY,
+				PosZ = player.PosZ,
+				DisplayId = player.DisplayId,
+				//Bytes1_0 = , // classe?
+				Race = player.Race,
+				Gender = player.Gender,
+				Skin = player.Skin,
+				Face = player.Face,
+				HairStyle = player.HairStyle,
+				HairColor = player.HairColor,
+				FacialHair = player.FacialHair,
+				GuildId = player.GuildId,
+				Flags = CorpseFlags.IsClaimed,
+				DynamicFlags = CorpseDynamicFlags.None,
+			};
+			return corpse;
+		}
 	}
 }

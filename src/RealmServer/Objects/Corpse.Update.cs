@@ -62,30 +62,46 @@ namespace Hazzik.Objects {
 
 		#region CORPSE_FIELD_BYTES_1
 		//CORPSE_FIELD_BYTES_1 : type = Bytes, size = 1, flag = Public
-		public virtual UInt32 Bytes1 {
-			get { return GetUInt32(UpdateFields.CORPSE_FIELD_BYTES_1); }
-			set { SetUInt32(UpdateFields.CORPSE_FIELD_BYTES_1, value); }
+		public virtual byte Bytes1_0 {
+			get { return GetByte(UpdateFields.CORPSE_FIELD_BYTES_1, 0); }
+			set { SetByte(UpdateFields.CORPSE_FIELD_BYTES_1, 0, value); }
 		}
+
+		public virtual Races Race {
+			get { return (Races)GetByte(UpdateFields.CORPSE_FIELD_BYTES_1, 1); }
+			set { SetByte(UpdateFields.CORPSE_FIELD_BYTES_1, 1, (byte)value); }
+		}
+
+		public virtual GenderType Gender {
+			get { return (GenderType)GetByte(UpdateFields.CORPSE_FIELD_BYTES_1, 2); }
+			set { SetByte(UpdateFields.CORPSE_FIELD_BYTES_1, 2, (byte)value); }
+		}
+
+		public virtual byte Skin {
+			get { return GetByte(UpdateFields.CORPSE_FIELD_BYTES_1, 3); }
+			set { SetByte(UpdateFields.CORPSE_FIELD_BYTES_1, 3, value); }
+		}
+
 		#endregion
 
 		#region CORPSE_FIELD_BYTES_2
 		//CORPSE_FIELD_BYTES_2 : type = Bytes, size = 1, flag = Public
-		public byte Face {
+		public virtual byte Face {
 			get { return GetByte(UpdateFields.CORPSE_FIELD_BYTES_2, 0); }
 			set { SetByte(UpdateFields.CORPSE_FIELD_BYTES_2, 0, value); }
 		}
 
-		public byte HairStyle {
+		public virtual byte HairStyle {
 			get { return GetByte(UpdateFields.CORPSE_FIELD_BYTES_2, 1); }
 			set { SetByte(UpdateFields.CORPSE_FIELD_BYTES_2, 1, value); }
 		}
 
-		public byte HairColor {
+		public virtual byte HairColor {
 			get { return GetByte(UpdateFields.CORPSE_FIELD_BYTES_2, 2); }
 			set { SetByte(UpdateFields.CORPSE_FIELD_BYTES_2, 2, value); }
 		}
 
-		public byte FacialHair {
+		public virtual byte FacialHair {
 			get { return GetByte(UpdateFields.CORPSE_FIELD_BYTES_2, 3); }
 			set { SetByte(UpdateFields.CORPSE_FIELD_BYTES_2, 3, value); }
 		}
@@ -101,17 +117,17 @@ namespace Hazzik.Objects {
 
 		#region CORPSE_FIELD_FLAGS
 		//CORPSE_FIELD_FLAGS : type = Int, size = 1, flag = Public
-		public virtual UInt32 Flags {
-			get { return GetUInt32(UpdateFields.CORPSE_FIELD_FLAGS); }
-			set { SetUInt32(UpdateFields.CORPSE_FIELD_FLAGS, value); }
+		public virtual CorpseFlags Flags {
+			get { return (CorpseFlags)GetUInt32(UpdateFields.CORPSE_FIELD_FLAGS); }
+			set { SetUInt32(UpdateFields.CORPSE_FIELD_FLAGS, (uint)value); }
 		}
 		#endregion
 
 		#region CORPSE_FIELD_DYNAMIC_FLAGS
 		//CORPSE_FIELD_DYNAMIC_FLAGS : type = Int, size = 1, flag = Dynamic
-		public virtual UInt32 DynamicFlags {
-			get { return GetUInt32(UpdateFields.CORPSE_FIELD_DYNAMIC_FLAGS); }
-			set { SetUInt32(UpdateFields.CORPSE_FIELD_DYNAMIC_FLAGS, value); }
+		public virtual CorpseDynamicFlags DynamicFlags {
+			get { return (CorpseDynamicFlags)GetUInt32(UpdateFields.CORPSE_FIELD_DYNAMIC_FLAGS); }
+			set { SetUInt32(UpdateFields.CORPSE_FIELD_DYNAMIC_FLAGS, (uint)value); }
 		}
 		#endregion
 

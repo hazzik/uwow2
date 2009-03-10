@@ -14,6 +14,7 @@ namespace Hazzik.Objects {
 			Type |= ObjectTypes.Player;
 			
 			InitFake();
+			AddSeenObject(Corpse.Create(this));
 		}
 
 		private void InitFake() {

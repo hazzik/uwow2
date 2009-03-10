@@ -87,6 +87,8 @@
     <Compile Include="Objects\Container.Update.cs" />
     <Compile Include="Objects\Corpse.cs" />
     <Compile Include="Objects\Corpse.Update.cs" />
+    <Compile Include="Objects\CorpseDynamicFlags.cs" />
+    <Compile Include="Objects\CorpseFlags.cs" />
     <Compile Include="Objects\DynamicObject.cs" />
     <Compile Include="Objects\DynamicObject.Update.cs" />
     <Compile Include="Objects\GameObject.cs" />
