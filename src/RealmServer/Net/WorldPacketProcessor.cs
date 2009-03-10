@@ -59,7 +59,7 @@ namespace Hazzik.Net {
 
 			_client.Account = _dao.FindByName(accountName);
 
-			_client.SetSymmetricAlgorithm(new SRP6Wow(_client.Account.SessionKey));
+			_client.SetSymmetricAlgorithm(new WowCrypt(_client.Account.SessionKey));
 
 			if(!Utility.Equals(clientDigest, ComputeServerDigest(clientSeed))) {
 				throw new Exception();

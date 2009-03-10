@@ -2,21 +2,12 @@ using System;
 using System.Security.Cryptography;
 
 namespace Hazzik.Cryptography {
-	public class SRP6Wow : SymmetricAlgorithm {
-		#region Direction enum
+	public class WowCrypt : SymmetricAlgorithm {
+		private static readonly HashAlgorithm _hmac = new HMACSHA1(new byte[] {
+			0x38, 0xA7, 0x83, 0x15, 0xF8, 0x92, 0x25, 0x30, 0x71, 0x98, 0x67, 0xB1, 0x8C, 0x4, 0xE2, 0xAA
+		});
 
-		private enum Direction {
-			Encryption,
-			Decryption,
-		}
-
-		#endregion
-
-		private static readonly HashAlgorithm _hmac =
-			new HMACSHA1(new byte[]
-			             { 0x38, 0xA7, 0x83, 0x15, 0xF8, 0x92, 0x25, 0x30, 0x71, 0x98, 0x67, 0xB1, 0x8C, 0x4, 0xE2, 0xAA });
-
-		public SRP6Wow(byte[] key) {
+		public WowCrypt(byte[] key) {
 			KeyValue = _hmac.ComputeHash(key);
 			IVValue = new byte[] { 0 };
 		}
@@ -43,12 +34,21 @@ namespace Hazzik.Cryptography {
 			throw new NotImplementedException();
 		}
 
+		#region Nested type: Direction
+
+		private enum Direction {
+			Encryption,
+			Decryption,
+		}
+
+		#endregion
+
 		#region Nested type: Transform
 
 		private class Transform : ICryptoTransform {
-			protected Direction _direction;
+			protected readonly Direction _direction;
+			protected readonly byte[] _key;
 			protected byte _iv;
-			protected byte[] _key;
 			protected int _keyPosition;
 
 			internal Transform(Direction direction, byte[] key, byte iv) {

@@ -29,18 +29,19 @@ namespace Hazzik.Net {
 
 		public AuthPacketProcessor(AuthClient client) {
 			_client = client;
-
-			_realmList.Add(new WorldServerInfo {
-				Type = 0,
-				Locked = false,
-				Status = 0,
-				Name = "TestRealm",
-				Address = "127.0.0.1:3725",
-				CharactersCount = 1,
-				Language = 8,
-				Population = 1,
-				Unk = 0
-			});
+			_realmList = new List<WorldServerInfo> {
+				new WorldServerInfo {
+					Type = 0,
+					Locked = false,
+					Status = 0,
+					Name = "TestRealm",
+					Address = "127.0.0.1:3725",
+					CharactersCount = 1,
+					Language = 8,
+					Population = 1,
+					Unk = 0
+				},
+			};
 		}
 
 		public ClientInfo ClientInfo1 { get; set; }
