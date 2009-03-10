@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helper", "..\lib\Helper\Hel
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealmServer", "RealmServer\RealmServer.csproj", "{763DE8C6-1140-44CB-84B9-A7E400CB65BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "..\tests\Tests\Tests.csproj", "{1B9CF5BD-8660-4754-9A15-B84B11754232}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{270659A2-04CD-4B14-A18D-7442536E3FB5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{6959839C-CE87-4006-9B2E-84544C5AA1C0}"
@@ -37,10 +35,6 @@ Global
 		{763DE8C6-1140-44CB-84B9-A7E400CB65BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{763DE8C6-1140-44CB-84B9-A7E400CB65BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{763DE8C6-1140-44CB-84B9-A7E400CB65BF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1B9CF5BD-8660-4754-9A15-B84B11754232}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1B9CF5BD-8660-4754-9A15-B84B11754232}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1B9CF5BD-8660-4754-9A15-B84B11754232}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1B9CF5BD-8660-4754-9A15-B84B11754232}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6959839C-CE87-4006-9B2E-84544C5AA1C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6959839C-CE87-4006-9B2E-84544C5AA1C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6959839C-CE87-4006-9B2E-84544C5AA1C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -60,9 +54,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{1B9CF5BD-8660-4754-9A15-B84B11754232} = {270659A2-04CD-4B14-A18D-7442536E3FB5}
 	EndGlobalSection
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
