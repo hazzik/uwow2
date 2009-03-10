@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Hazzik.Objects {
 	public partial class GameObject {
@@ -15,7 +12,7 @@ namespace Hazzik.Objects {
 
 		#region GAMEOBJECT_DISPLAYID
 		//GAMEOBJECT_DISPLAYID : type = Int, size = 1, flag = Public
-		public virtual UInt32 Displayid {
+		public virtual UInt32 DisplayId {
 			get { return GetUInt32(UpdateFields.GAMEOBJECT_DISPLAYID); }
 			set { SetUInt32(UpdateFields.GAMEOBJECT_DISPLAYID, value); }
 		}
@@ -23,25 +20,51 @@ namespace Hazzik.Objects {
 
 		#region GAMEOBJECT_FLAGS
 		//GAMEOBJECT_FLAGS : type = Shorts, size = 1, flag = Public
-		public virtual UInt32 Flags {
-			get { return GetUInt32(UpdateFields.GAMEOBJECT_FLAGS); }
-			set { SetUInt32(UpdateFields.GAMEOBJECT_FLAGS, value); }
+		public virtual GameObjectFlags Flags {
+			get { return (GameObjectFlags)GetUInt16(UpdateFields.GAMEOBJECT_FLAGS, 0); }
+			set { SetUInt16(UpdateFields.GAMEOBJECT_FLAGS, 0, (ushort)value); }
+		}
+
+		public virtual GameObjectFlagsHigh FlagsHigh {
+			get { return (GameObjectFlagsHigh)GetUInt16(UpdateFields.GAMEOBJECT_FLAGS, 1); }
+			set { SetUInt16(UpdateFields.GAMEOBJECT_FLAGS, 1, (ushort)value); }
 		}
 		#endregion
 
 		#region GAMEOBJECT_ROTATION
 		//GAMEOBJECT_ROTATION : type = Long, size = 2, flag = Public
-		public virtual UInt64 RotationGuid {
+		public virtual UInt64 Rotation {
 			get { return GetUInt64(UpdateFields.GAMEOBJECT_ROTATION); }
 			set { SetUInt64(UpdateFields.GAMEOBJECT_ROTATION, value); }
 		}
 		#endregion
 
+		#region GAMEOBJECT_PARENTROTATION
 		//GAMEOBJECT_PARENTROTATION : type = Single, size = 4, flag = Public
+		public virtual Single ParentRotationX {
+			get { return GetSingle(UpdateFields.GAMEOBJECT_PARENTROTATION); }
+			set { SetSingle(UpdateFields.GAMEOBJECT_PARENTROTATION, value); }
+		}
+		
+		public virtual Single ParentRotationY {
+			get { return GetSingle(UpdateFields.GAMEOBJECT_PARENTROTATION + 1); }
+			set { SetSingle(UpdateFields.GAMEOBJECT_PARENTROTATION + 1, value); }
+		}
+		
+		public virtual Single ParentRotationZ {
+			get { return GetSingle(UpdateFields.GAMEOBJECT_PARENTROTATION + 2); }
+			set { SetSingle(UpdateFields.GAMEOBJECT_PARENTROTATION + 2, value); }
+		}
+		
+		public virtual Single ParentRotationO {
+			get { return GetSingle(UpdateFields.GAMEOBJECT_PARENTROTATION + 3); }
+			set { SetSingle(UpdateFields.GAMEOBJECT_PARENTROTATION + 3, value); }
+		}
+		#endregion
 
 		#region GAMEOBJECT_POS_X
 		//GAMEOBJECT_POS_X : type = Single, size = 1, flag = Public
-		public virtual Single PosX {
+		public override Single X {
 			get { return GetSingle(UpdateFields.GAMEOBJECT_POS_X); }
 			set { SetSingle(UpdateFields.GAMEOBJECT_POS_X, value); }
 		}
@@ -49,7 +72,7 @@ namespace Hazzik.Objects {
 
 		#region GAMEOBJECT_POS_Y
 		//GAMEOBJECT_POS_Y : type = Single, size = 1, flag = Public
-		public virtual Single PosY {
+		public override Single Y {
 			get { return GetSingle(UpdateFields.GAMEOBJECT_POS_Y); }
 			set { SetSingle(UpdateFields.GAMEOBJECT_POS_Y, value); }
 		}
@@ -57,7 +80,7 @@ namespace Hazzik.Objects {
 
 		#region GAMEOBJECT_POS_Z
 		//GAMEOBJECT_POS_Z : type = Single, size = 1, flag = Public
-		public virtual Single PosZ {
+		public override Single Z {
 			get { return GetSingle(UpdateFields.GAMEOBJECT_POS_Z); }
 			set { SetSingle(UpdateFields.GAMEOBJECT_POS_Z, value); }
 		}
@@ -65,7 +88,7 @@ namespace Hazzik.Objects {
 
 		#region GAMEOBJECT_FACING
 		//GAMEOBJECT_FACING : type = Single, size = 1, flag = Public
-		public virtual Single Facing {
+		public override Single O {
 			get { return GetSingle(UpdateFields.GAMEOBJECT_FACING); }
 			set { SetSingle(UpdateFields.GAMEOBJECT_FACING, value); }
 		}
@@ -73,9 +96,14 @@ namespace Hazzik.Objects {
 
 		#region GAMEOBJECT_DYNAMIC
 		//GAMEOBJECT_DYNAMIC : type = Shorts, size = 1, flag = Dynamic
-		public virtual UInt32 Dynamic {
-			get { return GetUInt32(UpdateFields.GAMEOBJECT_DYNAMIC); }
-			set { SetUInt32(UpdateFields.GAMEOBJECT_DYNAMIC, value); }
+		public virtual GameObjectDynamicFlags DynamicFlags {
+			get { return (GameObjectDynamicFlags)GetUInt16(UpdateFields.GAMEOBJECT_DYNAMIC, 0); }
+			set { SetUInt16(UpdateFields.GAMEOBJECT_DYNAMIC,0, (ushort)value); }
+		}
+
+		public virtual GameObjectDynamicFlagsHigh DynamicFlagsHigh {
+			get { return (GameObjectDynamicFlagsHigh)GetUInt16(UpdateFields.GAMEOBJECT_DYNAMIC, 1); }
+			set { SetUInt16(UpdateFields.GAMEOBJECT_DYNAMIC, 1, (ushort)value); }
 		}
 		#endregion
 
@@ -97,10 +125,27 @@ namespace Hazzik.Objects {
 
 		#region GAMEOBJECT_BYTES_1
 		//GAMEOBJECT_BYTES_1 : type = Bytes, size = 1, flag = Public
-		public virtual UInt32 Bytes1 {
-			get { return GetUInt32(UpdateFields.GAMEOBJECT_BYTES_1); }
-			set { SetUInt32(UpdateFields.GAMEOBJECT_BYTES_1, value); }
+
+		public GameObjectState State {
+			get { return (GameObjectState)GetByte(UpdateFields.GAMEOBJECT_BYTES_1, 0); }
+			set { SetByte(UpdateFields.GAMEOBJECT_BYTES_1, 0, (byte)value); }
 		}
+
+		public GameObjectType GameObjectType {
+			get { return (GameObjectType)GetByte(UpdateFields.GAMEOBJECT_BYTES_1, 1); }
+			set { SetByte(UpdateFields.GAMEOBJECT_BYTES_1, 1, (byte)value); }
+		}
+
+		public byte ArtKit {
+			get { return GetByte(UpdateFields.GAMEOBJECT_BYTES_1, 2); }
+			set { SetByte(UpdateFields.GAMEOBJECT_BYTES_1, 2, value); }
+		}
+
+		public byte AnimationProgress {
+			get { return GetByte(UpdateFields.GAMEOBJECT_BYTES_1, 3); }
+			set { SetByte(UpdateFields.GAMEOBJECT_BYTES_1, 3, value); }
+		}
+
 		#endregion
 
 	}
