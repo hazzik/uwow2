@@ -20,7 +20,7 @@ namespace Hazzik.Objects {
 
 		#region DYNAMICOBJECT_SPELLID
 		//DYNAMICOBJECT_SPELLID : type = Int, size = 1, flag = Public
-		public virtual UInt32 Spellid {
+		public virtual UInt32 SpellId {
 			get { return GetUInt32(UpdateFields.DYNAMICOBJECT_SPELLID); }
 			set { SetUInt32(UpdateFields.DYNAMICOBJECT_SPELLID, value); }
 		}
@@ -36,7 +36,7 @@ namespace Hazzik.Objects {
 
 		#region DYNAMICOBJECT_POS_X
 		//DYNAMICOBJECT_POS_X : type = Single, size = 1, flag = Public
-		public virtual Single PosX {
+		public override Single X {
 			get { return GetSingle(UpdateFields.DYNAMICOBJECT_POS_X); }
 			set { SetSingle(UpdateFields.DYNAMICOBJECT_POS_X, value); }
 		}
@@ -44,7 +44,7 @@ namespace Hazzik.Objects {
 
 		#region DYNAMICOBJECT_POS_Y
 		//DYNAMICOBJECT_POS_Y : type = Single, size = 1, flag = Public
-		public virtual Single PosY {
+		public override Single Y {
 			get { return GetSingle(UpdateFields.DYNAMICOBJECT_POS_Y); }
 			set { SetSingle(UpdateFields.DYNAMICOBJECT_POS_Y, value); }
 		}
@@ -52,7 +52,7 @@ namespace Hazzik.Objects {
 
 		#region DYNAMICOBJECT_POS_Z
 		//DYNAMICOBJECT_POS_Z : type = Single, size = 1, flag = Public
-		public virtual Single PosZ {
+		public override Single Z {
 			get { return GetSingle(UpdateFields.DYNAMICOBJECT_POS_Z); }
 			set { SetSingle(UpdateFields.DYNAMICOBJECT_POS_Z, value); }
 		}
@@ -60,7 +60,7 @@ namespace Hazzik.Objects {
 
 		#region DYNAMICOBJECT_FACING
 		//DYNAMICOBJECT_FACING : type = Single, size = 1, flag = Public
-		public virtual Single Facing {
+		public override Single O {
 			get { return GetSingle(UpdateFields.DYNAMICOBJECT_FACING); }
 			set { SetSingle(UpdateFields.DYNAMICOBJECT_FACING, value); }
 		}
@@ -68,7 +68,7 @@ namespace Hazzik.Objects {
 
 		#region DYNAMICOBJECT_CASTTIME
 		//DYNAMICOBJECT_CASTTIME : type = Int, size = 1, flag = Public
-		public virtual UInt32 Casttime {
+		public virtual UInt32 CastTime {
 			get { return GetUInt32(UpdateFields.DYNAMICOBJECT_CASTTIME); }
 			set { SetUInt32(UpdateFields.DYNAMICOBJECT_CASTTIME, value); }
 		}
