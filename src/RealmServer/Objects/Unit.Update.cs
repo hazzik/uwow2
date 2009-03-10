@@ -71,10 +71,27 @@ namespace Hazzik.Objects {
 
 		#region UNIT_FIELD_BYTES_0
 		//UNIT_FIELD_BYTES_0 : type = Bytes, size = 1, flag = Public
-		public virtual UInt32 Bytes0 {
-			get { return GetUInt32(UpdateFields.UNIT_FIELD_BYTES_0); }
-			set { SetUInt32(UpdateFields.UNIT_FIELD_BYTES_0, value); }
+
+		public virtual Races Race {
+			get { return (Races)GetByte(UpdateFields.UNIT_FIELD_BYTES_0, 0); }
+			set { SetByte(UpdateFields.UNIT_FIELD_BYTES_0, 0, (byte)value); }
 		}
+
+		public virtual Classes Classe {
+			get { return (Classes)GetByte(UpdateFields.UNIT_FIELD_BYTES_0, 1); }
+			set { SetByte(UpdateFields.UNIT_FIELD_BYTES_0, 1, (byte)value); }
+		}
+
+		public virtual int Gender {
+			get { return GetByte(UpdateFields.UNIT_FIELD_BYTES_0, 2); }
+			set { SetByte(UpdateFields.UNIT_FIELD_BYTES_0, 2, (byte)value); }
+		}
+
+		public virtual int ManaType {
+			get { return GetByte(UpdateFields.UNIT_FIELD_BYTES_0, 3); }
+			set { SetByte(UpdateFields.UNIT_FIELD_BYTES_0, 3, (byte)value); }
+		}
+
 		#endregion
 
 		#region UNIT_FIELD_HEALTH

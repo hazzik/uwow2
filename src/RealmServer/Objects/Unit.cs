@@ -16,26 +16,6 @@ namespace Hazzik.Objects {
 
 		public override byte TypeId { get { return (byte)ObjectTypeId.Unit; } }
 
-		public Races Race {
-			get { return (Races)GetByte(UpdateFields.UNIT_FIELD_BYTES_0, 0); }
-			set { SetByte(UpdateFields.UNIT_FIELD_BYTES_0, 0, (byte)value); }
-		}
-
-		public Classes Classe {
-			get { return (Classes)GetByte(UpdateFields.UNIT_FIELD_BYTES_0, 1); }
-			set { SetByte(UpdateFields.UNIT_FIELD_BYTES_0, 1, (byte)value); }
-		}
-
-		public int Gender {
-			get { return GetByte(UpdateFields.UNIT_FIELD_BYTES_0, 2); }
-			set { SetByte(UpdateFields.UNIT_FIELD_BYTES_0, 2, (byte)value); }
-		}
-
-		public int ManaType {
-			get { return GetByte(UpdateFields.UNIT_FIELD_BYTES_0, 3); }
-			set { SetByte(UpdateFields.UNIT_FIELD_BYTES_0, 3, (byte)value); }
-		}
-
 		public virtual StandStates StandState {
 			get { return (StandStates)GetByte(UpdateFields.UNIT_FIELD_BYTES_1, 0); }
 			set { SetByte(UpdateFields.UNIT_FIELD_BYTES_1, 0, (byte)value); }
