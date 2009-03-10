@@ -9,9 +9,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Hazzik.RealmServer")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Челябинский Электрометаллургический Комбинат")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Hazzik.RealmServer")]
-[assembly: AssemblyCopyright("Copyright © Челябинский Электрометаллургический Комбинат 2008")]
+[assembly: AssemblyCopyright("Copyright © Hazzik 2006-2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Data")]
+[assembly: AssemblyTitle("Hazzik.Data")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Hewlett-Packard")]
-[assembly: AssemblyProduct("Data")]
-[assembly: AssemblyCopyright("Copyright © Hewlett-Packard 2009")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("Hazzik.Data")]
+[assembly: AssemblyCopyright("Copyright © Hazzik 2006-2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
