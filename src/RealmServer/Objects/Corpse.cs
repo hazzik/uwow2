@@ -33,7 +33,7 @@ namespace Hazzik.Objects {
 				HairColor = player.HairColor,
 				FacialHair = player.FacialHair,
 				GuildId = player.GuildId,
-				Flags = CorpseFlags.IsClaimed,
+				//Flags = CorpseFlags.Bones,
 				DynamicFlags = CorpseDynamicFlags.None,
 			};
 			return corpse;

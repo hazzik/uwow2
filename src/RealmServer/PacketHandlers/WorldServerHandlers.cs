@@ -73,6 +73,9 @@ namespace Hazzik {
 				client.Send(Account.GetCharacterLoginFiledPkt(0x44));
 				return;
 			}
+			
+			wclient.Player = player;
+			ObjectManager.Add(player);
 
 			wclient.Send(player.GetLoginVerifyWorldPkt());
 
@@ -84,8 +87,6 @@ namespace Hazzik {
 
 			wclient.Send(GetTimeSyncReqPkt());
 
-			wclient.Player = player;
-			ObjectManager.Add(player);
 			wclient.StartUpdateTimer();
 		}
 
