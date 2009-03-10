@@ -82,8 +82,8 @@ namespace Hazzik.Objects {
 			set { SetByte(UpdateFields.UNIT_FIELD_BYTES_0, 1, (byte)value); }
 		}
 
-		public virtual int Gender {
-			get { return GetByte(UpdateFields.UNIT_FIELD_BYTES_0, 2); }
+		public virtual GenderType Gender {
+			get { return (GenderType)GetByte(UpdateFields.UNIT_FIELD_BYTES_0, 2); }
 			set { SetByte(UpdateFields.UNIT_FIELD_BYTES_0, 2, (byte)value); }
 		}
 
@@ -352,10 +352,27 @@ namespace Hazzik.Objects {
 
 		#region UNIT_FIELD_BYTES_1
 		//UNIT_FIELD_BYTES_1 : type = Bytes, size = 1, flag = Public
-		public virtual UInt32 Bytes1 {
-			get { return GetUInt32(UpdateFields.UNIT_FIELD_BYTES_1); }
-			set { SetUInt32(UpdateFields.UNIT_FIELD_BYTES_1, value); }
+
+		public virtual StandStates StandState {
+			get { return (StandStates)GetByte(UpdateFields.UNIT_FIELD_BYTES_1, 0); }
+			set { SetByte(UpdateFields.UNIT_FIELD_BYTES_1, 0, (byte)value); }
 		}
+
+		public virtual byte PetTalentPoints {
+			get { return GetByte(UpdateFields.UNIT_FIELD_BYTES_1, 1); }
+			set { SetByte(UpdateFields.UNIT_FIELD_BYTES_1, 1, value); }
+		}
+
+		public virtual StateFlag StateFlags {
+			get { return (StateFlag)GetByte(UpdateFields.UNIT_FIELD_BYTES_1, 2); }
+			set { SetByte(UpdateFields.UNIT_FIELD_BYTES_1, 2, (byte)value); }
+		}
+
+		public virtual byte UnitBytes1_3 {
+			get { return GetByte(UpdateFields.UNIT_FIELD_BYTES_1, 3); }
+			set { SetByte(UpdateFields.UNIT_FIELD_BYTES_1, 3, value); }
+		}
+
 		#endregion
 
 		#region UNIT_FIELD_PETNUMBER
@@ -582,10 +599,26 @@ namespace Hazzik.Objects {
 
 		#region UNIT_FIELD_BYTES_2
 		//UNIT_FIELD_BYTES_2 : type = Bytes, size = 1, flag = Public
-		public virtual UInt32 Bytes2 {
-			get { return GetUInt32(UpdateFields.UNIT_FIELD_BYTES_2); }
-			set { SetUInt32(UpdateFields.UNIT_FIELD_BYTES_2, value); }
+		public SheathType SheathType {
+			get { return (SheathType)GetByte(UpdateFields.UNIT_FIELD_BYTES_2, 0); }
+			set { SetByte(UpdateFields.UNIT_FIELD_BYTES_2, 0, (byte)value); }
 		}
+
+		public PvPState PvpState {
+			get { return (PvPState)GetByte(UpdateFields.UNIT_FIELD_BYTES_2, 1); }
+			set { SetByte(UpdateFields.UNIT_FIELD_BYTES_2, 1, (byte)value); }
+		}
+
+		public PetState PetState {
+			get { return (PetState)GetByte(UpdateFields.UNIT_FIELD_BYTES_2, 2); }
+			set { SetByte(UpdateFields.UNIT_FIELD_BYTES_2, 2, (byte)value); }
+		}
+
+		public ShapeShiftForm ShapeShiftForm {
+			get { return (ShapeShiftForm)GetByte(UpdateFields.UNIT_FIELD_BYTES_2, 3); }
+			set { SetByte(UpdateFields.UNIT_FIELD_BYTES_2, 3, (byte)value); }
+		}
+
 		#endregion
 
 		#region UNIT_FIELD_ATTACK_POWER

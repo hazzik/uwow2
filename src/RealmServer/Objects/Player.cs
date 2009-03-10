@@ -250,12 +250,6 @@ namespace Hazzik.Objects {
 
 		public string Name { get; set; }
 
-		public byte skin;
-		public byte face;
-		public byte hairStyle;
-		public byte hairColor;
-		public byte facialHair;
-		public byte RestState;
 		public int PetDisplayId;
 		public int PetLevel;
 		public int PetCreatureFamily;

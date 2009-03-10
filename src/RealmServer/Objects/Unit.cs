@@ -16,21 +16,6 @@ namespace Hazzik.Objects {
 
 		public override byte TypeId { get { return (byte)ObjectTypeId.Unit; } }
 
-		public virtual StandStates StandState {
-			get { return (StandStates)GetByte(UpdateFields.UNIT_FIELD_BYTES_1, 0); }
-			set { SetByte(UpdateFields.UNIT_FIELD_BYTES_1, 0, (byte)value); }
-		}
-
-		public BattleStances BattleStance {
-			get { return (BattleStances)GetByte(UpdateFields.UNIT_FIELD_BYTES_1, 4); }
-			set { SetByte(UpdateFields.UNIT_FIELD_BYTES_1, 4, (byte)value); }
-		}
-
-		public SheathType Sheath {
-			get { return (SheathType)GetByte(UpdateFields.UNIT_FIELD_BYTES_2, 0); }
-			set { SetByte(UpdateFields.UNIT_FIELD_BYTES_2, 0, (byte)value); }
-		}
-
 		public override byte UpdateFlag {
 			get { return (byte)(base.UpdateFlag | (byte)UpdateFlags.Mobile); }
 		}

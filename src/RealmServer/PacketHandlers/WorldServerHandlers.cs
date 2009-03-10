@@ -45,18 +45,18 @@ namespace Hazzik {
 
 		[WorldPacketHandler(WMSG.CMSG_CHAR_CREATE)]
 		public static void HandleCMSG_CHAR_CREATE(ISession client, IPacket packet) {
-			var account = ((WorldClient)client).Account;
+			var account = client.Account;
 			var r = packet.CreateReader();
 			var player = new Player {
 				Name = r.ReadCString(),
 				Race = (Races)r.ReadByte(),
 				Classe = (Classes)r.ReadByte(),
-				Gender = r.ReadByte(),
-				skin = r.ReadByte(),
-				face = r.ReadByte(),
-				hairStyle = r.ReadByte(),
-				hairColor = r.ReadByte(),
-				facialHair = r.ReadByte(),
+				Gender = (GenderType)r.ReadByte(),
+				Skin = r.ReadByte(),
+				Face = r.ReadByte(),
+				HairStyle = r.ReadByte(),
+				HairColor = r.ReadByte(),
+				FacialHair = r.ReadByte(),
 			};
 			account.AddPlayer(player);
 			client.Send(Account.GetCharCreatePkt(47));

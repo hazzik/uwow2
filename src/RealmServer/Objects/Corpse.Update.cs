@@ -70,9 +70,24 @@ namespace Hazzik.Objects {
 
 		#region CORPSE_FIELD_BYTES_2
 		//CORPSE_FIELD_BYTES_2 : type = Bytes, size = 1, flag = Public
-		public virtual UInt32 Bytes2 {
-			get { return GetUInt32(UpdateFields.CORPSE_FIELD_BYTES_2); }
-			set { SetUInt32(UpdateFields.CORPSE_FIELD_BYTES_2, value); }
+		public byte Face {
+			get { return GetByte(UpdateFields.CORPSE_FIELD_BYTES_2, 0); }
+			set { SetByte(UpdateFields.CORPSE_FIELD_BYTES_2, 0, value); }
+		}
+
+		public byte HairStyle {
+			get { return GetByte(UpdateFields.CORPSE_FIELD_BYTES_2, 1); }
+			set { SetByte(UpdateFields.CORPSE_FIELD_BYTES_2, 1, value); }
+		}
+
+		public byte HairColor {
+			get { return GetByte(UpdateFields.CORPSE_FIELD_BYTES_2, 2); }
+			set { SetByte(UpdateFields.CORPSE_FIELD_BYTES_2, 2, value); }
+		}
+
+		public byte FacialHair {
+			get { return GetByte(UpdateFields.CORPSE_FIELD_BYTES_2, 3); }
+			set { SetByte(UpdateFields.CORPSE_FIELD_BYTES_2, 3, value); }
 		}
 		#endregion
 

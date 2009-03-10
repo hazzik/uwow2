@@ -97,6 +97,7 @@
     <Compile Include="Objects\GameObjectFlagsHigh.cs" />
     <Compile Include="Objects\GameObjectState.cs" />
     <Compile Include="Objects\GameObjectType.cs" />
+    <Compile Include="Objects\GenderType.cs" />
     <Compile Include="Objects\Item.cs" />
     <Compile Include="Objects\Item.Update.cs" />
     <Compile Include="Objects\MovementFlags.cs" />
@@ -104,11 +105,17 @@
     <Compile Include="Objects\ObjectGuid.cs" />
     <Compile Include="Objects\ObjectTypeId.cs" />
     <Compile Include="Objects\ObjectTypes.cs" />
+    <Compile Include="Objects\PetState.cs" />
     <Compile Include="Objects\Player.cs" />
     <Compile Include="Objects\Player.Update.cs" />
     <Compile Include="Objects\Positioned.cs" />
+    <Compile Include="Objects\PvPState.cs" />
     <Compile Include="Objects\Races.cs" />
+    <Compile Include="Objects\RestState.cs" />
+    <Compile Include="Objects\ShapeShiftForm.cs" />
+    <Compile Include="Objects\SheathType.cs" />
     <Compile Include="Objects\StandStates.cs" />
+    <Compile Include="Objects\StateFlag.cs" />
     <Compile Include="Objects\Unit.cs" />
     <Compile Include="Objects\Unit.Update.cs" />
     <Compile Include="Objects\UpdateFields.cs" />

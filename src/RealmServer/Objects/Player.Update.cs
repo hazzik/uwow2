@@ -36,26 +36,81 @@ namespace Hazzik.Objects {
 
 		#region PLAYER_BYTES
 		//PLAYER_BYTES : type = Bytes, size = 1, flag = Public
-		public virtual UInt32 Bytes {
-			get { return GetUInt32(UpdateFields.PLAYER_BYTES); }
-			set { SetUInt32(UpdateFields.PLAYER_BYTES, value); }
+		public byte Skin {
+			get { return GetByte(UpdateFields.PLAYER_BYTES, 0); }
+			set { SetByte(UpdateFields.PLAYER_BYTES, 0, value); }
 		}
+
+		public byte Face {
+			get { return GetByte(UpdateFields.PLAYER_BYTES, 1); }
+			set { SetByte(UpdateFields.PLAYER_BYTES, 1, value); }
+		}
+
+		public byte HairStyle {
+			get { return GetByte(UpdateFields.PLAYER_BYTES, 2); }
+			set { SetByte(UpdateFields.PLAYER_BYTES, 2, value); }
+		}
+
+		public byte HairColor {
+			get { return GetByte(UpdateFields.PLAYER_BYTES, 3); }
+			set { SetByte(UpdateFields.PLAYER_BYTES, 3, value); }
+		}
+
 		#endregion
 
 		#region PLAYER_BYTES_2
 		//PLAYER_BYTES_2 : type = Bytes, size = 1, flag = Public
-		public virtual UInt32 Bytes2 {
-			get { return GetUInt32(UpdateFields.PLAYER_BYTES_2); }
-			set { SetUInt32(UpdateFields.PLAYER_BYTES_2, value); }
+		public byte FacialHair {
+			get { return GetByte(UpdateFields.PLAYER_BYTES_2, 0); }
+			set { SetByte(UpdateFields.PLAYER_BYTES_2, 0, value); }
 		}
+
+		public byte PlayerBytes2_2 {
+			get { return GetByte(UpdateFields.PLAYER_BYTES_2, 1); }
+			set { SetByte(UpdateFields.PLAYER_BYTES_2, 1, value); }
+		}
+
+		public byte BankBagSlots {
+			get { return GetByte(UpdateFields.PLAYER_BYTES_2, 2); }
+			internal set { SetByte(UpdateFields.PLAYER_BYTES_2, 2, value); }
+		}
+
+		public RestState RestState {
+			get { return (RestState)GetByte(UpdateFields.PLAYER_BYTES_2, 3); }
+			set { SetByte(UpdateFields.PLAYER_BYTES_2, 3, (byte)value); }
+		}
+
 		#endregion
 
 		#region PLAYER_BYTES_3
 		//PLAYER_BYTES_3 : type = Bytes, size = 1, flag = Public
-		public virtual UInt32 Bytes3 {
-			get { return GetUInt32(UpdateFields.PLAYER_BYTES_3); }
-			set { SetUInt32(UpdateFields.PLAYER_BYTES_3, value); }
+		public override GenderType Gender {
+			get { return (GenderType)GetByte(UpdateFields.PLAYER_BYTES_3, 0); }
+			set {
+				SetByte(UpdateFields.PLAYER_BYTES_3, 0, (byte)value);
+				base.Gender = value;
+			}
 		}
+
+		public virtual byte DrunkState {
+			get { return GetByte(UpdateFields.PLAYER_BYTES_3, 1); }
+			set {
+				if(value > 100)
+					value = 100;
+				SetByte(UpdateFields.PLAYER_BYTES_3, 1, value);
+			}
+		}
+
+		public virtual byte PlayerBytes3_3 {
+			get { return GetByte(UpdateFields.PLAYER_BYTES_3, 2); }
+			set { SetByte(UpdateFields.PLAYER_BYTES_3, 2, value); }
+		}
+
+		public virtual byte PvPRank {
+			get { return GetByte(UpdateFields.PLAYER_BYTES_3, 3); }
+			set { SetByte(UpdateFields.PLAYER_BYTES_3, 3, value); }
+		}
+
 		#endregion
 
 		#region PLAYER_DUEL_TEAM
