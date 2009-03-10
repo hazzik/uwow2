@@ -8,12 +8,12 @@ namespace Hazzik.Map {
 		private static readonly IDictionary<ulong, Player> _allLoggedPlayers = new Dictionary<ulong, Player>();
 		private static readonly IDictionary<ulong, Positioned> _allObjects = new Dictionary<ulong, Positioned>();
 
-		public static void Add(Player player) {
+		public static void Add(Positioned player) {
 			if(!_allObjects.ContainsKey(player.Guid)) {
 				_allObjects.Add(player.Guid, player);
 			}
-			if(!_allLoggedPlayers.ContainsKey(player.Guid)) {
-				_allLoggedPlayers.Add(player.Guid, player);
+			if(player is Player && !_allLoggedPlayers.ContainsKey(player.Guid)) {
+				_allLoggedPlayers.Add(player.Guid, (Player)player);
 			}
 		}
 

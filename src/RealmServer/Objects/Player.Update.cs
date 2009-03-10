@@ -1944,6 +1944,5 @@ namespace Hazzik.Objects {
 			set { SetUInt32(UpdateFields.PLAYER_GLYPHS_ENABLED, value); }
 		}
 		#endregion
-
 	}
 }

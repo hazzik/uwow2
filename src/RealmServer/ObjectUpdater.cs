@@ -10,6 +10,15 @@ namespace Hazzik {
 		private readonly BitArray _required;
 		private uint[] _sendedValues;
 		private bool _isNew = true;
+		private BitArray _mask;
+
+		public bool IsChanged {
+			get {
+				bool changed;
+				_mask = BuildMask(out changed);
+				return changed;
+			}
+		}
 
 		public ObjectUpdater(Player to, WorldObject obj) {
 			_to = to;
@@ -31,36 +40,35 @@ namespace Hazzik {
 				writer.Write((uint)0);
 				_isNew = false;
 			}
-			WriteUpdateBlock(writer);
+			WriteMask(writer);
+			for(var i = 0; i < _mask.Length; i++) {
+				if(_mask[i]) {
+					writer.Write(_sendedValues[i]);
+				}
+			}
+		}
+
+		private void WriteMask(BinaryWriter writer) {
+			var length = (byte)GetLengthInDwords(_mask.Length);
+			var buffer = new byte[length << 2];
+			_mask.CopyTo(buffer, 0);
+			writer.Write(length);
+			writer.Write(buffer);
 		}
 
 		private UpdateType GetUpdateType() {
 			return !_isNew ? UpdateType.Values : (_obj != _to ? UpdateType.CreateObject : UpdateType.CreateObject2);
 		}
 
-		private void WriteUpdateBlock(BinaryWriter writer) {
+		private BitArray BuildMask(out bool changed) {
+			changed = false;
 			var values = new uint[_obj.MaxValues];
-
 			var mask = new BitArray(Math.Min(_required.Length, values.Length));
 			for(var i = 0; i < mask.Length; i++) {
-				mask[i] = _required[i] && _sendedValues[i] != (values[i] = _obj.GetValue(i));
+				changed |= mask[i] = _required[i] && _sendedValues[i] != (values[i] = _obj.GetValue(i));
 			}
-			WriteMask(writer, mask);
-			for(var i = 0; i < mask.Length; i++) {
-				if(mask[i]) {
-					writer.Write(values[i]);
-				}
-			}
-
 			_sendedValues = values;
-		}
-
-		private static void WriteMask(BinaryWriter writer, BitArray mask) {
-			var length = (byte)GetLengthInDwords(mask.Length);
-			var buffer = new byte[length << 2];
-			mask.CopyTo(buffer, 0);
-			writer.Write(length);
-			writer.Write(buffer);
+			return mask;
 		}
 
 		private static int GetLengthInDwords(int bitsCount) {

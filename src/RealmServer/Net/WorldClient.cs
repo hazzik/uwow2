@@ -20,11 +20,8 @@ namespace Hazzik.Net {
 			}
 		}
 
-		private readonly Timer2 _updateTimer;
-
 		public WorldClient(Socket socket)
 			: base(socket) {
-			_updateTimer = new UpdateTimer(this);
 		}
 		
 		public void SetSymmetricAlgorithm(SymmetricAlgorithm algorithm) {
@@ -95,27 +92,6 @@ namespace Hazzik.Net {
 			}
 			head.WriteByte((byte)(size >> 0x08));
 			head.WriteByte((byte)(size));
-		}
-
-		public void StartUpdateTimer() {
-			_updateTimer.Start();
-		}
-
-		public class UpdateTimer : Timer2 {
-			private readonly WorldClient _client;
-
-			public UpdateTimer(WorldClient client)
-				: base(3000) {
-				_client = client;
-			}
-
-			public override void OnTick() {
-				if(_client.Player == null) {
-					Stop();
-					return;
-				}
-				_client.Send(_client.Player.GetUpdateObjectPkt());
-			}
 		}
 	}
 }

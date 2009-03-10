@@ -64,7 +64,7 @@ namespace Hazzik {
 
 		[WorldPacketHandler(WMSG.CMSG_PLAYER_LOGIN)]
 		public static void HandleCMSG_PLAYER_LOGIN(ISession client, IPacket packet) {
-			var wclient = (WorldClient)client;
+			var wclient = client;
 
 			var reader = packet.CreateReader();
 			var guid = reader.ReadUInt64();
@@ -83,11 +83,11 @@ namespace Hazzik {
 
 			wclient.Send(GetLoginSetTimeSpeedPkt());
 
-			wclient.Send(player.GetUpdateObjectPkt());
+			player.UpdateObjects();
 
 			wclient.Send(GetTimeSyncReqPkt());
 
-			wclient.StartUpdateTimer();
+			player.StartUpdateTimer();
 		}
 
 		private static IPacket GetTimeSyncReqPkt() {

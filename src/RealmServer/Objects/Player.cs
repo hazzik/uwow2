@@ -1,21 +1,91 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
+using System.Linq;
 using Hazzik.Map;
 using Hazzik.Net;
 
 namespace Hazzik.Objects {
 	public partial class Player : Unit {
 		private readonly IDictionary<ulong, ObjectUpdater> _objectUpdaters = new Dictionary<ulong, ObjectUpdater>();
+		private readonly Timer2 _updateTimer;
+		public bool Dead;
+		public Item[] Items = new Item[20];
+		public int PetCreatureFamily;
+		public int PetDisplayId;
+		public int PetLevel;
+
+		#region packets
+
+		public IPacket GetLoginVerifyWorldPkt() {
+			var result = new WorldPacket(WMSG.SMSG_LOGIN_VERIFY_WORLD);
+			var w = result.CreateWriter();
+			w.Write(MapId);
+			w.Write(PosX);
+			w.Write(PosY);
+			w.Write(PosZ);
+			w.Write(Facing);
+			return result;
+		}
+
+		private static IPacket GetUpdateObjectPkt(IEnumerable<ObjectUpdater> updaters) {
+			var r = new WorldPacket(WMSG.SMSG_UPDATE_OBJECT);
+			var writer = r.CreateWriter();
+			writer.Write(updaters.Count());
+			foreach(var updater in updaters) {
+				updater.WriteUpdate(writer);
+			}
+			return r;
+		}
+
+		public IPacket GetNameQueryResponcePkt() {
+			var r = new WorldPacket(WMSG.SMSG_NAME_QUERY_RESPONSE);
+			var w = r.CreateWriter();
+			w.Write(Guid);
+			w.WriteCString(Name);
+			w.WriteCString("");
+			w.Write((int)Race);
+			w.Write((int)Gender);
+			w.Write((int)Classe);
+			w.Write((byte)01);
+			w.WriteCString(Name);
+			w.WriteCString(Name);
+			w.WriteCString(Name);
+			w.WriteCString(Name);
+			w.WriteCString(Name);
+			return r;
+		}
+
+		#endregion
 
 		public Player()
 			: base((int)UpdateFields.PLAYER_END) {
+			_updateTimer = new UpdateTimer(this);
+
 			Type |= ObjectTypes.Player;
-			
+
 			InitFake();
-			AddSeenObject(Corpse.Create(this));
+			ObjectManager.Add(Corpse.Create(this));
 		}
+
+		public override byte TypeId {
+			get { return (byte)ObjectTypeId.Player; }
+		}
+
+		public string Name { get; set; }
+
+		public override StandStates StandState {
+			get { return base.StandState; }
+			set {
+				if(value == base.StandState) {
+					return;
+				}
+				base.StandState = value;
+				Client.Send(new WorldPacket(WMSG.SMSG_STANDSTATE_UPDATE, new[] { (byte)value }));
+			}
+		}
+
+		public WorldClient Client { get; protected internal set; }
 
 		private void InitFake() {
 			MapId = 530;
@@ -214,10 +284,6 @@ namespace Hazzik.Objects {
 			SetUInt32((UpdateFields)1688, 0x0000001A); // 1688	PLAYER_FIELD_TODAY_CONTRIBUTION
 		}
 
-		public override byte TypeId {
-			get { return (byte)ObjectTypeId.Player; }
-		}
-
 		public void AddSeenObject(WorldObject obj) {
 			if(!_objectUpdaters.ContainsKey(obj.Guid)) {
 				_objectUpdaters.Add(obj.Guid, new ObjectUpdater(this, obj));
@@ -234,80 +300,39 @@ namespace Hazzik.Objects {
 			return mask;
 		}
 
-		public byte[] UpdateObjects() {
-			foreach(var player in ObjectManager.GetPlayersNear(this)) {
+		public void UpdateObjects() {
+			foreach(var player in ObjectManager.GetObjectsNear(this)) {
 				AddSeenObject(player);
 			}
-			using(var output = new MemoryStream()) {
-				using(var writer = new BinaryWriter(output)) {
-					writer.Write(_objectUpdaters.Count);
-					foreach(var updater in _objectUpdaters.Values) {
-						updater.WriteUpdate(writer);
-					}
-					return output.ToArray();
-				}
+			var updaters = _objectUpdaters.Values.Where(x => x.IsChanged).ToList();
+			if(updaters.Count != 0) {
+				Client.Send(GetUpdateObjectPkt(updaters));
 			}
 		}
 
-		public string Name { get; set; }
+		public void StartUpdateTimer() {
+			_updateTimer.Start();
+		}
 
-		public int PetDisplayId;
-		public int PetLevel;
-		public int PetCreatureFamily;
-		public Item[] Items = new Item[20];
-		public bool Dead;
+		#region Nested type: UpdateTimer
 
-		public override StandStates StandState {
-			get {return base.StandState;}
-			set {
-				if(value == base.StandState) {
+		public class UpdateTimer : Timer2 {
+			private readonly Player _player;
+
+			public UpdateTimer(Player player)
+				: base(3000) {
+				_player = player;
+			}
+
+			public override void OnTick() {
+				if(_player == null) {
+					Stop();
 					return;
 				}
-				base.StandState = value;
-				Client.Send(new WorldPacket(WMSG.SMSG_STANDSTATE_UPDATE, new[] { (byte)value }));
+				_player.UpdateObjects();
 			}
 		}
 
-		public WorldClient Client { get; protected internal set; }
-
-		#region packets
-
-		public IPacket GetLoginVerifyWorldPkt() {
-			var result = new WorldPacket(WMSG.SMSG_LOGIN_VERIFY_WORLD);
-			var w = result.CreateWriter();
-			w.Write(MapId);
-			w.Write(PosX);
-			w.Write(PosY);
-			w.Write(PosZ);
-			w.Write(Facing);
-			return result;
-		}
-
-		public IPacket GetUpdateObjectPkt() {
-			var r = new WorldPacket(WMSG.SMSG_UPDATE_OBJECT);
-			var w = r.CreateWriter();
-			w.Write(UpdateObjects());
-			return r;
-		}
-
-		public IPacket GetNameQueryResponcePkt() {
-			var r = new WorldPacket(WMSG.SMSG_NAME_QUERY_RESPONSE);
-			var w = r.CreateWriter();
-			w.Write(Guid);
-			w.WriteCString(Name);
-			w.WriteCString("");
-			w.Write((int)Race);
-			w.Write((int)Gender);
-			w.Write((int)Classe);
-			w.Write((byte)01);
-			w.WriteCString(Name);
-			w.WriteCString(Name);
-			w.WriteCString(Name);
-			w.WriteCString(Name);
-			w.WriteCString(Name);
-			return r;
-		}
-		
 		#endregion
 	}
 }
