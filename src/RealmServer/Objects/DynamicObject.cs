@@ -3,11 +3,12 @@ using System;
 namespace Hazzik.Objects {
 	public partial class DynamicObject : Positioned {
 		public DynamicObject()
-			: this((int)UpdateFields.DYNAMICOBJECT_END, 0x41) {
+			: this((int)UpdateFields.DYNAMICOBJECT_END) {
 		}
 
-		protected DynamicObject(int updateMaskLength, uint type)
-			: base(updateMaskLength, type) {
+		protected DynamicObject(int updateMaskLength)
+			: base(updateMaskLength) {
+			Type |= ObjectTypes.DynamicObject;
 		}
 
 		public override byte TypeId {

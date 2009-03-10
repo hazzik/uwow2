@@ -3,11 +3,12 @@ using System;
 namespace Hazzik.Objects {
 	public partial class Container : Item {
 		public Container()
-			: this((int)UpdateFields.CONTAINER_END, 0x07) {
+			: this((int)UpdateFields.CONTAINER_END) {
 		}
 
-		protected Container(int updateMaskLength, uint type)
-			: base(updateMaskLength, type) {
+		protected Container(int updateMaskLength)
+			: base(updateMaskLength) {
+			Type |= ObjectTypes.Container;
 		}
 
 		public override byte TypeId {

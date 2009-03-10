@@ -3,11 +3,12 @@ using System;
 namespace Hazzik.Objects {
 	public partial class GameObject : Positioned {
 		public GameObject()
-			: this((int)UpdateFields.GAMEOBJECT_END, 0x21) {
+			: this((int)UpdateFields.GAMEOBJECT_END) {
 		}
 
-		protected GameObject(int updateMaskLength, uint type)
-			: base(updateMaskLength, type) {
+		protected GameObject(int updateMaskLength)
+			: base(updateMaskLength) {
+			Type |= ObjectTypes.GameObject;
 		}
 
 		public override byte TypeId {

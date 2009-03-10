@@ -10,9 +10,13 @@ namespace Hazzik.Objects {
 		private readonly IDictionary<ulong, ObjectUpdater> _objectUpdaters = new Dictionary<ulong, ObjectUpdater>();
 
 		public Player()
-			: base((int)UpdateFields.PLAYER_END, 0x19) {
-			//Level = 1;
+			: base((int)UpdateFields.PLAYER_END) {
+			Type |= ObjectTypes.Player;
+			
+			InitFake();
+		}
 
+		private void InitFake() {
 			MapId = 530;
 			PosX = -3961.64F;
 			PosY = -13931.2F;
@@ -207,8 +211,6 @@ namespace Hazzik.Objects {
 			SetUInt32((UpdateFields)1686, 0x00000018); // 1686	1686
 			SetUInt32((UpdateFields)1687, 0x00000019); // 1687	PLAYER_FIELD_KILLS
 			SetUInt32((UpdateFields)1688, 0x0000001A); // 1688	PLAYER_FIELD_TODAY_CONTRIBUTION
-
-			AddSeenObject(this); // we always seen self
 		}
 
 		public override byte TypeId {

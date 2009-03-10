@@ -3,11 +3,12 @@ using System;
 namespace Hazzik.Objects {
 	public partial class Item : WorldObject {
 		public Item()
-			: this((int)UpdateFields.ITEM_END, 0x03) {
+			: this((int)UpdateFields.ITEM_END) {
 		}
 
-		protected Item(int updateMaskLength, uint type)
-			: base(updateMaskLength, type) {
+		protected Item(int updateMaskLength)
+			: base(updateMaskLength) {
+			Type |= ObjectTypes.Item;
 		}
 
 		public override byte TypeId {

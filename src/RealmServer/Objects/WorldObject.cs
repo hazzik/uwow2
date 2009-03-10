@@ -28,11 +28,11 @@ namespace Hazzik.Objects {
 		}
 		private readonly UpdateValue[] _values;
 
-		protected WorldObject(int maxValues, uint type) {
+		protected WorldObject(int maxValues) {
 			_values = new UpdateValue[maxValues];
 			Guid = ObjectGuid.NewGuid();
+			Type = ObjectTypes.Object;
 			ScaleX = 1f;
-			Type = type;
 		}
 
 		public int MaxValues { get { return _values.Length; } }
