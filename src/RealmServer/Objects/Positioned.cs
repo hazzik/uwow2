@@ -7,7 +7,6 @@ namespace Hazzik.Objects {
 			: base(updateMaskLength) {
 		}
 
-
 		public override byte UpdateFlag {
 			get { return (byte)(base.UpdateFlag | (byte)UpdateFlags.HasPosition); }
 		}

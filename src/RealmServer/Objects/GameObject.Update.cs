@@ -126,22 +126,22 @@ namespace Hazzik.Objects {
 		#region GAMEOBJECT_BYTES_1
 		//GAMEOBJECT_BYTES_1 : type = Bytes, size = 1, flag = Public
 
-		public GameObjectState State {
+		public virtual GameObjectState State {
 			get { return (GameObjectState)GetByte(UpdateFields.GAMEOBJECT_BYTES_1, 0); }
 			set { SetByte(UpdateFields.GAMEOBJECT_BYTES_1, 0, (byte)value); }
 		}
 
-		public GameObjectType GameObjectType {
+		public virtual GameObjectType GameObjectType {
 			get { return (GameObjectType)GetByte(UpdateFields.GAMEOBJECT_BYTES_1, 1); }
 			set { SetByte(UpdateFields.GAMEOBJECT_BYTES_1, 1, (byte)value); }
 		}
 
-		public byte ArtKit {
+		public virtual byte ArtKit {
 			get { return GetByte(UpdateFields.GAMEOBJECT_BYTES_1, 2); }
 			set { SetByte(UpdateFields.GAMEOBJECT_BYTES_1, 2, value); }
 		}
 
-		public byte AnimationProgress {
+		public virtual byte AnimationProgress {
 			get { return GetByte(UpdateFields.GAMEOBJECT_BYTES_1, 3); }
 			set { SetByte(UpdateFields.GAMEOBJECT_BYTES_1, 3, value); }
 		}
