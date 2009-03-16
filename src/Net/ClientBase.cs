@@ -11,12 +11,8 @@ namespace Hazzik.Net {
 			_socket = socket;
 		}
 
-		#region ISession Members
-
 		public abstract IPacket ReadPacket();
 		public abstract void Send(IPacket packet);
-
-		#endregion
 
 		public virtual void Start() {
 			try {

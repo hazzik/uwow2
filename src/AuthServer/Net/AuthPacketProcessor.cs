@@ -1,3 +1,4 @@
+// ReSharper disable InvokeAsExtensionMethod
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -44,7 +45,7 @@ namespace Hazzik.Net {
 			};
 		}
 
-		public ClientInfo ClientInfo1 { get; set; }
+		public ClientInfo ClientInfo { get; set; }
 
 		public bool AcceptPatch { get; set; }
 
@@ -91,7 +92,7 @@ namespace Hazzik.Net {
 			var ip = new IPAddress(gr.ReadBytes(4));
 			string accountName = gr.ReadString();
 
-			ClientInfo1 = new ClientInfo {
+			ClientInfo = new ClientInfo {
 				VersionInfo = new VersionInfo {
 					ClientTag = tag,
 					Version = new Version(verMajor, verMinor, verBuild, verRevis),
@@ -141,12 +142,12 @@ namespace Hazzik.Net {
 			var bi_A = new BigInteger(gr.ReadBytes(32).Reverse());
 			var bi_M1 = new BigInteger(gr.ReadBytes(20).Reverse());
 
-			byte[] u = sha1.ComputeHash(bi_A.getBytes().Reverse().Concat(bi_B.getBytes().Reverse()));
+			byte[] u = sha1.ComputeHash(Utility.Concat(bi_A.getBytes().Reverse(), bi_B.getBytes().Reverse()));
 			var bi_u = new BigInteger(u.Reverse());
 
 			BigInteger bi_Temp2 = (bi_A * bi_v.modPow(bi_u, bi_N)) % bi_N; // v^u
 			BigInteger bi_S = bi_Temp2.modPow(bi_b, bi_N); // (Av^u)^b
-			Console.WriteLine(bi_S.ToHexString());
+			//Console.WriteLine(bi_S.ToHexString());
 			byte[] S = bi_S.getBytes().Reverse();
 			var S1 = new byte[16];
 			var S2 = new byte[16];
@@ -174,13 +175,13 @@ namespace Hazzik.Net {
 				N_Hash[i] ^= G_Hash[i];
 			}
 
-			byte[] UserHash = sha1.ComputeHash(Encoding.UTF8.GetBytes(ClientInfo1.AccountName));
+			byte[] UserHash = sha1.ComputeHash(Encoding.UTF8.GetBytes(ClientInfo.AccountName));
 
-			byte[] Temp = N_Hash.Concat(UserHash);
-			Temp = Temp.Concat(bi_s.getBytes().Reverse());
-			Temp = Temp.Concat(bi_A.getBytes().Reverse());
-			Temp = Temp.Concat(bi_B.getBytes().Reverse());
-			Temp = Temp.Concat(SS_Hash);
+			byte[] Temp = Utility.Concat(N_Hash, UserHash);
+			Temp = Utility.Concat(Temp, bi_s.getBytes().Reverse());
+			Temp = Utility.Concat(Temp, bi_A.getBytes().Reverse());
+			Temp = Utility.Concat(Temp, bi_B.getBytes().Reverse());
+			Temp = Utility.Concat(Temp, SS_Hash);
 
 			var bi_M1Temp = new BigInteger(sha1.ComputeHash(Temp).Reverse());
 			if(bi_M1Temp != bi_M1) {
@@ -188,8 +189,8 @@ namespace Hazzik.Net {
 				return;
 			}
 
-			Temp = bi_A.getBytes().Reverse().Concat(bi_M1Temp.getBytes().Reverse());
-			Temp = Temp.Concat(SS_Hash);
+			Temp = Utility.Concat(bi_A.getBytes().Reverse(), bi_M1Temp.getBytes().Reverse());
+			Temp = Utility.Concat(Temp, SS_Hash);
 			byte[] M2 = sha1.ComputeHash(Temp);
 
 			_client.Send(GetLogonProof(M2));
