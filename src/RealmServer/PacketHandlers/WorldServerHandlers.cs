@@ -13,7 +13,7 @@ namespace Hazzik {
 			var reader = packet.CreateReader();
 			var guid = reader.ReadUInt64();
 
-			var player = ObjectManager.GetPlayersNear(((WorldClient)client).Player).FirstOrDefault(x => x.Guid == guid);
+			var player = ObjectManager.GetPlayersNear(client.Player).FirstOrDefault(x => x.Guid == guid);
 
 			if(player != null) {
 				client.Send(player.GetNameQueryResponcePkt());
@@ -40,7 +40,7 @@ namespace Hazzik {
 
 		[WorldPacketHandler(WMSG.CMSG_CHAR_ENUM)]
 		public static void HandleCMSG_CHAR_ENUM(ISession client, IPacket packet) {
-			client.Send(((WorldClient)client).Account.GetCharEnumPkt());
+			client.Send(client.Account.GetCharEnumPkt());
 		}
 
 		[WorldPacketHandler(WMSG.CMSG_CHAR_CREATE)]
@@ -64,37 +64,32 @@ namespace Hazzik {
 
 		[WorldPacketHandler(WMSG.CMSG_PLAYER_LOGIN)]
 		public static void HandleCMSG_PLAYER_LOGIN(ISession client, IPacket packet) {
-			var wclient = client;
-
 			var reader = packet.CreateReader();
 			var guid = reader.ReadUInt64();
-			var player = wclient.Account.GetPlayer(guid);
+			var player = client.Account.GetPlayer(guid);
 			if(null == player) {
 				client.Send(Account.GetCharacterLoginFiledPkt(0x44));
 				return;
 			}
 			
-			wclient.Player = player;
+			client.Player = player;
 			ObjectManager.Add(player);
 
-			wclient.Send(player.GetLoginVerifyWorldPkt());
+			client.Send(player.GetLoginVerifyWorldPkt());
 
-			wclient.Send(Account.GetAccountDataTimesPkt());
+			client.Send(Account.GetAccountDataTimesPkt());
 
-			wclient.Send(GetLoginSetTimeSpeedPkt());
+			client.Send(GetLoginSetTimeSpeedPkt());
 
 			player.UpdateObjects();
 
-			wclient.Send(GetTimeSyncReqPkt());
+			client.Send(GetTimeSyncReqPkt());
 
 			player.StartUpdateTimer();
 		}
 
 		private static IPacket GetTimeSyncReqPkt() {
-			var r = new WorldPacket(WMSG.SMSG_TIME_SYNC_REQ);
-			var w = r.CreateWriter();
-			w.Write(0);
-			return r;
+			return new WorldPacket(WMSG.SMSG_TIME_SYNC_REQ, new byte[4]);
 		}
 
 		private static IPacket GetLoginSetTimeSpeedPkt() {
@@ -107,27 +102,36 @@ namespace Hazzik {
 
 		[WorldPacketHandler(WMSG.CMSG_SETSHEATHED)]
 		public static void HandleCMSG_SETSHEATHED(ISession client, IPacket packet) {
-			var r = packet.CreateReader();
-			((WorldClient)client).Player.Sheath = (SheathType)r.ReadInt32();
+			client.Player.Sheath = (SheathType)packet.CreateReader().ReadInt32();
 		}
 
 		[WorldPacketHandler(WMSG.CMSG_STANDSTATECHANGE)]
 		public static void HandleCMSG_STANDSTATECHANGE(ISession client, IPacket packet) {
-			var r = packet.CreateReader();
-			((WorldClient)client).Player.StandState = (StandStates)r.ReadByte();
+			client.Player.StandState = (StandStates)packet.CreateReader().ReadByte();
 		}
 
 		[WorldPacketHandler(WMSG.CMSG_LOGOUT_REQUEST)]
-		private static void __handleCMSG_LOGOUT_REQUEST(ISession client, IPacket packet) {
-			client.Send(GetLogoutResponse());
+		public static void HandleCMSG_LOGOUT_REQUEST(ISession client, IPacket packet) {
+			client.Player.StandState = StandStates.Sitting;
+			client.Send(GetLogoutResponcePkt(LogoutResponses.Accepted));
 		}
 
-		private static IPacket GetLogoutResponse() {
-			var response = new WorldPacket(WMSG.SMSG_LOGOUT_RESPONSE);
-			var writer = response.CreateWriter();
-			writer.Write((uint)0);
-			writer.Write((byte)0);
-			return response;
+		[WorldPacketHandler(WMSG.CMSG_LOGOUT_CANCEL)]
+		public static void Handle(ISession client, IPacket packet) {
+			client.Player.StandState = StandStates.Standing;
+			client.Send(GetLogoutCancelAckPkt());
+		}
+
+		private static IPacket GetLogoutCancelAckPkt() {
+			return new WorldPacket(WMSG.SMSG_LOGOUT_CANCEL_ACK);
+		}
+
+		private static IPacket GetLogoutResponcePkt(LogoutResponses error) {
+			var result = new WorldPacket(WMSG.SMSG_LOGOUT_RESPONSE);
+			var writer = result.CreateWriter();
+			writer.Write((byte)error);
+			writer.Write(0);
+			return result;
 		}
 	}
 }

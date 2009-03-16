@@ -105,6 +105,7 @@
     <Compile Include="Objects\GenderType.cs" />
     <Compile Include="Objects\Item.cs" />
     <Compile Include="Objects\Item.Update.cs" />
+    <Compile Include="Objects\LogoutResponses.cs" />
     <Compile Include="Objects\MovementFlags.cs" />
     <Compile Include="Objects\MovementInfo.cs" />
     <Compile Include="Objects\ObjectGuid.cs" />

@@ -6,24 +6,38 @@ using Hazzik.Objects;
 
 namespace Hazzik.Net {
 	public class WorldClient : ClientBase, ISession {
-		public Account Account { get; set; }
-
 		private ICryptoTransform _decryptor;
 		private ICryptoTransform _encryptor;
 
 		private bool _firstPacket = true;
 		private Player _player;
-		public Player Player {
-			get { return _player; }
-			set { _player = value;
-				_player.Client = this;
-			}
-		}
 
 		public WorldClient(Socket socket)
 			: base(socket) {
 		}
-		
+
+		#region ISession Members
+
+		public Account Account { get; set; }
+
+		public Player Player {
+			get { return _player; }
+			set {
+				_player = value;
+				_player.Client = this;
+			}
+		}
+
+		public override void Send(IPacket packet) {
+			var data = GetStream();
+			var head = _firstPacket ? data : new CryptoStream(data, _encryptor, CryptoStreamMode.Write);
+			WriteSize(head, packet);
+			WriteCode(head, packet);
+			packet.WriteBody(data);
+		}
+
+		#endregion
+
 		public void SetSymmetricAlgorithm(SymmetricAlgorithm algorithm) {
 			_decryptor = algorithm.CreateDecryptor();
 			_encryptor = algorithm.CreateEncryptor();
@@ -53,14 +67,6 @@ namespace Hazzik.Net {
 			data.ReadAsync(buffer, 0, buffer.Length, () => func(new WorldPacket((WMSG)code, buffer)));
 		}
 
-		public override void Send(IPacket packet) {
-			var data = GetStream();
-			var head = _firstPacket ? data : new CryptoStream(data, _encryptor, CryptoStreamMode.Write);
-			WriteSize(head, packet);
-			WriteCode(head, packet);
-			packet.WriteBody(data);
-		}
-
 		private static int ReadCode(Stream stream) {
 			var code = 0;
 			code |= stream.ReadByte();
@@ -69,7 +75,7 @@ namespace Hazzik.Net {
 			code |= stream.ReadByte() << 0x18;
 			return code;
 		}
-		
+
 		private static void WriteCode(Stream head, IPacket packet) {
 			head.WriteByte((byte)(packet.Code));
 			head.WriteByte((byte)(packet.Code >> 0x08));
