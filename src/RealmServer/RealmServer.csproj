@@ -73,12 +73,12 @@
     <Compile Include="Cryptography\RC4.cs" />
     <Compile Include="Cryptography\WowCrypt.cs" />
     <Compile Include="Cryptography\WowCryptRC4.cs" />
-    <Compile Include="Data\IPlayerDao.cs" />
-    <Compile Include="Data\IAccountDao.cs" />
+    <Compile Include="Data\IPlayerRepository.cs" />
+    <Compile Include="Data\IAccountRepository.cs" />
     <Compile Include="Data\NH\NHPlayerRepository.cs" />
     <Compile Include="Data\NH\NHAccountRepository.cs" />
-    <Compile Include="Data\Xml\XmlPlayerDao.cs" />
-    <Compile Include="Data\Xml\XmlRealmAccountDao.cs" />
+    <Compile Include="Data\Xml\XmlPlayerRepository.cs" />
+    <Compile Include="Data\Xml\XmlAccountRepository.cs" />
     <Compile Include="Map\ObjectManager.cs" />
     <Compile Include="Net\CompressedDataPacket.cs" />
     <Compile Include="Net\ISession.cs" />

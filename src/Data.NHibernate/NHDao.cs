@@ -4,28 +4,36 @@ using NHibernate.Cfg;
 
 namespace Hazzik.Data.NH {
 	public abstract class NHDao<T> : IDao<T> {
+		private static readonly ISessionFactory _factory = GetFactory();
 		private readonly ISession _session;
 
 		protected NHDao() {
-			var cfg = new Configuration();
-			var factory = cfg.Configure().BuildSessionFactory();
-			_session = factory.OpenSession();
+			_session = _factory.OpenSession();
 		}
 
-		public ISession Session {
-			get { return _session; }
-		}
+		#region IDao<T> Members
 
 		public void Delete(T entity) {
-			Session.Delete(entity);
+			_session.Delete(entity);
 		}
 
 		public void Save(T entity) {
-			Session.Save(entity);
+			_session.Save(entity);
 		}
 
 		public void SubmitChanges() {
-			Session.Flush();
+			_session.Flush();
+		}
+
+		#endregion
+
+		private static ISessionFactory GetFactory() {
+			var cfg = new Configuration();
+			return cfg.Configure().BuildSessionFactory();
+		}
+
+		public ICriteria CreateCriteria() {
+			return _session.CreateCriteria(typeof(T));
 		}
 	}
 }

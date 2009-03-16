@@ -10,7 +10,7 @@ using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 
 namespace Hazzik.Net {
 	public class WorldPacketProcessor : IPacketProcessor {
-		private static readonly IAccountDao _dao = new NHAccountRepository();
+		private static readonly IAccountRepository _repository = new NHAccountRepository();
 
 		private readonly WorldClient _client;
 		public readonly uint _seed = (uint)(new Random().Next(0, Int32.MaxValue));
@@ -28,14 +28,13 @@ namespace Hazzik.Net {
 			Console.WriteLine("Handle {0}", code);
 			if(code == WMSG.CMSG_AUTH_SESSION) {
 				HandleAuthSession(packet);
+				return;
 			}
-			else if(code == WMSG.CMSG_PING) {
-				var r = packet.CreateReader();
-				_client.Send(GetPongPkt(r.ReadUInt32()));
+			if(code == WMSG.CMSG_PING) {
+				_client.Send(GetPongPkt(packet.CreateReader().ReadUInt32()));
+				return;
 			}
-			else {
-				Program.Handler.Handle(_client, packet);
-			}
+			Program.Handler.Handle(_client, packet);
 		}
 
 		#endregion
@@ -57,7 +56,7 @@ namespace Hazzik.Net {
 			uint clientSeed = r.ReadUInt32();
 			byte[] clientDigest = r.ReadBytes(20);
 
-			_client.Account = _dao.FindByName(accountName);
+			_client.Account = _repository.FindByName(accountName);
 
 			_client.SetSymmetricAlgorithm(new WowCrypt(_client.Account.SessionKey));
 

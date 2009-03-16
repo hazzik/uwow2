@@ -1,8 +1,8 @@
 using System.Linq;
 
 namespace Hazzik.Data.Xml {
-	public class XmlAccountDao : XmlDao<Account>, IAccountDao {
-		public XmlAccountDao() : base("account") {
+	public class XmlAccountRepository : XmlDao<Account>, IAccountRepository {
+		public XmlAccountRepository() : base("account") {
 		}
 
 		public Account FindByName(string name) {

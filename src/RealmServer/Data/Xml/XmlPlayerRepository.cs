@@ -3,31 +3,21 @@ using System.Linq;
 using Hazzik.Objects;
 
 namespace Hazzik.Data.Xml {
-	public class XmlPlayerDao : XmlDao<Player>, IPlayerDao {
+	public class XmlPlayerRepository : XmlDao<Player>, IPlayerRepository {
 		#region ctors
 
-		internal XmlPlayerDao()
-		:base("player") {
+		internal XmlPlayerRepository()
+			: base("player") {
 		}
 
 		#endregion
 
-		#region IGuided<DbPlayer> Members
+		#region IPlayerRepository Members
 
 		public Player FindByGuid(ulong guid) {
 			return (from player in _entities
 			        where player.Guid == guid
 			        select player).FirstOrDefault();
-		}
-
-		#endregion
-
-		#region INamed<DbPlayer> Members
-
-		public Player Create(string name) {
-			return new Player() {
-				Name = name,
-			};
 		}
 
 		public Player FindByName(string name) {
