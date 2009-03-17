@@ -1,4 +1,4 @@
-namespace Hazzik {
+namespace Hazzik.Objects {
 	public enum Classes {
 		Any = 0,
 		Warrior = 1,
