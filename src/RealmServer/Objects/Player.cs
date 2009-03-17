@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Hazzik.Map;
 using Hazzik.Net;
@@ -40,7 +41,7 @@ namespace Hazzik.Objects {
 
 		public IPacket GetNameQueryResponcePkt() {
 			var r = new WorldPacket(WMSG.SMSG_NAME_QUERY_RESPONSE);
-			var w = r.CreateWriter();
+			BinaryWriter w = r.CreateWriter();
 			w.Write(Guid);
 			w.WriteCString(Name);
 			w.WriteCString("");
@@ -316,7 +317,7 @@ namespace Hazzik.Objects {
 
 		#region Nested type: UpdateTimer
 
-		public class UpdateTimer : Timer2 {
+		private class UpdateTimer : Timer2 {
 			private readonly Player _player;
 
 			public UpdateTimer(Player player)

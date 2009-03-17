@@ -1,4 +1,5 @@
 ﻿using System;
+using Hazzik.Map;
 
 namespace Hazzik.Objects {
 	public partial class Unit {
@@ -84,8 +85,8 @@ namespace Hazzik.Objects {
 			set { SetByte(UpdateFields.UNIT_FIELD_BYTES_0, 2, (byte)value); }
 		}
 
-		public virtual int ManaType {
-			get { return GetByte(UpdateFields.UNIT_FIELD_BYTES_0, 3); }
+		public virtual PowerType PowerType {
+			get { return (PowerType)GetByte(UpdateFields.UNIT_FIELD_BYTES_0, 3); }
 			set { SetByte(UpdateFields.UNIT_FIELD_BYTES_0, 3, (byte)value); }
 		}
 
@@ -99,59 +100,23 @@ namespace Hazzik.Objects {
 		}
 		#endregion
 
-		#region UNIT_FIELD_POWER1
-		//UNIT_FIELD_POWER1 : type = Int, size = 1, flag = Public
-		public virtual UInt32 Power1 {
-			get { return GetUInt32(UpdateFields.UNIT_FIELD_POWER1); }
-			set { SetUInt32(UpdateFields.UNIT_FIELD_POWER1, value); }
-		}
-		#endregion
-
-		#region UNIT_FIELD_POWER2
-		//UNIT_FIELD_POWER2 : type = Int, size = 1, flag = Public
-		public virtual UInt32 Power2 {
-			get { return GetUInt32(UpdateFields.UNIT_FIELD_POWER2); }
-			set { SetUInt32(UpdateFields.UNIT_FIELD_POWER2, value); }
-		}
-		#endregion
-
-		#region UNIT_FIELD_POWER3
-		//UNIT_FIELD_POWER3 : type = Int, size = 1, flag = Public
-		public virtual UInt32 Power3 {
-			get { return GetUInt32(UpdateFields.UNIT_FIELD_POWER3); }
-			set { SetUInt32(UpdateFields.UNIT_FIELD_POWER3, value); }
-		}
-		#endregion
-
-		#region UNIT_FIELD_POWER4
-		//UNIT_FIELD_POWER4 : type = Int, size = 1, flag = Public
-		public virtual UInt32 Power4 {
-			get { return GetUInt32(UpdateFields.UNIT_FIELD_POWER4); }
-			set { SetUInt32(UpdateFields.UNIT_FIELD_POWER4, value); }
-		}
-		#endregion
-
-		#region UNIT_FIELD_POWER5
-		//UNIT_FIELD_POWER5 : type = Int, size = 1, flag = Public
-		public virtual UInt32 Power5 {
-			get { return GetUInt32(UpdateFields.UNIT_FIELD_POWER5); }
-			set { SetUInt32(UpdateFields.UNIT_FIELD_POWER5, value); }
-		}
-		#endregion
-
-		#region UNIT_FIELD_POWER6
-		//UNIT_FIELD_POWER6 : type = Int, size = 1, flag = Public
-		public virtual UInt32 Power6 {
-			get { return GetUInt32(UpdateFields.UNIT_FIELD_POWER6); }
-			set { SetUInt32(UpdateFields.UNIT_FIELD_POWER6, value); }
-		}
-		#endregion
-
-		#region UNIT_FIELD_POWER7
-		//UNIT_FIELD_POWER7 : type = Int, size = 1, flag = Public
-		public virtual UInt32 Power7 {
-			get { return GetUInt32(UpdateFields.UNIT_FIELD_POWER7); }
-			set { SetUInt32(UpdateFields.UNIT_FIELD_POWER7, value); }
+		#region UNIT_FIELD_POWER
+		//UNIT_FIELD_POWER1 : type = Int, size = 1, flag = Public * 7
+		public virtual UInt32 Power {
+			get { return GetUInt32(UpdateFields.UNIT_FIELD_POWER1 + (int)PowerType); }
+			set {
+				if(value < 0) {
+					value = 0;
+				}
+				if(value > MaxPower) {
+					value = MaxPower;
+				}
+				if(value == Power) {
+					return;
+				}
+				SetUInt32(UpdateFields.UNIT_FIELD_POWER1 + (int)PowerType, value);
+				ObjectManager.SendNearExceptMe(this, GetPowerUpdatePkt(value));
+			}
 		}
 		#endregion
 
@@ -163,65 +128,29 @@ namespace Hazzik.Objects {
 		}
 		#endregion
 
-		#region UNIT_FIELD_MAXPOWER1
-		//UNIT_FIELD_MAXPOWER1 : type = Int, size = 1, flag = Public
-		public virtual UInt32 MaxPower1 {
-			get { return GetUInt32(UpdateFields.UNIT_FIELD_MAXPOWER1); }
-			set { SetUInt32(UpdateFields.UNIT_FIELD_MAXPOWER1, value); }
+		#region UNIT_FIELD_MAXPOWER
+		//UNIT_FIELD_MAXPOWER1 : type = Int, size = 1, flag = Public * 7
+		public virtual UInt32 MaxPower {
+			get { return GetUInt32(UpdateFields.UNIT_FIELD_MAXPOWER1 + (int)PowerType); }
+			set { SetUInt32(UpdateFields.UNIT_FIELD_MAXPOWER1 + (int)PowerType, value); }
 		}
 		#endregion
 
-		#region UNIT_FIELD_MAXPOWER2
-		//UNIT_FIELD_MAXPOWER2 : type = Int, size = 1, flag = Public
-		public virtual UInt32 MaxPower2 {
-			get { return GetUInt32(UpdateFields.UNIT_FIELD_MAXPOWER2); }
-			set { SetUInt32(UpdateFields.UNIT_FIELD_MAXPOWER2, value); }
-		}
-		#endregion
-
-		#region UNIT_FIELD_MAXPOWER3
-		//UNIT_FIELD_MAXPOWER3 : type = Int, size = 1, flag = Public
-		public virtual UInt32 MaxPower3 {
-			get { return GetUInt32(UpdateFields.UNIT_FIELD_MAXPOWER3); }
-			set { SetUInt32(UpdateFields.UNIT_FIELD_MAXPOWER3, value); }
-		}
-		#endregion
-
-		#region UNIT_FIELD_MAXPOWER4
-		//UNIT_FIELD_MAXPOWER4 : type = Int, size = 1, flag = Public
-		public virtual UInt32 MaxPower4 {
-			get { return GetUInt32(UpdateFields.UNIT_FIELD_MAXPOWER4); }
-			set { SetUInt32(UpdateFields.UNIT_FIELD_MAXPOWER4, value); }
-		}
-		#endregion
-
-		#region UNIT_FIELD_MAXPOWER5
-		//UNIT_FIELD_MAXPOWER5 : type = Int, size = 1, flag = Public
-		public virtual UInt32 MaxPower5 {
-			get { return GetUInt32(UpdateFields.UNIT_FIELD_MAXPOWER5); }
-			set { SetUInt32(UpdateFields.UNIT_FIELD_MAXPOWER5, value); }
-		}
-		#endregion
-
-		#region UNIT_FIELD_MAXPOWER6
-		//UNIT_FIELD_MAXPOWER6 : type = Int, size = 1, flag = Public
-		public virtual UInt32 MaxPower6 {
-			get { return GetUInt32(UpdateFields.UNIT_FIELD_MAXPOWER6); }
-			set { SetUInt32(UpdateFields.UNIT_FIELD_MAXPOWER6, value); }
-		}
-		#endregion
-
-		#region UNIT_FIELD_MAXPOWER7
-		//UNIT_FIELD_MAXPOWER7 : type = Int, size = 1, flag = Public
-		public virtual UInt32 MaxPower7 {
-			get { return GetUInt32(UpdateFields.UNIT_FIELD_MAXPOWER7); }
-			set { SetUInt32(UpdateFields.UNIT_FIELD_MAXPOWER7, value); }
-		}
-		#endregion
-
+		#region UNIT_FIELD_POWER_REGEN_FLAT_MODIFIER
 		//UNIT_FIELD_POWER_REGEN_FLAT_MODIFIER : type = Single, size = 7, flag = Private, Owner
+		public virtual Single PowerRegenFlatModifier {
+			get { return GetSingle(UpdateFields.UNIT_FIELD_POWER_REGEN_FLAT_MODIFIER + (int)PowerType); }
+			set { SetSingle(UpdateFields.UNIT_FIELD_POWER_REGEN_FLAT_MODIFIER + (int)PowerType, value); }
+		}
+		#endregion
 
+		#region  UNIT_FIELD_POWER_REGEN_INTERRUPTED_FLAT_MODIFIER
 		//UNIT_FIELD_POWER_REGEN_INTERRUPTED_FLAT_MODIFIER : type = Single, size = 7, flag = Private, Owner
+		public virtual Single PowerRegenInterruptedFlatModifier {
+			get { return GetSingle(UpdateFields.UNIT_FIELD_POWER_REGEN_INTERRUPTED_FLAT_MODIFIER + (int)PowerType); }
+			set { SetSingle(UpdateFields.UNIT_FIELD_POWER_REGEN_INTERRUPTED_FLAT_MODIFIER + (int)PowerType, value); }
+		}
+		#endregion
 
 		#region UNIT_FIELD_LEVEL
 		//UNIT_FIELD_LEVEL : type = Int, size = 1, flag = Public

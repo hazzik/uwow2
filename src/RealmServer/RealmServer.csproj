@@ -113,8 +113,10 @@
     <Compile Include="Objects\ObjectTypes.cs" />
     <Compile Include="Objects\PetState.cs" />
     <Compile Include="Objects\Player.cs" />
+    <Compile Include="Objects\Player.Overrides.cs" />
     <Compile Include="Objects\Player.Update.cs" />
     <Compile Include="Objects\Positioned.cs" />
+    <Compile Include="Objects\PowerType.cs" />
     <Compile Include="Objects\PvPState.cs" />
     <Compile Include="Objects\Races.cs" />
     <Compile Include="Objects\RestState.cs" />
@@ -123,6 +125,7 @@
     <Compile Include="Objects\StandStates.cs" />
     <Compile Include="Objects\StateFlag.cs" />
     <Compile Include="Objects\Unit.cs" />
+    <Compile Include="Objects\Unit.Packets.cs" />
     <Compile Include="Objects\Unit.Update.cs" />
     <Compile Include="Objects\UpdateFields.cs" />
     <Compile Include="Objects\UpdateFieldValue.cs" />

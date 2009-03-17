@@ -17,7 +17,7 @@ namespace Hazzik.Map {
 			}
 		}
 
-		public static IEnumerable<Player> GetPlayersNear(Player me) {
+		public static IEnumerable<Player> GetPlayersNear(Positioned me) {
 			return _allLoggedPlayers.Values;
 		}
 
@@ -25,11 +25,17 @@ namespace Hazzik.Map {
 			return _allObjects.Values;
 		}
 
-		public static void SendNearExceptMe(Player me, IPacket responce) {
+		public static void SendNearExceptMe(Positioned me, IPacket responce) {
 			foreach(var player in GetPlayersNear(me)) {
 				if(player != me) {
 					player.Client.Send(responce);
 				}
+			}
+		}
+
+		public static void SendNear(Positioned me, IPacket responce) {
+			foreach(var player in GetPlayersNear(me)) {
+				player.Client.Send(responce);
 			}
 		}
 	}
