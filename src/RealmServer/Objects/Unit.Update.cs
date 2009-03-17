@@ -611,9 +611,21 @@ namespace Hazzik.Objects {
 		}
 		#endregion
 
+		#region UNIT_FIELD_POWER_COST_MODIFIER
 		//UNIT_FIELD_POWER_COST_MODIFIER : type = Int, size = 7, flag = Private, Owner
+		public virtual UInt32 PowerCostModifier {
+			get { return GetUInt32(UpdateFields.UNIT_FIELD_POWER_COST_MODIFIER + (int)PowerType); }
+			set { SetUInt32(UpdateFields.UNIT_FIELD_POWER_COST_MODIFIER + (int)PowerType, value); }
+		}
+		#endregion
 
+		#region UNIT_FIELD_POWER_COST_MULTIPLIER
 		//UNIT_FIELD_POWER_COST_MULTIPLIER : type = Single, size = 7, flag = Private, Owner
+		public virtual Single PowerCostMultiplier {
+			get { return GetSingle(UpdateFields.UNIT_FIELD_POWER_COST_MULTIPLIER + (int)PowerType); }
+			set { SetSingle(UpdateFields.UNIT_FIELD_POWER_COST_MULTIPLIER + (int)PowerType, value); }
+		}
+		#endregion
 
 		#region UNIT_FIELD_MAXHEALTHMODIFIER
 		//UNIT_FIELD_MAXHEALTHMODIFIER : type = Single, size = 1, flag = Private, Owner
