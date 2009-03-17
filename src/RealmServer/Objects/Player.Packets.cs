@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Hazzik.Net;
 
 namespace Hazzik.Objects {
@@ -16,12 +15,12 @@ namespace Hazzik.Objects {
 			return result;
 		}
 
-		private static IPacket GetUpdateObjectPkt(IEnumerable<ObjectUpdater> updaters) {
+		private static IPacket GetUpdateObjectPkt(ICollection<IUpdateBuilder> updaters) {
 			var result = new WorldPacket(WMSG.SMSG_UPDATE_OBJECT);
 			var writer = result.CreateWriter();
-			writer.Write(updaters.Count());
+			writer.Write(updaters.Count);
 			foreach(var updater in updaters) {
-				updater.WriteUpdate(writer);
+				updater.Write(writer);
 			}
 			return result;
 		}

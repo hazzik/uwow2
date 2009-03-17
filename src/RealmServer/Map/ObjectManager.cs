@@ -21,7 +21,7 @@ namespace Hazzik.Map {
 			return _allLoggedPlayers.Values;
 		}
 
-		public static IEnumerable<Positioned> GetObjectsNear(Player me) {
+		public static IEnumerable<Positioned> GetSeenObjectsNear(Player me) {
 			return _allObjects.Values;
 		}
 

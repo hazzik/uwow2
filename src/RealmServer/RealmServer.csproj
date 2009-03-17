@@ -97,7 +97,7 @@
     <Compile Include="Objects\GameObject.cs" />
     <Compile Include="Objects\GameObject.Update.cs" />
     <Compile Include="Objects\GameObjectDynamicFlagsHigh.cs" />
-    <Compile Include="Objects\GameObjectDynamicFlagsLow.cs" />
+    <Compile Include="Objects\GameObjectDynamicFlags.cs" />
     <Compile Include="Objects\GameObjectFlags.cs" />
     <Compile Include="Objects\GameObjectFlagsHigh.cs" />
     <Compile Include="Objects\GameObjectState.cs" />
@@ -105,12 +105,14 @@
     <Compile Include="Objects\GenderType.cs" />
     <Compile Include="Objects\Item.cs" />
     <Compile Include="Objects\Item.Update.cs" />
+    <Compile Include="Objects\IUpdateBuilder.cs" />
     <Compile Include="Objects\LogoutResponses.cs" />
     <Compile Include="Objects\MovementFlags.cs" />
     <Compile Include="Objects\MovementInfo.cs" />
     <Compile Include="Objects\ObjectGuid.cs" />
     <Compile Include="Objects\ObjectTypeId.cs" />
     <Compile Include="Objects\ObjectTypes.cs" />
+    <Compile Include="Objects\OutOfRangeUpdater.cs" />
     <Compile Include="Objects\PetState.cs" />
     <Compile Include="Objects\Player.cs" />
     <Compile Include="Objects\Player.Overrides.cs" />
@@ -177,9 +179,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Misc\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

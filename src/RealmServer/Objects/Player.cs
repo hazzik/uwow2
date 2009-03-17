@@ -7,7 +7,7 @@ using Hazzik.Net;
 
 namespace Hazzik.Objects {
 	public partial class Player : Unit {
-		private readonly IDictionary<ulong, ObjectUpdater> _objectUpdaters = new Dictionary<ulong, ObjectUpdater>();
+		private readonly IDictionary<ulong, IUpdateBuilder> _updateBuilders = new Dictionary<ulong, IUpdateBuilder>();
 		private readonly Timer2 _updateTimer;
 		public bool Dead;
 		public Item[] Items = new Item[20];
@@ -241,16 +241,6 @@ namespace Hazzik.Objects {
 			SetUInt32((UpdateFields)1688, 0x0000001A); // 1688	PLAYER_FIELD_TODAY_CONTRIBUTION
 		}
 
-		public void AddSeenObject(WorldObject obj) {
-			if(!_objectUpdaters.ContainsKey(obj.Guid)) {
-				_objectUpdaters.Add(obj.Guid, new ObjectUpdater(this, obj));
-			}
-		}
-
-		public void RemoveObject(WorldObject obj) {
-			_objectUpdaters.Remove(obj.Guid);
-		}
-
 		public BitArray GetRequeredMask(WorldObject obj) {
 			var mask = new BitArray((int)UpdateFields.PLAYER_END);
 			mask.SetAll(true);
@@ -258,12 +248,33 @@ namespace Hazzik.Objects {
 		}
 
 		public void UpdateObjects() {
-			foreach(var player in ObjectManager.GetObjectsNear(this)) {
-				AddSeenObject(player);
+			var updateBuilders = GetUpdateBuilders();
+			if(updateBuilders.Count != 0) {
+				Client.Send(GetUpdateObjectPkt(updateBuilders));
 			}
-			var updaters = _objectUpdaters.Values.Where(x => x.IsChanged).ToList();
-			if(updaters.Count != 0) {
-				Client.Send(GetUpdateObjectPkt(updaters));
+		}
+
+		private ICollection<IUpdateBuilder> GetUpdateBuilders() {
+			var items = Items.Cast<WorldObject>();
+			var seenObjects = ObjectManager.GetSeenObjectsNear(this).Cast<WorldObject>();
+			var objects = items.Concat(seenObjects);
+
+			var notInRange = _updateBuilders.Keys.ToList();
+			foreach(var obj in objects) {
+				AddUpdateObject(obj);
+				notInRange.Remove(obj.Guid);
+			}
+			foreach(var guid in notInRange) {
+				_updateBuilders.Remove(guid);
+			}
+			var updateBuilders = _updateBuilders.Values.ToList();
+			updateBuilders.Add(new OutOfRangeUpdater(notInRange));
+			return updateBuilders.Where(x => x.IsChanged).ToList(); // except not changed
+		}
+
+		private void AddUpdateObject(WorldObject obj) {
+			if(!_updateBuilders.ContainsKey(obj.Guid)) {
+				_updateBuilders.Add(obj.Guid, new ObjectUpdater(this, obj));
 			}
 		}
 
