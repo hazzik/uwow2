@@ -7,7 +7,7 @@ using Hazzik.Net;
 
 namespace Hazzik.Objects {
 	public partial class Player : Unit {
-		private readonly IDictionary<ulong, IUpdateBuilder> _updateBuilders = new Dictionary<ulong, IUpdateBuilder>();
+		private IDictionary<ulong, IUpdateBuilder> _updateBuilders = new Dictionary<ulong, IUpdateBuilder>();
 		private readonly Timer2 _updateTimer;
 		public bool Dead;
 		public Item[] Items = new Item[20];
@@ -22,7 +22,6 @@ namespace Hazzik.Objects {
 			Type |= ObjectTypes.Player;
 
 			InitFake();
-			ObjectManager.Add(Corpse.Create(this));
 		}
 
 		public override byte TypeId {
@@ -254,28 +253,29 @@ namespace Hazzik.Objects {
 			}
 		}
 
-		private ICollection<IUpdateBuilder> GetUpdateBuilders() {
-			var items = Items.Cast<WorldObject>();
-			var seenObjects = ObjectManager.GetSeenObjectsNear(this).Cast<WorldObject>();
-			var objects = items.Concat(seenObjects);
-
-			var notInRange = _updateBuilders.Keys.ToList();
-			foreach(var obj in objects) {
-				AddUpdateObject(obj);
-				notInRange.Remove(obj.Guid);
-			}
-			foreach(var guid in notInRange) {
-				_updateBuilders.Remove(guid);
-			}
-			var updateBuilders = _updateBuilders.Values.ToList();
-			updateBuilders.Add(new OutOfRangeUpdater(notInRange));
-			return updateBuilders.Where(x => x.IsChanged).ToList(); // except not changed
+		protected ICollection<IUpdateBuilder> GetUpdateBuilders() {
+			return new[] { GetOutOfRange() }.Concat(_updateBuilders.Values).Where(x => x.IsChanged).ToList();
 		}
 
-		private void AddUpdateObject(WorldObject obj) {
-			if(!_updateBuilders.ContainsKey(obj.Guid)) {
-				_updateBuilders.Add(obj.Guid, new ObjectUpdater(this, obj));
+		private IUpdateBuilder GetOutOfRange() {
+			var updateBuilders = GetObjectsForUpdate().ToDictionary(x => x.Guid, x => GetUpdater(x));
+			var outOfRange = _updateBuilders.Keys.Except(updateBuilders.Keys).ToList();
+			_updateBuilders = updateBuilders;
+			return new OutOfRangeUpdater(outOfRange);
+		}
+
+		private IEnumerable<WorldObject> GetObjectsForUpdate() {
+			var items = Items.Where(x => x != null).Cast<WorldObject>();
+			var seenObjects = ObjectManager.GetSeenObjectsNear(this).Cast<WorldObject>();
+			return items.Concat(seenObjects);
+		}
+
+		private IUpdateBuilder GetUpdater(WorldObject obj) {
+			IUpdateBuilder result;
+			if(!_updateBuilders.TryGetValue(obj.Guid,out result)) {
+				return _updateBuilders[obj.Guid] = new ObjectUpdater(this, obj);	
 			}
+			return result;
 		}
 
 		public void StartUpdateTimer() {
@@ -288,7 +288,7 @@ namespace Hazzik.Objects {
 			private readonly Player _player;
 
 			public UpdateTimer(Player player)
-				: base(3000) {
+				: base(30000) {
 				_player = player;
 			}
 

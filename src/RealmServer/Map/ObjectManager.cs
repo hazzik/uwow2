@@ -27,7 +27,7 @@ namespace Hazzik.Map {
 
 		public static void SendNearExceptMe(Positioned me, IPacket responce) {
 			foreach(var player in GetPlayersNear(me)) {
-				if(player != me) {
+				if(player != me && player.Client!=null) {
 					player.Client.Send(responce);
 				}
 			}
@@ -35,8 +35,15 @@ namespace Hazzik.Map {
 
 		public static void SendNear(Positioned me, IPacket responce) {
 			foreach(var player in GetPlayersNear(me)) {
-				player.Client.Send(responce);
+				if(player.Client != null) {
+					player.Client.Send(responce);
+				}
 			}
+		}
+
+		public static void Remove(WorldObject obj) {
+			_allObjects.Remove(obj.Guid);
+			_allLoggedPlayers.Remove(obj.Guid);
 		}
 	}
 }

@@ -29,11 +29,13 @@ namespace Hazzik.Net {
 		}
 
 		public override void Send(IPacket packet) {
-			var data = GetStream();
-			var head = _firstPacket ? data : new CryptoStream(data, _encryptor, CryptoStreamMode.Write);
-			WriteSize(head, packet);
-			WriteCode(head, packet);
-			packet.WriteBody(data);
+			lock(this) {
+				var data = GetStream();
+				var head = _firstPacket ? data : new CryptoStream(data, _encryptor, CryptoStreamMode.Write);
+				WriteSize(head, packet);
+				WriteCode(head, packet);
+				packet.WriteBody(data);
+			}
 		}
 
 		#endregion

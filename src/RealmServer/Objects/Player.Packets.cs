@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using Hazzik.Helper;
 using Hazzik.Net;
 
 namespace Hazzik.Objects {

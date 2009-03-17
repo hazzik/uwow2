@@ -11,6 +11,7 @@ namespace Hazzik {
 		private bool _isNew = true;
 		private BitArray _mask;
 		private uint[] _sendedValues;
+		private bool _changed;
 
 		public ObjectUpdater(Player to, WorldObject obj) {
 			_to = to;
@@ -23,9 +24,10 @@ namespace Hazzik {
 
 		public bool IsChanged {
 			get {
-				bool changed;
-				_mask = BuildMask(out changed);
-				return changed;
+				if(!_changed) {
+					_mask = BuildMask(out _changed);
+				}
+				return _changed;
 			}
 		}
 
@@ -36,8 +38,8 @@ namespace Hazzik {
 				writer.Write(_obj.TypeId);
 				writer.Write((byte)(_obj != _to ? _obj.UpdateFlag : _obj.UpdateFlag | (byte)UpdateFlags.Self));
 				_obj.WriteCreateBlock(writer);
-				writer.Write((uint)0);
-				writer.Write((uint)0);
+				//writer.Write((uint)0x00);
+				//writer.Write((uint)0x00);
 				_isNew = false;
 			}
 			WriteMask(writer);
@@ -46,6 +48,7 @@ namespace Hazzik {
 					writer.Write(_sendedValues[i]);
 				}
 			}
+			_changed = false;
 		}
 
 		#endregion

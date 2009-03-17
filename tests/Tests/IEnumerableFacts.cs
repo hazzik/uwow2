@@ -10,7 +10,6 @@ namespace Tests {
 		public void Except() {
 			var target = new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 			var except = new[] { 1, 3, 5, 7, 9 };
-			var expected = new[] { 0, 2, 4, 6, 8 };
 			var actual = target.Except(except).ToList();
 			_assertions.Equal(5, actual.Count);
 			_assertions.Equal(0, actual[0]);
