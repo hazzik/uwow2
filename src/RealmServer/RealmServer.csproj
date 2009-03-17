@@ -114,6 +114,7 @@
     <Compile Include="Objects\PetState.cs" />
     <Compile Include="Objects\Player.cs" />
     <Compile Include="Objects\Player.Overrides.cs" />
+    <Compile Include="Objects\Player.Packets.cs" />
     <Compile Include="Objects\Player.Update.cs" />
     <Compile Include="Objects\Positioned.cs" />
     <Compile Include="Objects\PowerType.cs" />

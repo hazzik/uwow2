@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Hazzik.Map;
 using Hazzik.Net;
@@ -15,49 +14,6 @@ namespace Hazzik.Objects {
 		public int PetCreatureFamily;
 		public int PetDisplayId;
 		public int PetLevel;
-
-		#region packets
-
-		public IPacket GetLoginVerifyWorldPkt() {
-			var result = new WorldPacket(WMSG.SMSG_LOGIN_VERIFY_WORLD);
-			var w = result.CreateWriter();
-			w.Write(MapId);
-			w.Write(PosX);
-			w.Write(PosY);
-			w.Write(PosZ);
-			w.Write(Facing);
-			return result;
-		}
-
-		private static IPacket GetUpdateObjectPkt(IEnumerable<ObjectUpdater> updaters) {
-			var r = new WorldPacket(WMSG.SMSG_UPDATE_OBJECT);
-			var writer = r.CreateWriter();
-			writer.Write(updaters.Count());
-			foreach(var updater in updaters) {
-				updater.WriteUpdate(writer);
-			}
-			return r;
-		}
-
-		public IPacket GetNameQueryResponcePkt() {
-			var r = new WorldPacket(WMSG.SMSG_NAME_QUERY_RESPONSE);
-			BinaryWriter w = r.CreateWriter();
-			w.Write(Guid);
-			w.WriteCString(Name);
-			w.WriteCString("");
-			w.Write((int)Race);
-			w.Write((int)Gender);
-			w.Write((int)Classe);
-			w.Write((byte)01);
-			w.WriteCString(Name);
-			w.WriteCString(Name);
-			w.WriteCString(Name);
-			w.WriteCString(Name);
-			w.WriteCString(Name);
-			return r;
-		}
-
-		#endregion
 
 		public Player()
 			: base((int)UpdateFields.PLAYER_END) {
