@@ -11,8 +11,8 @@ namespace Hazzik.Objects {
 			Type |= ObjectTypes.Container;
 		}
 
-		public override byte TypeId {
-			get { return (byte)ObjectTypeId.Container; }
+		public override ObjectTypeId TypeId {
+			get { return ObjectTypeId.Container; }
 		}
 	}
 }

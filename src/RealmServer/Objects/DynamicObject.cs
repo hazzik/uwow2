@@ -11,8 +11,8 @@ namespace Hazzik.Objects {
 			Type |= ObjectTypes.DynamicObject;
 		}
 
-		public override byte TypeId {
-			get { return (byte)ObjectTypeId.DynamicObject; }
+		public override ObjectTypeId TypeId {
+			get { return ObjectTypeId.DynamicObject; }
 		}
 	}
 }

@@ -37,7 +37,7 @@ namespace Hazzik.Objects {
 
 		public int MaxValues { get { return _values.Length; } }
 
-		public abstract byte TypeId { get; }
+		public abstract ObjectTypeId TypeId { get; }
 
 		public virtual UpdateFlags UpdateFlag {
 			get { return UpdateFlags.HighGuid | UpdateFlags.LowGuid; }

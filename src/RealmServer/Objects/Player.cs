@@ -24,8 +24,8 @@ namespace Hazzik.Objects {
 			InitFake();
 		}
 
-		public override byte TypeId {
-			get { return (byte)ObjectTypeId.Player; }
+		public override ObjectTypeId TypeId {
+			get { return ObjectTypeId.Player; }
 		}
 
 		public string Name { get; set; }

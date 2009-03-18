@@ -35,7 +35,7 @@ namespace Hazzik {
 			writer.Write((byte)GetUpdateType());
 			writer.WritePackGuid(_obj.Guid);
 			if(_isNew) {
-				writer.Write(_obj.TypeId);
+				writer.Write((byte)_obj.TypeId);
 				writer.Write((byte)(_obj != _to ? _obj.UpdateFlag : _obj.UpdateFlag | UpdateFlags.Self));
 				_obj.WriteCreateBlock(writer);
 				if(_obj.UpdateFlag.Has(UpdateFlags.HighGuid)) {

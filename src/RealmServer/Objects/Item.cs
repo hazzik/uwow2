@@ -11,8 +11,8 @@ namespace Hazzik.Objects {
 			Type |= ObjectTypes.Item;
 		}
 
-		public override byte TypeId {
-			get { return (byte)ObjectTypeId.Item; }
+		public override ObjectTypeId TypeId {
+			get { return ObjectTypeId.Item; }
 		}
 	}
 }

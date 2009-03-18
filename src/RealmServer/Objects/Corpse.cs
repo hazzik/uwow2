@@ -11,8 +11,8 @@ namespace Hazzik.Objects {
 			Type |= ObjectTypes.Corpse;
 		}
 
-		public override byte TypeId {
-			get { return (byte)ObjectTypeId.Corpse; }
+		public override ObjectTypeId TypeId {
+			get { return ObjectTypeId.Corpse; }
 		}
 
 		public static Corpse Create(Player player) {
