@@ -15,8 +15,8 @@ namespace Hazzik.Objects {
 			get { return (byte)ObjectTypeId.GameObject; }
 		}
 
-		public override byte UpdateFlag {
-			get { return (byte)(UpdateFlags.LowGuid | UpdateFlags.HighGuid); }
+		public override UpdateFlags UpdateFlag {
+			get { return (UpdateFlags.LowGuid | UpdateFlags.HighGuid); }
 		}
 	}
 }

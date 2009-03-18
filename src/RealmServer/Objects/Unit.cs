@@ -16,8 +16,8 @@ namespace Hazzik.Objects {
 
 		public override byte TypeId { get { return (byte)ObjectTypeId.Unit; } }
 
-		public override byte UpdateFlag {
-			get { return (byte)(base.UpdateFlag | (byte)UpdateFlags.Mobile); }
+		public override UpdateFlags UpdateFlag {
+			get { return (base.UpdateFlag | UpdateFlags.Mobile); }
 		}
 
 		public override float PosX {
