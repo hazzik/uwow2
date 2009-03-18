@@ -36,10 +36,20 @@ namespace Hazzik {
 			writer.WritePackGuid(_obj.Guid);
 			if(_isNew) {
 				writer.Write(_obj.TypeId);
-				writer.Write((byte)(_obj != _to ? _obj.UpdateFlag : _obj.UpdateFlag | (byte)UpdateFlags.Self));
+				writer.Write((byte)(_obj != _to ? _obj.UpdateFlag : _obj.UpdateFlag | UpdateFlags.Self));
 				_obj.WriteCreateBlock(writer);
-				//writer.Write((uint)0x00);
-				//writer.Write((uint)0x00);
+				if(_obj.UpdateFlag.Has(UpdateFlags.HighGuid)) {
+					writer.Write((uint)0x00);
+				}
+				if(_obj.UpdateFlag.Has(UpdateFlags.LowGuid)) {
+					writer.Write((uint)0x00);
+				}
+				if(_obj.UpdateFlag.Has(UpdateFlags.TargetGuid)) {
+					writer.WritePackGuid(0x00);
+				}
+				if(_obj.UpdateFlag.Has(UpdateFlags.Transport)) {
+					writer.Write((uint)0x00);
+				}
 				_isNew = false;
 			}
 			WriteMask(writer);

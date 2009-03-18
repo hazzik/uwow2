@@ -79,6 +79,7 @@
     <Compile Include="Data\NH\NHAccountRepository.cs" />
     <Compile Include="Data\Xml\XmlPlayerRepository.cs" />
     <Compile Include="Data\Xml\XmlAccountRepository.cs" />
+    <Compile Include="EnumExtensions.cs" />
     <Compile Include="Map\ObjectManager.cs" />
     <Compile Include="Net\CompressedDataPacket.cs" />
     <Compile Include="Net\ISession.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="Objects\UpdateFields.cs" />
     <Compile Include="Objects\UpdateFieldValue.cs" />
     <Compile Include="Objects\UpdateFlags.cs" />
+    <Compile Include="Objects\UpdateMask.cs" />
     <Compile Include="Objects\UpdateType.cs" />
     <Compile Include="Objects\WorldObject.cs" />
     <Compile Include="Objects\WorldObject.Update.cs" />

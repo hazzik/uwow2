@@ -39,10 +39,8 @@ namespace Hazzik.Objects {
 
 		public abstract byte TypeId { get; }
 
-		public virtual byte UpdateFlag {
-			get {
-				return 0;// (byte)(UpdateFlags.HighGuid | UpdateFlags.LowGuid); 
-			}
+		public virtual UpdateFlags UpdateFlag {
+			get { return UpdateFlags.HighGuid | UpdateFlags.LowGuid; }
 		}
 
 		#region GetValue
