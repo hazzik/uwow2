@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IEnumerableFacts.cs" />
+    <Compile Include="ObjectTypesFacts.cs" />
     <Compile Include="PlayerFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -15,6 +15,5 @@ namespace Hazzik.Objects {
 		Corpse = 0x80,
 		AIGroup = 0x100,
 		AreaTrigger = 0x200,
-		All = 0xFFFF,
 	}
 }

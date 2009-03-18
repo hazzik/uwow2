@@ -7,6 +7,8 @@ namespace Hazzik.Objects {
 		Player = 4,
 		GameObject = 5,
 		DynamicObject = 6,
-		Corpse = 7
+		Corpse = 7,
+		AIGroup = 8,
+		AreaTrigger = 9,
 	}
 }
