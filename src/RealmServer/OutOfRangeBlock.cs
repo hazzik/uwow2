@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Hazzik.Objects;
@@ -12,16 +13,19 @@ namespace Hazzik {
 
 		#region IUpdateBlock Members
 
+		public UpdateType UpdateType {
+			get { return UpdateType.OutOfRangeObjects; }
+		}
+
 		public void Write(BinaryWriter writer) {
-			writer.Write((byte)UpdateType.OutOfRangeObjects);
 			writer.Write(_guids.Count);
 			foreach(ulong guid in _guids) {
 				writer.WritePackGuid(guid);
 			}
 		}
 
-		public bool IsChanged {
-			get { return _guids.Count > 0; }
+		public bool IsEmpty {
+			get { return _guids.Count == 0; }
 		}
 
 		#endregion

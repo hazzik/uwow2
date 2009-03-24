@@ -22,6 +22,7 @@ namespace Hazzik.Objects {
 			var writer = result.CreateWriter();
 			writer.Write(updaters.Count);
 			foreach(var updater in updaters) {
+				writer.Write((byte)updater.UpdateType);
 				updater.Write(writer);
 			}
 			return result;

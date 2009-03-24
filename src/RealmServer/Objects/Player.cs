@@ -112,7 +112,7 @@ namespace Hazzik.Objects {
 		}
 
 		protected ICollection<IUpdateBlock> GetUpdateBuilders() {
-			return new[] { GetOutOfRange() }.Concat(_updateBuilders.Values).Where(x => x.IsChanged).ToList();
+			return new[] { GetOutOfRange() }.Concat(_updateBuilders.Values).Where(x => !x.IsEmpty).ToList();
 		}
 
 		private IUpdateBlock GetOutOfRange() {

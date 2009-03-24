@@ -8,10 +8,10 @@ namespace Hazzik {
 		private readonly WorldObject _obj;
 		private readonly BitArray _required;
 		private readonly Player _to;
+		private bool _changed;
 		private bool _isNew = true;
 		private BitArray _mask;
 		private uint[] _sendedValues;
-		private bool _changed;
 
 		public ObjectUpdater(Player to, WorldObject obj) {
 			_to = to;
@@ -22,17 +22,16 @@ namespace Hazzik {
 
 		#region IUpdateBlock Members
 
-		public bool IsChanged {
+		public bool IsEmpty {
 			get {
 				if(!_changed) {
 					_mask = BuildMask(out _changed);
 				}
-				return _changed;
+				return !_changed;
 			}
 		}
 
 		public void Write(BinaryWriter writer) {
-			writer.Write((byte)GetUpdateType());
 			writer.WritePackGuid(_obj.Guid);
 			if(_isNew) {
 				writer.Write((byte)_obj.TypeId);
@@ -61,6 +60,10 @@ namespace Hazzik {
 			_changed = false;
 		}
 
+		public UpdateType UpdateType {
+			get { return !_isNew ? UpdateType.Values : (_obj != _to ? UpdateType.CreateObject : UpdateType.CreateObject2); }
+		}
+
 		#endregion
 
 		private void WriteMask(BinaryWriter writer) {
@@ -69,10 +72,6 @@ namespace Hazzik {
 			_mask.CopyTo(buffer, 0);
 			writer.Write(length);
 			writer.Write(buffer);
-		}
-
-		private UpdateType GetUpdateType() {
-			return !_isNew ? UpdateType.Values : (_obj != _to ? UpdateType.CreateObject : UpdateType.CreateObject2);
 		}
 
 		private BitArray BuildMask(out bool changed) {
