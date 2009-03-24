@@ -25,7 +25,8 @@ namespace Hazzik {
 		}
 
 		private ICollection<IUpdateBlock> GetUpdateBlocks() {
-			return new[] { GetOutOfRange() }.Concat(_objectUpdaters.Values.Select(x=>x.CreateUpdateBlock())).Where(x => !x.IsEmpty).ToList();
+			var allBlocks = new[] { GetOutOfRange() }.Concat(_objectUpdaters.Values.Select(x=>x.CreateUpdateBlock()));
+			return allBlocks.Where(x => !x.IsEmpty).ToList();
 		}
 
 		private IUpdateBlock GetOutOfRange() {
