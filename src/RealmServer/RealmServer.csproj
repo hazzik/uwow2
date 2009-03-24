@@ -70,6 +70,8 @@
     <Compile Include="Attributes\PacketHandlerAttribute.cs" />
     <Compile Include="Attributes\PacketHandlerClassAttribute.cs" />
     <Compile Include="Attributes\WorldPacketHandler.cs" />
+    <Compile Include="CreateBlock.cs" />
+    <Compile Include="CreateUpdateBlockBase.cs" />
     <Compile Include="Cryptography\ARC4.cs" />
     <Compile Include="Cryptography\RC4.cs" />
     <Compile Include="Cryptography\WowCrypt.cs" />
@@ -146,6 +148,7 @@
     </Compile>
     <Compile Include="Account.cs" />
     <Compile Include="Timer2.cs" />
+    <Compile Include="UpdateBlock.cs" />
     <Compile Include="UpdateField.cs" />
     <Compile Include="UpdateManager.cs" />
     <Compile Include="UpdatePacketBuilder.cs" />

@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Hazzik.Map;
 using Hazzik.Objects;
@@ -58,93 +57,49 @@ namespace Hazzik {
 
 		#region Nested type: ObjectUpdater
 
-		public class ObjectUpdater : IUpdateBlock {
+		private class ObjectUpdater {
+			private readonly Player _player;
 			private readonly WorldObject _obj;
 			private readonly BitArray _required;
-			private readonly Player _to;
-			private bool _changed;
+			private readonly uint[] _sendedValues;
 			private bool _isNew = true;
-			private BitArray _mask;
-			private uint[] _sendedValues;
 
-			public ObjectUpdater(Player to, WorldObject obj) {
-				_to = to;
+			public ObjectUpdater(Player player, WorldObject obj) {
+				_player = player;
 				_obj = obj;
-				_required = to.GetRequeredMask(_obj);
+				_required = GetRequiredMask();
 				_sendedValues = new uint[_obj.MaxValues];
 			}
 
-			#region IUpdateBlock Members
-
-			public bool IsEmpty {
-				get {
-					if(!_changed) {
-						_mask = BuildMask(out _changed);
-					}
-					return !_changed;
-				}
-			}
-
-			public void Write(BinaryWriter writer) {
-				writer.WritePackGuid(_obj.Guid);
-				if(_isNew) {
-					writer.Write((byte)_obj.TypeId);
-					writer.Write((byte)(_obj != _to ? _obj.UpdateFlag : _obj.UpdateFlag | UpdateFlags.Self));
-					_obj.WriteCreateBlock(writer);
-					if(_obj.UpdateFlag.Has(UpdateFlags.HighGuid)) {
-						writer.Write((uint)0x00);
-					}
-					if(_obj.UpdateFlag.Has(UpdateFlags.LowGuid)) {
-						writer.Write((uint)0x00);
-					}
-					if(_obj.UpdateFlag.Has(UpdateFlags.TargetGuid)) {
-						writer.WritePackGuid(0x00);
-					}
-					if(_obj.UpdateFlag.Has(UpdateFlags.Transport)) {
-						writer.Write((uint)0x00);
-					}
-					_isNew = false;
-				}
-				WriteMask(writer);
-				for(int i = 0; i < _mask.Length; i++) {
-					if(_mask[i]) {
-						writer.Write(_sendedValues[i]);
-					}
-				}
-				_changed = false;
-			}
-
-			public UpdateType UpdateType {
-				get { return !_isNew ? UpdateType.Values : (_obj != _to ? UpdateType.CreateObject : UpdateType.CreateObject2); }
-			}
-
-			#endregion
-
-			private void WriteMask(BinaryWriter writer) {
-				var length = (byte)GetLengthInDwords(_mask.Length);
-				var buffer = new byte[length << 2];
-				_mask.CopyTo(buffer, 0);
-				writer.Write(length);
-				writer.Write(buffer);
-			}
-
-			private BitArray BuildMask(out bool changed) {
-				changed = false;
-				var values = new uint[_obj.MaxValues];
-				var mask = new BitArray(Math.Min(_required.Length, values.Length));
-				for(int i = 0; i < mask.Length; i++) {
-					changed |= mask[i] = _required[i] && _sendedValues[i] != (values[i] = _obj.GetValue(i));
-				}
-				_sendedValues = values;
+			private static BitArray GetRequiredMask() {
+				var mask = new BitArray((int)UpdateFields.PLAYER_END);
+				mask.SetAll(true);
 				return mask;
 			}
 
-			private static int GetLengthInDwords(int bitsCount) {
-				return (bitsCount >> 5) + (bitsCount % 32 != 0 ? 1 : 0);
+			public IUpdateBlock CreateUpdateBlock() {
+				var maskLength = Math.Min(_required.Length, _sendedValues.Length);
+				var mask = BuildMask(maskLength);
+				if(_isNew) {
+					_isNew = false;
+					return new CreateBlock(_obj.Guid == _player.Guid, _obj, mask, (uint[])_sendedValues.Clone());
+				}
+				return new UpdateBlock(_obj, mask, _sendedValues);
 			}
 
-			public IUpdateBlock CreateUpdateBlock() {
-				return this;
+			private BitArray BuildMask(int maskLength) {
+				var mask = new BitArray(maskLength);
+				for(int i = 0; i < mask.Length; i++) {
+					mask[i] = _required[i] && GetNewValue(i);
+				}
+				return mask;
+			}
+
+			private bool GetNewValue(int i) {
+				uint newValue = _obj.GetValue(i);
+				uint oldValue = _sendedValues[i];
+				_sendedValues[i] = newValue;
+				return oldValue != newValue;
 			}
 		}
 
