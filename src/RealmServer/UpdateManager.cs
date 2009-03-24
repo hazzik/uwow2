@@ -10,7 +10,7 @@ namespace Hazzik {
 	public class UpdateManager {
 		private readonly Player _player;
 		private readonly Timer2 _updateTimer;
-		private IDictionary<ulong, ObjectUpdater> _updateBuilders = new Dictionary<ulong, ObjectUpdater>();
+		private IDictionary<ulong, ObjectUpdater> _objectUpdaters = new Dictionary<ulong, ObjectUpdater>();
 
 		public UpdateManager(Player player) {
 			_player = player;
@@ -18,20 +18,20 @@ namespace Hazzik {
 		}
 
 		public void UpdateObjects() {
-			var updateBuilders = GetUpdateBuilders();
-			if(updateBuilders.Count != 0) {
-				_player.Client.Send(new UpdatePacketBuilder(updateBuilders).Build());
+			var updateBlocks = GetUpdateBlocks();
+			if(updateBlocks.Count != 0) {
+				_player.Client.Send(new UpdatePacketBuilder(updateBlocks).Build());
 			}
 		}
 
-		protected ICollection<IUpdateBlock> GetUpdateBuilders() {
-			return new[] { GetOutOfRange() }.Concat(_updateBuilders.Values.Select(x=>x.CreateUpdateBlock())).Where(x => !x.IsEmpty).ToList();
+		private ICollection<IUpdateBlock> GetUpdateBlocks() {
+			return new[] { GetOutOfRange() }.Concat(_objectUpdaters.Values.Select(x=>x.CreateUpdateBlock())).Where(x => !x.IsEmpty).ToList();
 		}
 
 		private IUpdateBlock GetOutOfRange() {
 			var updateBuilders = GetObjectsForUpdate().ToDictionary(x => x.Guid, x => GetUpdater(x));
-			var outOfRange = _updateBuilders.Keys.Except(updateBuilders.Keys).ToList();
-			_updateBuilders = updateBuilders;
+			var outOfRange = _objectUpdaters.Keys.Except(updateBuilders.Keys).ToList();
+			_objectUpdaters = updateBuilders;
 			return new OutOfRangeBlock(outOfRange);
 		}
 
@@ -43,8 +43,10 @@ namespace Hazzik {
 
 		private ObjectUpdater GetUpdater(WorldObject obj) {
 			ObjectUpdater result;
-			if(!_updateBuilders.TryGetValue(obj.Guid, out result)) {
-				return _updateBuilders[obj.Guid] = new ObjectUpdater(_player, obj);
+			if(!_objectUpdaters.TryGetValue(obj.Guid, out result)) {
+				var updater = new ObjectUpdater(_player, obj);
+				_objectUpdaters[obj.Guid] = updater;
+				return updater;
 			}
 			return result;
 		}
