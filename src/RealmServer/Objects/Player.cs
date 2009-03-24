@@ -34,7 +34,7 @@ namespace Hazzik.Objects {
 			}
 		}
 
-		public WorldClient Client { get; protected internal set; }
+		public ISession Client { get; protected internal set; }
 
 		private void InitFake() {
 			MapId = 530;
