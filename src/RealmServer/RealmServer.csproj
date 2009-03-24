@@ -70,8 +70,8 @@
     <Compile Include="Attributes\PacketHandlerAttribute.cs" />
     <Compile Include="Attributes\PacketHandlerClassAttribute.cs" />
     <Compile Include="Attributes\WorldPacketHandler.cs" />
-    <Compile Include="Objects\Update\CreateBlock.cs" />
-    <Compile Include="Objects\Update\CreateUpdateBlockBase.cs" />
+    <Compile Include="Objects\Update\Blocks\CreateBlock.cs" />
+    <Compile Include="Objects\Update\Blocks\CreateUpdateBlockBase.cs" />
     <Compile Include="Cryptography\ARC4.cs" />
     <Compile Include="Cryptography\RC4.cs" />
     <Compile Include="Cryptography\WowCrypt.cs" />
@@ -140,7 +140,7 @@
     <Compile Include="Objects\UpdateType.cs" />
     <Compile Include="Objects\WorldObject.cs" />
     <Compile Include="Objects\WorldObject.Update.cs" />
-    <Compile Include="Objects\Update\OutOfRangeBlock.cs" />
+    <Compile Include="Objects\Update\Blocks\OutOfRangeBlock.cs" />
     <Compile Include="PacketHandler.cs" />
     <Compile Include="PacketHandlers\MoveHandlers.cs" />
     <Compile Include="PacketHandlers\WorldServerHandlers.cs">
@@ -148,7 +148,7 @@
     </Compile>
     <Compile Include="Account.cs" />
     <Compile Include="Timer2.cs" />
-    <Compile Include="Objects\Update\UpdateBlock.cs" />
+    <Compile Include="Objects\Update\Blocks\UpdateBlock.cs" />
     <Compile Include="Objects\Update\UpdateManager.cs" />
     <Compile Include="Objects\Update\UpdatePacketBuilder.cs" />
     <Compile Include="WMSG.cs" />

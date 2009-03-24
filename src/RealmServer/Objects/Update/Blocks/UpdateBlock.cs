@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.IO;
 
-namespace Hazzik.Objects.Update {
+namespace Hazzik.Objects.Update.Blocks {
 	public class UpdateBlock : CreateUpdateBlockBase {
 		public UpdateBlock(WorldObject obj, BitArray mask, uint[] values) : base(obj, mask, values) {
 			_isEmpty = CheckMask();

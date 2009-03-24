@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.IO;
 
-namespace Hazzik.Objects.Update {
+namespace Hazzik.Objects.Update.Blocks {
 	public abstract class CreateUpdateBlockBase : IUpdateBlock {
 		protected bool _isEmpty;
 		protected BitArray _mask;

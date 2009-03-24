@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Hazzik.Objects.Update {
+namespace Hazzik.Objects.Update.Blocks {
 	public class OutOfRangeBlock : IUpdateBlock {
 		private readonly ICollection<ulong> _guids;
 

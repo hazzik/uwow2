@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Hazzik.Map;
+using Hazzik.Objects.Update.Blocks;
 
 namespace Hazzik.Objects.Update {
 	public class UpdateManager {
