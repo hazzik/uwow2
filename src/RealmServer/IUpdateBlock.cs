@@ -1,8 +1,7 @@
-using System;
 using System.IO;
 
-namespace Hazzik.Objects {
-	public interface IUpdateBuilder {
+namespace Hazzik {
+	public interface IUpdateBlock {
 		bool IsChanged { get; }
 		void Write(BinaryWriter writer);
 	}

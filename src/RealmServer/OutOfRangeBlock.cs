@@ -1,16 +1,16 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
+using Hazzik.Objects;
 
-namespace Hazzik.Objects {
-	public class OutOfRangeUpdater : IUpdateBuilder {
+namespace Hazzik {
+	public class OutOfRangeBlock : IUpdateBlock {
 		private readonly ICollection<ulong> _guids;
 
-		public OutOfRangeUpdater(ICollection<ulong> guids) {
+		public OutOfRangeBlock(ICollection<ulong> guids) {
 			_guids = guids;
 		}
 
-		#region IUpdateBuilder Members
+		#region IUpdateBlock Members
 
 		public void Write(BinaryWriter writer) {
 			writer.Write((byte)UpdateType.OutOfRangeObjects);

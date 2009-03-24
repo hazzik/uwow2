@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Hazzik;
 using Hazzik.Map;
 using Hazzik.Objects;
 using Xunit;
@@ -7,7 +8,7 @@ using Xunit;
 namespace Tests {
 	public class PlayerFacts {
 		private class TestPlayer:Player {
-			public new ICollection<IUpdateBuilder> GetUpdateBuilders() {
+			public new ICollection<IUpdateBlock> GetUpdateBuilders() {
 				return base.GetUpdateBuilders();
 			}
 		}

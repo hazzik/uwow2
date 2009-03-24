@@ -7,7 +7,7 @@ using Hazzik.Net;
 
 namespace Hazzik.Objects {
 	public partial class Player : Unit {
-		private IDictionary<ulong, IUpdateBuilder> _updateBuilders = new Dictionary<ulong, IUpdateBuilder>();
+		private IDictionary<ulong, IUpdateBlock> _updateBuilders = new Dictionary<ulong, IUpdateBlock>();
 		private readonly Timer2 _updateTimer;
 		public bool Dead;
 		public Item[] Items = new Item[20];
@@ -111,15 +111,15 @@ namespace Hazzik.Objects {
 			}
 		}
 
-		protected ICollection<IUpdateBuilder> GetUpdateBuilders() {
+		protected ICollection<IUpdateBlock> GetUpdateBuilders() {
 			return new[] { GetOutOfRange() }.Concat(_updateBuilders.Values).Where(x => x.IsChanged).ToList();
 		}
 
-		private IUpdateBuilder GetOutOfRange() {
+		private IUpdateBlock GetOutOfRange() {
 			var updateBuilders = GetObjectsForUpdate().ToDictionary(x => x.Guid, x => GetUpdater(x));
 			var outOfRange = _updateBuilders.Keys.Except(updateBuilders.Keys).ToList();
 			_updateBuilders = updateBuilders;
-			return new OutOfRangeUpdater(outOfRange);
+			return new OutOfRangeBlock(outOfRange);
 		}
 
 		private IEnumerable<WorldObject> GetObjectsForUpdate() {
@@ -128,8 +128,8 @@ namespace Hazzik.Objects {
 			return items.Concat(seenObjects);
 		}
 
-		private IUpdateBuilder GetUpdater(WorldObject obj) {
-			IUpdateBuilder result;
+		private IUpdateBlock GetUpdater(WorldObject obj) {
+			IUpdateBlock result;
 			if(!_updateBuilders.TryGetValue(obj.Guid,out result)) {
 				return _updateBuilders[obj.Guid] = new ObjectUpdater(this, obj);	
 			}

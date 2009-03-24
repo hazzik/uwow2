@@ -17,7 +17,7 @@ namespace Hazzik.Objects {
 			return result;
 		}
 
-		private static IPacket GetUpdateObjectPkt(ICollection<IUpdateBuilder> updaters) {
+		private static IPacket GetUpdateObjectPkt(ICollection<IUpdateBlock> updaters) {
 			var result = new WorldPacket(WMSG.SMSG_UPDATE_OBJECT);
 			var writer = result.CreateWriter();
 			writer.Write(updaters.Count);

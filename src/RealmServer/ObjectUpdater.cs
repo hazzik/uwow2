@@ -4,7 +4,7 @@ using System.IO;
 using Hazzik.Objects;
 
 namespace Hazzik {
-	public class ObjectUpdater : IUpdateBuilder {
+	public class ObjectUpdater : IUpdateBlock {
 		private readonly WorldObject _obj;
 		private readonly BitArray _required;
 		private readonly Player _to;
@@ -20,7 +20,7 @@ namespace Hazzik {
 			_sendedValues = new uint[_obj.MaxValues];
 		}
 
-		#region IUpdateBuilder Members
+		#region IUpdateBlock Members
 
 		public bool IsChanged {
 			get {

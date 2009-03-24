@@ -81,6 +81,7 @@
     <Compile Include="Data\Xml\XmlPlayerRepository.cs" />
     <Compile Include="Data\Xml\XmlAccountRepository.cs" />
     <Compile Include="EnumExtensions.cs" />
+    <Compile Include="IUpdateBlock.cs" />
     <Compile Include="Map\ObjectManager.cs" />
     <Compile Include="Net\CompressedDataPacket.cs" />
     <Compile Include="Net\ISession.cs" />
@@ -107,14 +108,12 @@
     <Compile Include="Objects\GenderType.cs" />
     <Compile Include="Objects\Item.cs" />
     <Compile Include="Objects\Item.Update.cs" />
-    <Compile Include="Objects\IUpdateBuilder.cs" />
     <Compile Include="Objects\LogoutResponses.cs" />
     <Compile Include="Objects\MovementFlags.cs" />
     <Compile Include="Objects\MovementInfo.cs" />
     <Compile Include="Objects\ObjectGuid.cs" />
     <Compile Include="Objects\ObjectTypeId.cs" />
     <Compile Include="Objects\ObjectTypes.cs" />
-    <Compile Include="Objects\OutOfRangeUpdater.cs" />
     <Compile Include="Objects\PetState.cs" />
     <Compile Include="Objects\Player.cs" />
     <Compile Include="Objects\Player.Overrides.cs" />
@@ -140,6 +139,7 @@
     <Compile Include="Objects\WorldObject.cs" />
     <Compile Include="Objects\WorldObject.Update.cs" />
     <Compile Include="ObjectUpdater.cs" />
+    <Compile Include="OutOfRangeBlock.cs" />
     <Compile Include="PacketHandler.cs" />
     <Compile Include="PacketHandlers\MoveHandlers.cs" />
     <Compile Include="PacketHandlers\WorldServerHandlers.cs">
