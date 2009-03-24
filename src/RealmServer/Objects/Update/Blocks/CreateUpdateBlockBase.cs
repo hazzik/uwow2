@@ -3,7 +3,7 @@ using System.Collections;
 using System.IO;
 
 namespace Hazzik.Objects.Update.Blocks {
-	public abstract class CreateUpdateBlockBase : IUpdateBlock {
+	internal abstract class CreateUpdateBlockBase : IUpdateBlock {
 		protected bool _isEmpty;
 		protected BitArray _mask;
 		protected WorldObject _obj;

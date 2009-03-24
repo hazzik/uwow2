@@ -138,6 +138,7 @@
     <Compile Include="Objects\UpdateFlags.cs" />
     <Compile Include="Objects\UpdateMask.cs" />
     <Compile Include="Objects\UpdateType.cs" />
+    <Compile Include="Objects\Update\UpdateBlockBuilder.cs" />
     <Compile Include="Objects\WorldObject.cs" />
     <Compile Include="Objects\WorldObject.Update.cs" />
     <Compile Include="Objects\Update\Blocks\OutOfRangeBlock.cs" />

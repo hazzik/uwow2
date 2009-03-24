@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Hazzik.Map;
@@ -9,7 +7,7 @@ namespace Hazzik.Objects.Update {
 	public class UpdateManager {
 		private readonly Player _player;
 		private readonly Timer2 _updateTimer;
-		private IDictionary<ulong, ObjectUpdater> _objectUpdaters = new Dictionary<ulong, ObjectUpdater>();
+		private IDictionary<ulong, UpdateBlockBuilder> _updateBlockBuilders = new Dictionary<ulong, UpdateBlockBuilder>();
 
 		public UpdateManager(Player player) {
 			_player = player;
@@ -24,14 +22,14 @@ namespace Hazzik.Objects.Update {
 		}
 
 		private ICollection<IUpdateBlock> GetUpdateBlocks() {
-			var allBlocks = new[] { GetOutOfRange() }.Concat(_objectUpdaters.Values.Select(x=>x.CreateUpdateBlock()));
+			var allBlocks = new[] { GetOutOfRange() }.Concat(_updateBlockBuilders.Values.Select(x=>x.CreateUpdateBlock()));
 			return allBlocks.Where(x => !x.IsEmpty).ToList();
 		}
 
 		private IUpdateBlock GetOutOfRange() {
-			var updateBuilders = GetObjectsForUpdate().ToDictionary(x => x.Guid, x => GetUpdater(x));
-			var outOfRange = _objectUpdaters.Keys.Except(updateBuilders.Keys).ToList();
-			_objectUpdaters = updateBuilders;
+			var updateBuilders = GetObjectsForUpdate().ToDictionary(x => x.Guid, x => GetBuilder(x));
+			var outOfRange = _updateBlockBuilders.Keys.Except(updateBuilders.Keys).ToList();
+			_updateBlockBuilders = updateBuilders;
 			return new OutOfRangeBlock(outOfRange);
 		}
 
@@ -41,11 +39,11 @@ namespace Hazzik.Objects.Update {
 			return items.Concat(seenObjects);
 		}
 
-		private ObjectUpdater GetUpdater(WorldObject obj) {
-			ObjectUpdater result;
-			if(!_objectUpdaters.TryGetValue(obj.Guid, out result)) {
-				var updater = new ObjectUpdater(_player, obj);
-				_objectUpdaters[obj.Guid] = updater;
+		private UpdateBlockBuilder GetBuilder(WorldObject obj) {
+			UpdateBlockBuilder result;
+			if(!_updateBlockBuilders.TryGetValue(obj.Guid, out result)) {
+				var updater = new UpdateBlockBuilder(_player, obj);
+				_updateBlockBuilders[obj.Guid] = updater;
 				return updater;
 			}
 			return result;
@@ -54,56 +52,6 @@ namespace Hazzik.Objects.Update {
 		public void StartUpdateTimer() {
 			_updateTimer.Start();
 		}
-
-		#region Nested type: ObjectUpdater
-
-		private class ObjectUpdater {
-			private readonly Player _player;
-			private readonly WorldObject _obj;
-			private readonly BitArray _required;
-			private readonly uint[] _sendedValues;
-			private bool _isNew = true;
-
-			public ObjectUpdater(Player player, WorldObject obj) {
-				_player = player;
-				_obj = obj;
-				_required = GetRequiredMask();
-				_sendedValues = new uint[_obj.MaxValues];
-			}
-
-			private static BitArray GetRequiredMask() {
-				var mask = new BitArray((int)UpdateFields.PLAYER_END);
-				mask.SetAll(true);
-				return mask;
-			}
-
-			public IUpdateBlock CreateUpdateBlock() {
-				var maskLength = Math.Min(_required.Length, _sendedValues.Length);
-				var mask = BuildMask(maskLength);
-				if(_isNew) {
-					_isNew = false;
-					return new CreateBlock(_obj.Guid == _player.Guid, _obj, mask, (uint[])_sendedValues.Clone());
-				}
-				return new UpdateBlock(_obj, mask, _sendedValues);
-			}
-
-			private BitArray BuildMask(int maskLength) {
-				var mask = new BitArray(maskLength);
-				for(int i = 0; i < mask.Length; i++) {
-					mask[i] = _required[i] && GetNewValue(i);
-				}
-				return mask;
-			}
-
-			private bool GetNewValue(int i) {
-				uint newValue = _obj.GetValue(i);
-				uint oldValue = _sendedValues[i];
-				_sendedValues[i] = newValue;
-				return oldValue != newValue;
-			}
-		}
-
-		#endregion
 
 		#region Nested type: UpdateTimer
 
