@@ -81,11 +81,12 @@ namespace Hazzik {
 
 			client.Send(GetLoginSetTimeSpeedPkt());
 
-			player.UpdateObjects();
+			var manager = new UpdateManager(player);
+			manager.UpdateObjects();
 
 			client.Send(GetTimeSyncReqPkt());
 
-			player.StartUpdateTimer();
+			manager.StartUpdateTimer();
 		}
 
 		private static IPacket GetTimeSyncReqPkt() {

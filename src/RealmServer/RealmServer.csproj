@@ -148,6 +148,7 @@
     <Compile Include="Account.cs" />
     <Compile Include="Timer2.cs" />
     <Compile Include="UpdateField.cs" />
+    <Compile Include="UpdateManager.cs" />
     <Compile Include="UpdatePacketBuilder.cs" />
     <Compile Include="WMSG.cs" />
     <Compile Include="Program.cs" />

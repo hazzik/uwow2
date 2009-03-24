@@ -1,14 +1,9 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Hazzik.Map;
 using Hazzik.Net;
 
 namespace Hazzik.Objects {
 	public partial class Player : Unit {
-		private IDictionary<ulong, IUpdateBlock> _updateBuilders = new Dictionary<ulong, IUpdateBlock>();
-		private readonly Timer2 _updateTimer;
 		public bool Dead;
 		public Item[] Items = new Item[20];
 		public int PetCreatureFamily;
@@ -17,8 +12,6 @@ namespace Hazzik.Objects {
 
 		public Player()
 			: base((int)UpdateFields.PLAYER_END) {
-			_updateTimer = new UpdateTimer(this);
-
 			Type |= ObjectTypes.Player;
 
 			InitFake();
@@ -103,62 +96,5 @@ namespace Hazzik.Objects {
 			mask.SetAll(true);
 			return mask;
 		}
-
-		public void UpdateObjects() {
-			var updateBuilders = GetUpdateBuilders();
-			if(updateBuilders.Count != 0) {
-				Client.Send(new UpdatePacketBuilder(updateBuilders).Build());
-			}
-		}
-
-		protected ICollection<IUpdateBlock> GetUpdateBuilders() {
-			return new[] { GetOutOfRange() }.Concat(_updateBuilders.Values).Where(x => !x.IsEmpty).ToList();
-		}
-
-		private IUpdateBlock GetOutOfRange() {
-			var updateBuilders = GetObjectsForUpdate().ToDictionary(x => x.Guid, x => GetUpdater(x));
-			var outOfRange = _updateBuilders.Keys.Except(updateBuilders.Keys).ToList();
-			_updateBuilders = updateBuilders;
-			return new OutOfRangeBlock(outOfRange);
-		}
-
-		private IEnumerable<WorldObject> GetObjectsForUpdate() {
-			var items = Items.Where(x => x != null).Cast<WorldObject>();
-			var seenObjects = ObjectManager.GetSeenObjectsNear(this).Cast<WorldObject>();
-			return items.Concat(seenObjects);
-		}
-
-		private IUpdateBlock GetUpdater(WorldObject obj) {
-			IUpdateBlock result;
-			if(!_updateBuilders.TryGetValue(obj.Guid,out result)) {
-				return _updateBuilders[obj.Guid] = new ObjectUpdater(this, obj);	
-			}
-			return result;
-		}
-
-		public void StartUpdateTimer() {
-			_updateTimer.Start();
-		}
-
-		#region Nested type: UpdateTimer
-
-		private class UpdateTimer : Timer2 {
-			private readonly Player _player;
-
-			public UpdateTimer(Player player)
-				: base(3000) {
-				_player = player;
-			}
-
-			public override void OnTick() {
-				if(_player == null) {
-					Stop();
-					return;
-				}
-				_player.UpdateObjects();
-			}
-		}
-
-		#endregion
 	}
 }
