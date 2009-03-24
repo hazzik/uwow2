@@ -138,7 +138,6 @@
     <Compile Include="Objects\UpdateType.cs" />
     <Compile Include="Objects\WorldObject.cs" />
     <Compile Include="Objects\WorldObject.Update.cs" />
-    <Compile Include="ObjectUpdater.cs" />
     <Compile Include="OutOfRangeBlock.cs" />
     <Compile Include="PacketHandler.cs" />
     <Compile Include="PacketHandlers\MoveHandlers.cs" />
