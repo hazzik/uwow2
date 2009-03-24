@@ -1,9 +1,8 @@
 using System;
 using System.Collections;
 using System.IO;
-using Hazzik.Objects;
 
-namespace Hazzik {
+namespace Hazzik.Objects.Update {
 	public abstract class CreateUpdateBlockBase : IUpdateBlock {
 		protected bool _isEmpty;
 		protected BitArray _mask;

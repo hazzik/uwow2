@@ -70,8 +70,8 @@
     <Compile Include="Attributes\PacketHandlerAttribute.cs" />
     <Compile Include="Attributes\PacketHandlerClassAttribute.cs" />
     <Compile Include="Attributes\WorldPacketHandler.cs" />
-    <Compile Include="CreateBlock.cs" />
-    <Compile Include="CreateUpdateBlockBase.cs" />
+    <Compile Include="Objects\Update\CreateBlock.cs" />
+    <Compile Include="Objects\Update\CreateUpdateBlockBase.cs" />
     <Compile Include="Cryptography\ARC4.cs" />
     <Compile Include="Cryptography\RC4.cs" />
     <Compile Include="Cryptography\WowCrypt.cs" />
@@ -83,7 +83,7 @@
     <Compile Include="Data\Xml\XmlPlayerRepository.cs" />
     <Compile Include="Data\Xml\XmlAccountRepository.cs" />
     <Compile Include="EnumExtensions.cs" />
-    <Compile Include="IUpdateBlock.cs" />
+    <Compile Include="Objects\Update\IUpdateBlock.cs" />
     <Compile Include="Map\ObjectManager.cs" />
     <Compile Include="Net\CompressedDataPacket.cs" />
     <Compile Include="Net\ISession.cs" />
@@ -140,7 +140,7 @@
     <Compile Include="Objects\UpdateType.cs" />
     <Compile Include="Objects\WorldObject.cs" />
     <Compile Include="Objects\WorldObject.Update.cs" />
-    <Compile Include="OutOfRangeBlock.cs" />
+    <Compile Include="Objects\Update\OutOfRangeBlock.cs" />
     <Compile Include="PacketHandler.cs" />
     <Compile Include="PacketHandlers\MoveHandlers.cs" />
     <Compile Include="PacketHandlers\WorldServerHandlers.cs">
@@ -148,10 +148,9 @@
     </Compile>
     <Compile Include="Account.cs" />
     <Compile Include="Timer2.cs" />
-    <Compile Include="UpdateBlock.cs" />
-    <Compile Include="UpdateField.cs" />
-    <Compile Include="UpdateManager.cs" />
-    <Compile Include="UpdatePacketBuilder.cs" />
+    <Compile Include="Objects\Update\UpdateBlock.cs" />
+    <Compile Include="Objects\Update\UpdateManager.cs" />
+    <Compile Include="Objects\Update\UpdatePacketBuilder.cs" />
     <Compile Include="WMSG.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

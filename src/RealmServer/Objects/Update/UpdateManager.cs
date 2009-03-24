@@ -3,9 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Hazzik.Map;
-using Hazzik.Objects;
 
-namespace Hazzik {
+namespace Hazzik.Objects.Update {
 	public class UpdateManager {
 		private readonly Player _player;
 		private readonly Timer2 _updateTimer;

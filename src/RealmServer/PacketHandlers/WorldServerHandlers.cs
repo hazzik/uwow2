@@ -4,6 +4,7 @@ using Hazzik.Attributes;
 using Hazzik.Map;
 using Hazzik.Net;
 using Hazzik.Objects;
+using Hazzik.Objects.Update;
 
 namespace Hazzik {
 	[PacketHandlerClass]

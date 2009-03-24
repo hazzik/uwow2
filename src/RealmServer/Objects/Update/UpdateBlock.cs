@@ -1,9 +1,8 @@
 using System;
 using System.Collections;
 using System.IO;
-using Hazzik.Objects;
 
-namespace Hazzik {
+namespace Hazzik.Objects.Update {
 	public class UpdateBlock : CreateUpdateBlockBase {
 		public UpdateBlock(WorldObject obj, BitArray mask, uint[] values) : base(obj, mask, values) {
 			_isEmpty = CheckMask();

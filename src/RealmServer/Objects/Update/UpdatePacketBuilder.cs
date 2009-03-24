@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
 using Hazzik.Net;
 
-namespace Hazzik {
+namespace Hazzik.Objects.Update {
 	public class UpdatePacketBuilder {
 		private readonly ICollection<IUpdateBlock> _updateBlocks;
 

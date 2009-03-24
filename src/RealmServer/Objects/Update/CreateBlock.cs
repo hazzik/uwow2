@@ -1,9 +1,8 @@
 using System;
 using System.Collections;
 using System.IO;
-using Hazzik.Objects;
 
-namespace Hazzik {
+namespace Hazzik.Objects.Update {
 	public class CreateBlock : CreateUpdateBlockBase {
 		protected bool _self;
 

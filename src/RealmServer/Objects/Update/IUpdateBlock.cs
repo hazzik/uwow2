@@ -1,8 +1,7 @@
 using System;
 using System.IO;
-using Hazzik.Objects;
 
-namespace Hazzik {
+namespace Hazzik.Objects.Update {
 	public interface IUpdateBlock {
 		bool IsEmpty { get; }
 		UpdateType UpdateType { get; }
