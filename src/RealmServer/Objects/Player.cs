@@ -107,7 +107,7 @@ namespace Hazzik.Objects {
 		public void UpdateObjects() {
 			var updateBuilders = GetUpdateBuilders();
 			if(updateBuilders.Count != 0) {
-				Client.Send(GetUpdateObjectPkt(updateBuilders));
+				Client.Send(new UpdatePacketBuilder(updateBuilders).Build());
 			}
 		}
 

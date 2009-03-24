@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using Hazzik.Helper;
 using Hazzik.Net;
@@ -14,17 +13,6 @@ namespace Hazzik.Objects {
 			writer.Write(PosY);
 			writer.Write(PosZ);
 			writer.Write(Facing);
-			return result;
-		}
-
-		private static IPacket GetUpdateObjectPkt(ICollection<IUpdateBlock> updaters) {
-			var result = new WorldPacket(WMSG.SMSG_UPDATE_OBJECT);
-			var writer = result.CreateWriter();
-			writer.Write(updaters.Count);
-			foreach(var updater in updaters) {
-				writer.Write((byte)updater.UpdateType);
-				updater.Write(writer);
-			}
 			return result;
 		}
 
