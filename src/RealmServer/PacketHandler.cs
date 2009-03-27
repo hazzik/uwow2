@@ -8,8 +8,9 @@ namespace Hazzik {
 	public class PacketHandler<C, H>
 		where C : PacketHandlerClassAttribute
 		where H : PacketHandlerAttribute {
+		private delegate void PacketHandlerDelegate(ISession client, IPacket packet);
 		private readonly IList<Assembly> _assemblies = new List<Assembly>();
-		private readonly IDictionary<int, MethodInfo> _handlers = new Dictionary<int, MethodInfo>();
+		private readonly IDictionary<int, PacketHandlerDelegate> _handlers = new Dictionary<int, PacketHandlerDelegate>();
 
 		public void AddAssembly(Assembly assembly) {
 			_assemblies.Add(assembly);
@@ -36,7 +37,7 @@ namespace Hazzik {
 		}
 
 		private void RegisterPacketHandler(int msg, MethodInfo method) {
-			_handlers[msg] = method;
+			_handlers[msg] = (PacketHandlerDelegate)Delegate.CreateDelegate(typeof(PacketHandlerDelegate), method);
 		}
 
 		public void Unload() {
@@ -64,9 +65,9 @@ namespace Hazzik {
 		}
 
 		public void Handle(ISession client, IPacket packet) {
-			MethodInfo method;
-			if(_handlers.TryGetValue(packet.Code, out method)) {
-				method.Invoke(null, new object[] { client, packet });
+			PacketHandlerDelegate handler;
+			if(_handlers.TryGetValue(packet.Code, out handler)) {
+				handler(client, packet);
 			}
 		}
 	}

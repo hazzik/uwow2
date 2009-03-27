@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using Hazzik.Net;
 using Hazzik.Objects.Templates;
-using Hazzik.PacketHandlers;
 
 namespace Hazzik.Objects {
 	public partial class Player : Unit, IContainer {

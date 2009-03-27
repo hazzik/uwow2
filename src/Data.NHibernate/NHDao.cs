@@ -5,11 +5,7 @@ using NHibernate.Cfg;
 namespace Hazzik.Data.NH {
 	public abstract class NHDao<T> : IDao<T> {
 		private static readonly ISessionFactory _factory = GetFactory();
-		private readonly ISession _session;
-
-		protected NHDao() {
-			_session = _factory.OpenSession();
-		}
+		private static readonly ISession _session = _factory.OpenSession();
 
 		#region IDao<T> Members
 
@@ -18,7 +14,7 @@ namespace Hazzik.Data.NH {
 		}
 
 		public void Save(T entity) {
-			_session.Save(entity);
+			_session.SaveOrUpdate(entity);
 		}
 
 		public void SubmitChanges() {

@@ -3,15 +3,11 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using Hazzik.Cryptography;
-using Hazzik.Data;
-using Hazzik.Data.NH;
 using Hazzik.Helper;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 
 namespace Hazzik.Net {
 	public class WorldPacketProcessor : IPacketProcessor {
-		private static readonly IAccountRepository _repository = new NHAccountRepository();
-
 		private readonly WorldClient _client;
 		public readonly uint _seed = (uint)(new Random().Next(0, Int32.MaxValue));
 
@@ -56,7 +52,7 @@ namespace Hazzik.Net {
 			uint clientSeed = r.ReadUInt32();
 			byte[] clientDigest = r.ReadBytes(20);
 
-			_client.Account = _repository.FindByName(accountName);
+			_client.Account = Repositories.Account.FindByName(accountName);
 
 			_client.SetSymmetricAlgorithm(new WowCrypt(_client.Account.SessionKey));
 

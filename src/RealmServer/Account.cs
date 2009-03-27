@@ -7,10 +7,11 @@ using Hazzik.Objects;
 namespace Hazzik {
 	[System.Xml.Serialization.XmlType("account")]
 	public class Account {
-		protected readonly IList<Player> _players = new List<Player>();
+		private IList<Player> _players = new List<Player>();
 
-		public Player[] Players {
-			get { return _players.ToArray(); }
+		public IList<Player> Players {
+			get { return _players; }
+			private set { _players = value; }
 		}
 
 		public virtual int Id { get; set; }
@@ -39,7 +40,7 @@ namespace Hazzik {
 		public IPacket GetCharEnumPkt() {
 			var p = new WorldPacket(WMSG.SMSG_CHAR_ENUM);
 			var w = p.CreateWriter();
-			w.Write((byte)Players.Count());
+			w.Write((byte)Players.Count);
 			foreach(var player in Players) {
 				w.Write(player.Guid);
 				w.WriteCString(player.Name);

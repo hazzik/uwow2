@@ -4,9 +4,19 @@
 		<id name="Id" column="AccountId" type="int">
 			<generator class="native" />
 		</id>
-		<property name="Name" column="Name" type="string" />
+		<property name="Name" column="Name" type="string" not-null="true" unique="true" length="255"/>
 		<property name="PasswordSalt" column="PasswordSalt" type="System.Byte[]" />
 		<property name="PasswordVerifier" column="PasswordVerifier"	type="System.Byte[]" />
 		<property name="SessionKey" column="SessionKey"	type="System.Byte[]" />
+		<bag name="Players" lazy="false" cascade="all-delete-orphan">
+			<key column="AccountId" />
+			<one-to-many class="Hazzik.Objects.Player, Hazzik.RealmServer"/>
+		</bag>
+	</class>
+	<class name="Hazzik.Objects.Player, Hazzik.RealmServer" table="Players" lazy="false">
+		<id name="Guid" column="PlayerId" type="System.UInt64" unsaved-value="any">
+			<generator class="native" />
+		</id>
+		<property name="Name" column="Name" type="string" not-null="true" unique="true" length="255" />
 	</class>
 </hibernate-mapping>
