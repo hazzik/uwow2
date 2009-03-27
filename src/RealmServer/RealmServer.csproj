@@ -70,7 +70,7 @@
     <Compile Include="Attributes\PacketHandlerAttribute.cs" />
     <Compile Include="Attributes\PacketHandlerClassAttribute.cs" />
     <Compile Include="Attributes\WorldPacketHandler.cs" />
-    <Compile Include="ItemTemplateRepository.cs" />
+    <Compile Include="Repositories\ItemTemplateRepository.cs" />
     <Compile Include="Objects\IContainer.cs" />
     <Compile Include="Objects\IInventory.cs" />
     <Compile Include="Objects\Inventory.cs" />

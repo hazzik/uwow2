@@ -1,7 +1,7 @@
 using Hazzik.Objects;
 using Hazzik.Objects.Templates;
 
-namespace Hazzik {
+namespace Hazzik.Repositories {
 	public class ItemTemplateRepository {
 		public static ItemTemplate FindById(uint id) {
 			switch(id) {
