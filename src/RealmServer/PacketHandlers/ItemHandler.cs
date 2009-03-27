@@ -7,6 +7,8 @@ using Hazzik.Repositories;
 namespace Hazzik.PacketHandlers {
 	[PacketHandlerClass]
 	public class ItemHandler {
+		private static readonly ItemFactory _itemFactory = new ItemFactory();
+
 		[WorldPacketHandler(WMSG.CMSG_ITEM_QUERY_SINGLE)]
 		public static void HandleItemQuerySingle(ISession client, IPacket packet) {
 			var r = packet.CreateReader();
@@ -94,9 +96,11 @@ namespace Hazzik.PacketHandlers {
 			var srcItem = inventorySrc[srcSlot];
 			var dstItem = inventoryDst[dstSlot];
 			if(dstItem == null) {
-				var factory = new ItemFactory();
-				dstItem = factory.Create(srcItem.Template, amount);
+				dstItem = _itemFactory.Create(srcItem.Template, amount);
 				inventoryDst[dstSlot] = dstItem;
+			}
+			else {
+				dstItem.StackCount += amount;
 			}
 			srcItem.StackCount -= amount;
 		}
