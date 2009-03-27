@@ -34,10 +34,10 @@ namespace Hazzik.PacketHandlers {
 		[WorldPacketHandler(WMSG.CMSG_SWAP_ITEM)]
 		public static void HandleSwapItem(ISession client, IPacket packet) {
 			var reader = packet.CreateReader();
-			var dstBag = reader.ReadByte();
-			var dstSlot = reader.ReadByte();
 			var srcBag = reader.ReadByte();
 			var srcSlot = reader.ReadByte();
+			var dstBag = reader.ReadByte();
+			var dstSlot = reader.ReadByte();
 
 			var player = client.Player;
 			
