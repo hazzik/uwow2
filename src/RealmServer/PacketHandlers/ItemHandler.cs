@@ -34,10 +34,10 @@ namespace Hazzik.PacketHandlers {
 		[WorldPacketHandler(WMSG.CMSG_SWAP_ITEM)]
 		public static void HandleSwapItem(ISession client, IPacket packet) {
 			var reader = packet.CreateReader();
-			var srcBag = reader.ReadByte();
-			var srcSlot = reader.ReadByte();
 			var dstBag = reader.ReadByte();
 			var dstSlot = reader.ReadByte();
+			var srcBag = reader.ReadByte();
+			var srcSlot = reader.ReadByte();
 
 			var player = client.Player;
 			
@@ -96,7 +96,7 @@ namespace Hazzik.PacketHandlers {
 			var srcItem = inventorySrc[srcSlot];
 			var dstItem = inventoryDst[dstSlot];
 			if(dstItem == null) {
-				dstItem = _itemFactory.Create(srcItem.Template, amount);
+				dstItem = _itemFactory.Create(srcItem.Template);
 				inventoryDst[dstSlot] = dstItem;
 			}
 			else {

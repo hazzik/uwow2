@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Hazzik.Net;
+using Hazzik.Objects.Templates;
 using Hazzik.PacketHandlers;
 
 namespace Hazzik.Objects {
@@ -102,11 +103,16 @@ namespace Hazzik.Objects {
 			SetUInt32((UpdateFields)146, 0x3F800000); // 146	146
 			SetUInt32((UpdateFields)153, 0x02020505); // 153	UNIT_FIELD_RANGEDATTACKTIME
 			SetUInt32((UpdateFields)154, 0x02000003); // 154	UNIT_FIELD_BOUNDINGRADIUS
+			var factory = new ItemFactory();
 			var abjurer_sBoots9936 = new Abjurer_sBoots9936();
-			Inventory[(int)abjurer_sBoots9936.CanBeEquipedIn[0]] = new Item(abjurer_sBoots9936);
-			Inventory[Inventory.FindFreeSlot()] = new Item(new AncestralBoots3289());
-			Inventory[Inventory.FindFreeSlot()] = new Item(new FelIronShells23772());
-			Inventory[Inventory.FindFreeSlot()] = new Item(new FelIronShells23772());
+			Inventory[(int)abjurer_sBoots9936.CanBeEquipedIn[0]] = factory.Create(abjurer_sBoots9936);
+			Inventory[Inventory.FindFreeSlot()] = factory.Create(new AncestralBoots3289());
+			Inventory[Inventory.FindFreeSlot()] = factory.Create(new FelIronShells23772());
+			Inventory[Inventory.FindFreeSlot()] = factory.Create(new FelIronShells23772());
+			Inventory[Inventory.FindFreeSlot()] = factory.Create(new LargeRedSack857());
+			Inventory[Inventory.FindFreeSlot()] = factory.Create(new LargeRedSack857());
+			Inventory[Inventory.FindFreeSlot()] = factory.Create(new LargeRedSack857());
+			Inventory[Inventory.FindFreeSlot()] = factory.Create(new LargeRedSack857());
 		}
 
 		public BitArray GetRequeredMask(WorldObject obj) {

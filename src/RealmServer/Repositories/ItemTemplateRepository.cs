@@ -9,8 +9,10 @@ namespace Hazzik.Repositories {
 				return new Abjurer_sBoots9936();
 			case 3289:
 				return new AncestralBoots3289();
+			case 23772:
+				return new FelIronShells23772();	
 			default:
-				return new FelIronShells23772();
+				return new LargeRedSack857();
 			}
 		}
 	}
