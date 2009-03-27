@@ -1,32 +1,9 @@
 using System;
 using System.IO;
-using System.Runtime.InteropServices;
 using Hazzik.Net;
 
 namespace Hazzik.Objects {
 	public abstract partial class WorldObject {
-		[StructLayout(LayoutKind.Explicit)]
-		public struct UpdateValue {
-			[FieldOffset(0)]
-			public byte Uint8_0;
-			[FieldOffset(1)]
-			public byte Uint8_1;
-			[FieldOffset(2)]
-			public byte Uint8_2;
-			[FieldOffset(3)]
-			public byte Uint8_3;
-			
-			[FieldOffset(0)]
-			public ushort UInt16_1;
-			[FieldOffset(2)]
-			public ushort UInt16_0;
-
-			[FieldOffset(0)]
-			public uint UInt32;
-
-			[FieldOffset(0)]
-			public float Single;
-		}
 		private readonly UpdateValue[] _values;
 
 		protected WorldObject(int maxValues) {

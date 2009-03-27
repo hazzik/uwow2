@@ -72,6 +72,7 @@
     <Compile Include="Attributes\WorldPacketHandler.cs" />
     <Compile Include="Data\Repositories.cs" />
     <Compile Include="Objects\Templates\LargeRedSack857.cs" />
+    <Compile Include="Objects\Update\UpdateValue.cs" />
     <Compile Include="Repositories\ItemTemplateRepository.cs" />
     <Compile Include="Objects\IContainer.cs" />
     <Compile Include="Objects\IInventory.cs" />
