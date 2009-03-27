@@ -12,7 +12,7 @@ namespace Hazzik.Objects {
 			: base(template, updateMaskLength) {
 			Type |= ObjectTypes.Container;
 			NumSlots = (uint)template.ContainerSlots;
-			_inventory = new Inventory(this, UpdateFields.CONTAINER_FIELD_SLOT_1, (uint)template.ContainerSlots);
+			_inventory = new ContainerInventory(this, (uint)template.ContainerSlots);
 		}
 
 		public override ObjectTypeId TypeId {

@@ -15,7 +15,7 @@ namespace Hazzik.Objects {
 		public Player()
 			: base((int)UpdateFields.PLAYER_END) {
 			Type |= ObjectTypes.Player;
-			_inventory = new Inventory(this, UpdateFields.PLAYER_FIELD_INV_SLOT_HEAD, UpdateFields.PLAYER_FARSIGHT - UpdateFields.PLAYER_FIELD_INV_SLOT_HEAD);
+			_inventory = new PlayerInventory(this, UpdateFields.PLAYER_FARSIGHT - UpdateFields.PLAYER_FIELD_INV_SLOT_HEAD);
 			InitFake();
 		}
 

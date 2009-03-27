@@ -8,11 +8,11 @@ namespace Hazzik.Objects {
 		protected Item[] _items;
 		protected UpdateFields _slotStart;
 
-		public Inventory(IContainer container, UpdateFields slotStart, uint slotsCount) {
+		public Inventory(IContainer container, UpdateFields fieldOffset, uint slotsCount) {
 			Container = container;
 			MaxCount = slotsCount;
 			_items = new Item[slotsCount];
-			_slotStart = slotStart;
+			_slotStart = fieldOffset;
 		}
 
 		#region IInventory Members
@@ -44,7 +44,7 @@ namespace Hazzik.Objects {
 			SetItem(slot, null);
 		}
 
-		public int FindFreeSlot() {
+		public virtual int FindFreeSlot() {
 			for(var i = InventorySlot.BackpackStart; i < InventorySlot.BackpackEnd; i++) {
 				if(null == this[(int)i]) {
 					return (int)i;
@@ -86,4 +86,35 @@ namespace Hazzik.Objects {
 			return _items[slot];
 		}
 	}
+
+	public class ContainerInventory : Inventory {
+		public ContainerInventory(IContainer container, uint slotsCount)
+			: base(container, UpdateFields.CONTAINER_FIELD_SLOT_1, slotsCount) {
+		}
+
+		public override int FindFreeSlot() {
+			for(var i = 0; i < MaxCount; i++) {
+				if(null == this[i]) {
+					return i;
+				}
+			}
+			return -1;
+		}
+	}
+
+	public class PlayerInventory	 : Inventory {
+		public PlayerInventory(IContainer container, uint slotsCount)
+			: base(container, UpdateFields.PLAYER_FIELD_INV_SLOT_HEAD, slotsCount) {
+		}
+
+		public override int FindFreeSlot() {
+			for(var i = InventorySlot.BackpackStart; i < InventorySlot.BackpackEnd; i++) {
+				if(null == this[(int)i]) {
+					return (int)i;
+				}
+			}
+			return -1;
+		}
+	}
+
 }
