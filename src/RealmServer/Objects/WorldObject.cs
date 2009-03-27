@@ -11,8 +11,6 @@ namespace Hazzik.Objects {
 			ScaleX = 1f;
 		}
 
-		public int MaxValues { get { return _values.Length; } }
-
 		public abstract ObjectTypeId TypeId { get; }
 
 		public virtual UpdateFlags UpdateFlag {

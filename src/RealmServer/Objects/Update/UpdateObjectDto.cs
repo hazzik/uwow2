@@ -2,10 +2,14 @@ using System;
 
 namespace Hazzik.Objects.Update {
 	public abstract class UpdateObjectDto {
-		protected UpdateValue[] _values;
+		private readonly UpdateValue[] _values;
 
 		protected UpdateObjectDto(int maxValues) {
 			_values = new UpdateValue[maxValues];
+		}
+
+		public int MaxValues {
+			get { return _values.Length; }
 		}
 
 		protected internal uint GetValue(int field) {
@@ -33,7 +37,7 @@ namespace Hazzik.Objects.Update {
 		}
 
 		protected internal byte GetByte(UpdateFields field, int index) {
-			var value = _values[(int)field];
+			UpdateValue value = _values[(int)field];
 			switch(index) {
 			case 0:
 				return value.Uint8_0;
@@ -49,7 +53,7 @@ namespace Hazzik.Objects.Update {
 		}
 
 		protected internal ushort GetUInt16(UpdateFields field, int index) {
-			var value = _values[(int)field];
+			UpdateValue value = _values[(int)field];
 			switch(index) {
 			case 0:
 				return value.UInt16_0;
@@ -86,7 +90,7 @@ namespace Hazzik.Objects.Update {
 		}
 
 		protected internal void SetByte(UpdateFields field, int index, byte value) {
-			var updateValue = _values[(int)field];
+			UpdateValue updateValue = _values[(int)field];
 			switch(index) {
 			case 0:
 				updateValue.Uint8_0 = value;
@@ -107,7 +111,7 @@ namespace Hazzik.Objects.Update {
 		}
 
 		protected internal void SetUInt16(UpdateFields field, int index, ushort value) {
-			var updateValue = _values[(int)field];
+			UpdateValue updateValue = _values[(int)field];
 			switch(index) {
 			case 0:
 				updateValue.UInt16_0 = value;
