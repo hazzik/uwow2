@@ -68,7 +68,7 @@ namespace Hazzik {
 				w.Write(player.PetCreatureFamily);
 				w.Write(0);
 				for(var i = 0; i < 20; i++) {
-					var item = player.Items[i];
+					var item = player.Inventory[i];
 					if(item != null) {
 						w.Write(0);
 						w.Write((byte)0);
@@ -85,24 +85,15 @@ namespace Hazzik {
 		}
 		
 		public static IPacket GetCharCreatePkt(int error) {
-			var responce = new WorldPacket(WMSG.SMSG_CHAR_CREATE);
-			var w = responce.CreateWriter();
-			w.Write((byte)error);
-			return responce;
+			return new WorldPacket(WMSG.SMSG_CHAR_CREATE, new[] { (byte)error });
 		}
 
 		public static IPacket GetAccountDataTimesPkt() {
-			var result = new WorldPacket(WMSG.SMSG_ACCOUNT_DATA_TIMES);
-			var w = result.CreateWriter();
-			w.Write(new byte[0x80]);
-			return result;
+			return new WorldPacket(WMSG.SMSG_ACCOUNT_DATA_TIMES, new byte[0x80]);
 		}
 
 		public static IPacket GetCharacterLoginFiledPkt(int error) {
-			var result = new WorldPacket(WMSG.SMSG_CHARACTER_LOGIN_FAILED);
-			var w = result.CreateWriter();
-			w.Write((byte)error);
-			return result;
+			return new WorldPacket(WMSG.SMSG_CHARACTER_LOGIN_FAILED, new[] { (byte)error });
 		}
 
 		#endregion

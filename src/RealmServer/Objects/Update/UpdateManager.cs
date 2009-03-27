@@ -34,7 +34,7 @@ namespace Hazzik.Objects.Update {
 		}
 
 		private IEnumerable<WorldObject> GetObjectsForUpdate() {
-			var items = _player.Items.Where(x => x != null).Cast<WorldObject>();
+			var items = _player.Inventory.Where(x => x != null).Cast<WorldObject>();
 			var seenObjects = ObjectManager.GetSeenObjectsNear(_player).Cast<WorldObject>();
 			return items.Concat(seenObjects);
 		}

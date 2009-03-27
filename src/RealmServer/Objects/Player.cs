@@ -5,7 +5,7 @@ using Hazzik.Net;
 namespace Hazzik.Objects {
 	public partial class Player : Unit {
 		public bool Dead;
-		public Item[] Items = new Item[20];
+		public Item[] Inventory = new Item[20];
 		public int PetCreatureFamily;
 		public int PetDisplayId;
 		public int PetLevel;
