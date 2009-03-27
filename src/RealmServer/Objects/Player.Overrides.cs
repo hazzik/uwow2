@@ -2,6 +2,5 @@
 
 namespace Hazzik.Objects {
 	partial class Player {
-
 	}
 }

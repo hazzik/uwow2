@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
+using Hazzik.Net;
 
 namespace Hazzik.Objects {
 	public abstract partial class WorldObject {
@@ -170,6 +171,13 @@ namespace Hazzik.Objects {
 
 		public virtual void WriteCreateBlock(BinaryWriter writer) {
 
+		}
+
+		public IPacket GetDestroyObjectPkt() {
+			var result = new WorldPacket(WMSG.SMSG_DESTROY_OBJECT);
+			var writer = result.CreateWriter();
+			writer.Write(Guid);
+			return result;
 		}
 	}
 }

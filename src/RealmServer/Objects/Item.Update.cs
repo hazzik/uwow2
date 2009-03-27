@@ -2,25 +2,9 @@
 
 namespace Hazzik.Objects {
 	public partial class Item {
-		#region ITEM_FIELD_OWNER
-		//ITEM_FIELD_OWNER : type = Long, size = 2, flag = Public
-		public virtual UInt64 OwnerGuid {
-			get { return GetUInt64(UpdateFields.ITEM_FIELD_OWNER); }
-			set { SetUInt64(UpdateFields.ITEM_FIELD_OWNER, value); }
-		}
-		#endregion
-
-		#region ITEM_FIELD_CONTAINED
-		//ITEM_FIELD_CONTAINED : type = Long, size = 2, flag = Public
-		public virtual UInt64 ContainedGuid {
-			get { return GetUInt64(UpdateFields.ITEM_FIELD_CONTAINED); }
-			set { SetUInt64(UpdateFields.ITEM_FIELD_CONTAINED, value); }
-		}
-		#endregion
-
 		#region ITEM_FIELD_CREATOR
 		//ITEM_FIELD_CREATOR : type = Long, size = 2, flag = Public
-		public virtual UInt64 CreatorGuid {
+		public virtual UInt64 Creator {
 			get { return GetUInt64(UpdateFields.ITEM_FIELD_CREATOR); }
 			set { SetUInt64(UpdateFields.ITEM_FIELD_CREATOR, value); }
 		}
@@ -28,7 +12,7 @@ namespace Hazzik.Objects {
 
 		#region ITEM_FIELD_GIFTCREATOR
 		//ITEM_FIELD_GIFTCREATOR : type = Long, size = 2, flag = Public
-		public virtual UInt64 GiftcreatorGuid {
+		public virtual UInt64 GiftCreator {
 			get { return GetUInt64(UpdateFields.ITEM_FIELD_GIFTCREATOR); }
 			set { SetUInt64(UpdateFields.ITEM_FIELD_GIFTCREATOR, value); }
 		}

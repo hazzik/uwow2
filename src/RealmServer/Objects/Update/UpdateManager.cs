@@ -34,7 +34,7 @@ namespace Hazzik.Objects.Update {
 		}
 
 		private IEnumerable<WorldObject> GetObjectsForUpdate() {
-			var items = _player.Inventory.Where(x => x != null).Cast<WorldObject>();
+			var items = _player.Inventory.Cast<WorldObject>();
 			var seenObjects = ObjectManager.GetSeenObjectsNear(_player).Cast<WorldObject>();
 			return items.Concat(seenObjects);
 		}
@@ -59,7 +59,7 @@ namespace Hazzik.Objects.Update {
 			private readonly UpdateManager _manager;
 
 			public UpdateTimer(UpdateManager manager)
-				: base(3000) {
+				: base(1000) {
 				_manager = manager;
 			}
 

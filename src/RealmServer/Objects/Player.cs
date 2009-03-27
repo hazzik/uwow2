@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
 using Hazzik.Net;
+using Hazzik.PacketHandlers;
 
 namespace Hazzik.Objects {
-	public partial class Player : Unit {
+	public partial class Player : Unit, IContainer {
+		private readonly IInventory _inventory;
 		public bool Dead;
-		public Item[] Inventory = new Item[20];
 		public int PetCreatureFamily;
 		public int PetDisplayId;
 		public int PetLevel;
@@ -13,7 +14,7 @@ namespace Hazzik.Objects {
 		public Player()
 			: base((int)UpdateFields.PLAYER_END) {
 			Type |= ObjectTypes.Player;
-
+			_inventory = new Inventory(this, UpdateFields.PLAYER_FIELD_INV_SLOT_HEAD, UpdateFields.PLAYER_FARSIGHT - UpdateFields.PLAYER_FIELD_INV_SLOT_HEAD);
 			InitFake();
 		}
 
@@ -35,6 +36,18 @@ namespace Hazzik.Objects {
 		}
 
 		public ISession Client { get; protected internal set; }
+
+		#region IContainer Members
+
+		WorldObject IContainer.Owner {
+			get { return this; }
+		}
+
+		public IInventory Inventory {
+			get { return _inventory; }
+		}
+
+		#endregion
 
 		private void InitFake() {
 			MapId = 530;
@@ -89,12 +102,22 @@ namespace Hazzik.Objects {
 			SetUInt32((UpdateFields)146, 0x3F800000); // 146	146
 			SetUInt32((UpdateFields)153, 0x02020505); // 153	UNIT_FIELD_RANGEDATTACKTIME
 			SetUInt32((UpdateFields)154, 0x02000003); // 154	UNIT_FIELD_BOUNDINGRADIUS
+			var abjurer_sBoots9936 = new Abjurer_sBoots9936();
+			Inventory[(int)abjurer_sBoots9936.CanBeEquipedIn[0]] = new Item(abjurer_sBoots9936);
+			Inventory[Inventory.FindFreeSlot()] = new Item(new AncestralBoots3289());
+			Inventory[Inventory.FindFreeSlot()] = new Item(new FelIronShells23772());
+			Inventory[Inventory.FindFreeSlot()] = new Item(new FelIronShells23772());
 		}
 
 		public BitArray GetRequeredMask(WorldObject obj) {
 			var mask = new BitArray((int)UpdateFields.PLAYER_END);
 			mask.SetAll(true);
 			return mask;
+		}
+
+		public IInventory GetInventory(int bag) {
+			var container = bag == 0xff ? this : Inventory[bag] as IContainer;
+			return container!=null ? container.Inventory : null;
 		}
 	}
 }
