@@ -12,6 +12,9 @@ namespace Hazzik.Objects.Update {
 			get { return _values.Length; }
 		}
 
+		public virtual ulong Guid { get; set; }
+
+		#region Send/Update
 		protected internal uint GetValue(int field) {
 			return GetUInt32((UpdateFields)field);
 		}
@@ -128,5 +131,6 @@ namespace Hazzik.Objects.Update {
 		protected internal void SetInt16(UpdateFields field, int index, short value) {
 			SetUInt16(field, index, (ushort)value);
 		}
+		#endregion
 	}
 }

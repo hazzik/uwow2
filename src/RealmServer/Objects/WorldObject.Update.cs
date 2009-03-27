@@ -5,7 +5,7 @@ namespace Hazzik.Objects {
 		#region OBJECT_FIELD_GUID
 
 		//OBJECT_FIELD_GUID : type = Long, size = 2, flag = Public
-		public virtual UInt64 Guid {
+		public override UInt64 Guid {
 			get { return GetUInt64(UpdateFields.OBJECT_FIELD_GUID); }
 			set { SetUInt64(UpdateFields.OBJECT_FIELD_GUID, value); }
 		}
