@@ -1,3 +1,4 @@
+using System;
 using System.Runtime.InteropServices;
 
 namespace Hazzik.Objects.Update {
@@ -11,7 +12,7 @@ namespace Hazzik.Objects.Update {
 		public byte Uint8_2;
 		[FieldOffset(3)]
 		public byte Uint8_3;
-			
+
 		[FieldOffset(0)]
 		public ushort UInt16_1;
 		[FieldOffset(2)]

@@ -16,7 +16,7 @@ namespace Hazzik.Objects {
 			_template = template;
 			Entry = (uint)template.Id;
 			Durability = (uint)template.MaxDurability;
-			Maxdurability = (uint)template.MaxDurability;
+			MaxDurability = (uint)template.MaxDurability;
 			Flags = (uint)template.Flags;
 			Duration = (uint)template.AttackTime;
 			StackCount = (uint)template.MaxAmount;

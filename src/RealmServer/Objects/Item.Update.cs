@@ -114,7 +114,7 @@ namespace Hazzik.Objects {
 
 		#region ITEM_FIELD_MAXDURABILITY
 		//ITEM_FIELD_MAXDURABILITY : type = Int, size = 1, flag = Owner, ItemOwner
-		public virtual UInt32 Maxdurability {
+		public virtual UInt32 MaxDurability {
 			get { return GetUInt32(UpdateFields.ITEM_FIELD_MAXDURABILITY); }
 			set { SetUInt32(UpdateFields.ITEM_FIELD_MAXDURABILITY, value); }
 		}
