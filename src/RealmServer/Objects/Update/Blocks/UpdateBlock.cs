@@ -4,7 +4,8 @@ using System.IO;
 
 namespace Hazzik.Objects.Update.Blocks {
 	internal class UpdateBlock : CreateUpdateBlockBase {
-		public UpdateBlock(WorldObject obj, BitArray mask, uint[] values) : base(obj, mask, values) {
+		public UpdateBlock(UpdateObjectDto obj, BitArray mask, uint[] values)
+			: base(false, obj, mask, values) {
 			_isEmpty = CheckMask();
 		}
 
@@ -23,9 +24,6 @@ namespace Hazzik.Objects.Update.Blocks {
 				}
 			}
 			return true;
-		}
-
-		protected override void WriteCreateBlock(BinaryWriter writer) {
 		}
 	}
 }

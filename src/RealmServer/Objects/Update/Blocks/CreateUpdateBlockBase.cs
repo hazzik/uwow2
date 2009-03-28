@@ -6,13 +6,15 @@ namespace Hazzik.Objects.Update.Blocks {
 	internal abstract class CreateUpdateBlockBase : IUpdateBlock {
 		protected bool _isEmpty;
 		protected BitArray _mask;
-		protected WorldObject _obj;
+		protected UpdateObjectDto _obj;
 		protected uint[] _values;
+		private readonly bool _create;
 
-		protected CreateUpdateBlockBase(WorldObject obj, BitArray mask, uint[] values) {
+		protected CreateUpdateBlockBase(bool create, UpdateObjectDto obj, BitArray mask, uint[] values) {
 			_obj = obj;
 			_mask = mask;
 			_values = values;
+			_create = create;
 		}
 
 		#region IUpdateBlock Members
@@ -24,7 +26,9 @@ namespace Hazzik.Objects.Update.Blocks {
 		public virtual void Write(BinaryWriter writer) {
 			writer.WritePackGuid(_obj.Guid);
 
-			WriteCreateBlock(writer);
+			if(_create) {
+				((CreateBlock)this).WriteCreateBlock(writer);
+			}
 
 			var length = (byte)GetLengthInDwords(_mask.Length);
 			var buffer = new byte[length << 2];
@@ -43,7 +47,5 @@ namespace Hazzik.Objects.Update.Blocks {
 		private static int GetLengthInDwords(int bitsCount) {
 			return (bitsCount >> 5) + (bitsCount % 32 != 0 ? 1 : 0);
 		}
-
-		protected abstract void WriteCreateBlock(BinaryWriter writer);
 	}
 }

@@ -5,12 +5,12 @@ using Hazzik.Objects.Update.Blocks;
 namespace Hazzik.Objects.Update {
 	internal class UpdateBlockBuilder {
 		private readonly Player _player;
-		private readonly WorldObject _obj;
+		private readonly UpdateObjectDto _obj;
 		private readonly BitArray _required;
 		private readonly uint[] _sendedValues;
 		private bool _isNew = true;
 
-		public UpdateBlockBuilder(Player player, WorldObject obj) {
+		public UpdateBlockBuilder(Player player, UpdateObjectDto obj) {
 			_player = player;
 			_obj = obj;
 			_required = GetRequiredMask();

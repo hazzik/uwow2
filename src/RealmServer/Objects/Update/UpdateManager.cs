@@ -33,13 +33,13 @@ namespace Hazzik.Objects.Update {
 			return new OutOfRangeBlock(outOfRange);
 		}
 
-		private IEnumerable<WorldObject> GetObjectsForUpdate() {
-			var items = _player.Inventory.Cast<WorldObject>();
-			var seenObjects = ObjectManager.GetSeenObjectsNear(_player).Cast<WorldObject>();
+		private IEnumerable<UpdateObjectDto> GetObjectsForUpdate() {
+			var items = _player.Inventory.Cast<UpdateObjectDto>();
+			var seenObjects = ObjectManager.GetSeenObjectsNear(_player).Cast<UpdateObjectDto>();
 			return items.Concat(seenObjects);
 		}
 
-		private UpdateBlockBuilder GetBuilder(WorldObject obj) {
+		private UpdateBlockBuilder GetBuilder(UpdateObjectDto obj) {
 			UpdateBlockBuilder result;
 			if(!_updateBlockBuilders.TryGetValue(obj.Guid, out result)) {
 				var updater = new UpdateBlockBuilder(_player, obj);
