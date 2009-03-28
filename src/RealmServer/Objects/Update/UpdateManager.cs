@@ -34,8 +34,8 @@ namespace Hazzik.Objects.Update {
 		}
 
 		private IEnumerable<UpdateObjectDto> GetObjectsForUpdate() {
-			var items = _player.Inventory.Cast<UpdateObjectDto>();
-			var seenObjects = ObjectManager.GetSeenObjectsNear(_player).Cast<UpdateObjectDto>();
+			var items = _player.Inventory.Select(x => new UpdateObjectDto(x));
+			var seenObjects = ObjectManager.GetSeenObjectsNear(_player).Select(x => new UpdateObjectDto(x));
 			return items.Concat(seenObjects);
 		}
 

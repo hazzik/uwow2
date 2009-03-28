@@ -20,7 +20,7 @@ namespace Hazzik.Objects.Update.Blocks {
 		}
 
 		public void WriteCreateBlock(BinaryWriter writer) {
-			((WorldObject)_obj).WriteCreateBlock(_self, writer);
+			(_obj.Object).WriteCreateBlock(_self, writer);
 		}
 	}
 }

@@ -1,74 +1,61 @@
 using System;
 
 namespace Hazzik.Objects.Update {
-	public abstract class UpdateObjectDto {
+	public class UpdateObjectDto {
+		private readonly WorldObject _obj;
 		private readonly UpdateValue[] _values;
 
-		protected UpdateObjectDto(int maxValues) {
-			_values = new UpdateValue[maxValues];
+		public UpdateObjectDto(WorldObject obj) {
+			_obj = obj;
+			_values = new UpdateValue[GetMaxValues()];
+			switch(_obj.TypeId) {
+			case ObjectTypeId.Item:
+				Update((Item)obj);
+				break;
+			case ObjectTypeId.Container:
+				Update((Container)obj);
+				break;
+			case ObjectTypeId.Unit:
+				Update((Unit)obj);
+				break;
+			case ObjectTypeId.Player:
+				Update((Player)obj);
+				break;
+			case ObjectTypeId.GameObject:
+				Update((GameObject)obj);
+				break;
+			case ObjectTypeId.DynamicObject:
+				Update((DynamicObject)obj);
+				break;
+			case ObjectTypeId.Corpse:
+				Update((Corpse)obj);
+				break;
+			case ObjectTypeId.Object:
+			case ObjectTypeId.AIGroup:
+			case ObjectTypeId.AreaTrigger:
+				Update(obj);
+				break;
+			default:
+				throw new ArgumentOutOfRangeException();
+			}
 		}
 
 		public int MaxValues {
 			get { return _values.Length; }
 		}
 
-		public virtual ulong Guid { get; set; }
+		public virtual ulong Guid {
+			get { return _obj.Guid; }
+		}
+
+		public WorldObject Object {
+			get { return _obj; }
+		}
 
 		#region Send/Update
+
 		protected internal uint GetValue(int field) {
-			return GetUInt32((UpdateFields)field);
-		}
-
-		protected internal uint GetUInt32(UpdateFields field) {
-			return _values[(int)field].UInt32;
-		}
-
-		protected internal int GetInt32(UpdateFields field) {
-			return (int)GetUInt32(field);
-		}
-
-		protected internal ulong GetUInt64(UpdateFields field) {
-			return (ulong)GetUInt32(field + 1) << 32 | GetUInt32(field);
-		}
-
-		protected internal long GetInt64(UpdateFields field) {
-			return (long)GetUInt64(field);
-		}
-
-		protected internal float GetSingle(UpdateFields field) {
-			return _values[(int)field].Single;
-		}
-
-		protected internal byte GetByte(UpdateFields field, int index) {
-			UpdateValue value = _values[(int)field];
-			switch(index) {
-			case 0:
-				return value.Uint8_0;
-			case 1:
-				return value.Uint8_1;
-			case 2:
-				return value.Uint8_2;
-			case 3:
-				return value.Uint8_3;
-			default:
-				throw new ArgumentException("index");
-			}
-		}
-
-		protected internal ushort GetUInt16(UpdateFields field, int index) {
-			UpdateValue value = _values[(int)field];
-			switch(index) {
-			case 0:
-				return value.UInt16_0;
-			case 1:
-				return value.UInt16_1;
-			default:
-				throw new ArgumentException("index");
-			}
-		}
-
-		protected internal short GetInt16(UpdateFields field, int index) {
-			return (short)GetUInt16(field, index);
+		   return _values[(int)((UpdateFields)field)].UInt32;
 		}
 
 		protected internal void SetUInt32(UpdateFields field, uint value) {
@@ -92,55 +79,54 @@ namespace Hazzik.Objects.Update {
 			_values[(int)field].Single = value;
 		}
 
-		protected internal void SetByte(UpdateFields field, int index, byte value) {
+		protected internal void SetUInt16(UpdateFields field, ushort value0, ushort value1) {
 			UpdateValue updateValue = _values[(int)field];
-			switch(index) {
-			case 0:
-				updateValue.Uint8_0 = value;
-				break;
-			case 1:
-				updateValue.Uint8_1 = value;
-				break;
-			case 2:
-				updateValue.Uint8_2 = value;
-				break;
-			case 3:
-				updateValue.Uint8_3 = value;
-				break;
-			default:
-				throw new ArgumentException("index");
-			}
+			updateValue.UInt16_0 = value0;
+			updateValue.UInt16_1 = value1;
 			_values[(int)field] = updateValue;
 		}
 
-		protected internal void SetBytes(UpdateFields field, byte byte1, byte byte2, byte byte3, byte byte4) {
+		protected internal void SetInt16(UpdateFields field, short value0, short value1) {
+			SetUInt16(field, (ushort)value0, (ushort)value1);
+		}
+		
+		protected internal void SetBytes(UpdateFields field, byte byte0, byte byte1, byte byte2, byte byte3) {
 			UpdateValue updateValue = _values[(int)field];
-			updateValue.Uint8_0 = byte1;
-			updateValue.Uint8_1 = byte2;
-			updateValue.Uint8_2 = byte3;
-			updateValue.Uint8_3 = byte4;
+			updateValue.Uint8_0 = byte0;
+			updateValue.Uint8_1 = byte1;
+			updateValue.Uint8_2 = byte2;
+			updateValue.Uint8_3 = byte3;
 			_values[(int)field] = updateValue;
 		}
 
-		protected internal void SetUInt16(UpdateFields field, int index, ushort value) {
-			UpdateValue updateValue = _values[(int)field];
-			switch(index) {
-			case 0:
-				updateValue.UInt16_0 = value;
-				break;
-			case 1:
-				updateValue.UInt16_1 = value;
-				break;
-			default:
-				throw new ArgumentException("index");
-			}
-			_values[(int)field] = updateValue;
-		}
-
-		protected internal void SetInt16(UpdateFields field, int index, short value) {
-			SetUInt16(field, index, (ushort)value);
-		}
 		#endregion
+
+		private int GetMaxValues() {
+			switch(_obj.TypeId) {
+			case ObjectTypeId.Object:
+				return (int)UpdateFields.OBJECT_END;
+			case ObjectTypeId.Item:
+				return (int)UpdateFields.ITEM_END;
+			case ObjectTypeId.Container:
+				return (int)UpdateFields.CONTAINER_END;
+			case ObjectTypeId.Unit:
+				return (int)UpdateFields.UNIT_END;
+			case ObjectTypeId.Player:
+				return (int)UpdateFields.PLAYER_END;
+			case ObjectTypeId.GameObject:
+				return (int)UpdateFields.GAMEOBJECT_END;
+			case ObjectTypeId.DynamicObject:
+				return (int)UpdateFields.DYNAMICOBJECT_END;
+			case ObjectTypeId.Corpse:
+				return (int)UpdateFields.CORPSE_END;
+			case ObjectTypeId.AIGroup:
+				return (int)UpdateFields.OBJECT_END;
+			case ObjectTypeId.AreaTrigger:
+				return (int)UpdateFields.OBJECT_END;
+			default:
+				throw new ArgumentOutOfRangeException();
+			}
+		}
 
 		public void Update(WorldObject obj) {
 			SetUInt64(UpdateFields.OBJECT_FIELD_GUID, obj.Guid);
@@ -174,8 +160,8 @@ namespace Hazzik.Objects.Update {
 		public void Update(Container obj) {
 			Update((Item)obj);
 			SetUInt32(UpdateFields.CONTAINER_FIELD_NUM_SLOTS, obj.NumSlots);
-			for(var i = 0; i < obj.NumSlots; i++) {
-				var item = obj.Inventory[i];
+			for(int i = 0; i < obj.NumSlots; i++) {
+				Item item = obj.Inventory[i];
 				if(item != null) {
 					SetUInt64(UpdateFields.CONTAINER_FIELD_SLOT_1 + i * 2, item.Guid);
 				}
@@ -186,8 +172,9 @@ namespace Hazzik.Objects.Update {
 			Update((WorldObject)obj);
 			SetUInt64(UpdateFields.OBJECT_FIELD_CREATED_BY, obj.CreatedByGuid);
 			SetUInt32(UpdateFields.GAMEOBJECT_DISPLAYID, obj.DisplayId);
-			SetUInt16(UpdateFields.GAMEOBJECT_FLAGS, 0, (ushort)obj.Flags);
-			SetUInt16(UpdateFields.GAMEOBJECT_FLAGS, 1, (ushort)obj.FlagsHigh);
+			SetUInt16(UpdateFields.GAMEOBJECT_FLAGS,
+			          (ushort)obj.Flags,
+			          (ushort)obj.FlagsHigh);
 			SetUInt64(UpdateFields.GAMEOBJECT_ROTATION, obj.Rotation);
 			SetSingle(UpdateFields.GAMEOBJECT_PARENTROTATION, obj.ParentRotationX);
 			SetSingle(UpdateFields.GAMEOBJECT_PARENTROTATION + 1, obj.ParentRotationY);
@@ -197,14 +184,16 @@ namespace Hazzik.Objects.Update {
 			SetSingle(UpdateFields.GAMEOBJECT_POS_Y, obj.PosY);
 			SetSingle(UpdateFields.GAMEOBJECT_POS_Z, obj.PosZ);
 			SetSingle(UpdateFields.GAMEOBJECT_FACING, obj.Facing);
-			SetUInt16(UpdateFields.GAMEOBJECT_DYNAMIC, 0, (ushort)obj.DynamicFlags);
-			SetUInt16(UpdateFields.GAMEOBJECT_DYNAMIC, 1, (ushort)obj.DynamicFlagsHigh);
+			SetUInt16(UpdateFields.GAMEOBJECT_DYNAMIC,
+			          (ushort)obj.DynamicFlags,
+			          (ushort)obj.DynamicFlagsHigh);
 			SetUInt32(UpdateFields.GAMEOBJECT_FACTION, obj.Faction);
 			SetUInt32(UpdateFields.GAMEOBJECT_LEVEL, obj.Level);
-			SetByte(UpdateFields.GAMEOBJECT_BYTES_1, 0, (byte)obj.State);
-			SetByte(UpdateFields.GAMEOBJECT_BYTES_1, 1, (byte)obj.GameObjectType);
-			SetByte(UpdateFields.GAMEOBJECT_BYTES_1, 2, (byte)obj.ArtKit);
-			SetByte(UpdateFields.GAMEOBJECT_BYTES_1, 3, (byte)obj.AnimationProgress);
+			SetBytes(UpdateFields.GAMEOBJECT_BYTES_1,
+			         (byte)obj.State,
+			         (byte)obj.GameObjectType,
+			         obj.ArtKit,
+			         obj.AnimationProgress);
 		}
 
 		public void Update(DynamicObject obj) {
@@ -232,19 +221,21 @@ namespace Hazzik.Objects.Update {
 			SetSingle(UpdateFields.CORPSE_FIELD_POS_Z, obj.PosZ);
 			SetUInt32(UpdateFields.CORPSE_FIELD_DISPLAY_ID, obj.DisplayId);
 			if(obj.Owner != null) {
-				var inventory = obj.Owner.Inventory;
+				IInventory inventory = obj.Owner.Inventory;
 				for(int i = 0; i < 19; i++) {
 					SetUInt32(UpdateFields.CORPSE_FIELD_ITEM + i, inventory[i].Entry);
 				}
 			}
-			SetByte(UpdateFields.CORPSE_FIELD_BYTES_1, 0, obj.Bytes1_0);
-			SetByte(UpdateFields.CORPSE_FIELD_BYTES_1, 1, (byte)obj.Race);
-			SetByte(UpdateFields.CORPSE_FIELD_BYTES_1, 2, (byte)obj.Gender);
-			SetByte(UpdateFields.CORPSE_FIELD_BYTES_1, 3, obj.Skin);
-			SetByte(UpdateFields.CORPSE_FIELD_BYTES_2, 0, obj.Face);
-			SetByte(UpdateFields.CORPSE_FIELD_BYTES_2, 1, obj.HairStyle);
-			SetByte(UpdateFields.CORPSE_FIELD_BYTES_2, 2, obj.HairColor);
-			SetByte(UpdateFields.CORPSE_FIELD_BYTES_2, 3, obj.Face);
+			SetBytes(UpdateFields.CORPSE_FIELD_BYTES_1,
+			         obj.Bytes1_0,
+			         (byte)obj.Race,
+			         (byte)obj.Gender,
+			         obj.Skin);
+			SetBytes(UpdateFields.CORPSE_FIELD_BYTES_2,
+			         obj.Face,
+			         obj.HairStyle,
+			         obj.HairColor,
+			         obj.Face);
 			SetUInt32(UpdateFields.CORPSE_FIELD_GUILD, obj.GuildId);
 			SetUInt32(UpdateFields.CORPSE_FIELD_FLAGS, (uint)obj.Flags);
 			SetUInt32(UpdateFields.CORPSE_FIELD_DYNAMIC_FLAGS, (uint)obj.DynamicFlags);

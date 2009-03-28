@@ -1,12 +1,10 @@
 using System;
 using System.IO;
 using Hazzik.Net;
-using Hazzik.Objects.Update;
 
 namespace Hazzik.Objects {
-	public abstract partial class WorldObject : UpdateObjectDto {
-		protected WorldObject(int maxValues)
-			: base(maxValues) {
+	public abstract partial class WorldObject  {
+		protected WorldObject(int maxValues) {
 			Guid = ObjectGuid.NewGuid();
 			Type = ObjectTypes.Object;
 			ScaleX = 1f;

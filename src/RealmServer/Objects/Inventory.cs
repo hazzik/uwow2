@@ -72,7 +72,6 @@ namespace Hazzik.Objects {
 			if(slot < 0 || slot >= MaxCount) {
 				throw new ArgumentOutOfRangeException("slot");
 			}
-			((WorldObject)Container).SetUInt64(_slotStart + (slot * 2), item != null ? item.Guid : 0);
 			if(null != item) {
 				item.Contained = Container;
 			}

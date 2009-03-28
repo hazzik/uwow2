@@ -3,8 +3,6 @@ using System;
 namespace Hazzik.Objects {
 	public partial class Item : WorldObject {
 		private readonly ItemTemplate _template;
-		private IContainer _contained;
-		private WorldObject _owner;
 
 		public Item(ItemTemplate template)
 			: this(template, (int)UpdateFields.ITEM_END) {
@@ -26,28 +24,9 @@ namespace Hazzik.Objects {
 			get { return ObjectTypeId.Item; }
 		}
 
-		public WorldObject Owner {
-			get { return _owner; }
-			private set {
-				_owner = value;
-				SetUInt64(UpdateFields.ITEM_FIELD_OWNER, value != null ? value.Guid : 0);
-			}
-		}
+		public WorldObject Owner { get { return Contained != null ? Contained.Owner : null; } }
 
-		public IContainer Contained {
-			get { return _contained; }
-			set {
-				if(value != null) {
-					Owner = value.Owner;
-					SetUInt64(UpdateFields.ITEM_FIELD_CONTAINED, value.Guid);
-				}
-				else {
-					Owner = null;
-					SetUInt64(UpdateFields.ITEM_FIELD_CONTAINED, 0);
-				}
-				_contained = value;
-			}
-		}
+		public IContainer Contained { get; set; }
 
 		public ItemTemplate Template {
 			get { return _template; }

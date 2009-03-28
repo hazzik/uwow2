@@ -3,133 +3,102 @@
 namespace Hazzik.Objects {
 	public partial class Corpse {
 		#region CORPSE_FIELD_OWNER
+
 		//CORPSE_FIELD_OWNER : type = Long, size = 2, flag = Public
-		public virtual UInt64 OwnerGuid {
-			get { return GetUInt64(UpdateFields.CORPSE_FIELD_OWNER); }
-			set { SetUInt64(UpdateFields.CORPSE_FIELD_OWNER, value); }
-		}
+		public virtual UInt64 OwnerGuid { get; set; }
+
 		#endregion
 
 		#region CORPSE_FIELD_PARTY
+
 		//CORPSE_FIELD_PARTY : type = Long, size = 2, flag = Public
-		public virtual UInt64 PartyGuid {
-			get { return GetUInt64(UpdateFields.CORPSE_FIELD_PARTY); }
-			set { SetUInt64(UpdateFields.CORPSE_FIELD_PARTY, value); }
-		}
+		public virtual UInt64 PartyGuid { get; set; }
+
 		#endregion
 
 		#region CORPSE_FIELD_FACING
+
 		//CORPSE_FIELD_FACING : type = Single, size = 1, flag = Public
-		public override Single Facing {
-			get { return GetSingle(UpdateFields.CORPSE_FIELD_FACING); }
-			set { SetSingle(UpdateFields.CORPSE_FIELD_FACING, value); }
-		}
+		public override Single Facing { get; set; }
+
 		#endregion
 
 		#region CORPSE_FIELD_POS_X
+
 		//CORPSE_FIELD_POS_X : type = Single, size = 1, flag = Public
-		public override Single PosX {
-			get { return GetSingle(UpdateFields.CORPSE_FIELD_POS_X); }
-			set { SetSingle(UpdateFields.CORPSE_FIELD_POS_X, value); }
-		}
+		public override Single PosX { get; set; }
+
 		#endregion
 
 		#region CORPSE_FIELD_POS_Y
+
 		//CORPSE_FIELD_POS_Y : type = Single, size = 1, flag = Public
-		public override Single PosY {
-			get { return GetSingle(UpdateFields.CORPSE_FIELD_POS_Y); }
-			set { SetSingle(UpdateFields.CORPSE_FIELD_POS_Y, value); }
-		}
+		public override Single PosY { get; set; }
+
 		#endregion
 
 		#region CORPSE_FIELD_POS_Z
+
 		//CORPSE_FIELD_POS_Z : type = Single, size = 1, flag = Public
-		public override Single PosZ {
-			get { return GetSingle(UpdateFields.CORPSE_FIELD_POS_Z); }
-			set { SetSingle(UpdateFields.CORPSE_FIELD_POS_Z, value); }
-		}
+		public override Single PosZ { get; set; }
+
 		#endregion
 
 		#region CORPSE_FIELD_DISPLAY_ID
+
 		//CORPSE_FIELD_DISPLAY_ID : type = Int, size = 1, flag = Public
-		public virtual UInt32 DisplayId {
-			get { return GetUInt32(UpdateFields.CORPSE_FIELD_DISPLAY_ID); }
-			set { SetUInt32(UpdateFields.CORPSE_FIELD_DISPLAY_ID, value); }
-		}
+		public virtual UInt32 DisplayId { get; set; }
+
 		#endregion
 
-		//CORPSE_FIELD_ITEM : type = Int, size = 19, flag = Public
-
 		#region CORPSE_FIELD_BYTES_1
+
 		//CORPSE_FIELD_BYTES_1 : type = Bytes, size = 1, flag = Public
-		public virtual byte Bytes1_0 {
-			get { return GetByte(UpdateFields.CORPSE_FIELD_BYTES_1, 0); }
-			set { SetByte(UpdateFields.CORPSE_FIELD_BYTES_1, 0, value); }
-		}
+		public virtual byte Bytes1_0 { get; set; }
 
-		public virtual Races Race {
-			get { return (Races)GetByte(UpdateFields.CORPSE_FIELD_BYTES_1, 1); }
-			set { SetByte(UpdateFields.CORPSE_FIELD_BYTES_1, 1, (byte)value); }
-		}
+		public virtual Races Race { get; set; }
 
-		public virtual GenderType Gender {
-			get { return (GenderType)GetByte(UpdateFields.CORPSE_FIELD_BYTES_1, 2); }
-			set { SetByte(UpdateFields.CORPSE_FIELD_BYTES_1, 2, (byte)value); }
-		}
+		public virtual GenderType Gender { get; set; }
 
-		public virtual byte Skin {
-			get { return GetByte(UpdateFields.CORPSE_FIELD_BYTES_1, 3); }
-			set { SetByte(UpdateFields.CORPSE_FIELD_BYTES_1, 3, value); }
-		}
+		public virtual byte Skin { get; set; }
 
 		#endregion
 
 		#region CORPSE_FIELD_BYTES_2
+
 		//CORPSE_FIELD_BYTES_2 : type = Bytes, size = 1, flag = Public
-		public virtual byte Face {
-			get { return GetByte(UpdateFields.CORPSE_FIELD_BYTES_2, 0); }
-			set { SetByte(UpdateFields.CORPSE_FIELD_BYTES_2, 0, value); }
-		}
+		public virtual byte Face { get; set; }
 
-		public virtual byte HairStyle {
-			get { return GetByte(UpdateFields.CORPSE_FIELD_BYTES_2, 1); }
-			set { SetByte(UpdateFields.CORPSE_FIELD_BYTES_2, 1, value); }
-		}
+		public virtual byte HairStyle { get; set; }
 
-		public virtual byte HairColor {
-			get { return GetByte(UpdateFields.CORPSE_FIELD_BYTES_2, 2); }
-			set { SetByte(UpdateFields.CORPSE_FIELD_BYTES_2, 2, value); }
-		}
+		public virtual byte HairColor { get; set; }
 
-		public virtual byte FacialHair {
-			get { return GetByte(UpdateFields.CORPSE_FIELD_BYTES_2, 3); }
-			set { SetByte(UpdateFields.CORPSE_FIELD_BYTES_2, 3, value); }
-		}
+		public virtual byte FacialHair { get; set; }
+
 		#endregion
 
 		#region CORPSE_FIELD_GUILD
+
 		//CORPSE_FIELD_GUILD : type = Int, size = 1, flag = Public
-		public virtual UInt32 GuildId {
-			get { return GetUInt32(UpdateFields.CORPSE_FIELD_GUILD); }
-			set { SetUInt32(UpdateFields.CORPSE_FIELD_GUILD, value); }
-		}
+		public virtual UInt32 GuildId { get; set; }
+
 		#endregion
 
 		#region CORPSE_FIELD_FLAGS
+
 		//CORPSE_FIELD_FLAGS : type = Int, size = 1, flag = Public
-		public virtual CorpseFlags Flags {
-			get { return (CorpseFlags)GetUInt32(UpdateFields.CORPSE_FIELD_FLAGS); }
-			set { SetUInt32(UpdateFields.CORPSE_FIELD_FLAGS, (uint)value); }
-		}
+		public virtual CorpseFlags Flags { get; set; }
+
 		#endregion
 
 		#region CORPSE_FIELD_DYNAMIC_FLAGS
+
 		//CORPSE_FIELD_DYNAMIC_FLAGS : type = Int, size = 1, flag = Dynamic
-		public virtual CorpseDynamicFlags DynamicFlags {
-			get { return (CorpseDynamicFlags)GetUInt32(UpdateFields.CORPSE_FIELD_DYNAMIC_FLAGS); }
-			set { SetUInt32(UpdateFields.CORPSE_FIELD_DYNAMIC_FLAGS, (uint)value); }
-		}
+		public virtual CorpseDynamicFlags DynamicFlags { get; set; }
+
 		#endregion
+
+		//CORPSE_FIELD_ITEM : type = Int, size = 19, flag = Public
 
 		//CORPSE_FIELD_PAD : type = Int, size = 1, flag = None
 	}
