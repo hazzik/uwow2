@@ -6,13 +6,11 @@ using System.Linq;
 namespace Hazzik.Objects {
 	public class Inventory : IInventory {
 		protected Item[] _items;
-		protected UpdateFields _slotStart;
 
-		public Inventory(IContainer container, UpdateFields fieldOffset, uint slotsCount) {
+		public Inventory(IContainer container, uint slotsCount) {
 			Container = container;
 			MaxCount = slotsCount;
 			_items = new Item[slotsCount];
-			_slotStart = fieldOffset;
 		}
 
 		#region IInventory Members
@@ -72,7 +70,6 @@ namespace Hazzik.Objects {
 			if(slot < 0 || slot >= MaxCount) {
 				throw new ArgumentOutOfRangeException("slot");
 			}
-			((WorldObject)Container).SetUInt64(_slotStart + (slot * 2), item != null ? item.Guid : 0);
 			if(null != item) {
 				item.Contained = Container;
 			}
@@ -89,7 +86,7 @@ namespace Hazzik.Objects {
 
 	public class ContainerInventory : Inventory {
 		public ContainerInventory(IContainer container, uint slotsCount)
-			: base(container, UpdateFields.CONTAINER_FIELD_SLOT_1, slotsCount) {
+			: base(container, slotsCount) {
 		}
 
 		public override int FindFreeSlot() {
@@ -104,7 +101,7 @@ namespace Hazzik.Objects {
 
 	public class PlayerInventory	 : Inventory {
 		public PlayerInventory(IContainer container, uint slotsCount)
-			: base(container, UpdateFields.PLAYER_FIELD_INV_SLOT_HEAD, slotsCount) {
+			: base(container, slotsCount) {
 		}
 
 		public override int FindFreeSlot() {

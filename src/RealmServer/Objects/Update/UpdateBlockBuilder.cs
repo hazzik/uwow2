@@ -5,16 +5,16 @@ using Hazzik.Objects.Update.Blocks;
 namespace Hazzik.Objects.Update {
 	internal class UpdateBlockBuilder {
 		private readonly Player _player;
-		private readonly WorldObject _obj;
 		private readonly BitArray _required;
 		private readonly uint[] _sendedValues;
 		private bool _isNew = true;
+		private readonly WorldObject _obj;
 
 		public UpdateBlockBuilder(Player player, WorldObject obj) {
 			_player = player;
 			_obj = obj;
 			_required = GetRequiredMask();
-			_sendedValues = new uint[_obj.MaxValues];
+			_sendedValues = new uint[UpdateValuesDto.GetMaxValues(obj.TypeId)];
 		}
 
 		private static BitArray GetRequiredMask() {
@@ -24,27 +24,33 @@ namespace Hazzik.Objects.Update {
 		}
 
 		public IUpdateBlock CreateUpdateBlock() {
-			var maskLength = Math.Min(_required.Length, _sendedValues.Length);
-			var mask = BuildMask(maskLength);
-			if(_isNew) {
-				_isNew = false;
-				return new CreateBlock(_obj.Guid == _player.Guid, _obj, mask, (uint[])_sendedValues.Clone());
-			}
-			return new UpdateBlock(_obj, mask, _sendedValues);
+			return CreateUpdateBlock(UpdateObjectDtoMapper.CreateDto(_obj));
 		}
 
-		private BitArray BuildMask(int maskLength) {
+		private IUpdateBlock CreateUpdateBlock(UpdateValuesDto dto) {
+			var maskLength = Math.Min(_required.Length, _sendedValues.Length);
+
+			var mask = BuildMask(dto, maskLength);
+			var updateBlock = new UpdateBlock(mask, (uint[])_sendedValues.Clone());
+			if(_isNew) {
+				_isNew = false;
+				return new CreateBlockWriter(_obj.Guid == _player.Guid, _obj.Guid, _obj, updateBlock);
+			}
+			return new UpdateBlockWriter(_obj.Guid, updateBlock);
+		}
+
+		private BitArray BuildMask(UpdateValuesDto dto, int maskLength) {
 			var mask = new BitArray(maskLength);
 			for(int i = 0; i < mask.Length; i++) {
-				mask[i] = _required[i] && GetNewValue(i);
+				mask[i] = _required[i] && GetNewValue(dto, i);
 			}
 			return mask;
 		}
 
-		private bool GetNewValue(int i) {
-			uint newValue = _obj.GetValue(i);
-			uint oldValue = _sendedValues[i];
-			_sendedValues[i] = newValue;
+		private bool GetNewValue(UpdateValuesDto dto, int index) {
+			uint newValue = dto.GetValue(index);
+			uint oldValue = _sendedValues[index];
+			_sendedValues[index] = newValue;
 			return oldValue != newValue;
 		}
 	}

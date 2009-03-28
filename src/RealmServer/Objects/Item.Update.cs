@@ -3,46 +3,47 @@
 namespace Hazzik.Objects {
 	public partial class Item {
 		#region ITEM_FIELD_CREATOR
+
 		//ITEM_FIELD_CREATOR : type = Long, size = 2, flag = Public
-		public virtual UInt64 Creator {
-			get { return GetUInt64(UpdateFields.ITEM_FIELD_CREATOR); }
-			set { SetUInt64(UpdateFields.ITEM_FIELD_CREATOR, value); }
-		}
+		public virtual UInt64 Creator { get; set; }
+
 		#endregion
 
 		#region ITEM_FIELD_GIFTCREATOR
+
 		//ITEM_FIELD_GIFTCREATOR : type = Long, size = 2, flag = Public
-		public virtual UInt64 GiftCreator {
-			get { return GetUInt64(UpdateFields.ITEM_FIELD_GIFTCREATOR); }
-			set { SetUInt64(UpdateFields.ITEM_FIELD_GIFTCREATOR, value); }
-		}
+		public virtual UInt64 GiftCreator { get; set; }
+
 		#endregion
 
 		#region ITEM_FIELD_STACK_COUNT
+
 		//ITEM_FIELD_STACK_COUNT : type = Int, size = 1, flag = Owner, ItemOwner
-		public virtual UInt32 StackCount {
-			get { return GetUInt32(UpdateFields.ITEM_FIELD_STACK_COUNT); }
-			set { SetUInt32(UpdateFields.ITEM_FIELD_STACK_COUNT, value); }
-		}
+		public virtual UInt32 StackCount { get; set; }
+
 		#endregion
 
 		#region ITEM_FIELD_DURATION
+
 		//ITEM_FIELD_DURATION : type = Int, size = 1, flag = Owner, ItemOwner
-		public virtual UInt32 Duration {
-			get { return GetUInt32(UpdateFields.ITEM_FIELD_DURATION); }
-			set { SetUInt32(UpdateFields.ITEM_FIELD_DURATION, value); }
-		}
+		public virtual UInt32 Duration { get; set; }
+
 		#endregion
+
+		#region ITEM_FIELD_SPELL_CHARGES
 
 		//ITEM_FIELD_SPELL_CHARGES : type = Int, size = 5, flag = Owner, ItemOwner
 
-		#region ITEM_FIELD_FLAGS
-		//ITEM_FIELD_FLAGS : type = Int, size = 1, flag = Public
-		public virtual UInt32 Flags {
-			get { return GetUInt32(UpdateFields.ITEM_FIELD_FLAGS); }
-			set { SetUInt32(UpdateFields.ITEM_FIELD_FLAGS, value); }
-		}
 		#endregion
+
+		#region ITEM_FIELD_FLAGS
+
+		//ITEM_FIELD_FLAGS : type = Int, size = 1, flag = Public
+		public virtual UInt32 Flags { get; set; }
+
+		#endregion
+
+		#region ITEM_FIELD_ENCHANTMENT_1_1 
 
 		//ITEM_FIELD_ENCHANTMENT_1_1 : type = Int, size = 2, flag = Public
 		//ITEM_FIELD_ENCHANTMENT_1_3 : type = Shorts, size = 1, flag = Public
@@ -80,47 +81,43 @@ namespace Hazzik.Objects {
 		//ITEM_FIELD_ENCHANTMENT_12_1 : type = Int, size = 2, flag = Public
 		//ITEM_FIELD_ENCHANTMENT_12_3 : type = Shorts, size = 1, flag = Public
 
+		#endregion
+
 		#region ITEM_FIELD_PROPERTY_SEED
+
 		//ITEM_FIELD_PROPERTY_SEED : type = Int, size = 1, flag = Public
-		public virtual UInt32 PropertySeed {
-			get { return GetUInt32(UpdateFields.ITEM_FIELD_PROPERTY_SEED); }
-			set { SetUInt32(UpdateFields.ITEM_FIELD_PROPERTY_SEED, value); }
-		}
+		public virtual UInt32 PropertySeed { get; set; }
+
 		#endregion
 
 		#region ITEM_FIELD_RANDOM_PROPERTIES_ID
+
 		//ITEM_FIELD_RANDOM_PROPERTIES_ID : type = Int, size = 1, flag = Public
-		public virtual UInt32 RandomPropertiesId {
-			get { return GetUInt32(UpdateFields.ITEM_FIELD_RANDOM_PROPERTIES_ID); }
-			set { SetUInt32(UpdateFields.ITEM_FIELD_RANDOM_PROPERTIES_ID, value); }
-		}
+		public virtual UInt32 RandomPropertiesId { get; set; }
+
 		#endregion
 
 		#region ITEM_FIELD_ITEM_TEXT_ID
+
 		//ITEM_FIELD_ITEM_TEXT_ID : type = Int, size = 1, flag = Owner
-		public virtual UInt32 ItemTextId {
-			get { return GetUInt32(UpdateFields.ITEM_FIELD_ITEM_TEXT_ID); }
-			set { SetUInt32(UpdateFields.ITEM_FIELD_ITEM_TEXT_ID, value); }
-		}
+		public virtual UInt32 ItemTextId { get; set; }
+
 		#endregion
 
 		#region ITEM_FIELD_DURABILITY
+
 		//ITEM_FIELD_DURABILITY : type = Int, size = 1, flag = Owner, ItemOwner
-		public virtual UInt32 Durability {
-			get { return GetUInt32(UpdateFields.ITEM_FIELD_DURABILITY); }
-			set { SetUInt32(UpdateFields.ITEM_FIELD_DURABILITY, value); }
-		}
+		public virtual UInt32 Durability { get; set; }
+
 		#endregion
 
 		#region ITEM_FIELD_MAXDURABILITY
+
 		//ITEM_FIELD_MAXDURABILITY : type = Int, size = 1, flag = Owner, ItemOwner
-		public virtual UInt32 Maxdurability {
-			get { return GetUInt32(UpdateFields.ITEM_FIELD_MAXDURABILITY); }
-			set { SetUInt32(UpdateFields.ITEM_FIELD_MAXDURABILITY, value); }
-		}
+		public virtual UInt32 MaxDurability { get; set; }
+
 		#endregion
 
 		//ITEM_FIELD_PAD : type = Int, size = 1, flag = None
-
 	}
 }

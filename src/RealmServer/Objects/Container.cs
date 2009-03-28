@@ -5,11 +5,7 @@ namespace Hazzik.Objects {
 		private readonly IInventory _inventory;
 
 		public Container(ItemTemplate template)
-			: this(template, (int)UpdateFields.CONTAINER_END) {
-		}
-
-		protected Container(ItemTemplate template, int updateMaskLength)
-			: base(template, updateMaskLength) {
+			: base(template) {
 			Type |= ObjectTypes.Container;
 			NumSlots = (uint)template.ContainerSlots;
 			_inventory = new ContainerInventory(this, (uint)template.ContainerSlots);

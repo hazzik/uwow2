@@ -3,29 +3,47 @@ using System.Collections;
 using System.IO;
 
 namespace Hazzik.Objects.Update.Blocks {
-	internal class UpdateBlock : CreateUpdateBlockBase {
-		public UpdateBlock(WorldObject obj, BitArray mask, uint[] values) : base(obj, mask, values) {
-			_isEmpty = CheckMask();
+	public class UpdateBlock {
+		private readonly BitArray _mask;
+		private readonly uint[] _values;
+
+		public UpdateBlock(BitArray mask, uint[] values) {
+			_mask = mask;
+			_values = values;
 		}
 
-		public override bool IsEmpty {
-			get { return _isEmpty; }
+		public BitArray Mask {
+			get { return _mask; }
 		}
 
-		public override UpdateType UpdateType {
-			get { return UpdateType.Values; }
+		public uint[] Values {
+			get { return _values; }
 		}
 
-		private bool CheckMask() {
-			for(int i = 0; i < _mask.Length; i++) {
-				if(_mask[i]) {
+		public bool CheckMask() {
+			for(int i = 0; i < Mask.Length; i++) {
+				if(Mask[i]) {
 					return false;
 				}
 			}
 			return true;
 		}
 
-		protected override void WriteCreateBlock(BinaryWriter writer) {
+		public void Write(BinaryWriter writer) {
+			var length = (byte)GetLengthInDwords(Mask.Length);
+			var buffer = new byte[length << 2];
+			Mask.CopyTo(buffer, 0);
+			writer.Write(length);
+			writer.Write(buffer);
+			for(int i = 0; i < Mask.Length; i++) {
+				if(Mask[i]) {
+					writer.Write(Values[i]);
+				}
+			}
+		}
+
+		private static int GetLengthInDwords(int bitsCount) {
+			return (bitsCount >> 5) + (bitsCount % 32 != 0 ? 1 : 0);
 		}
 	}
 }

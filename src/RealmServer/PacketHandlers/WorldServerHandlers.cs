@@ -1,8 +1,6 @@
 using System;
 using System.Linq;
 using Hazzik.Attributes;
-using Hazzik.Data;
-using Hazzik.Data.NH;
 using Hazzik.Map;
 using Hazzik.Net;
 using Hazzik.Objects;
@@ -11,7 +9,6 @@ using Hazzik.Objects.Update;
 namespace Hazzik {
 	[PacketHandlerClass]
 	public static class WorldServerHandlers {
-		private static readonly IAccountRepository _repository = new NHAccountRepository();
 		[WorldPacketHandler(WMSG.CMSG_NAME_QUERY)]
 		public static void HandleCMSG_NAME_QUERY(ISession client, IPacket packet) {
 			var reader = packet.CreateReader();
@@ -63,8 +60,8 @@ namespace Hazzik {
 				FacialHair = r.ReadByte(),
 			};
 			account.AddPlayer(player);
-			Net.Repositories.Account.Save(account);
-			Net.Repositories.Account.SubmitChanges();
+			//Net.Repositories.Account.Save(account);
+			//Net.Repositories.Account.SubmitChanges();
 			client.Send(Account.GetCharCreatePkt(47));
 		}
 

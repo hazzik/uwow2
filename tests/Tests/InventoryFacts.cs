@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using Hazzik.Objects;
-using Hazzik;
 using Xunit;
 
 namespace Tests {
@@ -72,7 +71,7 @@ namespace Tests {
 		#region Nested type: TestInventory
 
 		public class TestInventory : Inventory {
-			public TestInventory(IContainer owner, uint slotsCount) : base(owner, UpdateFields.UNIT_VIRTUAL_ITEM_SLOT_ID, slotsCount) {
+			public TestInventory(IContainer owner, uint slotsCount) : base(owner, slotsCount) {
 			}
 
 			public Item[] Items {

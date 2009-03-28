@@ -30,7 +30,7 @@ namespace Hazzik.Objects.Update {
 			var updateBuilders = GetObjectsForUpdate().ToDictionary(x => x.Guid, x => GetBuilder(x));
 			var outOfRange = _updateBlockBuilders.Keys.Except(updateBuilders.Keys).ToList();
 			_updateBlockBuilders = updateBuilders;
-			return new OutOfRangeBlock(outOfRange);
+			return new OutOfRangeBlockWriter(outOfRange);
 		}
 
 		private IEnumerable<WorldObject> GetObjectsForUpdate() {
