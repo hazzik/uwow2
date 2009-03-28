@@ -12,17 +12,9 @@ namespace Hazzik.Objects.Update.Blocks {
 			_values = values;
 		}
 
-		public BitArray Mask {
-			get { return _mask; }
-		}
-
-		public uint[] Values {
-			get { return _values; }
-		}
-
-		public bool CheckMask() {
-			for(int i = 0; i < Mask.Length; i++) {
-				if(Mask[i]) {
+		public bool CheckEmpty() {
+			for(int i = 0; i < _mask.Length; i++) {
+				if(_mask[i]) {
 					return false;
 				}
 			}
@@ -30,14 +22,14 @@ namespace Hazzik.Objects.Update.Blocks {
 		}
 
 		public void Write(BinaryWriter writer) {
-			var length = (byte)GetLengthInDwords(Mask.Length);
+			var length = (byte)GetLengthInDwords(_mask.Length);
 			var buffer = new byte[length << 2];
-			Mask.CopyTo(buffer, 0);
+			_mask.CopyTo(buffer, 0);
 			writer.Write(length);
 			writer.Write(buffer);
-			for(int i = 0; i < Mask.Length; i++) {
-				if(Mask[i]) {
-					writer.Write(Values[i]);
+			for(int i = 0; i < _mask.Length; i++) {
+				if(_mask[i]) {
+					writer.Write(_values[i]);
 				}
 			}
 		}

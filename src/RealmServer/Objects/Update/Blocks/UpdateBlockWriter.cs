@@ -12,7 +12,7 @@ namespace Hazzik.Objects.Update.Blocks {
 			_create = false;
 			_guid = guid;
 			_updateBlock = updateBlock;
-			_isEmpty = updateBlock.CheckMask();
+			_isEmpty = updateBlock.CheckEmpty();
 		}
 
 		public bool IsEmpty {
