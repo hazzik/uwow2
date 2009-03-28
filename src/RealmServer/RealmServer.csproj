@@ -72,7 +72,8 @@
     <Compile Include="Attributes\WorldPacketHandler.cs" />
     <Compile Include="Data\Repositories.cs" />
     <Compile Include="Objects\Templates\LargeRedSack857.cs" />
-    <Compile Include="Objects\Update\UpdateObjectDto.cs" />
+    <Compile Include="Objects\Update\UpdateValuesDto.cs" />
+    <Compile Include="Objects\Update\UpdateObjectDtoMapper.cs" />
     <Compile Include="Objects\Update\UpdateValue.cs" />
     <Compile Include="Repositories\ItemTemplateRepository.cs" />
     <Compile Include="Objects\IContainer.cs" />
@@ -83,8 +84,8 @@
     <Compile Include="Objects\Templates\Abjurer_sBoots9936.cs" />
     <Compile Include="Objects\Templates\AncestralBoots3289.cs" />
     <Compile Include="Objects\Templates\FelIronShells23772.cs" />
-    <Compile Include="Objects\Update\Blocks\CreateBlock.cs" />
-    <Compile Include="Objects\Update\Blocks\CreateUpdateBlockBase.cs" />
+    <Compile Include="Objects\Update\Blocks\CreateBlockWriter.cs" />
+    <Compile Include="Objects\Update\Blocks\UpdateBlock.cs" />
     <Compile Include="Cryptography\ARC4.cs" />
     <Compile Include="Cryptography\RC4.cs" />
     <Compile Include="Cryptography\WowCrypt.cs" />
@@ -154,7 +155,7 @@
     <Compile Include="Objects\Update\UpdateBlockBuilder.cs" />
     <Compile Include="Objects\WorldObject.cs" />
     <Compile Include="Objects\WorldObject.Update.cs" />
-    <Compile Include="Objects\Update\Blocks\OutOfRangeBlock.cs" />
+    <Compile Include="Objects\Update\Blocks\OutOfRangeBlockWriter.cs" />
     <Compile Include="PacketHandler.cs" />
     <Compile Include="PacketHandlers\ItemHandler.cs" />
     <Compile Include="PacketHandlers\MoveHandlers.cs" />
@@ -163,7 +164,7 @@
     </Compile>
     <Compile Include="Account.cs" />
     <Compile Include="Timer2.cs" />
-    <Compile Include="Objects\Update\Blocks\UpdateBlock.cs" />
+    <Compile Include="Objects\Update\Blocks\UpdateBlockWriter.cs" />
     <Compile Include="Objects\Update\UpdateManager.cs" />
     <Compile Include="Objects\Update\UpdatePacketBuilder.cs" />
     <Compile Include="WMSG.cs" />

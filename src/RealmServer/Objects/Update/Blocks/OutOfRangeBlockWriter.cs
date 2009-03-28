@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 
 namespace Hazzik.Objects.Update.Blocks {
-	internal class OutOfRangeBlock : IUpdateBlock {
+	internal class OutOfRangeBlockWriter : IUpdateBlock {
 		private readonly ICollection<ulong> _guids;
 
-		public OutOfRangeBlock(ICollection<ulong> guids) {
+		public OutOfRangeBlockWriter(ICollection<ulong> guids) {
 			_guids = guids;
 		}
 
