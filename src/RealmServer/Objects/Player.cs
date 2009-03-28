@@ -85,12 +85,6 @@ namespace Hazzik.Objects {
 			Inventory[Inventory.FindFreeSlot()] = factory.Create(new LargeRedSack857());
 		}
 
-		public BitArray GetRequeredMask(WorldObject obj) {
-			var mask = new BitArray((int)UpdateFields.PLAYER_END);
-			mask.SetAll(true);
-			return mask;
-		}
-
 		public IInventory GetInventory(int bag) {
 			var container = bag == 0xff ? this : Inventory[bag] as IContainer;
 			return container!=null ? container.Inventory : null;
