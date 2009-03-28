@@ -5,12 +5,7 @@ namespace Hazzik.Objects {
 	public partial class Unit : Positioned {
 		private readonly MovementInfo _movementInfo = new MovementInfo();
 
-		public Unit()
-			: this((int)UpdateFields.UNIT_END) {
-		}
-
-		public Unit(int updateMaskLength)
-			: base(updateMaskLength) {
+		public Unit() {
 			Type |= ObjectTypes.Unit;
 		}
 

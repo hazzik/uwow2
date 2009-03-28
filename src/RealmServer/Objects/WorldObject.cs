@@ -4,7 +4,7 @@ using Hazzik.Net;
 
 namespace Hazzik.Objects {
 	public abstract partial class WorldObject  {
-		protected WorldObject(int maxValues) {
+		protected WorldObject() {
 			Guid = ObjectGuid.NewGuid();
 			Type = ObjectTypes.Object;
 			ScaleX = 1f;

@@ -11,8 +11,7 @@ namespace Hazzik.Objects {
 		public int PetDisplayId;
 		public int PetLevel;
 
-		public Player()
-			: base((int)UpdateFields.PLAYER_END) {
+		public Player() {
 			Type |= ObjectTypes.Player;
 			_inventory = new PlayerInventory(this, UpdateFields.PLAYER_FARSIGHT - UpdateFields.PLAYER_FIELD_INV_SLOT_HEAD);
 			InitFake();

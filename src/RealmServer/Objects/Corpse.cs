@@ -2,14 +2,9 @@ using System;
 
 namespace Hazzik.Objects {
 	public partial class Corpse : Positioned {
-		public Corpse()
-			: this((int)UpdateFields.CORPSE_END) {
-		}
-
 		public Player Owner { get; private set; }
 
-		protected Corpse(int updateMaskLength)
-			: base(updateMaskLength) {
+		public Corpse() {
 			Type |= ObjectTypes.Corpse;
 		}
 

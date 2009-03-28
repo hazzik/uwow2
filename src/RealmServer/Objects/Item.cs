@@ -4,12 +4,7 @@ namespace Hazzik.Objects {
 	public partial class Item : WorldObject {
 		private readonly ItemTemplate _template;
 
-		public Item(ItemTemplate template)
-			: this(template, (int)UpdateFields.ITEM_END) {
-		}
-
-		protected Item(ItemTemplate template, int updateMaskLength)
-			: base(updateMaskLength) {
+		public Item(ItemTemplate template) {
 			Type |= ObjectTypes.Item;
 			_template = template;
 			Entry = (uint)template.Id;
