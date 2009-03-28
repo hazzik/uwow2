@@ -5,16 +5,16 @@ using Hazzik.Objects.Update.Blocks;
 namespace Hazzik.Objects.Update {
 	internal class UpdateBlockBuilder {
 		private readonly Player _player;
-		private readonly UpdateObjectDto _obj;
+		public UpdateObjectDto Obj { get; set; }
 		private readonly BitArray _required;
 		private readonly uint[] _sendedValues;
 		private bool _isNew = true;
 
 		public UpdateBlockBuilder(Player player, UpdateObjectDto obj) {
 			_player = player;
-			_obj = obj;
+			Obj = obj;
 			_required = GetRequiredMask();
-			_sendedValues = new uint[_obj.MaxValues];
+			_sendedValues = new uint[Obj.MaxValues];
 		}
 
 		private static BitArray GetRequiredMask() {
@@ -28,9 +28,9 @@ namespace Hazzik.Objects.Update {
 			var mask = BuildMask(maskLength);
 			if(_isNew) {
 				_isNew = false;
-				return new CreateBlock(_obj.Guid == _player.Guid, _obj, mask, (uint[])_sendedValues.Clone());
+				return new CreateBlock(Obj.Guid == _player.Guid, Obj, mask, (uint[])_sendedValues.Clone());
 			}
-			return new UpdateBlock(_obj, mask, _sendedValues);
+			return new UpdateBlock(Obj, mask, _sendedValues);
 		}
 
 		private BitArray BuildMask(int maskLength) {
@@ -42,7 +42,7 @@ namespace Hazzik.Objects.Update {
 		}
 
 		private bool GetNewValue(int i) {
-			uint newValue = _obj.GetValue(i);
+			uint newValue = Obj.GetValue(i);
 			uint oldValue = _sendedValues[i];
 			_sendedValues[i] = newValue;
 			return oldValue != newValue;
