@@ -29,8 +29,8 @@ namespace Hazzik.Objects.Update {
 
 		private IUpdateBlock CreateUpdateBlock(UpdateValuesDto dto) {
 			var maskLength = Math.Min(_required.Length, _sendedValues.Length);
-			var mask = BuildMask(dto, maskLength);
 
+			var mask = BuildMask(dto, maskLength);
 			var updateBlock = new UpdateBlock(mask, (uint[])_sendedValues.Clone());
 			if(_isNew) {
 				_isNew = false;

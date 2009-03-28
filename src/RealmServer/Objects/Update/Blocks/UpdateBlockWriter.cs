@@ -1,19 +1,18 @@
 using System;
-using System.Collections;
 using System.IO;
 
 namespace Hazzik.Objects.Update.Blocks {
 	internal class UpdateBlockWriter : IUpdateBlock {
 		protected bool _create;
 		private readonly ulong _guid;
-		protected UpdateBlock _updateBlock;
-		protected bool _isEmpty;
+		private readonly UpdateBlock _updateBlock;
+		private readonly bool _isEmpty;
 
 		public UpdateBlockWriter(ulong guid, UpdateBlock updateBlock) {
-			_isEmpty = _updateBlock.CheckMask();
 			_create = false;
 			_guid = guid;
 			_updateBlock = updateBlock;
+			_isEmpty = updateBlock.CheckMask();
 		}
 
 		public bool IsEmpty {
