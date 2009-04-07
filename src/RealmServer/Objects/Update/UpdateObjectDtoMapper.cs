@@ -2,12 +2,6 @@ using System;
 
 namespace Hazzik.Objects.Update {
 	internal static class UpdateObjectDtoMapper {
-		public static UpdateValuesDto CreateDto(WorldObject obj) {
-			var dto = new UpdateValuesDto(UpdateBlockBuilder.GetMaxValues(obj.TypeId));
-			Update(dto, obj);
-			return dto;
-		}
-
 		public static void Update(UpdateValuesDto dto, WorldObject obj) {
 			switch(obj.TypeId) {
 			case ObjectTypeId.Item:

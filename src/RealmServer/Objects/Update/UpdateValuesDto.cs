@@ -8,10 +8,10 @@ namespace Hazzik.Objects.Update {
 		private readonly BitArray _updateMask;
 		private readonly UpdateValue[] _values;
 
-		public UpdateValuesDto(int valuesCount) {
+		public UpdateValuesDto(int valuesCount, BitArray required) {
 			_values = new UpdateValue[valuesCount];
 			_updateMask = new BitArray(valuesCount);
-			_required = new BitArray(valuesCount, true);
+			_required = required;
 		}
 
 		#region Set

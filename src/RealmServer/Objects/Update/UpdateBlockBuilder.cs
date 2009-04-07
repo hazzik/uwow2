@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Hazzik.Objects.Update.Blocks;
 
 namespace Hazzik.Objects.Update {
@@ -11,7 +12,17 @@ namespace Hazzik.Objects.Update {
 		public UpdateBlockBuilder(Player player, WorldObject obj) {
 			_player = player;
 			_obj = obj;
-			_sendedDto = new UpdateValuesDto(GetMaxValues(obj.TypeId));
+			_sendedDto = new UpdateValuesDto(GetMaxValues(_obj.TypeId), CreateRequiredMask());
+		}
+
+		private BitArray CreateRequiredMask() {
+			var mask = new BitArray(GetMaxValues(_obj.TypeId), true);
+			for(int i = 0; i < mask.Length; i++) {
+				if(_obj.TypeId == ObjectTypeId.Player && _player != _obj && i > (int)UpdateFields.PLAYER_FIELD_PAD_0) {
+					mask[i] = false;
+				}
+			}
+			return mask;
 		}
 
 		public IUpdateBlock CreateUpdateBlock() {
