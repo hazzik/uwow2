@@ -1,5 +1,5 @@
-namespace Hazzik.Objects {
-	public enum UpdateType : byte {
+namespace Hazzik.Objects.Update {
+	internal enum UpdateType : byte {
 		Values = 0,
 		Movement = 1,
 		CreateObject = 2,

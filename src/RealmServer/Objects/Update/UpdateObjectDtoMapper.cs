@@ -1,7 +1,7 @@
 using System;
 
 namespace Hazzik.Objects.Update {
-	public static class UpdateObjectDtoMapper {
+	internal static class UpdateObjectDtoMapper {
 		public static UpdateValuesDto CreateDto(WorldObject obj) {
 			var dto = new UpdateValuesDto(UpdateBlockBuilder.GetMaxValues(obj.TypeId));
 			Update(dto, obj);

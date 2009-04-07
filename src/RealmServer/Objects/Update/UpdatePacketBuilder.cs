@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Hazzik.Net;
 
 namespace Hazzik.Objects.Update {
-	public class UpdatePacketBuilder {
+	internal class UpdatePacketBuilder {
 		private readonly ICollection<IUpdateBlock> _updateBlocks;
 
 		public UpdatePacketBuilder(ICollection<IUpdateBlock> updateBlocks) {

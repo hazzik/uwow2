@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace Hazzik.Objects.Update {
 	[StructLayout(LayoutKind.Explicit)]
-	public struct UpdateValue {
+	internal struct UpdateValue {
 		[FieldOffset(0)]
 		public byte Uint8_0;
 		[FieldOffset(1)]

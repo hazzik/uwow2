@@ -55,19 +55,6 @@ namespace Hazzik.Objects.Update {
 
 		#region Nested type: UpdateTimer
 
-		private class UpdateTimer : Timer2 {
-			private readonly UpdateManager _manager;
-
-			public UpdateTimer(UpdateManager manager)
-				: base(1000) {
-				_manager = manager;
-			}
-
-			public override void OnTick() {
-				_manager.UpdateObjects();
-			}
-		}
-
 		#endregion
 	}
 }

@@ -3,7 +3,7 @@ using System.Collections;
 using System.IO;
 
 namespace Hazzik.Objects.Update {
-	public class UpdateValuesDto {
+	internal class UpdateValuesDto {
 		private readonly BitArray _required;
 		private readonly BitArray _updateMask;
 		private readonly UpdateValue[] _values;
