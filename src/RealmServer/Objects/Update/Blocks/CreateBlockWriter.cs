@@ -5,12 +5,12 @@ namespace Hazzik.Objects.Update.Blocks {
 	internal class CreateBlockWriter : IUpdateBlock {
 		private readonly bool _self;
 		private readonly WorldObject _obj;
-		private readonly UpdateBlock _updateBlock;
+		private readonly UpdateValuesDto _dto;
 
-		public CreateBlockWriter(bool self, WorldObject obj, UpdateBlock updateBlock) {
+		public CreateBlockWriter(bool self, WorldObject obj, UpdateValuesDto dto) {
 			_self = self;
 			_obj = obj;
-			_updateBlock = updateBlock;
+			_dto = dto;
 		}
 
 		#region IUpdateBlock Members
@@ -28,7 +28,7 @@ namespace Hazzik.Objects.Update.Blocks {
 
 			_obj.WriteCreateBlock(_self, writer);
 
-			_updateBlock.Write(writer);
+			_dto.Write(writer);
 		}
 
 		#endregion

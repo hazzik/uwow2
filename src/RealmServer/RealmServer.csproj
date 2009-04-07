@@ -85,7 +85,6 @@
     <Compile Include="Objects\Templates\AncestralBoots3289.cs" />
     <Compile Include="Objects\Templates\FelIronShells23772.cs" />
     <Compile Include="Objects\Update\Blocks\CreateBlockWriter.cs" />
-    <Compile Include="Objects\Update\Blocks\UpdateBlock.cs" />
     <Compile Include="Cryptography\ARC4.cs" />
     <Compile Include="Cryptography\RC4.cs" />
     <Compile Include="Cryptography\WowCrypt.cs" />

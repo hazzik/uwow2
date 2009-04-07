@@ -4,10 +4,11 @@ namespace Hazzik.Objects.Update {
 	public static class UpdateObjectDtoMapper {
 		public static UpdateValuesDto CreateDto(WorldObject obj) {
 			var dto = new UpdateValuesDto(UpdateBlockBuilder.GetMaxValues(obj.TypeId));
-			return Update(dto, obj);
+			Update(dto, obj);
+			return dto;
 		}
 
-		public static UpdateValuesDto Update(UpdateValuesDto dto, WorldObject obj) {
+		public static void Update(UpdateValuesDto dto, WorldObject obj) {
 			switch(obj.TypeId) {
 			case ObjectTypeId.Item:
 				UpdateItem(dto, (Item)obj);
@@ -38,7 +39,6 @@ namespace Hazzik.Objects.Update {
 			default:
 				throw new ArgumentOutOfRangeException();
 			}
-			return dto;
 		}
 
 		private static void UpdateObject(UpdateValuesDto dto, WorldObject obj) {

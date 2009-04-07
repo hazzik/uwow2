@@ -5,14 +5,14 @@ namespace Hazzik.Objects.Update.Blocks {
 	internal class UpdateBlockWriter : IUpdateBlock {
 		protected bool _create;
 		private readonly ulong _guid;
-		private readonly UpdateBlock _updateBlock;
 		private readonly bool _isEmpty;
+		private readonly UpdateValuesDto _dto;
 
-		public UpdateBlockWriter(ulong guid, UpdateBlock updateBlock) {
+		public UpdateBlockWriter(ulong guid, UpdateValuesDto dto) {
 			_create = false;
 			_guid = guid;
-			_updateBlock = updateBlock;
-			_isEmpty = updateBlock.CheckEmpty();
+			_isEmpty = !dto.HasChanges;
+			_dto = dto;
 		}
 
 		public bool IsEmpty {
@@ -25,7 +25,7 @@ namespace Hazzik.Objects.Update.Blocks {
 
 		public void Write(BinaryWriter writer) {
 			writer.WritePackGuid(_guid);
-			_updateBlock.Write(writer);
+			_dto.Write(writer);
 		}
 	}
 }

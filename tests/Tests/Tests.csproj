@@ -53,6 +53,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BitArrayFacts.cs" />
     <Compile Include="IEnumerableFacts.cs" />
     <Compile Include="InventoryFacts.cs" />
     <Compile Include="ObjectTypesFacts.cs" />
