@@ -14,7 +14,7 @@ namespace Hazzik.Objects.Update {
 			_player = player;
 			_obj = obj;
 			_required = GetRequiredMask();
-			_sendedValues = new uint[UpdateValuesDto.GetMaxValues(obj.TypeId)];
+			_sendedValues = new uint[GetMaxValues(obj.TypeId)];
 		}
 
 		private static BitArray GetRequiredMask() {
@@ -52,6 +52,33 @@ namespace Hazzik.Objects.Update {
 			uint oldValue = _sendedValues[index];
 			_sendedValues[index] = newValue;
 			return oldValue != newValue;
+		}
+
+		public static int GetMaxValues(ObjectTypeId typeId) {
+			switch(typeId) {
+			case ObjectTypeId.Object:
+				return (int)UpdateFields.OBJECT_END;
+			case ObjectTypeId.Item:
+				return (int)UpdateFields.ITEM_END;
+			case ObjectTypeId.Container:
+				return (int)UpdateFields.CONTAINER_END;
+			case ObjectTypeId.Unit:
+				return (int)UpdateFields.UNIT_END;
+			case ObjectTypeId.Player:
+				return (int)UpdateFields.PLAYER_END;
+			case ObjectTypeId.GameObject:
+				return (int)UpdateFields.GAMEOBJECT_END;
+			case ObjectTypeId.DynamicObject:
+				return (int)UpdateFields.DYNAMICOBJECT_END;
+			case ObjectTypeId.Corpse:
+				return (int)UpdateFields.CORPSE_END;
+			case ObjectTypeId.AIGroup:
+				return (int)UpdateFields.OBJECT_END;
+			case ObjectTypeId.AreaTrigger:
+				return (int)UpdateFields.OBJECT_END;
+			default:
+				throw new ArgumentOutOfRangeException();
+			}
 		}
 	}
 }

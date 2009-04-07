@@ -49,10 +49,11 @@ namespace Hazzik.Objects {
 		#endregion
 
 		private void InitFake() {
-			MapId = 530;
-			PosX = -3961.64F;
-			PosY = -13931.2F;
-			PosZ = 100.615F;
+			//{X:-2133,334 Y:135,4584 Z:-9070,833}
+			MapId = 0;
+			PosX = -9070.833F;
+			PosY = -2133.334F;
+			PosZ = 135.4584f;
 			Facing = 2.083644F;
 
 			Speed0 = 2.5F;

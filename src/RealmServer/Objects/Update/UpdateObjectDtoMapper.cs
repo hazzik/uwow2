@@ -3,7 +3,7 @@ using System;
 namespace Hazzik.Objects.Update {
 	public static class UpdateObjectDtoMapper {
 		public static UpdateValuesDto CreateDto(WorldObject obj) {
-			var dto = new UpdateValuesDto(obj);
+			var dto = new UpdateValuesDto(UpdateBlockBuilder.GetMaxValues(obj.TypeId));
 			return Update(dto, obj);
 		}
 

@@ -22,7 +22,7 @@ namespace Hazzik.Objects.Update {
 		}
 
 		private ICollection<IUpdateBlock> GetUpdateBlocks() {
-			var allBlocks = new[] { GetOutOfRange() }.Concat(_updateBlockBuilders.Values.Select(x=>x.CreateUpdateBlock()));
+			var allBlocks = new[] { GetOutOfRange() }.Concat(_updateBlockBuilders.Values.Select(x => x.CreateUpdateBlock()));
 			return allBlocks.Where(x => !x.IsEmpty).ToList();
 		}
 
