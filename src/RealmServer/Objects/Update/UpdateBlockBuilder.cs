@@ -34,7 +34,7 @@ namespace Hazzik.Objects.Update {
 			var updateBlock = new UpdateBlock(mask, (uint[])_sendedValues.Clone());
 			if(_isNew) {
 				_isNew = false;
-				return new CreateBlockWriter(_obj.Guid == _player.Guid, _obj.Guid, _obj, updateBlock);
+				return new CreateBlockWriter(_obj.Guid == _player.Guid, _obj, updateBlock);
 			}
 			return new UpdateBlockWriter(_obj.Guid, updateBlock);
 		}

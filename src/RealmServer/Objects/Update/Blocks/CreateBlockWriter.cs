@@ -4,14 +4,12 @@ using System.IO;
 namespace Hazzik.Objects.Update.Blocks {
 	internal class CreateBlockWriter : IUpdateBlock {
 		private readonly bool _self;
-		private readonly ulong _guid;
 		private readonly WorldObject _obj;
 		private readonly UpdateBlock _updateBlock;
 
-		public CreateBlockWriter(bool self, ulong guid, WorldObject obj, UpdateBlock updateBlock) {
+		public CreateBlockWriter(bool self, WorldObject obj, UpdateBlock updateBlock) {
 			_self = self;
 			_obj = obj;
-			_guid = guid;
 			_updateBlock = updateBlock;
 		}
 
@@ -26,7 +24,7 @@ namespace Hazzik.Objects.Update.Blocks {
 		}
 
 		public void Write(BinaryWriter writer) {
-			writer.WritePackGuid(_guid);
+			writer.WritePackGuid(_obj.Guid);
 
 			_obj.WriteCreateBlock(_self, writer);
 
