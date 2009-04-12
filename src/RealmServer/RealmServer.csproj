@@ -76,6 +76,7 @@
     <Compile Include="Creatures\CreatureRank.cs" />
     <Compile Include="Creatures\CreatureTemplate.cs" />
     <Compile Include="Creatures\CreatureType.cs" />
+    <Compile Include="Creatures\NpcFlags.cs" />
     <Compile Include="Data\Repositories.cs" />
     <Compile Include="Objects\Templates\Creature647.cs" />
     <Compile Include="Objects\Templates\LargeRedSack857.cs" />

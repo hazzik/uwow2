@@ -68,7 +68,7 @@ namespace Hazzik {
 		}
 
 		[WorldPacketHandler(WMSG.CMSG_PLAYER_LOGIN)]
-		public static void HandleCMSG_PLAYER_LOGIN(ISession client, IPacket packet) {
+		public static void HandlePlayerLogin(ISession client, IPacket packet) {
 			var reader = packet.CreateReader();
 			var guid = reader.ReadUInt64();
 			var player = client.Account.GetPlayer(guid);
@@ -80,6 +80,7 @@ namespace Hazzik {
 			client.Player = player;
 			ObjectManager.Add(player);
 			ObjectManager.Add(new Creature(new Creature647()) {
+				NpcFlags = NpcFlags.Gossip | NpcFlags.QuestGiver,
 				BaseHealth = 500,
 				Health = 500,
 				PosX = player.PosX,

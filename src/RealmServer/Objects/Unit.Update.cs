@@ -1,4 +1,5 @@
 ﻿using System;
+using Hazzik.Creatures;
 using Hazzik.Map;
 
 namespace Hazzik.Objects {
@@ -315,7 +316,7 @@ namespace Hazzik.Objects {
 		#region UNIT_NPC_FLAGS
 
 		//UNIT_NPC_FLAGS : type = Int, size = 1, flag = Dynamic
-		public virtual UInt32 NpcFlags { get; set; }
+		public virtual NpcFlags NpcFlags { get; set; }
 
 		#endregion
 

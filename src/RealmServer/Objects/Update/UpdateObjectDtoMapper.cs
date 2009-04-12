@@ -210,7 +210,7 @@ namespace Hazzik.Objects.Update {
 			dto.Set(UpdateFields.UNIT_CHANNEL_SPELL, obj.ChannelSpell);
 			dto.Set(UpdateFields.UNIT_MOD_CAST_SPEED, obj.ModCastSpeed);
 			dto.Set(UpdateFields.UNIT_CREATED_BY_SPELL, obj.CreatedBySpell);
-			dto.Set(UpdateFields.UNIT_NPC_FLAGS, obj.NpcFlags);
+			dto.Set(UpdateFields.UNIT_NPC_FLAGS, (uint)obj.NpcFlags);
 			dto.Set(UpdateFields.UNIT_NPC_EMOTESTATE, obj.NpcEmoteState);
 			dto.Set(UpdateFields.UNIT_FIELD_STAT0, obj.Stat0);
 			dto.Set(UpdateFields.UNIT_FIELD_STAT1, obj.Stat1);
