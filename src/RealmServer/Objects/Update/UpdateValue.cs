@@ -14,9 +14,9 @@ namespace Hazzik.Objects.Update {
 		public byte Uint8_3;
 
 		[FieldOffset(0)]
-		public ushort UInt16_1;
-		[FieldOffset(2)]
 		public ushort UInt16_0;
+		[FieldOffset(2)]
+		public ushort UInt16_1;
 
 		[FieldOffset(0)]
 		public uint UInt32;
