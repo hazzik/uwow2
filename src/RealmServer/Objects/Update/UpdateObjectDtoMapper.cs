@@ -279,9 +279,7 @@ namespace Hazzik.Objects.Update {
 			//}
 			for(int i = 0; i < 19; i++) {
 				Item item = obj.Inventory[i];
-				if(null != item) {
-					SetVisibleItem(dto, UpdateFields.PLAYER_VISIBLE_ITEM_1_CREATOR + i * 19, item);
-				}
+				SetVisibleItem(dto, UpdateFields.PLAYER_VISIBLE_ITEM_1_CREATOR + i * 19, item);
 			}
 			dto.Set(UpdateFields.PLAYER_CHOSEN_TITLE, obj.ChosenTitle);
 			//PLAYER_FIELD_PAD_0 = UNIT_END + 453, // 1 1:Int 0:None
@@ -298,6 +296,9 @@ namespace Hazzik.Objects.Update {
 				Item item = obj.Inventory[i];
 				if(null != item) {
 					dto.Set(UpdateFields.PLAYER_FIELD_INV_SLOT_HEAD + i * 2, item.Guid);
+				}
+				else {
+					dto.Set(UpdateFields.PLAYER_FIELD_INV_SLOT_HEAD + i * 2, (ulong)0);
 				}
 			}
 			dto.Set(UpdateFields.PLAYER_FARSIGHT, obj.FarSightGuid);
@@ -357,8 +358,14 @@ namespace Hazzik.Objects.Update {
 		}
 
 		private static void SetVisibleItem(UpdateValuesDto dto, UpdateFields field, Item item) {
-			dto.Set(field, item.Creator);
-			dto.Set(field + 2, item.Entry);
+			if(item != null) {
+				dto.Set(field, item.Creator);
+				dto.Set(field + 2, item.Entry);
+			}
+			else {
+				dto.Set(field, (ulong)0);
+				dto.Set(field + 2, (uint)0);
+			}
 		}
 	}
 }
