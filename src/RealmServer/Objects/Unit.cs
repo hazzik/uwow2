@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Hazzik.Net;
 
 namespace Hazzik.Objects {
 	public partial class Unit : Positioned {
@@ -48,6 +49,8 @@ namespace Hazzik.Objects {
 			get { return _movementInfo; }
 		}
 
+		public string Name { get; set; }
+
 		public override void WriteCreateBlock(BinaryWriter w) {
 			_movementInfo.Write(w);
 			w.Write(Speed0);
@@ -59,6 +62,13 @@ namespace Hazzik.Objects {
 			w.Write(Speed6);
 			w.Write(TurnRate);
 			w.Write(TurnRate);
+		}
+
+		public IPacket GetResponce() {
+			var packet = new WorldPacket(WMSG.SMSG_CREATURE_QUERY_RESPONSE);
+			var writer = packet.CreateWriter();
+			writer.Write(Entry);
+			return packet;
 		}
 	}
 }

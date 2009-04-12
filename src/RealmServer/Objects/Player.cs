@@ -21,8 +21,6 @@ namespace Hazzik.Objects {
 			get { return ObjectTypeId.Player; }
 		}
 
-		public string Name { get; set; }
-
 		public override StandStates StandState {
 			get { return base.StandState; }
 			set {

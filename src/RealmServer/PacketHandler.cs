@@ -67,7 +67,14 @@ namespace Hazzik {
 		public void Handle(ISession client, IPacket packet) {
 			PacketHandlerDelegate handler;
 			if(_handlers.TryGetValue(packet.Code, out handler)) {
+				Console.WriteLine((WMSG)packet.Code);
 				handler(client, packet);
+			}
+			else {
+				var color = Console.ForegroundColor; 
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.WriteLine((WMSG)packet.Code);
+				Console.ForegroundColor = color;
 			}
 		}
 	}

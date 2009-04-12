@@ -1,9 +1,11 @@
 using System;
 using System.Linq;
 using Hazzik.Attributes;
+using Hazzik.Creatures;
 using Hazzik.Map;
 using Hazzik.Net;
 using Hazzik.Objects;
+using Hazzik.Objects.Templates;
 using Hazzik.Objects.Update;
 
 namespace Hazzik {
@@ -77,7 +79,13 @@ namespace Hazzik {
 			
 			client.Player = player;
 			ObjectManager.Add(player);
-
+			ObjectManager.Add(new Creature(new Creature647()) {
+				BaseHealth = 500,
+				Health = 500,
+				PosX = player.PosX,
+				PosY = player.PosY,
+				PosZ = player.PosZ,
+			});
 			client.Send(player.GetLoginVerifyWorldPkt());
 
 			client.Send(Account.GetAccountDataTimesPkt());

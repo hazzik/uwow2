@@ -21,7 +21,7 @@ namespace Hazzik.Net {
 		public void Process(IPacket packet) {
 			int size = packet.Size;
 			var code = (WMSG)packet.Code;
-			Console.WriteLine("Handle {0}", code);
+			//Console.WriteLine("Handle {0}", code);
 			if(code == WMSG.CMSG_AUTH_SESSION) {
 				HandleAuthSession(packet);
 				return;
