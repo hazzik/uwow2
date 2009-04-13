@@ -190,6 +190,9 @@
     <Compile Include="Objects\Update\Blocks\UpdateBlockWriter.cs" />
     <Compile Include="Objects\Update\UpdateManager.cs" />
     <Compile Include="Objects\Update\UpdatePacketBuilder.cs" />
+    <Compile Include="Trade\TradeContext.cs" />
+    <Compile Include="Trade\TradeException.cs" />
+    <Compile Include="Trade\TradeStatus.cs" />
     <Compile Include="WMSG.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
