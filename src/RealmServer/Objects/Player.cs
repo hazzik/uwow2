@@ -55,6 +55,7 @@ namespace Hazzik.Objects {
 		#endregion
 
 		private void InitFake() {
+			return;
 			//{X:-2133,334 Y:135,4584 Z:-9070,833}
 			MapId = 0;
 			PosX = -9070.833F;
@@ -82,15 +83,15 @@ namespace Hazzik.Objects {
 			FactionTemplate = 0x0000065D;
 			var factory = new ItemFactory();
 			var abjurerSBoots9936 = new Abjurer_sBoots9936();
-			Inventory[(int)abjurerSBoots9936.CanBeEquipedIn[0]] = factory.Create(abjurerSBoots9936);
-			Inventory[Inventory.FindFreeSlot()] = factory.Create(new AncestralBoots3289());
-			Inventory[Inventory.FindFreeSlot()] = factory.Create(new FelIronShells23772());
-			Inventory[Inventory.FindFreeSlot()] = factory.Create(new FelIronShells23772());
-			Inventory[Inventory.FindFreeSlot()] = factory.Create(new LargeRedSack857());
-			Inventory[Inventory.FindFreeSlot()] = factory.Create(new LargeRedSack857());
-			Inventory[Inventory.FindFreeSlot()] = factory.Create(new LargeRedSack857());
-			Inventory[Inventory.FindFreeSlot()] = factory.Create(new LargeRedSack857());
-			Inventory[Inventory.FindFreeSlot()] = factory.Create(new Abjurer_sRobe9943());
+			Inventory[(int)abjurerSBoots9936.CanBeEquipedIn[0]] = ItemFactory.Create(abjurerSBoots9936);
+			Inventory[Inventory.FindFreeSlot()] = ItemFactory.Create(new AncestralBoots3289());
+			Inventory[Inventory.FindFreeSlot()] = ItemFactory.Create(new FelIronShells23772());
+			Inventory[Inventory.FindFreeSlot()] = ItemFactory.Create(new FelIronShells23772());
+			Inventory[Inventory.FindFreeSlot()] = ItemFactory.Create(new LargeRedSack857());
+			Inventory[Inventory.FindFreeSlot()] = ItemFactory.Create(new LargeRedSack857());
+			Inventory[Inventory.FindFreeSlot()] = ItemFactory.Create(new LargeRedSack857());
+			Inventory[Inventory.FindFreeSlot()] = ItemFactory.Create(new LargeRedSack857());
+			Inventory[Inventory.FindFreeSlot()] = ItemFactory.Create(new Abjurer_sRobe9943());
 
 			TrainSpell(new[] {
 				78, // Heroic Strike Rank 1

@@ -96,7 +96,7 @@ namespace Hazzik.PacketHandlers {
 			var srcItem = inventorySrc[srcSlot];
 			var dstItem = inventoryDst[dstSlot];
 			if(dstItem == null) {
-				dstItem = _itemFactory.Create(srcItem.Template);
+				dstItem = ItemFactory.Create(srcItem.Template);
 				inventoryDst[dstSlot] = dstItem;
 			}
 			else {
