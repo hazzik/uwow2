@@ -76,7 +76,7 @@ namespace Hazzik {
 				client.Send(Account.GetCharacterLoginFiledPkt(0x44));
 				return;
 			}
-			
+
 			client.Player = player;
 			ObjectManager.Add(player);
 			ObjectManager.Add(new Creature(new Creature647()) {
@@ -92,13 +92,24 @@ namespace Hazzik {
 			client.Send(Account.GetAccountDataTimesPkt());
 
 			client.Send(GetLoginSetTimeSpeedPkt());
-
+			client.Send(GetProf(2, -1));
+			client.Send(GetProf(4, -1));
+			client.Send(GetProf(6, -1));
+			client.Send(player.GetInitialSpellsPkt());
 			var manager = new UpdateManager(player);
 			manager.UpdateObjects();
 
 			client.Send(GetTimeSyncReqPkt());
 
 			manager.StartUpdateTimer();
+		}
+
+		private static IPacket GetProf(byte type, int bitmask) {
+			IPacket packet = new WorldPacket(WMSG.SMSG_SET_PROFICIENCY);
+			var writer = packet.CreateWriter();
+			writer.Write(type);
+			writer.Write(bitmask);
+			return packet;
 		}
 
 		private static IPacket GetTimeSyncReqPkt() {

@@ -1,3 +1,5 @@
+using System;
+
 namespace Hazzik.Objects.Templates {
 	public class Abjurer_sBoots9936 : ItemTemplate {
 		public Abjurer_sBoots9936() {

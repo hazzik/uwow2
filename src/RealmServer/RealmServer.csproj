@@ -78,12 +78,17 @@
     <Compile Include="Creatures\CreatureType.cs" />
     <Compile Include="Creatures\NpcFlags.cs" />
     <Compile Include="Data\Repositories.cs" />
+    <Compile Include="Dbc\DbcLoader.cs" />
+    <Compile Include="Dbc\IDbcRow.cs" />
+    <Compile Include="Objects\Templates\Abjurer_sRobe9943.cs" />
+    <Compile Include="Skills\SkillLineAbility.cs" />
+    <Compile Include="Dbc\SkillLineAbilityRepository.cs" />
     <Compile Include="Gossip\GossipHandler.cs" />
     <Compile Include="Gossip\GossipMenuIcon.cs" />
     <Compile Include="Gossip\GossipMenuItem.cs" />
     <Compile Include="Repositories\NpcTextRepository.cs" />
     <Compile Include="Gossip\NpcTexts.cs" />
-    <Compile Include="Gossip\NpcTextStruct.cs" />
+    <Compile Include="Gossip\NpcText.cs" />
     <Compile Include="Gossip\QuestsMenuItem.cs" />
     <Compile Include="Objects\Templates\Creature647.cs" />
     <Compile Include="Objects\Templates\LargeRedSack857.cs" />
@@ -179,6 +184,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Account.cs" />
+    <Compile Include="Skills\Skill.cs" />
+    <Compile Include="Skills\SkillType.cs" />
     <Compile Include="Timer2.cs" />
     <Compile Include="Objects\Update\Blocks\UpdateBlockWriter.cs" />
     <Compile Include="Objects\Update\UpdateManager.cs" />

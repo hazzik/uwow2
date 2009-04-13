@@ -1,4 +1,5 @@
 using System;
+using Hazzik.Skills;
 
 namespace Hazzik.Objects.Update {
 	internal static class UpdateObjectDtoMapper {
@@ -279,7 +280,7 @@ namespace Hazzik.Objects.Update {
 			//}
 			for(int i = 0; i < 19; i++) {
 				Item item = obj.Inventory[i];
-				SetVisibleItem(dto, UpdateFields.PLAYER_VISIBLE_ITEM_1_CREATOR + i * 19, item);
+				SetVisibleItem(dto, UpdateFields.PLAYER_VISIBLE_ITEM_1_CREATOR + i * 18, item);
 			}
 			dto.Set(UpdateFields.PLAYER_CHOSEN_TITLE, obj.ChosenTitle);
 			//PLAYER_FIELD_PAD_0 = UNIT_END + 453, // 1 1:Int 0:None
@@ -308,6 +309,20 @@ namespace Hazzik.Objects.Update {
 			dto.Set(UpdateFields.PLAYER_XP, obj.Xp);
 			dto.Set(UpdateFields.PLAYER_NEXT_LEVEL_XP, obj.NextLevelXp);
 			//PLAYER_SKILL_INFO_1_1 = UNIT_END + 864, // 384 2:Shorts 2:Private
+			//obj.Skills.Add(new Skill() { Id = 43, Cap = 300, Value = 300 });
+			for(int i = 0; i < 128; i++) {
+				Skill skill;
+				if((i < obj.Skills.Count) && (skill = obj.Skills[i]) != null) {
+					dto.Set(UpdateFields.PLAYER_SKILL_INFO_1_1 + (i * 3), skill.Id, skill.Flags);
+					dto.Set(UpdateFields.PLAYER_SKILL_INFO_1_1 + (i * 3) + 1, skill.Value, skill.Cap);
+					dto.Set(UpdateFields.PLAYER_SKILL_INFO_1_1 + (i * 3) + 2, skill.Modifier, skill.Modifier2);
+				}
+				else {
+					dto.Set(UpdateFields.PLAYER_SKILL_INFO_1_1 + (i * 3), 0);
+					dto.Set(UpdateFields.PLAYER_SKILL_INFO_1_1 + (i * 3) + 1, 0);
+					dto.Set(UpdateFields.PLAYER_SKILL_INFO_1_1 + (i * 3) + 2, 0);
+				}
+			}
 			dto.Set(UpdateFields.PLAYER_CHARACTER_POINTS1, obj.CharacterPoints1);
 			dto.Set(UpdateFields.PLAYER_CHARACTER_POINTS2, obj.CharacterPoints2);
 			dto.Set(UpdateFields.PLAYER_TRACK_CREATURES, obj.TrackCreatures);
@@ -359,11 +374,11 @@ namespace Hazzik.Objects.Update {
 
 		private static void SetVisibleItem(UpdateValuesDto dto, UpdateFields field, Item item) {
 			if(item != null) {
-				dto.Set(field, item.Creator);
+				//dto.Set(field, item.Creator);
 				dto.Set(field + 2, item.Entry);
 			}
 			else {
-				dto.Set(field, (ulong)0);
+				//dto.Set(field, (ulong)0);
 				dto.Set(field + 2, (uint)0);
 			}
 		}
