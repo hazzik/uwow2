@@ -2,8 +2,7 @@ using System;
 using Hazzik.Objects;
 
 namespace Hazzik.Net {
-	public interface ISession  {
-		void Send(IPacket packet);
+	public interface ISession : IClient {
 		Account Account { get; set; }
 		Player Player { get; set; }
 	}

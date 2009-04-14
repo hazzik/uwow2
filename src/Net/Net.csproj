@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="AssyncStreamExtensions.cs" />
     <Compile Include="ClientBase.cs" />
+    <Compile Include="IClient.cs" />
     <Compile Include="IClientAcceptor.cs" />
     <Compile Include="IPacket.cs" />
     <Compile Include="IPacketProcessor.cs" />
