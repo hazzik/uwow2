@@ -71,8 +71,8 @@ namespace Hazzik {
 				for(var i = 0; i < 20; i++) {
 					var item = player.Inventory[i];
 					if(item != null) {
-						w.Write(0);
-						w.Write((byte)0);
+						w.Write(item.Template.DisplayId);
+						w.Write((byte)item.Template.InventoryType);
 						w.Write(0);
 					}
 					else {

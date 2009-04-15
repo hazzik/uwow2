@@ -61,6 +61,7 @@ namespace Hazzik {
 				HairColor = r.ReadByte(),
 				FacialHair = r.ReadByte(),
 			};
+			player.InitFake();
 			account.AddPlayer(player);
 			//Net.Repositories.Account.Save(account);
 			//Net.Repositories.Account.SubmitChanges();

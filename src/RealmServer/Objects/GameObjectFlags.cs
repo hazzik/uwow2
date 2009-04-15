@@ -2,7 +2,7 @@ using System;
 
 namespace Hazzik.Objects {
 	[Flags]
-	public enum GameObjectFlags : ushort {
+	public enum GameObjectFlags : uint {
 		InUse = 0x01,
 		Locked = 0x02,
 		ConditionalInteraction = 0x04,

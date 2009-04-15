@@ -18,19 +18,12 @@ namespace Hazzik.Objects {
 
 		#region GAMEOBJECT_FLAGS
 
-		//GAMEOBJECT_FLAGS : type = Shorts, size = 1, flag = Public
+		//GAMEOBJECT_FLAGS : type = Int, size = 1, flag = Public
 		public virtual GameObjectFlags Flags { get; set; }
 
-		public virtual GameObjectFlagsHigh FlagsHigh { get; set; }
-
 		#endregion
 
-		#region GAMEOBJECT_ROTATION
-
-		//GAMEOBJECT_ROTATION : type = Long, size = 2, flag = Public
 		public virtual UInt64 Rotation { get; set; }
-
-		#endregion
 
 		#region GAMEOBJECT_PARENTROTATION
 
@@ -42,34 +35,6 @@ namespace Hazzik.Objects {
 		public virtual Single ParentRotationZ { get; set; }
 
 		public virtual Single ParentRotationO { get; set; }
-
-		#endregion
-
-		#region GAMEOBJECT_POS_X
-
-		//GAMEOBJECT_POS_X : type = Single, size = 1, flag = Public
-		public override Single PosX { get; set; }
-
-		#endregion
-
-		#region GAMEOBJECT_POS_Y
-
-		//GAMEOBJECT_POS_Y : type = Single, size = 1, flag = Public
-		public override Single PosY { get; set; }
-
-		#endregion
-
-		#region GAMEOBJECT_POS_Z
-
-		//GAMEOBJECT_POS_Z : type = Single, size = 1, flag = Public
-		public override Single PosZ { get; set; }
-
-		#endregion
-
-		#region GAMEOBJECT_FACING
-
-		//GAMEOBJECT_FACING : type = Single, size = 1, flag = Public
-		public override Single Facing { get; set; }
 
 		#endregion
 

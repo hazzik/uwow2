@@ -28,12 +28,12 @@ namespace Hazzik.Objects {
 
 		public void WriteCreateBlock(bool self, BinaryWriter writer) {
 			writer.Write((byte)TypeId);
-			writer.Write((byte)(!self ? UpdateFlag : UpdateFlag | UpdateFlags.Self));
+			writer.Write((ushort)(!self ? UpdateFlag : UpdateFlag | UpdateFlags.Self));
 			WriteCreateBlock(writer);
-			if(UpdateFlag.Has(UpdateFlags.HighGuid)) {
+			if(UpdateFlag.Has(UpdateFlags.LowGuid)) {
 				writer.Write((uint)0x00);
 			}
-			if(UpdateFlag.Has(UpdateFlags.LowGuid)) {
+			if(UpdateFlag.Has(UpdateFlags.HighGuid)) {
 				writer.Write((uint)0x00);
 			}
 			if(UpdateFlag.Has(UpdateFlags.TargetGuid)) {

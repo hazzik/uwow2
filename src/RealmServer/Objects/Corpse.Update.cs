@@ -16,34 +16,6 @@ namespace Hazzik.Objects {
 
 		#endregion
 
-		#region CORPSE_FIELD_FACING
-
-		//CORPSE_FIELD_FACING : type = Single, size = 1, flag = Public
-		public override Single Facing { get; set; }
-
-		#endregion
-
-		#region CORPSE_FIELD_POS_X
-
-		//CORPSE_FIELD_POS_X : type = Single, size = 1, flag = Public
-		public override Single PosX { get; set; }
-
-		#endregion
-
-		#region CORPSE_FIELD_POS_Y
-
-		//CORPSE_FIELD_POS_Y : type = Single, size = 1, flag = Public
-		public override Single PosY { get; set; }
-
-		#endregion
-
-		#region CORPSE_FIELD_POS_Z
-
-		//CORPSE_FIELD_POS_Z : type = Single, size = 1, flag = Public
-		public override Single PosZ { get; set; }
-
-		#endregion
-
 		#region CORPSE_FIELD_DISPLAY_ID
 
 		//CORPSE_FIELD_DISPLAY_ID : type = Int, size = 1, flag = Public

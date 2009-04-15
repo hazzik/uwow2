@@ -22,7 +22,6 @@ namespace Hazzik.Objects {
 		public Player() {
 			Type |= ObjectTypes.Player;
 			_inventory = new PlayerInventory(this, UpdateFields.PLAYER_FARSIGHT - UpdateFields.PLAYER_FIELD_INV_SLOT_HEAD);
-			InitFake();
 		}
 
 		public override ObjectTypeId TypeId {
@@ -54,8 +53,8 @@ namespace Hazzik.Objects {
 
 		#endregion
 
-		private void InitFake() {
-			return;
+		public void InitFake() {
+			//return;
 			//{X:-2133,334 Y:135,4584 Z:-9070,833}
 			MapId = 0;
 			PosX = -9070.833F;
@@ -72,16 +71,17 @@ namespace Hazzik.Objects {
 			Speed6 = 4.5F;
 			TurnRate = 3.141593F;
 
-			Race = Races.Draenei;
+			Race = Races.Orc;
 			Classe = Classes.Warrior;
 			Gender = GenderType.Male;
 			PowerType = PowerType.Rage;
 			Health = 50;
 			Power = 100;
 			Level = 80;
-			DisplayId = (uint)(16125 + Gender);
+			DisplayId = (uint)(51 + Gender);
+			NativeDisplayId = (uint)(51 + Gender);
 			FactionTemplate = 0x0000065D;
-			var factory = new ItemFactory();
+			WatchedFactionIndex = -1;
 			var abjurerSBoots9936 = new Abjurer_sBoots9936();
 			Inventory[(int)abjurerSBoots9936.CanBeEquipedIn[0]] = ItemFactory.Create(abjurerSBoots9936);
 			Inventory[Inventory.FindFreeSlot()] = ItemFactory.Create(new AncestralBoots3289());

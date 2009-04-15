@@ -7,8 +7,6 @@ using Hazzik.Repositories;
 namespace Hazzik.PacketHandlers {
 	[PacketHandlerClass]
 	public class ItemHandler {
-		private static readonly ItemFactory _itemFactory = new ItemFactory();
-
 		[WorldPacketHandler(WMSG.CMSG_ITEM_QUERY_SINGLE)]
 		public static void HandleItemQuerySingle(ISession client, IPacket packet) {
 			var r = packet.CreateReader();

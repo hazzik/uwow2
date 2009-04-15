@@ -97,11 +97,8 @@ namespace Hazzik.Objects {
 
 		#region PLAYER_VISIBLE_ITEM_1	* 19
 
-		//PLAYER_VISIBLE_ITEM_1_CREATOR : type = Long, size = 2, flag = Public
-		//PLAYER_VISIBLE_ITEM_1_0 : type = Int, size = 13, flag = Public
-		//PLAYER_VISIBLE_ITEM_1_PROPERTIES : type = Shorts, size = 1, flag = Public
-		//PLAYER_VISIBLE_ITEM_1_SEED : type = Int, size = 1, flag = Public
-		//PLAYER_VISIBLE_ITEM_1_PAD : type = Int, size = 1, flag = Public
+		//PLAYER_VISIBLE_ITEM_1_ENTRYID : type = Int, size = 1, flag = Public
+		//PLAYER_VISIBLE_ITEM_1_ENCHANTMENT : type = Shorts, size = 1, flag = Public
 
 		#endregion
 
@@ -130,6 +127,13 @@ namespace Hazzik.Objects {
 
 		//PLAYER__FIELD_KNOWN_TITLES1 : type = Long, size = 2, flag = Private
 		public virtual UInt64 KnownTitles1Guid { get; set; }
+
+		#endregion
+
+		#region PLAYER__FIELD_KNOWN_TITLES2
+
+		//PLAYER__FIELD_KNOWN_TITLES2 : type = Long, size = 2, flag = Private
+		public virtual UInt64 KnownTitles2Guid { get; set; }
 
 		#endregion
 
@@ -353,7 +357,7 @@ namespace Hazzik.Objects {
 		#region PLAYER_FIELD_WATCHED_FACTION_INDEX
 
 		//PLAYER_FIELD_WATCHED_FACTION_INDEX : type = Int, size = 1, flag = Private
-		public virtual UInt32 WatchedFactionIndex { get; set; }
+		public virtual int WatchedFactionIndex { get; set; }
 
 		#endregion
 
@@ -399,11 +403,7 @@ namespace Hazzik.Objects {
 
 		//PLAYER_FIELD_KEYRING_SLOT_1 : type = Long, size = 64, flag = Private
 
-		//PLAYER_FIELD_VANITYPET_SLOT_1 : type = Long, size = 36, flag = Private
-
 		//PLAYER_FIELD_CURRENCYTOKEN_SLOT_1 : type = Long, size = 64, flag = Private
-
-		//PLAYER_FIELD_QUESTBAG_SLOT_1 : type = Long, size = 64, flag = Private
 
 		//PLAYER_SKILL_INFO_1_1 : type = Shorts, size = 384, flag = Private
 

@@ -140,7 +140,6 @@
     <Compile Include="Objects\GameObjectDynamicFlagsHigh.cs" />
     <Compile Include="Objects\GameObjectDynamicFlags.cs" />
     <Compile Include="Objects\GameObjectFlags.cs" />
-    <Compile Include="Objects\GameObjectFlagsHigh.cs" />
     <Compile Include="Objects\GameObjectState.cs" />
     <Compile Include="Objects\GameObjectType.cs" />
     <Compile Include="Objects\GenderType.cs" />

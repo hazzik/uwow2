@@ -31,9 +31,9 @@ namespace Hazzik.Objects {
 
 		public byte TransportUnk1 { get; set; }
 
-		public float Swimming { get; set; }
+		public float SwimmPitch { get; set; }
 
-		public uint Time2 { get; set; }
+		public uint FallTime { get; set; }
 
 		public float JumpUnk1 { get; set; }
 
@@ -55,7 +55,7 @@ namespace Hazzik.Objects {
 				w.Write(Z);
 				w.Write(O);
 				if((Flags & MovementFlags.ONTRANSPORT) != 0) {
-					w.Write(TransportGuid);
+					w.WritePackGuid(TransportGuid);
 					w.Write(TransportX);
 					w.Write(TransportY);
 					w.Write(TransportZ);
@@ -64,9 +64,9 @@ namespace Hazzik.Objects {
 					w.Write(TransportUnk1);
 				}
 				if((Flags & (MovementFlags.SWIMMING | MovementFlags.UNK5)) != 0) {
-					w.Write(Swimming);
+					w.Write(SwimmPitch);
 				}
-				w.Write(Time2);
+				w.Write(FallTime);
 				if((Flags & MovementFlags.JUMPING) != 0) {
 					w.Write(JumpUnk1);
 					w.Write(JumpSin);
@@ -98,9 +98,9 @@ namespace Hazzik.Objects {
 					TransportUnk1 = r.ReadByte();
 				}
 				if((Flags & (MovementFlags.SWIMMING| MovementFlags.UNK5)) != 0) {
-					Swimming = r.ReadSingle();
+					SwimmPitch = r.ReadSingle();
 				}
-				Time2 = r.ReadUInt32();
+				FallTime = r.ReadUInt32();
 				if((Flags & MovementFlags.JUMPING) != 0) {
 					JumpUnk1 = r.ReadSingle();
 					JumpSin = r.ReadSingle();

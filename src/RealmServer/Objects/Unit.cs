@@ -63,12 +63,5 @@ namespace Hazzik.Objects {
 			w.Write(TurnRate);
 			w.Write(TurnRate);
 		}
-
-		public IPacket GetResponce() {
-			var packet = new WorldPacket(WMSG.SMSG_CREATURE_QUERY_RESPONSE);
-			var writer = packet.CreateWriter();
-			writer.Write(Entry);
-			return packet;
-		}
 	}
 }

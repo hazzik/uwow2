@@ -80,18 +80,11 @@ namespace Hazzik.Objects.Update {
 			UpdateObject(dto, obj);
 			dto.Set(UpdateFields.OBJECT_FIELD_CREATED_BY, obj.CreatedByGuid);
 			dto.Set(UpdateFields.GAMEOBJECT_DISPLAYID, obj.DisplayId);
-			dto.Set(UpdateFields.GAMEOBJECT_FLAGS,
-			        (ushort)obj.Flags,
-			        (ushort)obj.FlagsHigh);
-			dto.Set(UpdateFields.GAMEOBJECT_ROTATION, obj.Rotation);
+			dto.Set(UpdateFields.GAMEOBJECT_FLAGS, (uint)obj.Flags);
 			dto.Set(UpdateFields.GAMEOBJECT_PARENTROTATION, obj.ParentRotationX);
 			dto.Set(UpdateFields.GAMEOBJECT_PARENTROTATION + 1, obj.ParentRotationY);
 			dto.Set(UpdateFields.GAMEOBJECT_PARENTROTATION + 2, obj.ParentRotationZ);
 			dto.Set(UpdateFields.GAMEOBJECT_PARENTROTATION + 3, obj.ParentRotationO);
-			dto.Set(UpdateFields.GAMEOBJECT_POS_X, obj.PosX);
-			dto.Set(UpdateFields.GAMEOBJECT_POS_Y, obj.PosY);
-			dto.Set(UpdateFields.GAMEOBJECT_POS_Z, obj.PosZ);
-			dto.Set(UpdateFields.GAMEOBJECT_FACING, obj.Facing);
 			dto.Set(UpdateFields.GAMEOBJECT_DYNAMIC,
 			        (ushort)obj.DynamicFlags,
 			        (ushort)obj.DynamicFlagsHigh);
@@ -123,10 +116,6 @@ namespace Hazzik.Objects.Update {
 				dto.Set(UpdateFields.CORPSE_FIELD_OWNER, obj.Owner.Guid);
 				//Set(UpdateFields.CORPSE_FIELD_PARTY, obj.Owner.Party);
 			}
-			dto.Set(UpdateFields.CORPSE_FIELD_FACING, obj.Facing);
-			dto.Set(UpdateFields.CORPSE_FIELD_POS_X, obj.PosX);
-			dto.Set(UpdateFields.CORPSE_FIELD_POS_Y, obj.PosY);
-			dto.Set(UpdateFields.CORPSE_FIELD_POS_Z, obj.PosZ);
 			dto.Set(UpdateFields.CORPSE_FIELD_DISPLAY_ID, obj.DisplayId);
 			if(obj.Owner != null) {
 				IInventory inventory = obj.Owner.Inventory;
@@ -280,7 +269,7 @@ namespace Hazzik.Objects.Update {
 			//}
 			for(int i = 0; i < 19; i++) {
 				Item item = obj.Inventory[i];
-				SetVisibleItem(dto, UpdateFields.PLAYER_VISIBLE_ITEM_1_CREATOR + i * 18, item);
+				SetVisibleItem(dto, UpdateFields.PLAYER_VISIBLE_ITEM_1_ENTRYID + i * 2, item);
 			}
 			dto.Set(UpdateFields.PLAYER_CHOSEN_TITLE, obj.ChosenTitle);
 			//PLAYER_FIELD_PAD_0 = UNIT_END + 453, // 1 1:Int 0:None
@@ -290,10 +279,8 @@ namespace Hazzik.Objects.Update {
 			//PLAYER_FIELD_BANKBAG_SLOT_1 = UNIT_END + 588, // 14 4:Long 2:Private
 			//PLAYER_FIELD_VENDORBUYBACK_SLOT_1 = UNIT_END + 602, // 24 4:Long 2:Private
 			//PLAYER_FIELD_KEYRING_SLOT_1 = UNIT_END + 626, // 64 4:Long 2:Private
-			//PLAYER_FIELD_VANITYPET_SLOT_1 = UNIT_END + 690, // 36 4:Long 2:Private
 			//PLAYER_FIELD_CURRENCYTOKEN_SLOT_1 = UNIT_END + 726, // 64 4:Long 2:Private
-			//PLAYER_FIELD_QUESTBAG_SLOT_1 = UNIT_END + 790, // 64 4:Long 2:Private
-			for(int i = 0; i < 400; i++) {
+			for(int i = 0; i < obj.Inventory.MaxCount; i++) {
 				Item item = obj.Inventory[i];
 				if(null != item) {
 					dto.Set(UpdateFields.PLAYER_FIELD_INV_SLOT_HEAD + i * 2, item.Guid);
@@ -305,6 +292,7 @@ namespace Hazzik.Objects.Update {
 			dto.Set(UpdateFields.PLAYER_FARSIGHT, obj.FarSightGuid);
 			dto.Set(UpdateFields.PLAYER__FIELD_KNOWN_TITLES, obj.KnownTitlesGuid);
 			dto.Set(UpdateFields.PLAYER__FIELD_KNOWN_TITLES1, obj.KnownTitles1Guid);
+			dto.Set(UpdateFields.PLAYER__FIELD_KNOWN_TITLES2, obj.KnownTitles2Guid);
 			dto.Set(UpdateFields.PLAYER_FIELD_KNOWN_CURRENCIES, obj.KnownCurrenciesGuid);
 			dto.Set(UpdateFields.PLAYER_XP, obj.Xp);
 			dto.Set(UpdateFields.PLAYER_NEXT_LEVEL_XP, obj.NextLevelXp);
@@ -367,19 +355,19 @@ namespace Hazzik.Objects.Update {
 			//PLAYER_FIELD_DAILY_QUESTS_1 = UNIT_END + 1503, // 25 1:Int 2:Private
 			//PLAYER_RUNE_REGEN_1 = UNIT_END + 1528, // 4 3:Single 2:Private
 			//PLAYER_NO_REAGENT_COST_1 = UNIT_END + 1532, // 3 1:Int 2:Private
-			//PLAYER_FIELD_GLYPH_SLOTS_1 = UNIT_END + 1535, // 8 1:Int 2:Private
-			//PLAYER_FIELD_GLYPHS_1 = UNIT_END + 1543, // 8 1:Int 2:Private
+			//PLAYER_FIELD_GLYPH_SLOTS_1 = UNIT_END + 1535, // 6 1:Int 2:Private
+			//PLAYER_FIELD_GLYPHS_1 = UNIT_END + 1543, // 6 1:Int 2:Private
 			dto.Set(UpdateFields.PLAYER_GLYPHS_ENABLED, obj.GlyphsEnabled);
 		}
 
 		private static void SetVisibleItem(UpdateValuesDto dto, UpdateFields field, Item item) {
 			if(item != null) {
-				//dto.Set(field, item.Creator);
-				dto.Set(field + 2, item.Entry);
+				dto.Set(field, item.Entry);
+				dto.Set(field + 1, (ushort)0, 0);
 			}
 			else {
-				//dto.Set(field, (ulong)0);
-				dto.Set(field + 2, (uint)0);
+				dto.Set(field, (uint)0);
+				dto.Set(field + 1, (ushort)0, 0);
 			}
 		}
 	}
