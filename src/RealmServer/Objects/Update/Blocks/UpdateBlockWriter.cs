@@ -3,10 +3,10 @@ using System.IO;
 
 namespace Hazzik.Objects.Update.Blocks {
 	internal class UpdateBlockWriter : IUpdateBlock {
-		protected bool _create;
+		private readonly UpdateValuesDto _dto;
 		private readonly ulong _guid;
 		private readonly bool _isEmpty;
-		private readonly UpdateValuesDto _dto;
+		protected bool _create;
 
 		public UpdateBlockWriter(ulong guid, UpdateValuesDto dto) {
 			_create = false;
@@ -14,6 +14,8 @@ namespace Hazzik.Objects.Update.Blocks {
 			_isEmpty = !dto.HasChanges;
 			_dto = dto;
 		}
+
+		#region IUpdateBlock Members
 
 		public bool IsEmpty {
 			get { return _isEmpty; }
@@ -27,5 +29,7 @@ namespace Hazzik.Objects.Update.Blocks {
 			writer.WritePackGuid(_guid);
 			_dto.Write(writer);
 		}
+
+		#endregion
 	}
 }

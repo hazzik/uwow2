@@ -6,6 +6,7 @@ using System.Linq;
 using Hazzik.Dbc;
 using Hazzik.Net;
 using Hazzik.Objects.Templates;
+using Hazzik.Objects.Update;
 using Hazzik.Skills;
 
 namespace Hazzik.Objects {

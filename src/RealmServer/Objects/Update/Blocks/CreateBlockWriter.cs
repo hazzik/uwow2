@@ -3,9 +3,9 @@ using System.IO;
 
 namespace Hazzik.Objects.Update.Blocks {
 	internal class CreateBlockWriter : IUpdateBlock {
-		private readonly bool _self;
-		private readonly WorldObject _obj;
 		private readonly UpdateValuesDto _dto;
+		private readonly WorldObject _obj;
+		private readonly bool _self;
 
 		public CreateBlockWriter(bool self, WorldObject obj, UpdateValuesDto dto) {
 			_self = self;

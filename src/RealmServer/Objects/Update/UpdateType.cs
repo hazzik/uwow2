@@ -1,3 +1,5 @@
+using System;
+
 namespace Hazzik.Objects.Update {
 	internal enum UpdateType : byte {
 		Values = 0,

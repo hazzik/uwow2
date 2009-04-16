@@ -4,10 +4,10 @@ using Hazzik.Objects.Update.Blocks;
 
 namespace Hazzik.Objects.Update {
 	internal class UpdateBlockBuilder {
+		private readonly WorldObject _obj;
 		private readonly Player _player;
 		private readonly UpdateValuesDto _sendedDto;
 		private bool _isNew = true;
-		private readonly WorldObject _obj;
 
 		public UpdateBlockBuilder(Player player, WorldObject obj) {
 			_player = player;

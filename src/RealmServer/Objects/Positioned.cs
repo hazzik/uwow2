@@ -1,11 +1,9 @@
 using System;
 using System.IO;
+using Hazzik.Objects.Update;
 
 namespace Hazzik.Objects {
 	public abstract class Positioned : WorldObject {
-		protected Positioned() {
-		}
-
 		public override UpdateFlags UpdateFlag {
 			get { return (base.UpdateFlag | UpdateFlags.HasPosition); }
 		}

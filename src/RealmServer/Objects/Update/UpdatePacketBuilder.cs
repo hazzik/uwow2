@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Hazzik.Net;
 
 namespace Hazzik.Objects.Update {
@@ -12,9 +13,9 @@ namespace Hazzik.Objects.Update {
 
 		public IPacket Build() {
 			var result = new WorldPacket(WMSG.SMSG_UPDATE_OBJECT);
-			var writer = result.CreateWriter();
+			BinaryWriter writer = result.CreateWriter();
 			writer.Write(_updateBlocks.Count);
-			foreach(var updater in _updateBlocks) {
+			foreach(IUpdateBlock updater in _updateBlocks) {
 				writer.Write((byte)updater.UpdateType);
 				updater.Write(writer);
 			}

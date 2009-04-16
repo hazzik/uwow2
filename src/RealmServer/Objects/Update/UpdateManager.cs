@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Hazzik.Map;
@@ -15,27 +16,27 @@ namespace Hazzik.Objects.Update {
 		}
 
 		public void UpdateObjects() {
-			var updateBlocks = GetUpdateBlocks();
+			ICollection<IUpdateBlock> updateBlocks = GetUpdateBlocks();
 			if(updateBlocks.Count != 0) {
 				_player.Client.Send(new UpdatePacketBuilder(updateBlocks).Build());
 			}
 		}
 
 		private ICollection<IUpdateBlock> GetUpdateBlocks() {
-			var allBlocks = new[] { GetOutOfRange() }.Concat(_updateBlockBuilders.Values.Select(x => x.CreateUpdateBlock()));
+			IEnumerable<IUpdateBlock> allBlocks = new[] { GetOutOfRange() }.Concat(_updateBlockBuilders.Values.Select(x => x.CreateUpdateBlock()));
 			return allBlocks.Where(x => !x.IsEmpty).ToList();
 		}
 
 		private IUpdateBlock GetOutOfRange() {
-			var updateBuilders = GetObjectsForUpdate().ToDictionary(x => x.Guid, x => GetBuilder(x));
-			var outOfRange = _updateBlockBuilders.Keys.Except(updateBuilders.Keys).ToList();
+			Dictionary<ulong, UpdateBlockBuilder> updateBuilders = GetObjectsForUpdate().ToDictionary(x => x.Guid, x => GetBuilder(x));
+			List<ulong> outOfRange = _updateBlockBuilders.Keys.Except(updateBuilders.Keys).ToList();
 			_updateBlockBuilders = updateBuilders;
 			return new OutOfRangeBlockWriter(outOfRange);
 		}
 
 		private IEnumerable<WorldObject> GetObjectsForUpdate() {
-			var items = _player.Inventory.Cast<WorldObject>();
-			var seenObjects = ObjectManager.GetSeenObjectsNear(_player).Cast<WorldObject>();
+			IEnumerable<WorldObject> items = _player.Inventory.Cast<WorldObject>();
+			IEnumerable<WorldObject> seenObjects = ObjectManager.GetSeenObjectsNear(_player).Cast<WorldObject>();
 			return items.Concat(seenObjects);
 		}
 
@@ -52,9 +53,5 @@ namespace Hazzik.Objects.Update {
 		public void StartUpdateTimer() {
 			_updateTimer.Start();
 		}
-
-		#region Nested type: UpdateTimer
-
-		#endregion
 	}
 }

@@ -1,6 +1,6 @@
 using System;
 
-namespace Hazzik.Objects {
+namespace Hazzik.Objects.Update {
 	[Flags]
 	public enum UpdateFlags {
 		None = 0x00,

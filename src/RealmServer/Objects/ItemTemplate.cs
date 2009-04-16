@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using Hazzik.Net;
+using Hazzik.Objects.Update;
 
 namespace Hazzik.Objects {
 	public enum ItemModType {
