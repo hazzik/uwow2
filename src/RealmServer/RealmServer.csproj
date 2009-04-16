@@ -81,6 +81,7 @@
     <Compile Include="Data\Repositories.cs" />
     <Compile Include="Dbc\DbcLoader.cs" />
     <Compile Include="Dbc\IDbcRow.cs" />
+    <Compile Include="Objects\CharacterCreateHandler.cs" />
     <Compile Include="Objects\IAttackPowerCalculator.cs" />
     <Compile Include="Objects\MageAttackPowerCalculator.cs" />
     <Compile Include="Objects\ShamanAttackPowerCalculator.cs" />

@@ -12,7 +12,7 @@ namespace Hazzik {
 	[PacketHandlerClass]
 	public static class WorldServerHandlers {
 		[WorldPacketHandler(WMSG.CMSG_NAME_QUERY)]
-		public static void HandleCMSG_NAME_QUERY(ISession client, IPacket packet) {
+		public static void HandleNameQuery(ISession client, IPacket packet) {
 			var reader = packet.CreateReader();
 			var guid = reader.ReadUInt64();
 
@@ -24,7 +24,7 @@ namespace Hazzik {
 		}
 
 		[WorldPacketHandler(WMSG.CMSG_REALM_SPLIT)]
-		public static void HandleCMSG_REALM_SPLIT(ISession client, IPacket packet) {
+		public static void HandleRealmSplit(ISession client, IPacket packet) {
 			var r = packet.CreateReader();
 			var unk1 = r.ReadUInt32();
 
@@ -42,12 +42,12 @@ namespace Hazzik {
 		}
 
 		[WorldPacketHandler(WMSG.CMSG_CHAR_ENUM)]
-		public static void HandleCMSG_CHAR_ENUM(ISession client, IPacket packet) {
+		public static void HandleCharEnum(ISession client, IPacket packet) {
 			client.Send(client.Account.GetCharEnumPkt());
 		}
 
 		[WorldPacketHandler(WMSG.CMSG_CHAR_CREATE)]
-		public static void HandleCMSG_CHAR_CREATE(ISession client, IPacket packet) {
+		public static void HandleCharCreate(ISession client, IPacket packet) {
 			var account = client.Account;
 			var r = packet.CreateReader();
 			var player = new Player {
@@ -61,11 +61,15 @@ namespace Hazzik {
 				HairColor = r.ReadByte(),
 				FacialHair = r.ReadByte(),
 			};
-			player.InitFake();
+			GetCharacterCreateHandler(player).Init();
 			account.AddPlayer(player);
 			//Net.Repositories.Account.Save(account);
 			//Net.Repositories.Account.SubmitChanges();
 			client.Send(Account.GetCharCreatePkt(47));
+		}
+
+		private static CharacterCreateHandler GetCharacterCreateHandler(Player player) {
+			return new CharacterCreateHandler(player);
 		}
 
 		[WorldPacketHandler(WMSG.CMSG_PLAYER_LOGIN)]
@@ -126,23 +130,23 @@ namespace Hazzik {
 		}
 
 		[WorldPacketHandler(WMSG.CMSG_SETSHEATHED)]
-		public static void HandleCMSG_SETSHEATHED(ISession client, IPacket packet) {
+		public static void HandleSetSheathed(ISession client, IPacket packet) {
 			client.Player.Sheath = (SheathType)packet.CreateReader().ReadInt32();
 		}
 
 		[WorldPacketHandler(WMSG.CMSG_STANDSTATECHANGE)]
-		public static void HandleCMSG_STANDSTATECHANGE(ISession client, IPacket packet) {
+		public static void HandleStandStateChange(ISession client, IPacket packet) {
 			client.Player.StandState = (StandStates)packet.CreateReader().ReadByte();
 		}
 
 		[WorldPacketHandler(WMSG.CMSG_LOGOUT_REQUEST)]
-		public static void HandleCMSG_LOGOUT_REQUEST(ISession client, IPacket packet) {
+		public static void HandleLogoutRequest(ISession client, IPacket packet) {
 			client.Player.StandState = StandStates.Sitting;
 			client.Send(GetLogoutResponcePkt(LogoutResponses.Accepted));
 		}
 
 		[WorldPacketHandler(WMSG.CMSG_LOGOUT_CANCEL)]
-		public static void Handle(ISession client, IPacket packet) {
+		public static void HandleLogoutCancel(ISession client, IPacket packet) {
 			client.Player.StandState = StandStates.Standing;
 			client.Send(GetLogoutCancelAckPkt());
 		}
