@@ -7,6 +7,7 @@ namespace Hazzik.Objects {
 		private readonly MovementInfo _movementInfo = new MovementInfo();
 
 		public Unit() {
+			_attackPower = new WarriorAttackPowerCalculator(this);
 			Type |= ObjectTypes.Unit;
 		}
 

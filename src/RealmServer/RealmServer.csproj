@@ -54,6 +54,7 @@
     <Reference Include="System.Data.SQLite, Version=1.0.60.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\System.Data.SQLite.DLL</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -80,7 +81,11 @@
     <Compile Include="Data\Repositories.cs" />
     <Compile Include="Dbc\DbcLoader.cs" />
     <Compile Include="Dbc\IDbcRow.cs" />
+    <Compile Include="Objects\IAttackPowerCalculator.cs" />
+    <Compile Include="Objects\MageAttackPowerCalculator.cs" />
+    <Compile Include="Objects\ShamanAttackPowerCalculator.cs" />
     <Compile Include="Objects\Templates\Abjurer_sRobe9943.cs" />
+    <Compile Include="Objects\WarriorAttackPowerCalculator.cs" />
     <Compile Include="Skills\SkillLineAbility.cs" />
     <Compile Include="Dbc\SkillLineAbilityRepository.cs" />
     <Compile Include="Gossip\GossipHandler.cs" />

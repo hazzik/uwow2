@@ -462,7 +462,11 @@ namespace Hazzik.Objects {
 		#region UNIT_FIELD_ATTACK_POWER
 
 		//UNIT_FIELD_ATTACK_POWER : type = Int, size = 1, flag = Private, Owner
-		public virtual UInt32 AttackPower { get; set; }
+		private readonly IAttackPowerCalculator _attackPower;
+
+		public IAttackPowerCalculator AttackPower {
+			get { return _attackPower; }
+		}
 
 		#endregion
 
@@ -554,5 +558,11 @@ namespace Hazzik.Objects {
 		//UNIT_FIELD_RESISTANCEBUFFMODSNEGATIVE : type = Int, size = 7, flag = Private, Owner
 
 		//UNIT_FIELD_PADDING : type = Int, size = 1, flag = None
+		
+		private class NullAttackPowerCalculator : IAttackPowerCalculator {
+			public uint Base() {
+				return 0;
+			}
+		}
 	}
 }

@@ -176,10 +176,10 @@ namespace Hazzik.Objects {
 		}
 
 		public void TrainSpell(int spellId) {
-			var sla = new SkillLineAbilityRepository().FindBySpellId(spellId);
-			if(sla != null) {
-				AddSkill(new Skill { Id = (ushort)sla.SkillId });
-			}
+			//var sla = new SkillLineAbilityRepository().FindBySpellId(spellId);
+			//if(sla != null) {
+			//   AddSkill(new Skill { Id = (ushort)sla.SkillId });
+			//}
 			_spells.Add(spellId);
 		}
 

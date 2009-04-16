@@ -227,7 +227,7 @@ namespace Hazzik.Objects.Update {
 			        (byte)obj.PvpState,
 			        (byte)obj.PetState,
 			        (byte)obj.ShapeShiftForm);
-			dto.Set(UpdateFields.UNIT_FIELD_ATTACK_POWER, obj.AttackPower);
+			dto.Set(UpdateFields.UNIT_FIELD_ATTACK_POWER, obj.AttackPower.Base());
 			dto.Set(UpdateFields.UNIT_FIELD_ATTACK_POWER_MODS, obj.AttackPowerMods);
 			dto.Set(UpdateFields.UNIT_FIELD_ATTACK_POWER_MULTIPLIER, obj.AttackPowerMultiplier);
 			dto.Set(UpdateFields.UNIT_FIELD_RANGED_ATTACK_POWER, obj.RangedAttackPower);
