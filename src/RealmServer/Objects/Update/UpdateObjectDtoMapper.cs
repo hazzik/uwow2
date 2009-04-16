@@ -48,8 +48,14 @@ namespace Hazzik.Objects.Update {
 			if(obj.Owner != null) {
 				dto.Set(UpdateFields.ITEM_FIELD_OWNER, obj.Owner.Guid);
 			}
+			else {
+				dto.Set(UpdateFields.ITEM_FIELD_OWNER, (ulong)0);
+			}
 			if(obj.Contained != null) {
 				dto.Set(UpdateFields.ITEM_FIELD_CONTAINED, obj.Contained.Guid);
+			}
+			else {
+				dto.Set(UpdateFields.ITEM_FIELD_CONTAINED, (ulong)0);
 			}
 			dto.Set(UpdateFields.ITEM_FIELD_CREATOR, obj.Creator);
 			dto.Set(UpdateFields.ITEM_FIELD_GIFTCREATOR, obj.GiftCreator);
@@ -72,6 +78,9 @@ namespace Hazzik.Objects.Update {
 				Item item = obj.Inventory[i];
 				if(item != null) {
 					dto.Set(UpdateFields.CONTAINER_FIELD_SLOT_1 + i * 2, item.Guid);
+				}
+				else {
+					dto.Set(UpdateFields.CONTAINER_FIELD_SLOT_1 + i * 2, (ulong)0);
 				}
 			}
 		}
@@ -175,8 +184,8 @@ namespace Hazzik.Objects.Update {
 			dto.Set(UpdateFields.UNIT_FIELD_FLAGS, obj.Flags);
 			dto.Set(UpdateFields.UNIT_FIELD_FLAGS_2, obj.Flags2);
 			dto.Set(UpdateFields.UNIT_FIELD_AURASTATE, obj.AuraState);
-			//Set(UpdateFields.UNIT_FIELD_BASEATTACKTIME, obj.BaseAttackTime);
-			//Set(UpdateFields.UNIT_FIELD_BASEATTACKTIME + 1, obj.OffHandAttackTime);
+			dto.Set(UpdateFields.UNIT_FIELD_BASEATTACKTIME, obj.BaseAttackTime);
+			dto.Set(UpdateFields.UNIT_FIELD_BASEATTACKTIME + 1, obj.OffHandAttackTime);
 			dto.Set(UpdateFields.UNIT_FIELD_RANGEDATTACKTIME, obj.RangedAttackTime);
 			dto.Set(UpdateFields.UNIT_FIELD_BOUNDINGRADIUS, obj.BoundingRadius);
 			dto.Set(UpdateFields.UNIT_FIELD_COMBATREACH, obj.CombatReach);

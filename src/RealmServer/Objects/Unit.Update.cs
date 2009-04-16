@@ -173,6 +173,15 @@ namespace Hazzik.Objects {
 
 		#endregion
 
+		#region UNIT_FIELD_BASEATTACKTIME
+		
+		//UNIT_FIELD_BASEATTACKTIME : type = Int, size = 2, flag = Public
+		public int BaseAttackTime { get; set; }
+
+		public int OffHandAttackTime { get; set; }
+
+		#endregion
+
 		#region UNIT_FIELD_RANGEDATTACKTIME
 
 		//UNIT_FIELD_RANGEDATTACKTIME : type = Int, size = 1, flag = Private
@@ -548,8 +557,6 @@ namespace Hazzik.Objects {
 		#endregion
 
 		//UNIT_VIRTUAL_ITEM_SLOT_ID : type = Int, size = 3, flag = Public
-
-		//UNIT_FIELD_BASEATTACKTIME : type = Int, size = 2, flag = Public
 
 		//UNIT_FIELD_RESISTANCES : type = Int, size = 7, flag = Private, Owner, PartyLeader
 
