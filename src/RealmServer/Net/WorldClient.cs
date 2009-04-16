@@ -23,9 +23,19 @@ namespace Hazzik.Net {
 		public Player Player {
 			get { return _player; }
 			set {
-				_player = value;
-				_player.Client = this;
+				if(null == value) {
+					_player.Client = null;
+					_player = value;
+				}
+				else {
+					_player = value;
+					_player.Client = this;
+				}
 			}
+		}
+
+		public IPacketSender Client {
+			get { return this; }
 		}
 
 		public override void Send(IPacket packet) {

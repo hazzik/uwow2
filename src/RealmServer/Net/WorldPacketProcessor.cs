@@ -36,7 +36,7 @@ namespace Hazzik.Net {
 		#endregion
 
 		private IPacket GetAuthChallengePkt() {
-			var result = new WorldPacket(WMSG.SMSG_AUTH_CHALLENGE);
+			var result = WorldPacketFactory.Create(WMSG.SMSG_AUTH_CHALLENGE);
 			BinaryWriter w = result.CreateWriter();
 			w.Write(_seed);
 			return result;
@@ -82,7 +82,7 @@ namespace Hazzik.Net {
 		}
 
 		private IPacket GetAuthResponcePkt() {
-			var result = new WorldPacket(WMSG.SMSG_AUTH_RESPONSE);
+			var result = WorldPacketFactory.Create(WMSG.SMSG_AUTH_RESPONSE);
 			BinaryWriter w = result.CreateWriter();
 			w.Write((byte)0x0C);
 			w.Write((uint)0);
@@ -93,7 +93,7 @@ namespace Hazzik.Net {
 		}
 
 		private static IPacket GetAddonInfoPkt() {
-			var result = new WorldPacket(WMSG.SMSG_ADDON_INFO);
+			var result = WorldPacketFactory.Create(WMSG.SMSG_ADDON_INFO);
 			BinaryWriter w = result.CreateWriter();
 			foreach(AddonInfo item in AddonManager.Instance.AddonInfos) {
 				w.Write((ulong)0x0102);
@@ -119,14 +119,14 @@ namespace Hazzik.Net {
 		}
 
 		public static IPacket GetPongPkt(uint ping) {
-			var result = new WorldPacket(WMSG.SMSG_PONG);
+			var result = WorldPacketFactory.Create(WMSG.SMSG_PONG);
 			BinaryWriter w = result.CreateWriter();
 			w.Write(ping);
 			return result;
 		}
 
 		public static IPacket GetTutorialFlagsPkt() {
-			var result = new WorldPacket(WMSG.SMSG_TUTORIAL_FLAGS);
+			var result = WorldPacketFactory.Create(WMSG.SMSG_TUTORIAL_FLAGS);
 			BinaryWriter w = result.CreateWriter();
 			for(int i = 0; i < 32; i++) {
 				w.Write((byte)0xff);

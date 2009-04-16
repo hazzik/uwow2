@@ -45,7 +45,7 @@ namespace Hazzik {
 			reader.BaseStream.Seek(0, SeekOrigin.Begin);
 			var bytes = reader.ReadBytes(packet.Size);
 
-			var responce = new WorldPacket((WMSG)packet.Code);
+			var responce = WorldPacketFactory.Create((WMSG)packet.Code);
 			var w = responce.CreateWriter();
 			w.WritePackGuid(guid);
 			w.Write(bytes);

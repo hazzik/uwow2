@@ -4,7 +4,7 @@ using Hazzik.Net;
 namespace Hazzik.Objects {
 	partial class Player {
 		public IPacket GetLoginVerifyWorldPkt() {
-			var result = new WorldPacket(WMSG.SMSG_LOGIN_VERIFY_WORLD);
+			var result = WorldPacketFactory.Create(WMSG.SMSG_LOGIN_VERIFY_WORLD);
 			var writer = result.CreateWriter();
 			writer.Write(MapId);
 			writer.Write(PosX);
@@ -15,7 +15,7 @@ namespace Hazzik.Objects {
 		}
 
 		public IPacket GetNameQueryResponcePkt() {
-			var result = new WorldPacket(WMSG.SMSG_NAME_QUERY_RESPONSE);
+			var result = WorldPacketFactory.Create(WMSG.SMSG_NAME_QUERY_RESPONSE);
 			var writer = result.CreateWriter();
 			writer.Write(Guid);
 			writer.WriteCString(Name);

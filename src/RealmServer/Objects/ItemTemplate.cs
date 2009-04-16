@@ -380,7 +380,7 @@ namespace Hazzik.Objects {
 		private int s_i;
 
 		public IPacket GetResponce() {
-			var packet = new WorldPacket(WMSG.SMSG_ITEM_QUERY_SINGLE_RESPONSE);
+			var packet = WorldPacketFactory.Create(WMSG.SMSG_ITEM_QUERY_SINGLE_RESPONSE);
 			BinaryWriter writer = packet.CreateWriter();
 			writer.Write(Id);
 			writer.Write(ObjectClass);

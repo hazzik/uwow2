@@ -19,7 +19,7 @@ namespace Hazzik.Creatures {
 		public uint DisplayId { get; set; }
 
 		public IPacket GetResponce() {
-			var packet = new WorldPacket(WMSG.SMSG_CREATURE_QUERY_RESPONSE);
+			var packet = WorldPacketFactory.Create(WMSG.SMSG_CREATURE_QUERY_RESPONSE);
 			var writer = packet.CreateWriter();
 			writer.Write(Id);
 			writer.WriteCString(Name);

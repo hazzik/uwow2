@@ -39,7 +39,7 @@ namespace Hazzik.Gossip {
 
 
 		public static IPacket GetGossipMessagePkt(ulong guid, uint textId, IList<GossipMenuItem> gossipMenu, IList<QuestsMenuItem> questsMenu) {
-			var packet = new WorldPacket(WMSG.SMSG_GOSSIP_MESSAGE);
+			var packet = WorldPacketFactory.Create(WMSG.SMSG_GOSSIP_MESSAGE);
 			BinaryWriter writer = packet.CreateWriter();
 			writer.Write(guid);
 			writer.Write(0);

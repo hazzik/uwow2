@@ -89,7 +89,7 @@ namespace Hazzik.Objects {
 		}
 
 		public IPacket GetInitialSpellsPkt() {
-			var packet = new WorldPacket(WMSG.SMSG_INITIAL_SPELLS);
+			var packet = WorldPacketFactory.Create(WMSG.SMSG_INITIAL_SPELLS);
 			var writer = packet.CreateWriter();
 			writer.Write((byte)0);
 			writer.Write((ushort)_spells.Count);

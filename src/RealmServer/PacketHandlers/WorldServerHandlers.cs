@@ -32,7 +32,7 @@ namespace Hazzik {
 		}
 
 		private static IPacket GetRealmSplitPkt(uint unk1) {
-			var responce = new WorldPacket(WMSG.SMSG_REALM_SPLIT);
+			var responce = WorldPacketFactory.Create(WMSG.SMSG_REALM_SPLIT);
 			var w = responce.CreateWriter();
 			w.Write(unk1);
 			//0-normal, 1-split, 2-split pending;
@@ -110,7 +110,7 @@ namespace Hazzik {
 		}
 
 		private static IPacket GetProf(byte type, int bitmask) {
-			IPacket packet = new WorldPacket(WMSG.SMSG_SET_PROFICIENCY);
+			IPacket packet = WorldPacketFactory.Create(WMSG.SMSG_SET_PROFICIENCY);
 			var writer = packet.CreateWriter();
 			writer.Write(type);
 			writer.Write(bitmask);
@@ -122,7 +122,7 @@ namespace Hazzik {
 		}
 
 		private static IPacket GetLoginSetTimeSpeedPkt() {
-			var result = (IPacket)new WorldPacket(WMSG.SMSG_LOGIN_SETTIMESPEED);
+			var result = (IPacket)WorldPacketFactory.Create(WMSG.SMSG_LOGIN_SETTIMESPEED);
 			var w = result.CreateWriter();
 			w.Write(Program.GetActualTime());
 			w.Write(0.01666667F);
@@ -143,6 +143,7 @@ namespace Hazzik {
 		public static void HandleLogoutRequest(ISession client, IPacket packet) {
 			client.Player.StandState = StandStates.Sitting;
 			client.Send(GetLogoutResponcePkt(LogoutResponses.Accepted));
+			new ClientService(client).LogoutComplete();
 		}
 
 		[WorldPacketHandler(WMSG.CMSG_LOGOUT_CANCEL)]
@@ -152,11 +153,11 @@ namespace Hazzik {
 		}
 
 		private static IPacket GetLogoutCancelAckPkt() {
-			return new WorldPacket(WMSG.SMSG_LOGOUT_CANCEL_ACK);
+			return WorldPacketFactory.Create(WMSG.SMSG_LOGOUT_CANCEL_ACK);
 		}
 
 		private static IPacket GetLogoutResponcePkt(LogoutResponses error) {
-			var result = new WorldPacket(WMSG.SMSG_LOGOUT_RESPONSE);
+			var result = WorldPacketFactory.Create(WMSG.SMSG_LOGOUT_RESPONSE);
 			var writer = result.CreateWriter();
 			writer.Write((byte)error);
 			writer.Write(0);

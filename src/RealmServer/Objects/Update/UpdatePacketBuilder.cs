@@ -12,7 +12,7 @@ namespace Hazzik.Objects.Update {
 		}
 
 		public IPacket Build() {
-			var result = new WorldPacket(WMSG.SMSG_UPDATE_OBJECT);
+			var result = WorldPacketFactory.Create(WMSG.SMSG_UPDATE_OBJECT);
 			BinaryWriter writer = result.CreateWriter();
 			writer.Write(_updateBlocks.Count);
 			foreach(IUpdateBlock updater in _updateBlocks) {

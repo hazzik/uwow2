@@ -81,6 +81,7 @@
     <Compile Include="Data\Repositories.cs" />
     <Compile Include="Dbc\DbcLoader.cs" />
     <Compile Include="Dbc\IDbcRow.cs" />
+    <Compile Include="Net\WorldPacketFactory.cs" />
     <Compile Include="Objects\CharacterCreateHandler.cs" />
     <Compile Include="Objects\IAttackPowerCalculator.cs" />
     <Compile Include="Objects\MageAttackPowerCalculator.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Objects\Templates\Abjurer_sRobe9943.cs" />
     <Compile Include="Objects\Update\UpdateFlags.cs" />
     <Compile Include="Objects\WarriorAttackPowerCalculator.cs" />
+    <Compile Include="PacketHandlers\ClientService.cs" />
     <Compile Include="Skills\SkillLineAbility.cs" />
     <Compile Include="Dbc\SkillLineAbilityRepository.cs" />
     <Compile Include="Gossip\GossipHandler.cs" />

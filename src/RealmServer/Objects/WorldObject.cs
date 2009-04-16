@@ -21,7 +21,7 @@ namespace Hazzik.Objects {
 		}
 
 		public IPacket GetDestroyObjectPkt() {
-			var result = new WorldPacket(WMSG.SMSG_DESTROY_OBJECT);
+			var result = WorldPacketFactory.Create(WMSG.SMSG_DESTROY_OBJECT);
 			var writer = result.CreateWriter();
 			writer.Write(Guid);
 			return result;

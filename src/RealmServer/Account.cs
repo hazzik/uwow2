@@ -38,7 +38,7 @@ namespace Hazzik {
 		#region packets
 
 		public IPacket GetCharEnumPkt() {
-			var p = new WorldPacket(WMSG.SMSG_CHAR_ENUM);
+			var p = WorldPacketFactory.Create(WMSG.SMSG_CHAR_ENUM);
 			var w = p.CreateWriter();
 			w.Write((byte)Players.Count);
 			foreach(var player in Players) {

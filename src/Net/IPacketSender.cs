@@ -1,7 +1,7 @@
 using System;
 
 namespace Hazzik.Net {
-	public interface IClient {
+	public interface IPacketSender {
 		void Send(IPacket packet);
 	}
 }

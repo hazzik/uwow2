@@ -16,7 +16,7 @@ namespace Hazzik.Gossip {
 		public uint Id { get; private set; }
 
 		public IPacket GetNpcTextUpdatePkt() {
-			var responce = new WorldPacket(WMSG.SMSG_NPC_TEXT_UPDATE);
+			var responce = WorldPacketFactory.Create(WMSG.SMSG_NPC_TEXT_UPDATE);
 			var writer = responce.CreateWriter();
 			writer.Write(Id);
 			for(var i = 0; i < 8; i++) {
