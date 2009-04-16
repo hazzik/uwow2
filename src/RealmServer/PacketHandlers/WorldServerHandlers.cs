@@ -142,8 +142,13 @@ namespace Hazzik {
 		[WorldPacketHandler(WMSG.CMSG_LOGOUT_REQUEST)]
 		public static void HandleLogoutRequest(ISession client, IPacket packet) {
 			client.Player.StandState = StandStates.Sitting;
-			client.Send(GetLogoutResponcePkt(LogoutResponses.Accepted));
-			new ClientService(client).LogoutComplete();
+			client.Client.Send(GetLogoutResponcePkt(LogoutResponses.Accepted));
+			client.Player = null;
+			client.Client.Send(GetLogoutCompletePkt());
+		}
+
+		private static IPacket GetLogoutCompletePkt() {
+			return WorldPacketFactory.Create(WMSG.SMSG_LOGOUT_COMPLETE);
 		}
 
 		[WorldPacketHandler(WMSG.CMSG_LOGOUT_CANCEL)]

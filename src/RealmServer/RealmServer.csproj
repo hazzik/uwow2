@@ -89,7 +89,6 @@
     <Compile Include="Objects\Templates\Abjurer_sRobe9943.cs" />
     <Compile Include="Objects\Update\UpdateFlags.cs" />
     <Compile Include="Objects\WarriorAttackPowerCalculator.cs" />
-    <Compile Include="PacketHandlers\ClientService.cs" />
     <Compile Include="Skills\SkillLineAbility.cs" />
     <Compile Include="Dbc\SkillLineAbilityRepository.cs" />
     <Compile Include="Gossip\GossipHandler.cs" />
