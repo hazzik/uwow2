@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Net.Sockets;
 using System.Security.Cryptography;
+using Hazzik.Attributes;
 using Hazzik.Objects;
 
 namespace Hazzik.Net {
@@ -111,5 +112,7 @@ namespace Hazzik.Net {
 			head.WriteByte((byte)(size >> 0x08));
 			head.WriteByte((byte)(size));
 		}
+
+		public static PacketHandler<PacketHandlerClassAttribute, WorldPacketHandlerAttribute> Handler { get; set; }
 	}
 }

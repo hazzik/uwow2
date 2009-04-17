@@ -124,7 +124,7 @@ namespace Hazzik {
 		private static IPacket GetLoginSetTimeSpeedPkt() {
 			var result = (IPacket)WorldPacketFactory.Create(WMSG.SMSG_LOGIN_SETTIMESPEED);
 			var w = result.CreateWriter();
-			w.Write(Program.GetActualTime());
+			w.Write((uint)Program.GetActualTime());
 			w.Write(0.01666667F);
 			return result;
 		}
@@ -167,6 +167,18 @@ namespace Hazzik {
 			writer.Write((byte)error);
 			writer.Write(0);
 			return result;
+		}
+
+		public static uint GetActualTime() {
+			var time = DateTime.Now;
+			var year = time.Year - 2000;
+			var month = time.Month - 1;
+			var day = time.Day - 1;
+			var dayOfWeek = (int)time.DayOfWeek;
+			var hour = time.Hour;
+			var minute = time.Minute;
+
+			return (uint)(minute | (hour << 0x06) | (dayOfWeek << 0x0B) | (day << 0x0E) | (month << 0x14) | (year << 0x18));
 		}
 	}
 }

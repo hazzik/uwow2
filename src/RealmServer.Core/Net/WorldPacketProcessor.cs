@@ -30,7 +30,7 @@ namespace Hazzik.Net {
 				_client.Send(GetPongPkt(packet.CreateReader().ReadUInt32()));
 				return;
 			}
-			Program.Handler.Handle(_client, packet);
+			WorldClient.Handler.Handle(_client, packet);
 		}
 
 		#endregion
