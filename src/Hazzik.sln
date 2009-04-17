@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "..\tests\Tests\Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealmServer", "RealmServer\RealmServer.csproj", "{6F903808-70C1-4BB5-A37C-13A615C29954}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealmServer.Net", "RealmServer.Net\RealmServer.Net.csproj", "{FD054C59-09ED-4DE2-B677-96CFB62EE9BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{6F903808-70C1-4BB5-A37C-13A615C29954}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F903808-70C1-4BB5-A37C-13A615C29954}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F903808-70C1-4BB5-A37C-13A615C29954}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD054C59-09ED-4DE2-B677-96CFB62EE9BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD054C59-09ED-4DE2-B677-96CFB62EE9BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD054C59-09ED-4DE2-B677-96CFB62EE9BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD054C59-09ED-4DE2-B677-96CFB62EE9BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

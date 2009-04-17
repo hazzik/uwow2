@@ -9,7 +9,7 @@ using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 namespace Hazzik.Net {
 	public class WorldPacketProcessor : IPacketProcessor {
 		private readonly WorldClient _client;
-		public readonly uint _seed = (uint)(new Random().Next(0, Int32.MaxValue));
+		private readonly uint _seed = (uint)(new Random().Next(0, Int32.MaxValue));
 
 		public WorldPacketProcessor(WorldClient client) {
 			_client = client;
