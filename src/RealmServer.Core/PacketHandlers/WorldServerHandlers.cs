@@ -124,7 +124,7 @@ namespace Hazzik {
 		private static IPacket GetLoginSetTimeSpeedPkt() {
 			var result = (IPacket)WorldPacketFactory.Create(WMSG.SMSG_LOGIN_SETTIMESPEED);
 			var w = result.CreateWriter();
-			w.Write((uint)Program.GetActualTime());
+			w.Write((uint)GetActualTime());
 			w.Write(0.01666667F);
 			return result;
 		}
