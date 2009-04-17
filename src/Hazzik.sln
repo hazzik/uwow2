@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthServer", "AuthServer\Au
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helper", "..\lib\Helper\Helper.csproj", "{5BEC7A4C-7CB1-4D6B-B0E5-FD1860168494}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealmServer", "RealmServer\RealmServer.csproj", "{763DE8C6-1140-44CB-84B9-A7E400CB65BF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealmServer.Core", "RealmServer.Core\RealmServer.Core.csproj", "{763DE8C6-1140-44CB-84B9-A7E400CB65BF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{270659A2-04CD-4B14-A18D-7442536E3FB5}"
 EndProject

@@ -13,10 +13,10 @@ namespace Hazzik.Objects {
 		public void Init() {
 			//return;
 			//{X:-2133,334 Y:135,4584 Z:-9070,833}
-			_player.MapId = 0;
-			_player.PosX = -9070.833F;
-			_player.PosY = -2133.334F;
-			_player.PosZ = 135.4584f;
+			_player.PosX = -997.8f;
+			_player.PosY = -3823.5f;
+			_player.PosZ = 7f;
+			_player.MapId = 1;
 			_player.Facing = 2.083644F;
 
 			_player.Speed0 = 2.5F;
