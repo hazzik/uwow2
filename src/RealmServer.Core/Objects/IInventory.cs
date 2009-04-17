@@ -9,5 +9,6 @@ namespace Hazzik.Objects {
 		int GetAmount(int id);
 		void DestroyItem(int slot);
 		int FindFreeSlot();
+		int FindFreeSlot(IEnumerable<int> slots);
 	}
 }

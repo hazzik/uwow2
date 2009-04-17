@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Hazzik.Attributes;
 using Hazzik.Net;
 using Hazzik.Objects;
@@ -114,7 +115,7 @@ namespace Hazzik.PacketHandlers {
 			var inventoryDst = player.Inventory;
 
 			var item = inventorySrc[srcSlot];
-			var dstSlot = (int)item.Template.CanBeEquipedIn[0];
+			var dstSlot = inventoryDst.FindFreeSlot(item.Template.CanBeEquipedIn.Cast<int>());
 			inventorySrc[srcSlot] = inventoryDst[dstSlot];
 			inventoryDst[dstSlot] = item;
 		}

@@ -37,15 +37,24 @@ namespace Hazzik.Objects {
 		}
 
 		public void DestroyItem(int slot) {
-			var item = GetItem(slot);
+			Item item = GetItem(slot);
 			item.Destroy();
 			SetItem(slot, null);
 		}
 
 		public virtual int FindFreeSlot() {
-			for(var i = InventorySlot.BackpackStart; i < InventorySlot.BackpackEnd; i++) {
+			for(InventorySlot i = InventorySlot.BackpackStart; i < InventorySlot.BackpackEnd; i++) {
 				if(null == this[(int)i]) {
 					return (int)i;
+				}
+			}
+			return -1;
+		}
+
+		public int FindFreeSlot(IEnumerable<int> slots) {
+			foreach(int slot in slots) {
+				if(_items[slot] == null) {
+					return slot;
 				}
 			}
 			return -1;
@@ -90,7 +99,7 @@ namespace Hazzik.Objects {
 		}
 
 		public override int FindFreeSlot() {
-			for(var i = 0; i < MaxCount; i++) {
+			for(int i = 0; i < MaxCount; i++) {
 				if(null == this[i]) {
 					return i;
 				}
@@ -99,13 +108,13 @@ namespace Hazzik.Objects {
 		}
 	}
 
-	public class PlayerInventory	 : Inventory {
+	public class PlayerInventory : Inventory {
 		public PlayerInventory(IContainer container, uint slotsCount)
 			: base(container, slotsCount) {
 		}
 
 		public override int FindFreeSlot() {
-			for(var i = InventorySlot.BackpackStart; i < InventorySlot.BackpackEnd; i++) {
+			for(InventorySlot i = InventorySlot.BackpackStart; i < InventorySlot.BackpackEnd; i++) {
 				if(null == this[(int)i]) {
 					return (int)i;
 				}
@@ -113,5 +122,4 @@ namespace Hazzik.Objects {
 			return -1;
 		}
 	}
-
 }

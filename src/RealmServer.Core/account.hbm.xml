@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
-	<class name="Hazzik.Account, Hazzik.RealmServer" table="Accounts" lazy="false">
+	<class name="Hazzik.Account, Hazzik.RealmServer.Core" table="Accounts" lazy="false">
 		<id name="Id" column="AccountId" type="int">
 			<generator class="native" />
 		</id>
@@ -10,10 +10,10 @@
 		<property name="SessionKey" column="SessionKey"	type="System.Byte[]" />
 		<bag name="Players" lazy="false" cascade="all-delete-orphan">
 			<key column="AccountId" />
-			<one-to-many class="Hazzik.Objects.Player, Hazzik.RealmServer"/>
+			<one-to-many class="Hazzik.Objects.Player, Hazzik.RealmServer.Core"/>
 		</bag>
 	</class>
-	<class name="Hazzik.Objects.Player, Hazzik.RealmServer" table="Players" lazy="false">
+	<class name="Hazzik.Objects.Player, Hazzik.RealmServer.Core" table="Players" lazy="false">
 		<id name="Guid" column="PlayerId" type="System.UInt64" unsaved-value="any">
 			<generator class="native" />
 		</id>

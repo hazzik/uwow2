@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Hazzik.Objects.Templates;
 using Hazzik.Skills;
 
@@ -41,7 +42,7 @@ namespace Hazzik.Objects {
 			_player.FactionTemplate = 0x0000065D;
 			_player.WatchedFactionIndex = -1;
 			var abjurerSBoots9936 = new Abjurer_sBoots9936();
-			_player.Inventory[(int)abjurerSBoots9936.CanBeEquipedIn[0]] = ItemFactory.Create(abjurerSBoots9936);
+			AutoEquip(ItemFactory.Create(abjurerSBoots9936), _player.Inventory);
 			_player.Inventory[_player.Inventory.FindFreeSlot()] = ItemFactory.Create(new AncestralBoots3289());
 			_player.Inventory[_player.Inventory.FindFreeSlot()] = ItemFactory.Create(new FelIronShells23772());
 			_player.Inventory[_player.Inventory.FindFreeSlot()] = ItemFactory.Create(new FelIronShells23772());
@@ -102,6 +103,13 @@ namespace Hazzik.Objects {
 			_player.AddSkill(new Skill { Id = (ushort)SkillType.Leather, Value = 1, Cap = 1 });
 			_player.AddSkill(new Skill { Id = (ushort)SkillType.Mail, Value = 1, Cap = 1 });
 			_player.AddSkill(new Skill { Id = (ushort)SkillType.Shield, Value = 1, Cap = 1 });
+		}
+
+		private static void AutoEquip(Item item, IInventory inventory) {
+			var equipSlot = (EquipmentSlot)inventory.FindFreeSlot(item.Template.CanBeEquipedIn.Cast<int>());
+			if(equipSlot != EquipmentSlot.None) {
+				inventory[(int)equipSlot] = item;
+			}
 		}
 	}
 }
