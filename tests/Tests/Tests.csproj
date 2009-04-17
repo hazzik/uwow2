@@ -69,9 +69,9 @@
       <Project>{0638B5D2-AA98-4FD3-8F2E-8DEDFB9F5A97}</Project>
       <Name>Net</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\RealmServer\RealmServer.csproj">
+    <ProjectReference Include="..\..\src\RealmServer.Core\RealmServer.Core.csproj">
       <Project>{763DE8C6-1140-44CB-84B9-A7E400CB65BF}</Project>
-      <Name>RealmServer</Name>
+      <Name>RealmServer.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
