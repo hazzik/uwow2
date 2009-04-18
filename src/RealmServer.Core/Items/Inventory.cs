@@ -2,14 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Hazzik.Objects;
 
-namespace Hazzik.Objects {
-	public class Inventory : IInventory {
+namespace Hazzik.Items {
+	public abstract class Inventory : IInventory {
 		protected Item[] _items;
 
-		public Inventory(IContainer container, uint slotsCount) {
+		protected Inventory(IContainer container, uint slotsCount) {
 			Container = container;
-			MaxCount = slotsCount;
+			Slots = slotsCount;
 			_items = new Item[slotsCount];
 		}
 
@@ -17,7 +18,7 @@ namespace Hazzik.Objects {
 
 		public IContainer Container { get; private set; }
 
-		public uint MaxCount { get; private set; }
+		public uint Slots { get; private set; }
 
 		public Item this[int slot] {
 			get { return GetItem(slot); }
@@ -38,18 +39,13 @@ namespace Hazzik.Objects {
 
 		public void DestroyItem(int slot) {
 			Item item = GetItem(slot);
-			item.Destroy();
+			if(item != null) {
+				item.Destroy();
+			}
 			SetItem(slot, null);
 		}
 
-		public virtual int FindFreeSlot() {
-			for(InventorySlot i = InventorySlot.BackpackStart; i < InventorySlot.BackpackEnd; i++) {
-				if(null == this[(int)i]) {
-					return (int)i;
-				}
-			}
-			return -1;
-		}
+		public abstract int FindFreeSlot();
 
 		public int FindFreeSlot(IEnumerable<int> slots) {
 			foreach(int slot in slots) {
@@ -76,7 +72,7 @@ namespace Hazzik.Objects {
 		}
 
 		public virtual void SetItem(int slot, Item item) {
-			if(slot < 0 || slot >= MaxCount) {
+			if(slot < 0 || slot >= Slots) {
 				throw new ArgumentOutOfRangeException("slot");
 			}
 			if(null != item) {
@@ -86,40 +82,10 @@ namespace Hazzik.Objects {
 		}
 
 		public virtual Item GetItem(int slot) {
-			if(slot < 0 || slot >= MaxCount) {
+			if(slot < 0 || slot >= Slots) {
 				throw new ArgumentOutOfRangeException("slot");
 			}
 			return _items[slot];
-		}
-	}
-
-	public class ContainerInventory : Inventory {
-		public ContainerInventory(IContainer container, uint slotsCount)
-			: base(container, slotsCount) {
-		}
-
-		public override int FindFreeSlot() {
-			for(int i = 0; i < MaxCount; i++) {
-				if(null == this[i]) {
-					return i;
-				}
-			}
-			return -1;
-		}
-	}
-
-	public class PlayerInventory : Inventory {
-		public PlayerInventory(IContainer container, uint slotsCount)
-			: base(container, slotsCount) {
-		}
-
-		public override int FindFreeSlot() {
-			for(InventorySlot i = InventorySlot.BackpackStart; i < InventorySlot.BackpackEnd; i++) {
-				if(null == this[(int)i]) {
-					return (int)i;
-				}
-			}
-			return -1;
 		}
 	}
 }

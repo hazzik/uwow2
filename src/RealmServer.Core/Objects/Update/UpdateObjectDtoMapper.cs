@@ -251,6 +251,7 @@ namespace Hazzik.Objects.Update {
 		}
 
 		private static void UpdatePlayer(UpdateValuesDto dto, Player obj) {
+			//obj.Coinage = uint.MaxValue;
 			UpdateUnit(dto, obj);
 			dto.Set(UpdateFields.PLAYER_DUEL_ARBITER, obj.DuelArbiterGuid);
 			dto.Set(UpdateFields.PLAYER_FLAGS, obj.Flags);
@@ -264,7 +265,7 @@ namespace Hazzik.Objects.Update {
 			dto.Set(UpdateFields.PLAYER_BYTES_2,
 			        obj.FacialHair,
 			        obj.PlayerBytes2_2,
-			        obj.BankBagSlots,
+			        (byte)obj.BankBags.Slots,
 			        (byte)obj.RestState);
 			dto.Set(UpdateFields.PLAYER_BYTES_3,
 			        (byte)obj.Gender,
@@ -289,7 +290,7 @@ namespace Hazzik.Objects.Update {
 			//PLAYER_FIELD_VENDORBUYBACK_SLOT_1 = UNIT_END + 602, // 24 4:Long 2:Private
 			//PLAYER_FIELD_KEYRING_SLOT_1 = UNIT_END + 626, // 64 4:Long 2:Private
 			//PLAYER_FIELD_CURRENCYTOKEN_SLOT_1 = UNIT_END + 726, // 64 4:Long 2:Private
-			for(int i = 0; i < obj.Inventory.MaxCount; i++) {
+			for(int i = 0; i < obj.Inventory.Slots; i++) {
 				Item item = obj.Inventory[i];
 				if(null != item) {
 					dto.Set(UpdateFields.PLAYER_FIELD_INV_SLOT_HEAD + i * 2, item.Guid);

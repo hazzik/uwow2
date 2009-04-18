@@ -2,22 +2,41 @@
 
 namespace Hazzik.Creatures {
 	[Flags]
-	public enum NpcFlags : uint {
+	public enum NpcFlags {
 		None = 0,
-		Gossip = 1,	//SpiritHealer = 1, // gossip\talk 
-		QuestGiver = 2,	//Dialog = 2,		// questgiver (CMSG_QUESTGIVER_HELLO, ?)
-		Vendor = 4,	//Vendor = 4,		// vendor (CMSG_LIST_INVENTORY, SMSG_LIST_INVENTORY)
-		TaxiVendor = 8,	//Taxi = 8,			// taxi (CMSG_TAXIQUERYAVAILABLENODES, SMSG_SHOWTAXINODES)
-		Trainer = 16,	//Trainer = 16,		// trainer (CMSG_TRAINER_LIST, SMSG_TRAINER_LIST)
-		SpiritHealer = 32,	//Healer = 32,		// SpiritHealer (CMSG_BINDER_ACTIVATE, ?)
-		Guard = 64,	//BattleFieldSpiritHealer = 64, //no opcodes for 1.8??? only indication?
-		Innkeeper = 128,	//InnKeeper = 128,	// 
-		Banker = 256,	//Banker = 256,		// Banker (CMSG_BANKER_ACTIVATE, SMSG_SHOW_BANK)
-		Petitioner = 512,	//Petition = 512,	// GuildMaster (CMSG_PETITION_SHOWLIST, SMSG_PETITION_SHOWLIST)
-		TabardVendor = 1024,	//Tabard = 1024,	// TabardVendor (MSG_TABARDVENDOR_ACTIVATE)
-		BattlefieldPerson = 2048,	//BattleMaster = 2048, // Battlefield Person (CMSG_BATTLEFIELD_LIST, SMSG_BATTLEFIELD_LIST)
-		Auctioneer = 4096,	//Auctionner = 4096, //MSG_AUCTION_HELLO
-		Stable = 8192,	//StableMaster = 8192, //MSG_LIST_STABLED_PETS
-		Armorer = 16384,						//no opcodes for 1.8???
+		Gossip = 0x1,
+		QuestGiver = 0x2,
+		//Flag_0X4 = 0x4,
+		//Flag_0X8 = 0x8,
+		UnkTrainer = 0x10,       // 100%
+		ClassTrainer = 0x20,       // 100%
+		ProfessionTrainer = 0x40,       // 100%
+		Vendor = 0x80,       // 100%
+		GeneralGoodsVendor = 0x100,       // 100%, general goods vendor
+		FoodVendor = 0x200,       // 100%
+		PoisonVendor = 0x400,       // guessed
+		ReagentVendor = 0x800,       // 100%
+		Armorer = 0x1000,       // 100%
+		FlightMaster = 0x2000,       // 100%
+		/// <summary>
+		/// Makes the unit invisible when player is alive
+		/// </summary>
+		SpiritHealer = 0x4000,       // guessed
+		/// <summary>
+		/// Makes the unit invisible when player is alive
+		/// </summary>
+		SpiritGuide = 0x8000,       // guessed
+		InnKeeper = 0x10000,       // 100%
+		Banker = 0x20000,       // 100%
+		Petitioner = 0x40000,       // 100% 0xC0000 = guild petitions, 0x40000 = arena team petitions
+		TabardDesigner = 0x80000,       // 100%
+		BattleMaster = 0x100000,       // 100%
+		Auctioneer = 0x200000,       // 100%
+		StableMaster = 0x400000,       // 100%
+		GuildBanker = 0x800000,       // cause client to send 997 opcode
+		/// <summary>
+		/// Makes the client send CMSG_SPELLCLICK
+		/// </summary>
+		//Flag_0X1000000 = 0x1000000,       // cause client to send 1015 opcode
 	}
 }

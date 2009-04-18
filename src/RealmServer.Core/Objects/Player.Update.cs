@@ -50,8 +50,6 @@ namespace Hazzik.Objects {
 
 		public byte PlayerBytes2_2 { get; set; }
 
-		public byte BankBagSlots { get; internal set; }
-
 		public RestState RestState { get; set; }
 
 		#endregion

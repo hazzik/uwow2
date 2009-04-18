@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Hazzik.Items;
 using Hazzik.Objects;
 using Xunit;
 
@@ -34,7 +35,7 @@ namespace Tests {
 			var player = new Player();
 			IInventory inventory = CreateInventory(player, 100);
 			Assert.Equal(player, inventory.Container.Owner);
-			Assert.Equal(100u, inventory.MaxCount);
+			Assert.Equal(100u, inventory.Slots);
 		}
 
 		[Fact]
@@ -83,6 +84,10 @@ namespace Tests {
 
 			public Item[] Items {
 				get { return _items; }
+			}
+
+			public override int FindFreeSlot() {
+				throw new NotImplementedException();
 			}
 		}
 

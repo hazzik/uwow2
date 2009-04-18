@@ -93,7 +93,7 @@ namespace Hazzik.Objects {
 		Bag3 = 21,
 		BagLast = 22,
 		BackpackStart,
-		BackpackEnd = UpdateFields.PLAYER_FIELD_BANK_SLOT_1 - UpdateFields.PLAYER_FIELD_PACK_SLOT_1,
+		BackpackEnd = BackpackStart + UpdateFields.PLAYER_FIELD_BANK_SLOT_1 - UpdateFields.PLAYER_FIELD_PACK_SLOT_1,
 	}
 
 	public enum InventoryTypes {

@@ -12,8 +12,8 @@ namespace Hazzik.Gossip {
 		public static void HandleGossipHello(ISession client, IPacket packet) {
 			ulong targetGuid = packet.CreateReader().ReadUInt64();
 			client.Send(GetGossipMessagePkt(targetGuid, 2, new List<GossipMenuItem> {
-				new GossipMenuItem(1, GossipMenuIcon.Gossip, false, "Hello?"),
-				new GossipMenuItem(2, GossipMenuIcon.Vendor, false, "Hello?"),
+				//new GossipMenuItem(1, GossipMenuIcon.Gossip, false, "Hello?"),
+				new GossipMenuItem(2, GossipMenuIcon.Banker, false, "Hello?"),
 			}, null));
 		}
 

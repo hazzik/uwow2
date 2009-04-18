@@ -13,8 +13,10 @@ namespace Hazzik.Repositories {
 				return new FelIronShells23772();	
 			case 857:
 				return new LargeRedSack857();
-			default:
+			case 9943:
 				return new Abjurer_sRobe9943();
+			default:
+				return new AuchenaiKey30633();
 			}
 		}
 	}
