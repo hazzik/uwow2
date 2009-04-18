@@ -40,11 +40,9 @@ namespace Hazzik.Items {
 			var player = session.Player;
 			var inventorySrc = player.GetInventory(srcBag);
 			var inventoryDst = player.Inventory;
-			var dstSlot = inventoryDst.FindFreeSlot();
 
-			var item = inventorySrc[srcSlot];
-			inventorySrc[srcSlot] = inventoryDst[dstSlot];
-			inventoryDst[dstSlot] = item;
+			inventoryDst.AutoAdd(inventorySrc[srcSlot]);
+			inventorySrc[srcSlot] = null;
 		}
 
 		[WorldPacketHandler(WMSG.CMSG_AUTOBANK_ITEM)]
@@ -56,11 +54,9 @@ namespace Hazzik.Items {
 
 			var inventorySrc = player.GetInventory(srcBag);
 			var inventoryDst = player.Bank;
-			var dstSlot = inventoryDst.FindFreeSlot();
 
-			var item = inventorySrc[srcSlot];
-			inventorySrc[srcSlot] = inventoryDst[dstSlot];
-			inventoryDst[dstSlot] = item;
+			inventoryDst.AutoAdd(inventorySrc[srcSlot]);
+			inventorySrc[srcSlot] = null;
 		}
 	}
 }

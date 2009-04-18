@@ -13,7 +13,7 @@ namespace Hazzik.Items {
 				for(var i = InventorySlot.Bag1; i <= InventorySlot.BagLast; i++) {
 					var bag = this[(int)i] as IContainer;
 					if(bag != null) {
-						slot = bag.Inventory.FindFreeSlot();
+						slot = ((ContainerInventory)bag.Inventory).FindFreeSlot();
 						if(slot != -1) {
 							return slot;
 						}

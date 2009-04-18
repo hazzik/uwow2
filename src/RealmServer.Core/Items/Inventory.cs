@@ -38,22 +38,18 @@ namespace Hazzik.Items {
 		}
 
 		public void DestroyItem(int slot) {
-			Item item = GetItem(slot);
+			var item = GetItem(slot);
 			if(item != null) {
 				item.Destroy();
 			}
 			SetItem(slot, null);
 		}
 
-		public abstract int FindFreeSlot();
-
-		public int FindFreeSlot(IEnumerable<int> slots) {
-			foreach(int slot in slots) {
-				if(_items[slot] == null) {
-					return slot;
-				}
+		public void AutoAdd(Item item) {
+			var slot = FindFreeSlot();
+			if(slot != -1) {
+				this[slot] = item;
 			}
-			return -1;
 		}
 
 		#endregion
@@ -86,6 +82,10 @@ namespace Hazzik.Items {
 				throw new ArgumentOutOfRangeException("slot");
 			}
 			return _items[slot];
+		}
+
+		public virtual int FindFreeSlot() {
+			throw new NotImplementedException();
 		}
 	}
 }

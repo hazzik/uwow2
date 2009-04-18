@@ -19,11 +19,13 @@ namespace Hazzik.Objects {
 		private readonly IList<int> _spells = new List<int>();
 
 		public Player() {
-			_keyRing = new KeyRingInventory(this);
 			Type |= ObjectTypes.Player;
 			_inventory = new PlayerInventory(this, UpdateFields.PLAYER_FARSIGHT - UpdateFields.PLAYER_FIELD_INV_SLOT_HEAD);
+			_backPack = new BackPackInventory(this);
+			_equipment = new EquipmentInventory(this);
 			_bank = new BankInventory(this);
 			_bankBags = new BankBagsInventory(this);
+			_keyRing = new KeyRingInventory(this);
 		}
 
 		public override ObjectTypeId TypeId {
@@ -54,10 +56,6 @@ namespace Hazzik.Objects {
 		}
 
 		#endregion
-
-		public IEquipmentInventory EquipmentInventory {
-			get { return _inventory as IEquipmentInventory; }
-		}
 
 		public void TrainSpell(IEnumerable<int> spells) {
 			foreach(var id in spells) {

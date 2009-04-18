@@ -30,7 +30,7 @@ namespace Hazzik.Items {
 		}
 
 		public virtual int GetAmount(int id) {
-			return this.Where(x => x.Entry == id).Count();
+			return (int)this.Where(x => x.Entry == id).Sum(x => x.StackCount);
 		}
 
 		public virtual void DestroyItem(int slot) {
@@ -40,16 +40,12 @@ namespace Hazzik.Items {
 		}
 
 		public virtual int FindFreeSlot() {
-			for(var i = 0; i < Slots; i++) {
+			for(int i = 0; i < Slots; i++) {
 				if(this[i + Offset] == null) {
 					return i + Offset;
 				}
 			}
 			return -1;
-		}
-
-		public virtual int FindFreeSlot(IEnumerable<int> slots) {
-			throw new NotImplementedException();
 		}
 
 		IEnumerator<Item> IEnumerable<Item>.GetEnumerator() {
@@ -60,15 +56,22 @@ namespace Hazzik.Items {
 			return GetEnumerator();
 		}
 
+		public virtual void AutoAdd(Item item) {
+			var slot = FindFreeSlot();
+			if(slot != -1) {
+				this[slot] = item;
+			}
+		}
+
+		#endregion
+
 		private IEnumerator<Item> GetEnumerator() {
-			for(var i = 0; i < Slots; i++) {
-				var item = _inventory[i + Offset];
+			for(int i = 0; i < Slots; i++) {
+				Item item = _inventory[i + Offset];
 				if(item != null) {
 					yield return item;
 				}
 			}
 		}
-
-		#endregion
 	}
 }

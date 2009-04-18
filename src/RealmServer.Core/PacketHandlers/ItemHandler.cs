@@ -112,12 +112,10 @@ namespace Hazzik.PacketHandlers {
 			var player = client.Player;
 
 			var inventorySrc = player.GetInventory(srcBag);
-			var inventoryDst = player.Inventory;
+			var inventoryDst = player.Equipment;
 
-			var item = inventorySrc[srcSlot];
-			var dstSlot = inventoryDst.FindFreeSlot(item.Template.CanBeEquipedIn.Cast<int>());
-			inventorySrc[srcSlot] = inventoryDst[dstSlot];
-			inventoryDst[dstSlot] = item;
+			inventoryDst.AutoAdd(inventorySrc[srcSlot]);
+			inventorySrc[srcSlot] = null;
 		}
 
 		[WorldPacketHandler(WMSG.CMSG_AUTOSTORE_BAG_ITEM)]
@@ -132,11 +130,8 @@ namespace Hazzik.PacketHandlers {
 			var inventorySrc = player.GetInventory(srcBag);
 			var inventoryDst = player.GetInventory(dstBag);
 
-			var dstSlot = inventoryDst.FindFreeSlot();
-
-			var item = inventorySrc[srcSlot];
-			inventorySrc[srcSlot] = inventoryDst[dstSlot];
-			inventoryDst[dstSlot] = item;
+			inventoryDst.AutoAdd(inventorySrc[srcSlot]);
+			inventorySrc[srcSlot] = null;
 		}
 
 		[WorldPacketHandler(WMSG.CMSG_SET_AMMO)]

@@ -78,6 +78,7 @@
     <Compile Include="Items\BankInventory.cs" />
     <Compile Include="Items\BankHandler.cs" />
     <Compile Include="Items\ContainerInventory.cs" />
+    <Compile Include="Items\EquipmentInventory.cs" />
     <Compile Include="Items\IBankBagsInventory.cs" />
     <Compile Include="Items\InventoryWrapper.cs" />
     <Compile Include="Items\KeyRingInventory.cs" />

@@ -41,17 +41,16 @@ namespace Hazzik.Objects {
 			_player.NativeDisplayId = (uint)(51 + _player.Gender);
 			_player.FactionTemplate = 0x0000065D;
 			_player.WatchedFactionIndex = -1;
-			var abjurerSBoots9936 = new Abjurer_sBoots9936();
-			_player.EquipmentInventory.AutoEquip(ItemFactory.Create(abjurerSBoots9936));
-			_player.Inventory[_player.Inventory.FindFreeSlot()] = ItemFactory.Create(new AncestralBoots3289());
-			_player.Inventory[_player.Inventory.FindFreeSlot()] = ItemFactory.Create(new FelIronShells23772());
-			_player.Inventory[_player.Inventory.FindFreeSlot()] = ItemFactory.Create(new FelIronShells23772());
-			_player.Inventory[_player.Inventory.FindFreeSlot()] = ItemFactory.Create(new LargeRedSack857());
-			_player.Inventory[_player.Inventory.FindFreeSlot()] = ItemFactory.Create(new LargeRedSack857());
-			_player.Inventory[_player.Inventory.FindFreeSlot()] = ItemFactory.Create(new LargeRedSack857());
-			_player.Inventory[_player.Inventory.FindFreeSlot()] = ItemFactory.Create(new LargeRedSack857());
-			_player.Inventory[_player.Inventory.FindFreeSlot()] = ItemFactory.Create(new Abjurer_sRobe9943());
-			_player.Inventory[_player.Inventory.FindFreeSlot()] = ItemFactory.Create(new AuchenaiKey30633());
+			_player.Equipment.AutoAdd(ItemFactory.Create(new Abjurer_sBoots9936()));
+			_player.BackPack.AutoAdd(ItemFactory.Create(new AncestralBoots3289()));
+			_player.BackPack.AutoAdd(ItemFactory.Create(new FelIronShells23772()));
+			_player.BackPack.AutoAdd(ItemFactory.Create(new FelIronShells23772()));
+			_player.BackPack.AutoAdd(ItemFactory.Create(new LargeRedSack857()));
+			_player.BackPack.AutoAdd(ItemFactory.Create(new LargeRedSack857()));
+			_player.BackPack.AutoAdd(ItemFactory.Create(new LargeRedSack857()));
+			_player.BackPack.AutoAdd(ItemFactory.Create(new LargeRedSack857()));
+			_player.BackPack.AutoAdd(ItemFactory.Create(new Abjurer_sRobe9943()));
+			_player.BackPack.AutoAdd(ItemFactory.Create(new AuchenaiKey30633()));
 
 			_player.TrainSpell(new[] {
 				78, // Heroic Strike Rank 1
