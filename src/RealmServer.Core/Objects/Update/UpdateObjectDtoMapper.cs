@@ -1,4 +1,5 @@
 using System;
+using Hazzik.Items;
 using Hazzik.Skills;
 
 namespace Hazzik.Objects.Update {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Hazzik.Items;
+using Hazzik.Items.Inventories;
 using Hazzik.Objects;
 using Xunit;
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Hazzik.Objects;
 
-namespace Hazzik.Items {
+namespace Hazzik.Items.Inventories {
 	public class EquipmentInventory : InventoryWrapper {
 		public EquipmentInventory(IContainer player)
 			: base(player.Inventory, 0, 22) {

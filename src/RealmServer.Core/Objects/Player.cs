@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Hazzik.Dbc;
 using Hazzik.Items;
+using Hazzik.Items.Inventories;
 using Hazzik.Net;
 using Hazzik.Objects.Update;
 using Hazzik.Skills;

@@ -2,7 +2,7 @@ using System;
 using Hazzik.Dbc;
 using Hazzik.Objects;
 
-namespace Hazzik.Items {
+namespace Hazzik.Items.Inventories {
 	public class BankBagsInventory : InventoryWrapper, IBankBagsInventory {
 		private const byte MaxBagSlots = 7;
 

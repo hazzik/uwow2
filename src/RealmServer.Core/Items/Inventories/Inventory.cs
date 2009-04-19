@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Hazzik.Objects;
 
-namespace Hazzik.Items {
+namespace Hazzik.Items.Inventories {
 	public abstract class Inventory : IInventory {
 		protected Item[] _items;
 

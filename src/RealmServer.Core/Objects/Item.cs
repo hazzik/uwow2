@@ -6,8 +6,8 @@ namespace Hazzik.Objects {
 		private readonly ItemTemplate _template;
 
 		public Item(ItemTemplate template) {
-			Type |= ObjectTypes.Item;
 			_template = template;
+			Type |= ObjectTypes.Item;
 			Entry = (uint)template.Id;
 			Durability = (uint)template.MaxDurability;
 			MaxDurability = (uint)template.MaxDurability;

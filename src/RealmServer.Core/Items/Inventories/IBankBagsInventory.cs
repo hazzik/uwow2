@@ -1,7 +1,6 @@
 using System;
-using Hazzik.Objects;
 
-namespace Hazzik.Items {
+namespace Hazzik.Items.Inventories {
 	public interface IBankBagsInventory : IInventory {
 		void BuySlot();
 	}

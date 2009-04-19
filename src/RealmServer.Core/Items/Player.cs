@@ -1,5 +1,6 @@
 using System;
 using Hazzik.Items;
+using Hazzik.Items.Inventories;
 
 namespace Hazzik.Objects {
 	public partial class Player {

@@ -1,7 +1,7 @@
 using System;
 using Hazzik.Objects;
 
-namespace Hazzik.Items {
+namespace Hazzik.Items.Inventories {
 	public class KeyRingInventory : InventoryWrapper {
 		private readonly Player _player;
 

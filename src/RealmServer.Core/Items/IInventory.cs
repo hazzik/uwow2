@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Hazzik.Objects;
 
-namespace Hazzik.Objects {
+namespace Hazzik.Items {
 	public interface IInventory : IEnumerable<Item> {
 		IContainer Container { get; }
 		uint Slots { get; }
