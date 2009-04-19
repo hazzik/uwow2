@@ -39,7 +39,7 @@ namespace Hazzik.Items {
 			var srcSlot = reader.ReadByte();
 			var player = session.Player;
 			var inventorySrc = player.GetInventory(srcBag);
-			var inventoryDst = player.Inventory;
+			var inventoryDst = player.BackPack;
 
 			inventoryDst.AutoAdd(inventorySrc[srcSlot]);
 			inventorySrc[srcSlot] = null;

@@ -103,6 +103,7 @@ namespace Hazzik.Objects {
 			_player.AddSkill(new Skill { Id = (ushort)SkillType.Leather, Value = 1, Cap = 1 });
 			_player.AddSkill(new Skill { Id = (ushort)SkillType.Mail, Value = 1, Cap = 1 });
 			_player.AddSkill(new Skill { Id = (ushort)SkillType.Shield, Value = 1, Cap = 1 });
+			_player.Coinage = 100 * 100 * 1000;
 		}
 	}
 }

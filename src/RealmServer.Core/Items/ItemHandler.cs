@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Linq;
 using Hazzik.Attributes;
 using Hazzik.Net;
 using Hazzik.Objects;
 using Hazzik.Repositories;
 
-namespace Hazzik.PacketHandlers {
+namespace Hazzik.Items {
 	[PacketHandlerClass]
 	public class ItemHandler {
 		[WorldPacketHandler(WMSG.CMSG_ITEM_QUERY_SINGLE)]
@@ -29,33 +28,7 @@ namespace Hazzik.PacketHandlers {
 				inventory.DestroyItem(slot);
 			}
 		}
-
-		[WorldPacketHandler(WMSG.CMSG_SWAP_ITEM)]
-		public static void HandleSwapItem(ISession client, IPacket packet) {
-			var reader = packet.CreateReader();
-			var dstBag = reader.ReadByte();
-			var dstSlot = reader.ReadByte();
-			var srcBag = reader.ReadByte();
-			var srcSlot = reader.ReadByte();
-
-			var player = client.Player;
-			
-			var inventorySrc = player.GetInventory(srcBag);
-			var inventoryDst = player.GetInventory(dstBag);
-			
-			SwapItems(inventorySrc, srcSlot, inventoryDst, dstSlot);
-		}
-
-		[WorldPacketHandler(WMSG.CMSG_SWAP_INV_ITEM)]
-		public static void HandleSwapInvItem(ISession client,IPacket packet) {
-			var reader = packet.CreateReader();
-			var srcSlot = reader.ReadByte();
-			var dstSlot = reader.ReadByte();
-			var player = client.Player;
-
-			SwapItems(player.Inventory, srcSlot, player.Inventory, dstSlot);
-		}
-
+		
 		private static void SwapItems(IInventory srcInventory, int srcSlot, IInventory dstInventory, int dstSlot) {
 			var srcItem = srcInventory[srcSlot];
 			var dstItem = dstInventory[dstSlot];
@@ -78,6 +51,30 @@ namespace Hazzik.PacketHandlers {
 				dstInventory[dstSlot] = srcItem;
 			}
 		}
+
+		[WorldPacketHandler(WMSG.CMSG_SWAP_ITEM)]
+		public static void HandleSwapItem(ISession client, IPacket packet) {
+			var reader = packet.CreateReader();
+			var dstBag = reader.ReadByte();
+			var dstSlot = reader.ReadByte();
+			var srcBag = reader.ReadByte();
+			var srcSlot = reader.ReadByte();
+
+			var player = client.Player;
+
+			SwapItems(player.GetInventory(srcBag), srcSlot, player.GetInventory(dstBag), dstSlot);
+		}
+
+		[WorldPacketHandler(WMSG.CMSG_SWAP_INV_ITEM)]
+		public static void HandleSwapInvItem(ISession client,IPacket packet) {
+			var reader = packet.CreateReader();
+			var srcSlot = reader.ReadByte();
+			var dstSlot = reader.ReadByte();
+			var player = client.Player;
+
+			SwapItems(player.Inventory, srcSlot, player.Inventory, dstSlot);
+		}
+
 
 		[WorldPacketHandler(WMSG.CMSG_SPLIT_ITEM)]
 		public static void HandleSplitItem(ISession client, IPacket packet) {
