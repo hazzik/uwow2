@@ -1,5 +1,5 @@
-using Hazzik.Objects;
-using Hazzik.Objects.Templates;
+using Hazzik.Items;
+using Hazzik.Items.Templates;
 
 namespace Hazzik.Repositories {
 	public class ItemTemplateRepository {
@@ -14,7 +14,7 @@ namespace Hazzik.Repositories {
 			case 857:
 				return new LargeRedSack857();
 			case 9943:
-				return new Abjurer_sRobe9943();
+				return new AbjurerSRobe9943();
 			default:
 				return new AuchenaiKey30633();
 			}

@@ -1,143 +1,8 @@
 ﻿using System;
 using System.IO;
 using Hazzik.Net;
-using Hazzik.Objects.Update;
 
-namespace Hazzik.Objects {
-	public enum ItemModType {
-		Mana = 0,
-		Health = 1,
-		Agility = 3,
-		Strength = 4,
-		Intellect = 5,
-		Spirit = 6,
-		Stamina = 7,
-		DefenseRating = 12,
-		DodgeRating = 13,
-		ParryRating = 14,
-		ShieldBlockRating = 15,
-		MeleeHitRating = 16,
-		RangedHitRating = 17,
-		SpellHitRating = 18,
-		MeleeCriticalStrikeRating = 19,
-		RangedCriticalStrikeRating = 20,
-		SpellCriticalStrikeRating = 21,
-		MeleeHitAvoidanceRating = 22,
-		RangedHitAvoidanceRating = 23,
-		SpellHitAvoidanceRating = 24,
-		MeleeCriticalAvoidanceRating = 25,
-		RangedCriticalAvoidanceRating = 26,
-		SpellCriticalAvoidanceRating = 27,
-		MeleeHasteRating = 28,
-		RangedHasteRating = 29,
-		SpellHasteRating = 30,
-		HitRating = 31,
-		CriticalStrikeRating = 32,
-		HitAvoidanceRating = 33,
-		CriticalAvoidanceRating = 34,
-		ResilienceRating = 35,
-		HasteRating = 36,
-		ExpertiseRating = 37,
-	}
-
-	public enum EquipmentSlot {
-		None = -1,
-		Head = 0,
-		Neck = 1,
-		Shoulders = 2,
-		Shirt = 3,
-		Chest = 4,
-		Waist = 5,
-		Legs = 6,
-		Feet = 7,
-		Wrists = 8,
-		Hands = 9,
-		FingerLeft = 10,
-		FingerRight = 11,
-		TrinketLeft = 12,
-		TrinketRight = 13,
-		Back = 14,
-		MainHand = 15,
-		OffHand = 16,
-		Ranged = 17,
-		Tabard = 18,
-		Bag1 = 19,
-		Bag2 = 20,
-		Bag3 = 21,
-		BagLast = 22,
-	}
-
-	public enum InventorySlot {
-		None = -1,
-		Head = 0,
-		Neck = 1,
-		Shoulders = 2,
-		Shirt = 3,
-		Chest = 4,
-		Waist = 5,
-		Legs = 6,
-		Feet = 7,
-		Wrists = 8,
-		Hands = 9,
-		FingerLeft = 10,
-		FingerRight = 11,
-		TrinketLeft = 12,
-		TrinketRight = 13,
-		Back = 14,
-		MainHand = 15,
-		OffHand = 16,
-		Ranged = 17,
-		Tabard = 18,
-		Bag1 = 19,
-		Bag2 = 20,
-		Bag3 = 21,
-		BagLast = 22,
-		BackpackStart,
-		BackpackEnd = BackpackStart + UpdateFields.PLAYER_FIELD_BANK_SLOT_1 - UpdateFields.PLAYER_FIELD_PACK_SLOT_1,
-	}
-
-	public enum InventoryTypes {
-		None = 0,
-		Head = 1,
-		Neck = 2,
-		Shoulder = 3,
-		Shirt = 4,
-		Chest = 5,
-		Waist = 6,
-		Legs = 7,
-		Feet = 8,
-		Wrist = 9,
-		Hands = 10,
-		Finger = 11,
-		Trinket = 12,
-		Weapon = 13,
-		Shield = 14,
-		Ranged = 15,
-		Back = 16,
-		TwoHanded = 17,
-		Bag = 18,
-		Tabard = 19,
-		Robe = 20,
-		WeaponMainHand = 21,
-		WeaponOffHand = 22,
-		Holdable = 23,
-		Ammo = 24,
-		Thrown = 25,
-		RangedRight = 26,
-		Quiver = 27,
-		Relic = 28,
-	}
-
-	public enum ResistanceTypes {
-		Armor = 0,
-		Light = 1,
-		Fire = 2,
-		Nature = 3,
-		Frost = 4,
-		Shadow = 5,
-		Arcane = 6,
-	}
-
+namespace Hazzik.Items {
 	public class ItemTemplate {
 		#region Nested Types
 
@@ -313,7 +178,7 @@ namespace Hazzik.Objects {
 
 		public EquipmentSlot[] CanBeEquipedIn {
 			get {
-				switch((InventoryTypes)InventoryType) {
+				switch(InventoryType) {
 				case InventoryTypes.None:
 					return new EquipmentSlot[0];
 				case InventoryTypes.Head:
@@ -380,7 +245,7 @@ namespace Hazzik.Objects {
 		private int s_i;
 
 		public IPacket GetResponce() {
-			var packet = WorldPacketFactory.Create(WMSG.SMSG_ITEM_QUERY_SINGLE_RESPONSE);
+			IPacket packet = WorldPacketFactory.Create(WMSG.SMSG_ITEM_QUERY_SINGLE_RESPONSE);
 			BinaryWriter writer = packet.CreateWriter();
 			writer.Write(Id);
 			writer.Write(ObjectClass);

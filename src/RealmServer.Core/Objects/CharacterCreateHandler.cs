@@ -1,6 +1,6 @@
 using System;
 using System.Linq;
-using Hazzik.Objects.Templates;
+using Hazzik.Items.Templates;
 using Hazzik.Skills;
 
 namespace Hazzik.Objects {
@@ -49,7 +49,7 @@ namespace Hazzik.Objects {
 			_player.BackPack.AutoAdd(ItemFactory.Create(new LargeRedSack857()));
 			_player.BackPack.AutoAdd(ItemFactory.Create(new LargeRedSack857()));
 			_player.BackPack.AutoAdd(ItemFactory.Create(new LargeRedSack857()));
-			_player.BackPack.AutoAdd(ItemFactory.Create(new Abjurer_sRobe9943()));
+			_player.BackPack.AutoAdd(ItemFactory.Create(new AbjurerSRobe9943()));
 			_player.BackPack.AutoAdd(ItemFactory.Create(new AuchenaiKey30633()));
 
 			_player.TrainSpell(new[] {

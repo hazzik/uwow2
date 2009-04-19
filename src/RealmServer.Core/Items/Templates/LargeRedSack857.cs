@@ -1,6 +1,6 @@
 using System;
 
-namespace Hazzik.Objects.Templates {
+namespace Hazzik.Items.Templates {
 	public class LargeRedSack857 : ItemTemplate {
 		public LargeRedSack857() {
 			Id = 857;

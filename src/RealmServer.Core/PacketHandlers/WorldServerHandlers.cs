@@ -2,10 +2,10 @@ using System;
 using System.Linq;
 using Hazzik.Attributes;
 using Hazzik.Creatures;
+using Hazzik.Creatures.Templates;
 using Hazzik.Map;
 using Hazzik.Net;
 using Hazzik.Objects;
-using Hazzik.Objects.Templates;
 using Hazzik.Objects.Update;
 
 namespace Hazzik {

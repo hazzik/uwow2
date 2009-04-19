@@ -79,8 +79,12 @@
     <Compile Include="Items\BankHandler.cs" />
     <Compile Include="Items\ContainerInventory.cs" />
     <Compile Include="Items\EquipmentInventory.cs" />
+    <Compile Include="Items\EquipmentSlot.cs" />
     <Compile Include="Items\IBankBagsInventory.cs" />
+    <Compile Include="Items\InventorySlot.cs" />
+    <Compile Include="Items\InventoryTypes.cs" />
     <Compile Include="Items\InventoryWrapper.cs" />
+    <Compile Include="Items\ItemModType.cs" />
     <Compile Include="Items\KeyRingInventory.cs" />
     <Compile Include="Items\Player.cs" />
     <Compile Include="Creatures\Creature.cs" />
@@ -95,6 +99,7 @@
     <Compile Include="Dbc\DbcLoader.cs" />
     <Compile Include="Dbc\IDbcRow.cs" />
     <Compile Include="Items\PlayerInventory.cs" />
+    <Compile Include="Items\ResistanceTypes.cs" />
     <Compile Include="Net\WorldPacketFactory.cs" />
     <Compile Include="Objects\CharacterCreateHandler.cs" />
     <Compile Include="Objects\IAttackPowerCalculator.cs" />

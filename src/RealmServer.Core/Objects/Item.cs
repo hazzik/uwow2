@@ -1,4 +1,5 @@
 using System;
+using Hazzik.Items;
 
 namespace Hazzik.Objects {
 	public partial class Item : WorldObject {

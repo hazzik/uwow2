@@ -1,6 +1,6 @@
 using System;
 using Hazzik.Creatures;
-using Hazzik.Objects.Templates;
+using Hazzik.Creatures.Templates;
 
 namespace Hazzik.Repositories {
 	public class CreatureTemplateRepository {

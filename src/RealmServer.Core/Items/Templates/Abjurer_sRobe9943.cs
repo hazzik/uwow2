@@ -1,8 +1,8 @@
 using System;
 
-namespace Hazzik.Objects.Templates {
-	public class Abjurer_sRobe9943 : ItemTemplate {
-		public Abjurer_sRobe9943() {
+namespace Hazzik.Items.Templates {
+	public class AbjurerSRobe9943 : ItemTemplate {
+		public AbjurerSRobe9943() {
 			Id = 9943;
 			ObjectClass = 4;
 			SubClass = 1;
