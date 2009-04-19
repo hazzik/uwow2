@@ -198,7 +198,7 @@
     <Compile Include="Objects\WorldObject.Update.cs" />
     <Compile Include="Objects\Update\Blocks\OutOfRangeBlockWriter.cs" />
     <Compile Include="PacketHandler.cs" />
-    <Compile Include="PacketHandlers\ItemHandler.cs" />
+    <Compile Include="Items\ItemHandler.cs" />
     <Compile Include="PacketHandlers\MoveHandlers.cs" />
     <Compile Include="PacketHandlers\WorldServerHandlers.cs">
       <SubType>Code</SubType>
