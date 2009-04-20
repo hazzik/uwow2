@@ -176,60 +176,60 @@ namespace Hazzik.Items {
 			get { return (ObjectClass == 2); }
 		}
 
-		public EquipmentSlot[] CanBeEquipedIn {
+		public int[] CanBeEquipedIn {
 			get {
 				switch(InventoryType) {
 				case InventoryTypes.None:
-					return new EquipmentSlot[0];
+					return new int[0];
 				case InventoryTypes.Head:
-					return new[] { EquipmentSlot.Head };
+					return new[] { (int)EquipmentSlot.Head };
 				case InventoryTypes.Neck:
-					return new[] { EquipmentSlot.Neck };
+					return new[] { (int)EquipmentSlot.Neck };
 				case InventoryTypes.Shoulder:
-					return new[] { EquipmentSlot.Shoulders };
+					return new[] { (int)EquipmentSlot.Shoulders };
 				case InventoryTypes.Shirt:
-					return new[] { EquipmentSlot.Shirt };
+					return new[] { (int)EquipmentSlot.Shirt };
 				case InventoryTypes.Chest:
-					return new[] { EquipmentSlot.Chest };
+					return new[] { (int)EquipmentSlot.Chest };
 				case InventoryTypes.Waist:
-					return new[] { EquipmentSlot.Waist };
+					return new[] { (int)EquipmentSlot.Waist };
 				case InventoryTypes.Legs:
-					return new[] { EquipmentSlot.Legs };
+					return new[] { (int)EquipmentSlot.Legs };
 				case InventoryTypes.Feet:
-					return new[] { EquipmentSlot.Feet };
+					return new[] { (int)EquipmentSlot.Feet };
 				case InventoryTypes.Wrist:
-					return new[] { EquipmentSlot.Wrists };
+					return new[] { (int)EquipmentSlot.Wrists };
 				case InventoryTypes.Hands:
-					return new[] { EquipmentSlot.Hands };
+					return new[] { (int)EquipmentSlot.Hands };
 				case InventoryTypes.Finger:
-					return new[] { EquipmentSlot.FingerLeft, EquipmentSlot.FingerRight };
+					return new[] { (int)EquipmentSlot.FingerLeft, (int)EquipmentSlot.FingerRight };
 				case InventoryTypes.Trinket:
-					return new[] { EquipmentSlot.TrinketLeft, EquipmentSlot.TrinketRight };
+					return new[] { (int)EquipmentSlot.TrinketLeft, (int)EquipmentSlot.TrinketRight };
 				case InventoryTypes.Weapon:
-					return new[] { EquipmentSlot.MainHand, EquipmentSlot.OffHand };
+					return new[] { (int)EquipmentSlot.MainHand, (int)EquipmentSlot.OffHand };
 				case InventoryTypes.Shield:
 				case InventoryTypes.WeaponOffHand:
 				case InventoryTypes.Holdable:
-					return new[] { EquipmentSlot.OffHand };
+					return new[] { (int)EquipmentSlot.OffHand };
 				case InventoryTypes.Ranged:
 				case InventoryTypes.Thrown:
 				case InventoryTypes.RangedRight:
 				case InventoryTypes.Relic:
-					return new[] { EquipmentSlot.Ranged };
+					return new[] { (int)EquipmentSlot.Ranged };
 				case InventoryTypes.Back:
-					return new[] { EquipmentSlot.Back };
+					return new[] { (int)EquipmentSlot.Back };
 				case InventoryTypes.TwoHanded:
 				case InventoryTypes.WeaponMainHand:
-					return new[] { EquipmentSlot.MainHand };
+					return new[] { (int)EquipmentSlot.MainHand };
 				case InventoryTypes.Bag:
 				case InventoryTypes.Quiver:
-					return new[] { EquipmentSlot.Bag1, EquipmentSlot.Bag2, EquipmentSlot.Bag3, EquipmentSlot.BagLast };
+					return new[] { (int)EquipmentSlot.Bag1, (int)EquipmentSlot.Bag2, (int)EquipmentSlot.Bag3, (int)EquipmentSlot.BagLast };
 				case InventoryTypes.Tabard:
-					return new[] { EquipmentSlot.Tabard };
+					return new[] { (int)EquipmentSlot.Tabard };
 				case InventoryTypes.Robe:
-					return new[] { EquipmentSlot.Chest };
+					return new[] { (int)EquipmentSlot.Chest };
 				case InventoryTypes.Ammo:
-					return new[] { EquipmentSlot.None };
+					return new[] { (int)EquipmentSlot.None };
 				default:
 					throw new ArgumentOutOfRangeException();
 				}
@@ -390,5 +390,9 @@ namespace Hazzik.Items {
 		 */
 
 		#endregion
+
+		public bool IsBag {
+			get { return ObjectClass == 11; }
+		}
 	}
 }

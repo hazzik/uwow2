@@ -4,13 +4,13 @@ using Hazzik.Items.Inventories;
 
 namespace Hazzik.Objects {
 	public partial class Player {
-		private readonly IInventory _equipment;
+		private readonly IEquipmentInventory _equipment;
 		private readonly IInventory _backPack;
 		private readonly BankInventory _bank;
 		private readonly BankBagsInventory _bankBags;
 		private readonly KeyRingInventory _keyRing;
 
-		public IInventory Equipment {
+		public IEquipmentInventory Equipment {
 			get { return _equipment; }
 		}
 

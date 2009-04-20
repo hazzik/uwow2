@@ -1,8 +1,9 @@
 using System;
+using Hazzik.Objects;
 
 namespace Hazzik.Items.Inventories {
 	public class BackPackInventory : InventoryWrapper {
-		public BackPackInventory(IContainer player)
+		public BackPackInventory(Player player)
 			: base(player.Inventory, 23, 16) {
 		}
 

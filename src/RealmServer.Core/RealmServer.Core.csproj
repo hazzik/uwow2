@@ -73,6 +73,7 @@
     <Compile Include="Attributes\PacketHandlerAttribute.cs" />
     <Compile Include="Attributes\PacketHandlerClassAttribute.cs" />
     <Compile Include="Attributes\WorldPacketHandler.cs" />
+    <Compile Include="Items\IEquipmentInventory.cs" />
     <Compile Include="Items\Inventories\BackPackInventory.cs" />
     <Compile Include="Items\Inventories\BankBagsInventory.cs" />
     <Compile Include="Items\Inventories\BankInventory.cs" />

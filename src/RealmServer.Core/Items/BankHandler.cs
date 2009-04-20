@@ -25,38 +25,5 @@ namespace Hazzik.Items {
 			writer.Write(guid);
 			return responce;
 		}
-
-		[WorldPacketHandler(WMSG.CMSG_BUY_BANK_SLOT)]
-		public static void HandleBuyBankSlot(ISession session, IPacket packet) {
-			var guid = packet.CreateReader().ReadUInt64();
-			session.Player.BankBags.BuySlot();
-		}
-
-		[WorldPacketHandler(WMSG.CMSG_AUTOSTORE_BANK_ITEM)]
-		public static void HandleAutoStoreBankItem(ISession session, IPacket packet) {
-			var reader = packet.CreateReader();
-			var srcBag = reader.ReadByte();
-			var srcSlot = reader.ReadByte();
-			var player = session.Player;
-			var inventorySrc = player.GetInventory(srcBag);
-			var inventoryDst = player.BackPack;
-
-			inventoryDst.AutoAdd(inventorySrc[srcSlot]);
-			inventorySrc[srcSlot] = null;
-		}
-
-		[WorldPacketHandler(WMSG.CMSG_AUTOBANK_ITEM)]
-		public static void HandleAutoBankItem(ISession session, IPacket packet) {
-			var reader = packet.CreateReader();
-			var srcBag = reader.ReadByte();
-			var srcSlot = reader.ReadByte();
-			var player = session.Player;
-
-			var inventorySrc = player.GetInventory(srcBag);
-			var inventoryDst = player.Bank;
-
-			inventoryDst.AutoAdd(inventorySrc[srcSlot]);
-			inventorySrc[srcSlot] = null;
-		}
 	}
 }
