@@ -59,11 +59,12 @@ namespace Hazzik.Items {
 				dstItem = ItemFactory.Create(srcItem.Template);
 				inventoryDst[dstSlot] = dstItem;
 				dstItem.StackCount = (byte)amount;
+				srcItem.StackCount -= (byte)amount;
 			}
-			else {
+			else if(dstItem.CanStack(srcItem)) {
 				dstItem.StackCount += (byte)amount;
+				srcItem.StackCount -= (byte)amount;
 			}
-			srcItem.StackCount -= (byte)amount;
 		}
 
 		[WorldPacketHandler(WMSG.CMSG_SWAP_ITEM)]
@@ -116,8 +117,9 @@ namespace Hazzik.Items {
 			var inventorySrc = player.GetInventory(srcBag);
 			var inventoryDst = player.GetInventory(dstBag);
 
-			inventoryDst.AutoAdd(inventorySrc[srcSlot]);
-			inventorySrc[srcSlot] = null;
+			if(inventoryDst.AutoAdd(inventorySrc[srcSlot])) {
+				inventorySrc[srcSlot] = null;
+			}
 		}
 
 		[WorldPacketHandler(WMSG.CMSG_AUTOEQUIP_ITEM)]
@@ -139,14 +141,15 @@ namespace Hazzik.Items {
 			var reader = packet.CreateReader();
 			var srcBag = reader.ReadByte();
 			var srcSlot = reader.ReadByte();
-			
+
 			var player = session.Player;
 
 			var inventorySrc = player.GetInventory(srcBag);
 			var inventoryDst = player.BackPack;
 
-			inventoryDst.AutoAdd(inventorySrc[srcSlot]);
-			inventorySrc[srcSlot] = null;
+			if(inventoryDst.AutoAdd(inventorySrc[srcSlot])) {
+				inventorySrc[srcSlot] = null;
+			}
 		}
 
 		[WorldPacketHandler(WMSG.CMSG_AUTOBANK_ITEM)]
@@ -154,14 +157,15 @@ namespace Hazzik.Items {
 			var reader = packet.CreateReader();
 			var srcBag = reader.ReadByte();
 			var srcSlot = reader.ReadByte();
-			
+
 			var player = session.Player;
 
 			var inventorySrc = player.GetInventory(srcBag);
 			var inventoryDst = player.Bank;
 
-			inventoryDst.AutoAdd(inventorySrc[srcSlot]);
-			inventorySrc[srcSlot] = null;
+			if(inventoryDst.AutoAdd(inventorySrc[srcSlot])) {
+				inventorySrc[srcSlot] = null;
+			}
 		}
 
 		[WorldPacketHandler(WMSG.CMSG_BUY_BANK_SLOT)]

@@ -9,6 +9,6 @@ namespace Hazzik.Items {
 		Item this[int slot] { get; set; }
 		int GetAmount(int id);
 		void DestroyItem(int slot);
-		void AutoAdd(Item item);
+		bool AutoAdd(Item item);
 	}
 }

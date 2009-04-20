@@ -56,11 +56,13 @@ namespace Hazzik.Items.Inventories {
 			return GetEnumerator();
 		}
 
-		public virtual void AutoAdd(Item item) {
+		public virtual bool AutoAdd(Item item) {
 			var slot = FindFreeSlot();
 			if(slot != -1) {
 				this[slot] = item;
+				return true;
 			}
+			return false;
 		}
 
 		#endregion

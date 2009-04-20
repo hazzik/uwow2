@@ -21,9 +21,9 @@ namespace Hazzik.Objects {
 
 		public Player() {
 			Type |= ObjectTypes.Player;
-			_inventory = new PlayerInventory(this, UpdateFields.PLAYER_FARSIGHT - UpdateFields.PLAYER_FIELD_INV_SLOT_HEAD);
-			_backPack = new BackPackInventory(this);
+			_inventory = new PlayerInventory(this, (UpdateFields.PLAYER_FARSIGHT - UpdateFields.PLAYER_FIELD_INV_SLOT_HEAD) / 2);
 			_equipment = new EquipmentInventory(this);
+			_backPack = new BackPackInventory(this);
 			_bank = new BankInventory(this);
 			_bankBags = new BankBagsInventory(this);
 			_keyRing = new KeyRingInventory(this);

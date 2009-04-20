@@ -7,20 +7,17 @@ namespace Hazzik.Items.Inventories {
 			: base(player.Inventory, 23, 16) {
 		}
 
-		public override int FindFreeSlot() {
-			int slot = base.FindFreeSlot();
-			if(slot == -1) {
-				for(InventorySlot i = InventorySlot.Bag1; i <= InventorySlot.BagLast; i++) {
-					var bag = this[(int)i] as IContainer;
-					if(bag != null) {
-						slot = ((ContainerInventory)bag.Inventory).FindFreeSlot();
-						if(slot != -1) {
-							return slot;
-						}
-					}
+		public override bool AutoAdd(Item item) {
+			if(base.AutoAdd(item)) {
+				return true;
+			}
+			for(InventorySlot i = InventorySlot.Bag1; i <= InventorySlot.BagLast; i++) {
+				var bag = this[(int)i] as IContainer;
+				if(bag != null && bag.Inventory.AutoAdd(item)) {
+					return true;
 				}
 			}
-			return slot;
+			return false;
 		}
 	}
 }

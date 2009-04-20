@@ -5,7 +5,7 @@ using System.Linq;
 using Hazzik.Objects;
 
 namespace Hazzik.Items.Inventories {
-	public abstract class Inventory : IInventory {
+	public class Inventory : IInventory {
 		protected Item[] _items;
 
 		protected Inventory(IContainer container, uint slotsCount) {
@@ -45,11 +45,13 @@ namespace Hazzik.Items.Inventories {
 			SetItem(slot, null);
 		}
 
-		public void AutoAdd(Item item) {
+		public bool AutoAdd(Item item) {
 			var slot = FindFreeSlot();
 			if(slot != -1) {
 				this[slot] = item;
+				return true;
 			}
+			return false;
 		}
 
 		#endregion

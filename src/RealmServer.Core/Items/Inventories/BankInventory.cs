@@ -10,19 +10,16 @@ namespace Hazzik.Items.Inventories {
 			_player = player;
 		}
 
-		public override int FindFreeSlot() {
-			int slot = base.FindFreeSlot();
-			if(slot == -1) {
-				foreach(IContainer bag in _player.BankBags) {
-					if(bag != null) {
-						slot = ((ContainerInventory)bag.Inventory).FindFreeSlot();
-						if(slot != -1) {
-							return slot;
-						}
-					}
+		public override bool AutoAdd(Item item) {
+			if(base.AutoAdd(item)) {
+				return true;
+			}
+			foreach(IContainer bag in _player.BankBags) {
+				if(bag != null && bag.Inventory.AutoAdd(item)) {
+					return true;
 				}
 			}
-			return slot;
+			return false;
 		}
 	}
 }

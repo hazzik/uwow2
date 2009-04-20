@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Hazzik.Objects;
 
 namespace Hazzik.Items.Inventories {
@@ -9,11 +8,13 @@ namespace Hazzik.Items.Inventories {
 			: base(player.Inventory, 0, 22) {
 		}
 
-		public override void AutoAdd(Item item) {
-			var slot = FindFreeSlot(item.Template.CanBeEquipedIn.Cast<int>());
+		public override bool AutoAdd(Item item) {
+			var slot = FindFreeSlot(item.Template.CanBeEquipedIn);
 			if(slot != -1) {
 				this[slot] = item;
+				return true;
 			}
+			return false;
 		}
 
 		public Item AutoEquip(Item item) {
