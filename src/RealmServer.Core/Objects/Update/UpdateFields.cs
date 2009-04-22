@@ -2,7 +2,7 @@
 File:             F:\games\World of Warcraft\wow.exe
 InternalName:     World of Warcraft
 OriginalFilename: WoW.exe
-FileVersion:      3, 1, 0, 9767
+FileVersion:      3, 1, 1, 9806
 FileDescription:  World of Warcraft Retail
 Product:          World of Warcraft
 ProductVersion:   Version 3.1
@@ -377,7 +377,7 @@ namespace Hazzik.Objects.Update {
 		GAMEOBJECT_DISPLAYID = OBJECT_END + 2, // 1 1:Int 1:Public
 		GAMEOBJECT_FLAGS = OBJECT_END + 3, // 1 1:Int 1:Public
 		GAMEOBJECT_PARENTROTATION = OBJECT_END + 4, // 4 3:Single 1:Public
-		GAMEOBJECT_DYNAMIC = OBJECT_END + 8, // 1 5:Bytes 256:Dynamic
+		GAMEOBJECT_DYNAMIC = OBJECT_END + 8, // 1 2:Shorts 256:Dynamic
 		GAMEOBJECT_FACTION = OBJECT_END + 9, // 1 1:Int 1:Public
 		GAMEOBJECT_LEVEL = OBJECT_END + 10, // 1 1:Int 1:Public
 		GAMEOBJECT_BYTES_1 = OBJECT_END + 11, // 1 5:Bytes 1:Public
