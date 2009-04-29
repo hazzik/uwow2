@@ -1,6 +1,6 @@
 using System;
 
-namespace Hazzik.Objects {
+namespace Hazzik.GameObjects {
 	[Flags]
 	public enum GameObjectDynamicFlagsHigh : ushort {
 	}

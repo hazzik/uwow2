@@ -73,6 +73,7 @@
     <Compile Include="Attributes\PacketHandlerAttribute.cs" />
     <Compile Include="Attributes\PacketHandlerClassAttribute.cs" />
     <Compile Include="Attributes\WorldPacketHandler.cs" />
+    <Compile Include="GameObjects\GameObjectTemplate.cs" />
     <Compile Include="Items\IEquipmentInventory.cs" />
     <Compile Include="Items\Inventories\BackPackInventory.cs" />
     <Compile Include="Items\Inventories\BankBagsInventory.cs" />
@@ -112,6 +113,8 @@
     <Compile Include="Objects\TransportInfo.cs" />
     <Compile Include="Objects\Update\UpdateFlags.cs" />
     <Compile Include="Objects\WarriorAttackPowerCalculator.cs" />
+    <Compile Include="PacketHandlers\GameObjectHandler.cs" />
+    <Compile Include="Repositories\GameObjectTemplateRepository.cs" />
     <Compile Include="Skills\SkillLineAbility.cs" />
     <Compile Include="Dbc\SkillLineAbilityRepository.cs" />
     <Compile Include="Gossip\GossipHandler.cs" />
@@ -168,11 +171,11 @@
     <Compile Include="Objects\DynamicObject.Update.cs" />
     <Compile Include="Objects\GameObject.cs" />
     <Compile Include="Objects\GameObject.Update.cs" />
-    <Compile Include="Objects\GameObjectDynamicFlagsHigh.cs" />
-    <Compile Include="Objects\GameObjectDynamicFlags.cs" />
-    <Compile Include="Objects\GameObjectFlags.cs" />
-    <Compile Include="Objects\GameObjectState.cs" />
-    <Compile Include="Objects\GameObjectType.cs" />
+    <Compile Include="GameObjects\GameObjectDynamicFlagsHigh.cs" />
+    <Compile Include="GameObjects\GameObjectDynamicFlags.cs" />
+    <Compile Include="GameObjects\GameObjectFlags.cs" />
+    <Compile Include="GameObjects\GameObjectState.cs" />
+    <Compile Include="GameObjects\GameObjectType.cs" />
     <Compile Include="Objects\GenderType.cs" />
     <Compile Include="Objects\Item.cs" />
     <Compile Include="Objects\Item.Update.cs" />

@@ -1,4 +1,5 @@
 ﻿using System;
+using Hazzik.GameObjects;
 
 namespace Hazzik.Objects {
 	public partial class GameObject {

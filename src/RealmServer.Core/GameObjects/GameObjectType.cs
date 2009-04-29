@@ -1,6 +1,6 @@
 using System;
 
-namespace Hazzik.Objects {
+namespace Hazzik.GameObjects {
 	public enum GameObjectType : byte {
 		Door = 0,
 		Button = 1,

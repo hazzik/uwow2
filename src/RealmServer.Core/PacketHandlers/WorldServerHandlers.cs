@@ -3,10 +3,12 @@ using System.Linq;
 using Hazzik.Attributes;
 using Hazzik.Creatures;
 using Hazzik.Creatures.Templates;
+using Hazzik.GameObjects;
 using Hazzik.Map;
 using Hazzik.Net;
 using Hazzik.Objects;
 using Hazzik.Objects.Update;
+using Hazzik.Repositories;
 
 namespace Hazzik {
 	[PacketHandlerClass]
@@ -88,9 +90,7 @@ namespace Hazzik {
 			//   PosY = player.PosY,
 			//   PosZ = player.PosZ,
 			//});
-			ObjectManager.Add(new GameObject {
-				Entry = 32,
-				DisplayId = 32,
+			ObjectManager.Add(new GameObject(GameObjectTemplateRepository.FindById(176497)) {
 				PosX = player.PosX,
 				PosY = player.PosY,
 				PosZ = player.PosZ,

@@ -1,6 +1,6 @@
 using System;
 
-namespace Hazzik.Objects {
+namespace Hazzik.GameObjects {
 	[Flags]
 	public enum GameObjectDynamicFlags : ushort {
 		Deactivated = 0x00,
