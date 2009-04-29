@@ -73,6 +73,13 @@
       <ImportsSettings />
       <Naming2 />
     </VB>
+    <FileHeader><![CDATA[
+file          : {file}
+last changed  : $LastChangedDate$
+last author   : $LastChangedBy$
+revision      : $Rev$
+
+]]></FileHeader>
     <GenerateMemberBody />
     <Naming2>
       <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="aaBb" ElementKind="Locals" />
@@ -89,6 +96,7 @@
       <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="StaticReadonly" />
       <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="EnumMember" />
       <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="Other" />
+      <Abbreviation Text="RIGHT" />
     </Naming2>
   </CodeStyleSettings>
 </Configuration>

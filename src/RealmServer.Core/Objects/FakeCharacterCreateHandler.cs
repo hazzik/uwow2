@@ -4,10 +4,10 @@ using Hazzik.Items.Templates;
 using Hazzik.Skills;
 
 namespace Hazzik.Objects {
-	public class CharacterCreateHandler {
+	public class FakeCharacterCreateHandler {
 		private readonly Player _player;
 
-		public CharacterCreateHandler(Player player) {
+		public FakeCharacterCreateHandler(Player player) {
 			_player = player;
 		}
 

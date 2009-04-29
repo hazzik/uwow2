@@ -102,7 +102,7 @@
     <Compile Include="Items\Inventories\PlayerInventory.cs" />
     <Compile Include="Items\ResistanceTypes.cs" />
     <Compile Include="Net\WorldPacketFactory.cs" />
-    <Compile Include="Objects\CharacterCreateHandler.cs" />
+    <Compile Include="Objects\FakeCharacterCreateHandler.cs" />
     <Compile Include="Objects\IAttackPowerCalculator.cs" />
     <Compile Include="Objects\MageAttackPowerCalculator.cs" />
     <Compile Include="Objects\ShamanAttackPowerCalculator.cs" />

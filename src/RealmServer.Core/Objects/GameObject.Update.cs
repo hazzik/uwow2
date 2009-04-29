@@ -23,8 +23,6 @@ namespace Hazzik.Objects {
 
 		#endregion
 
-		public virtual UInt64 Rotation { get; set; }
-
 		#region GAMEOBJECT_PARENTROTATION
 
 		//GAMEOBJECT_PARENTROTATION : type = Single, size = 4, flag = Public

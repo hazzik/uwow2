@@ -61,15 +61,11 @@ namespace Hazzik {
 				HairColor = r.ReadByte(),
 				FacialHair = r.ReadByte(),
 			};
-			GetCharacterCreateHandler(player).Init();
+			new FakeCharacterCreateHandler(player).Init();
 			account.AddPlayer(player);
 			//Net.Repositories.Account.Save(account);
 			//Net.Repositories.Account.SubmitChanges();
 			client.Send(Account.GetCharCreatePkt(47));
-		}
-
-		private static CharacterCreateHandler GetCharacterCreateHandler(Player player) {
-			return new CharacterCreateHandler(player);
 		}
 
 		[WorldPacketHandler(WMSG.CMSG_PLAYER_LOGIN)]
@@ -110,7 +106,7 @@ namespace Hazzik {
 		}
 
 		private static IPacket GetProf(byte type, int bitmask) {
-			IPacket packet = WorldPacketFactory.Create(WMSG.SMSG_SET_PROFICIENCY);
+			var packet = WorldPacketFactory.Create(WMSG.SMSG_SET_PROFICIENCY);
 			var writer = packet.CreateWriter();
 			writer.Write(type);
 			writer.Write(bitmask);
@@ -122,9 +118,9 @@ namespace Hazzik {
 		}
 
 		private static IPacket GetLoginSetTimeSpeedPkt() {
-			var result = (IPacket)WorldPacketFactory.Create(WMSG.SMSG_LOGIN_SETTIMESPEED);
+			var result = WorldPacketFactory.Create(WMSG.SMSG_LOGIN_SETTIMESPEED);
 			var w = result.CreateWriter();
-			w.Write((uint)GetActualTime());
+			w.Write(GetActualTime());
 			w.Write(0.01666667F);
 			return result;
 		}

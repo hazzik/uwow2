@@ -9,5 +9,7 @@ namespace Hazzik.Objects {
 		public override ObjectTypeId TypeId {
 			get { return ObjectTypeId.GameObject; }
 		}
+
+		public virtual UInt64 Rotation { get; set; }
 	}
 }
