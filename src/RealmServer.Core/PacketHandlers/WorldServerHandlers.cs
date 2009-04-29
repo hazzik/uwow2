@@ -80,10 +80,17 @@ namespace Hazzik {
 
 			client.Player = player;
 			ObjectManager.Add(player);
-			ObjectManager.Add(new Creature(new Creature647()) {
-				NpcFlags = /*NpcFlags.Gossip | NpcFlags.QuestGiver |*/ NpcFlags.Banker,
-				BaseHealth = 500,
-				Health = 500,
+			//ObjectManager.Add(new Creature(new Creature647()) {
+			//   NpcFlags = /*NpcFlags.Gossip | NpcFlags.QuestGiver |*/ NpcFlags.Banker,
+			//   BaseHealth = 500,
+			//   Health = 500,
+			//   PosX = player.PosX,
+			//   PosY = player.PosY,
+			//   PosZ = player.PosZ,
+			//});
+			ObjectManager.Add(new GameObject {
+				Entry = 32,
+				DisplayId = 32,
 				PosX = player.PosX,
 				PosY = player.PosY,
 				PosZ = player.PosZ,

@@ -17,7 +17,7 @@ namespace Hazzik.Objects {
 		AreaDamage = 12,
 		Camera = 13,
 		MapObject = 14,
-		MOTransport = 15,
+		MapObjectTransport = 15,
 		DuelFlag = 16,
 		FishingNode = 17,
 		SummoningRitual = 18,

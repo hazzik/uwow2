@@ -105,9 +105,11 @@
     <Compile Include="Objects\FakeCharacterCreateHandler.cs" />
     <Compile Include="Objects\IAttackPowerCalculator.cs" />
     <Compile Include="Objects\MageAttackPowerCalculator.cs" />
+    <Compile Include="Objects\MovementFlagsExtension.cs" />
     <Compile Include="Objects\ShamanAttackPowerCalculator.cs" />
     <Compile Include="Items\Templates\Abjurer_sRobe9943.cs" />
     <Compile Include="Items\Templates\AuchenaiKey30633.cs" />
+    <Compile Include="Objects\TransportInfo.cs" />
     <Compile Include="Objects\Update\UpdateFlags.cs" />
     <Compile Include="Objects\WarriorAttackPowerCalculator.cs" />
     <Compile Include="Skills\SkillLineAbility.cs" />

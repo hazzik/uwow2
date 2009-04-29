@@ -110,11 +110,5 @@ namespace Hazzik.Objects {
 		private void RemoveSpell(int spellId) {
 			_spells.Remove(spellId);
 		}
-
-		private void RemoveSpellsAndSkill(ushort id) {
-			foreach(var line in new SkillLineAbilityRepository().FindBySkillId(id)) {
-				RemoveSpell(line.SpellId);
-			}
-		}
 	}
 }
