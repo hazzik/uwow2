@@ -17,7 +17,7 @@ namespace Hazzik.Objects {
 		public IPacket GetNameQueryResponcePkt() {
 			var result = WorldPacketFactory.Create(WMSG.SMSG_NAME_QUERY_RESPONSE);
 			var writer = result.CreateWriter();
-			writer.Write(Guid);
+			writer.WritePackGuid(Guid);
 			writer.Write((byte)0);// this is a type, ranging from 0-3
 			writer.WriteCString(Name);
 			writer.WriteCString("");
@@ -25,7 +25,6 @@ namespace Hazzik.Objects {
 			writer.Write((byte)Gender);
 			writer.Write((byte)Classe);
 			writer.Write(true);
-			writer.WriteCString(Name);
 			writer.WriteCString(Name);
 			writer.WriteCString(Name);
 			writer.WriteCString(Name);
