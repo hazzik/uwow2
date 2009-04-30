@@ -56,7 +56,7 @@ namespace Hazzik.Items {
 			var srcItem = inventorySrc[srcSlot];
 			var dstItem = inventoryDst[dstSlot];
 			if(dstItem == null) {
-				dstItem = ItemFactory.Create(srcItem.Template);
+				dstItem = Item.Create(srcItem.Template);
 				inventoryDst[dstSlot] = dstItem;
 				dstItem.StackCount = (byte)amount;
 				srcItem.StackCount -= (byte)amount;

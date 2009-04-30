@@ -18,12 +18,13 @@ namespace Hazzik.Objects {
 			var result = WorldPacketFactory.Create(WMSG.SMSG_NAME_QUERY_RESPONSE);
 			var writer = result.CreateWriter();
 			writer.Write(Guid);
+			writer.Write((byte)0);// this is a type, ranging from 0-3
 			writer.WriteCString(Name);
 			writer.WriteCString("");
-			writer.Write((int)Race);
-			writer.Write((int)Gender);
-			writer.Write((int)Classe);
-			writer.Write((byte)01);
+			writer.Write((byte)Race);
+			writer.Write((byte)Gender);
+			writer.Write((byte)Classe);
+			writer.Write(true);
 			writer.WriteCString(Name);
 			writer.WriteCString(Name);
 			writer.WriteCString(Name);

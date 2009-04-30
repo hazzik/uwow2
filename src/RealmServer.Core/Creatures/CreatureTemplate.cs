@@ -38,9 +38,15 @@ namespace Hazzik.Creatures {
 			writer.Write(DisplayId);
 			writer.Write(0);
 			writer.Write(0);
+			writer.Write(0);
 			writer.Write(1f);
 			writer.Write(1f);
 			writer.Write((byte)0);
+			writer.Write(0);
+			writer.Write(0);
+			writer.Write(0);
+			writer.Write(0);
+			writer.Write(0); // id from CreatureMovement.dbc
 			return packet;
 		}
 	}

@@ -90,11 +90,11 @@ namespace Hazzik {
 			//   PosY = player.PosY,
 			//   PosZ = player.PosZ,
 			//});
-			ObjectManager.Add(new GameObject(GameObjectTemplateRepository.FindById(176497)) {
-				PosX = player.PosX,
-				PosY = player.PosY,
-				PosZ = player.PosZ,
-			});
+			var gameObject = GameObject.Create(GameObjectTemplateRepository.FindById(2489));
+			gameObject.PosX = player.PosX;
+			gameObject.PosY = player.PosY;
+			gameObject.PosZ = player.PosZ;
+			ObjectManager.Add(gameObject);
 			client.Send(player.GetLoginVerifyWorldPkt());
 
 			client.Send(Account.GetAccountDataTimesPkt());

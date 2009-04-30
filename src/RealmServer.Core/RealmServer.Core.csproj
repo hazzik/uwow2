@@ -105,6 +105,7 @@
     <Compile Include="Net\WorldPacketFactory.cs" />
     <Compile Include="Objects\FakeCharacterCreateHandler.cs" />
     <Compile Include="Objects\IAttackPowerCalculator.cs" />
+    <Compile Include="GameObjects\IGameObjectUseHandler.cs" />
     <Compile Include="Objects\MageAttackPowerCalculator.cs" />
     <Compile Include="Objects\MovementFlagsExtension.cs" />
     <Compile Include="Objects\ShamanAttackPowerCalculator.cs" />
@@ -136,7 +137,6 @@
     <Compile Include="Items\IContainer.cs" />
     <Compile Include="Items\IInventory.cs" />
     <Compile Include="Items\Inventories\Inventory.cs" />
-    <Compile Include="Objects\ItemFactory.cs" />
     <Compile Include="Items\ItemTemplate.cs" />
     <Compile Include="Items\Templates\Abjurer_sBoots9936.cs" />
     <Compile Include="Items\Templates\AncestralBoots3289.cs" />

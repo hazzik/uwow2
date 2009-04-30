@@ -59,7 +59,7 @@ namespace Hazzik.Items {
 		public Bonus[] bonuses = new Bonus[10];
 		public int BuyPrice;
 		public int ContainerSlots;
-		public Damage[] damages = new Damage[5];
+		public Damage[] damages = new Damage[2];
 		public string Description = string.Empty;
 		public int DisplayId;
 		public int ExtendedCost;
@@ -285,7 +285,7 @@ namespace Hazzik.Items {
 			writer.Write(0); // NEW 3.0.2 ScalingStatDistribution.dbc 
 			writer.Write(0); // NEW 3.0.2 ScalingStatFlags
 
-			for(int i = 0; i < 5; i++) {
+			for(int i = 0; i < 2; i++) {
 				writer.Write(damages[i].Min);
 				writer.Write(damages[i].Max);
 				writer.Write(damages[i].School);

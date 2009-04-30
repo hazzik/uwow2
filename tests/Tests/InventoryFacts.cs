@@ -24,11 +24,11 @@ namespace Tests {
 		}
 		
 		private static Item CreateItem() {
-			return ItemFactory.Create(new ItemTemplate());
+			return Item.Create(new ItemTemplate());
 		}
 
 		private static Container CreateContainer(int slots) {
-			return (Container)ItemFactory.Create(new ItemTemplate { ContainerSlots = slots });
+			return (Container)Item.Create(new ItemTemplate { ContainerSlots = slots });
 		}
 
 		[Fact]

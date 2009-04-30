@@ -5,13 +5,13 @@ namespace Hazzik.Objects {
 	public partial class GameObject : Positioned {
 		private readonly GameObjectTemplate _template;
 
-		public GameObject(GameObjectTemplate template) {
-			_template = template;
-			Entry = _template.Id;
-			GameObjectType = _template.Type;
-			DisplayId = _template.DisplayId;
-			ScaleX = _template.ScaleX;
+		private GameObject(GameObjectTemplate template) {
 			Type |= ObjectTypes.GameObject;
+			_template = template;
+		}
+
+		public GameObjectTemplate Template {
+			get { return _template; }
 		}
 
 		public override ObjectTypeId TypeId {
@@ -19,5 +19,17 @@ namespace Hazzik.Objects {
 		}
 
 		public virtual UInt64 Rotation { get; set; }
+
+		public static GameObject Create(GameObjectTemplate template) {
+			if(template == null) {
+				return null;
+			}
+			return new GameObject(template) {
+				Entry = template.Id,
+				GameObjectType = template.Type,
+				DisplayId = template.DisplayId,
+				ScaleX = template.ScaleX
+			};
+		}
 	}
 }

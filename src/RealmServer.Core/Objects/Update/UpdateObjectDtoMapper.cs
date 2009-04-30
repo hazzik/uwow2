@@ -301,9 +301,9 @@ namespace Hazzik.Objects.Update {
 				}
 			}
 			dto.Set(UpdateFields.PLAYER_FARSIGHT, obj.FarSightGuid);
-			dto.Set(UpdateFields.PLAYER__FIELD_KNOWN_TITLES, obj.KnownTitlesGuid);
-			dto.Set(UpdateFields.PLAYER__FIELD_KNOWN_TITLES1, obj.KnownTitles1Guid);
-			dto.Set(UpdateFields.PLAYER__FIELD_KNOWN_TITLES2, obj.KnownTitles2Guid);
+			dto.Set(UpdateFields.PLAYER__FIELD_KNOWN_TITLES, obj.KnownTitleMask);
+			dto.Set(UpdateFields.PLAYER__FIELD_KNOWN_TITLES1, obj.KnownTitleMask1);
+			dto.Set(UpdateFields.PLAYER__FIELD_KNOWN_TITLES2, obj.KnownTitleMask2);
 			dto.Set(UpdateFields.PLAYER_FIELD_KNOWN_CURRENCIES, obj.KnownCurrenciesGuid);
 			dto.Set(UpdateFields.PLAYER_XP, obj.Xp);
 			dto.Set(UpdateFields.PLAYER_NEXT_LEVEL_XP, obj.NextLevelXp);
@@ -352,7 +352,7 @@ namespace Hazzik.Objects.Update {
 			dto.Set(UpdateFields.PLAYER_FIELD_PVP_MEDALS, obj.PvpMedals);
 			//PLAYER_FIELD_BUYBACK_PRICE_1 = UNIT_END + 1427, // 12 1:Int 2:Private
 			//PLAYER_FIELD_BUYBACK_TIMESTAMP_1 = UNIT_END + 1439, // 12 1:Int 2:Private
-			dto.Set(UpdateFields.PLAYER_FIELD_KILLS, obj.Kills);
+			dto.Set(UpdateFields.PLAYER_FIELD_KILLS, obj.KillsToday, obj.KillsYesterday);
 			dto.Set(UpdateFields.PLAYER_FIELD_TODAY_CONTRIBUTION, obj.TodayContribution);
 			dto.Set(UpdateFields.PLAYER_FIELD_YESTERDAY_CONTRIBUTION, obj.YesterdayContribution);
 			dto.Set(UpdateFields.PLAYER_FIELD_LIFETIME_HONORBALE_KILLS, obj.LifetimeHonorbaleKills);

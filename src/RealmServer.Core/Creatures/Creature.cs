@@ -1,17 +1,26 @@
+using System;
 using Hazzik.Objects;
 
 namespace Hazzik.Creatures {
 	public class Creature : Unit {
 		private readonly CreatureTemplate _template;
 
-		public Creature(CreatureTemplate template) {
+		private Creature(CreatureTemplate template) {
 			_template = template;
-			Entry = _template.Id;
-			DisplayId = _template.DisplayId;
 		}
 
 		public CreatureTemplate Template {
 			get { return _template; }
+		}
+
+		public static Creature Create(CreatureTemplate template) {
+			if(template == null) {
+				return null;
+			}
+			return new Creature(template) {
+				Entry = template.Id,
+				DisplayId = template.DisplayId
+			};
 		}
 	}
 }

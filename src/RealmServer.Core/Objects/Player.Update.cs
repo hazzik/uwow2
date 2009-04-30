@@ -117,21 +117,21 @@ namespace Hazzik.Objects {
 		#region PLAYER__FIELD_KNOWN_TITLES
 
 		//PLAYER__FIELD_KNOWN_TITLES : type = Long, size = 2, flag = Private
-		public virtual UInt64 KnownTitlesGuid { get; set; }
+		public virtual UInt64 KnownTitleMask { get; set; }
 
 		#endregion
 
 		#region PLAYER__FIELD_KNOWN_TITLES1
 
 		//PLAYER__FIELD_KNOWN_TITLES1 : type = Long, size = 2, flag = Private
-		public virtual UInt64 KnownTitles1Guid { get; set; }
+		public virtual UInt64 KnownTitleMask1 { get; set; }
 
 		#endregion
 
 		#region PLAYER__FIELD_KNOWN_TITLES2
 
 		//PLAYER__FIELD_KNOWN_TITLES2 : type = Long, size = 2, flag = Private
-		public virtual UInt64 KnownTitles2Guid { get; set; }
+		public virtual UInt64 KnownTitleMask2 { get; set; }
 
 		#endregion
 
@@ -320,7 +320,9 @@ namespace Hazzik.Objects {
 		#region PLAYER_FIELD_KILLS
 
 		//PLAYER_FIELD_KILLS : type = Shorts, size = 1, flag = Private
-		public virtual UInt32 Kills { get; set; }
+		public virtual UInt16 KillsToday { get; set; }
+
+		public virtual UInt16 KillsYesterday { get; set; }
 
 		#endregion
 

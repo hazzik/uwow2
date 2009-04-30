@@ -32,6 +32,10 @@ namespace Hazzik.GameObjects {
 				writer.Write(Fields[i]);
 			}
 			writer.Write(ScaleX);
+			writer.Write(0);
+			writer.Write(0); 
+			writer.Write(0);
+			writer.Write(0);
 			return packet;
 		}
 	}

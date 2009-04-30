@@ -9,7 +9,6 @@ namespace Hazzik.Objects {
 		public Container(ItemTemplate template)
 			: base(template) {
 			Type |= ObjectTypes.Container;
-			NumSlots = (uint)template.ContainerSlots;
 			_inventory = new ContainerInventory(this, (uint)template.ContainerSlots);
 		}
 
