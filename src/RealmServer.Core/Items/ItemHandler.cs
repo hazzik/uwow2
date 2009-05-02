@@ -1,8 +1,8 @@
 ﻿using System;
 using Hazzik.Attributes;
+using Hazzik.Data;
 using Hazzik.Net;
 using Hazzik.Objects;
-using Hazzik.Repositories;
 
 namespace Hazzik.Items {
 	[PacketHandlerClass]
@@ -11,7 +11,7 @@ namespace Hazzik.Items {
 		public static void HandleItemQuerySingle(ISession client, IPacket packet) {
 			var r = packet.CreateReader();
 			var itemId = r.ReadUInt32();
-			var template = ItemTemplateRepository.FindById(itemId);
+			var template = Repository.ItemTemplate.FindById(itemId);
 			if(template != null) {
 				client.Send(template.GetResponce());
 			}

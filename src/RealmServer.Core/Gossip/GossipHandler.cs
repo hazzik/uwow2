@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using Hazzik.Attributes;
+using Hazzik.Data;
 using Hazzik.Net;
-using Hazzik.Repositories;
 
 namespace Hazzik.Gossip {
 	[PacketHandlerClass]
@@ -31,7 +31,7 @@ namespace Hazzik.Gossip {
 			var textId = reader.ReadUInt32();
 			var targetGuid = reader.ReadUInt64();
 			
-			var text = NpcTextRepository.FindById(textId);
+			var text = Repository.NpcText.FindById(textId);
 			if(text != null) {
 				client.Send(text.GetNpcTextUpdatePkt());
 			}

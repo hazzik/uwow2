@@ -1,6 +1,7 @@
 using System;
+using Hazzik.Items;
 
-namespace Hazzik.Items.Templates {
+namespace Hazzik.Data.Fake.Templates {
 	public class AuchenaiKey30633 : ItemTemplate {
 		public AuchenaiKey30633() {
 			Id = 30633;

@@ -1,6 +1,7 @@
 using System;
+using Hazzik.Items;
 
-namespace Hazzik.Items.Templates {
+namespace Hazzik.Data.Fake.Templates {
 	public class FelIronShells23772 : ItemTemplate {
 		public FelIronShells23772() {
 			Id = 23772;

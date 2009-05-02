@@ -1,6 +1,7 @@
 using System;
+using Hazzik.Items;
 
-namespace Hazzik.Items.Templates {
+namespace Hazzik.Data.Fake.Templates {
 	public class AbjurerSRobe9943 : ItemTemplate {
 		public AbjurerSRobe9943() {
 			Id = 9943;

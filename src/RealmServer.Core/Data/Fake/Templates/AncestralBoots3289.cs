@@ -1,6 +1,7 @@
 using System;
+using Hazzik.Items;
 
-namespace Hazzik.Items.Templates {
+namespace Hazzik.Data.Fake.Templates {
 	public class AncestralBoots3289 : ItemTemplate {
 		public AncestralBoots3289() {
 			Id = 3289;

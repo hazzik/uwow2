@@ -1,5 +1,5 @@
 using System;
-using Hazzik.Items.Templates;
+using Hazzik.Data.Fake.Templates;
 using Hazzik.Skills;
 
 namespace Hazzik.Objects {

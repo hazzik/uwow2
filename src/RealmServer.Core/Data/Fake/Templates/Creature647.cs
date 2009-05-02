@@ -1,6 +1,7 @@
 ﻿using System;
+using Hazzik.Creatures;
 
-namespace Hazzik.Creatures.Templates {
+namespace Hazzik.Data.Fake.Templates {
 	public class Creature647 : CreatureTemplate {
 		public Creature647() {
 			Id = 647;

@@ -2,7 +2,6 @@
 using Hazzik.Attributes;
 using Hazzik.Data;
 using Hazzik.Net;
-using Hazzik.Repositories;
 
 namespace Hazzik.PacketHandlers {
 	[PacketHandlerClass]
