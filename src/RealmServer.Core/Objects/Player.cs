@@ -4,6 +4,7 @@ using System.Linq;
 using Hazzik.Dbc;
 using Hazzik.Items;
 using Hazzik.Items.Inventories;
+using Hazzik.Map;
 using Hazzik.Net;
 using Hazzik.Objects.Update;
 using Hazzik.Skills;
@@ -109,6 +110,14 @@ namespace Hazzik.Objects {
 
 		private void RemoveSpell(int spellId) {
 			_spells.Remove(spellId);
+		}
+
+		public void HeartBeat() {
+			var packet = WorldPacketFactory.Create(WMSG.MSG_MOVE_HEARTBEAT);
+			var writer = packet.CreateWriter();
+			writer.WritePackGuid(Guid);
+			MovementInfo.Write(writer);
+			ObjectManager.SendNear(this, packet);
 		}
 	}
 }

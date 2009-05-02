@@ -18,6 +18,7 @@ namespace Hazzik.GameObjects {
 			user.PosY = _go.PosY;
 			user.PosZ = _go.PosZ;
 			user.Facing = _go.Facing;
+			user.HeartBeat();
 			user.StandState = StandStates.SittingChairLow + Hight;
 			return true;
 		}
