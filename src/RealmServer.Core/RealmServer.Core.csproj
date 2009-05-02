@@ -148,8 +148,6 @@
     <Compile Include="Cryptography\WowCryptRC4.cs" />
     <Compile Include="Data\IPlayerRepository.cs" />
     <Compile Include="Data\IAccountRepository.cs" />
-    <Compile Include="Data\Xml\XmlPlayerRepository.cs" />
-    <Compile Include="Data\Xml\XmlAccountRepository.cs" />
     <Compile Include="Objects\Update\UpdateFlagsExtensions.cs" />
     <Compile Include="Objects\Update\IUpdateBlock.cs" />
     <Compile Include="Map\ObjectManager.cs" />
@@ -235,10 +233,6 @@
     <ProjectReference Include="..\..\lib\Helper\Helper.csproj">
       <Project>{5BEC7A4C-7CB1-4D6B-B0E5-FD1860168494}</Project>
       <Name>Helper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Data.Xml\Data.Xml.csproj">
-      <Project>{29756EEA-300A-43DB-A116-E5BDE0F747E8}</Project>
-      <Name>Data.Xml</Name>
     </ProjectReference>
     <ProjectReference Include="..\Data\Data.csproj">
       <Project>{6959839C-CE87-4006-9B2E-84544C5AA1C0}</Project>
