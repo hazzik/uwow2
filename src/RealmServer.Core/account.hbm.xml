@@ -25,7 +25,7 @@
 		</id>
 		<property name="Type" column="Type" type="Hazzik.GameObjects.GameObjectType, Hazzik.RealmServer.Core" />
 		<property name="DisplayId" column="DisplayId" type="System.UInt32" />
-		<property name="Name" column="DisplayId" type="System.String" />
+		<property name="Name" column="Name" type="System.String" />
 		<property name="ScaleX" column="ScaleX" type="System.Single" />
 	</class>
 </hibernate-mapping>
