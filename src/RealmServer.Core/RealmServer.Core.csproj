@@ -45,10 +45,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
-    <Reference Include="NHibernate, Version=2.0.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\NHibernate.dll</HintPath>
-    </Reference>
     <Reference Include="StructureMap, Version=2.5.3.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\StructureMap.dll</HintPath>
@@ -240,10 +236,6 @@
       <Project>{5BEC7A4C-7CB1-4D6B-B0E5-FD1860168494}</Project>
       <Name>Helper</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Data.NHibernate\Data.NHibernate.csproj">
-      <Project>{5515693F-1E28-4C9C-8BC8-7A9BFAE4EE78}</Project>
-      <Name>Data.NHibernate</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Data.Xml\Data.Xml.csproj">
       <Project>{29756EEA-300A-43DB-A116-E5BDE0F747E8}</Project>
       <Name>Data.Xml</Name>
@@ -254,7 +246,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="account.hbm.xml" />
     <Content Include="TODO.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

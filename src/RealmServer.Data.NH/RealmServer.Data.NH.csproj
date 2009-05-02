@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Hazzik.Data.NH</RootNamespace>
-    <AssemblyName>RealmServer.Data.NH</AssemblyName>
+    <AssemblyName>Hazzik.RealmServer.Data.NH</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -67,6 +67,9 @@
       <Project>{763DE8C6-1140-44CB-84B9-A7E400CB65BF}</Project>
       <Name>RealmServer.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="mapping.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
