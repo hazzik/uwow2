@@ -49,6 +49,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\NHibernate.dll</HintPath>
     </Reference>
+    <Reference Include="StructureMap, Version=2.5.3.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\StructureMap.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -73,7 +77,6 @@
     <Compile Include="Attributes\PacketHandlerAttribute.cs" />
     <Compile Include="Attributes\PacketHandlerClassAttribute.cs" />
     <Compile Include="Attributes\WorldPacketHandler.cs" />
-    <Compile Include="Data\NH\NHGameObjectTemplateRepository.cs" />
     <Compile Include="Data\IGameObjectTemplateRepository.cs" />
     <Compile Include="GameObjects\GameObjectTemplate.cs" />
     <Compile Include="Items\IEquipmentInventory.cs" />
@@ -149,8 +152,6 @@
     <Compile Include="Cryptography\WowCryptRC4.cs" />
     <Compile Include="Data\IPlayerRepository.cs" />
     <Compile Include="Data\IAccountRepository.cs" />
-    <Compile Include="Data\NH\NHPlayerRepository.cs" />
-    <Compile Include="Data\NH\NHAccountRepository.cs" />
     <Compile Include="Data\Xml\XmlPlayerRepository.cs" />
     <Compile Include="Data\Xml\XmlAccountRepository.cs" />
     <Compile Include="Objects\Update\UpdateFlagsExtensions.cs" />

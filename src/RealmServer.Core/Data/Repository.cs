@@ -1,10 +1,10 @@
 using System;
-using Hazzik.Data.NH;
+using StructureMap;
 
 namespace Hazzik.Data {
 	public class Repository {
-		public static readonly IAccountRepository Account = new NHAccountRepository();
-		public static readonly IPlayerRepository Player = new NHPlayerRepository();
-		public static readonly IGameObjectTemplateRepository GameObjectTemplate = new NHGameObjectTemplateRepository();
+		public static readonly IAccountRepository Account = ObjectFactory.GetInstance<IAccountRepository>();
+		public static readonly IPlayerRepository Player = ObjectFactory.GetInstance<IPlayerRepository>();
+		public static readonly IGameObjectTemplateRepository GameObjectTemplate = ObjectFactory.GetInstance<IGameObjectTemplateRepository>();
 	}
 }

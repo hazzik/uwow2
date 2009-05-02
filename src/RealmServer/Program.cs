@@ -1,13 +1,23 @@
 using System;
 using System.Net;
+using System.Reflection;
 using Hazzik.Attributes;
+using Hazzik.Data;
+using Hazzik.Data.NH;
 using Hazzik.Net;
+using StructureMap;
 
 namespace Hazzik {
 	internal class Program {
 		private static void Main(string[] args) {
+			ObjectFactory.Configure(x => {
+			                        	x.ForRequestedType<IAccountRepository>().AddConcreteType<NHAccountRepository>();
+			                        	x.ForRequestedType<IPlayerRepository>().AddConcreteType<NHPlayerRepository>();
+			                        	x.ForRequestedType<IGameObjectTemplateRepository>().AddConcreteType<NHGameObjectTemplateRepository>();
+			                        });
+
 			WorldClient.Handler = new PacketHandler<PacketHandlerClassAttribute, WorldPacketHandlerAttribute>();
-			foreach(var assembly in AppDomain.CurrentDomain.GetAssemblies()) {
+			foreach(Assembly assembly in AppDomain.CurrentDomain.GetAssemblies()) {
 				WorldClient.Handler.AddAssembly(assembly);
 			}
 			WorldClient.Handler.Load();

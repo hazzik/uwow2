@@ -3,7 +3,7 @@ using System.Linq;
 using NHibernate.Criterion;
 
 namespace Hazzik.Data.NH {
-	internal class NHAccountRepository : NHDao<Account>, IAccountRepository {
+	public class NHAccountRepository : NHDao<Account>, IAccountRepository {
 		#region IAccountRepository Members
 
 		public Account FindByName(string name) {

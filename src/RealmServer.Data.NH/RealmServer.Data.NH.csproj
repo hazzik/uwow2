@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{6F903808-70C1-4BB5-A37C-13A615C29954}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{6F6CD02D-0627-4380-89A2-EFE17C2F6538}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Hazzik</RootNamespace>
-    <AssemblyName>Hazzik.RealmServer</AssemblyName>
+    <RootNamespace>Hazzik.Data.NH</RootNamespace>
+    <AssemblyName>RealmServer.Data.NH</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,9 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="StructureMap, Version=2.5.3.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
+    <Reference Include="NHibernate, Version=2.0.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\StructureMap.dll</HintPath>
+      <HintPath>..\..\lib\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -49,7 +49,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="NHAccountRepository.cs" />
+    <Compile Include="NHGameObjectTemplateRepository.cs" />
+    <Compile Include="NHPlayerRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -61,21 +63,10 @@
       <Project>{6959839C-CE87-4006-9B2E-84544C5AA1C0}</Project>
       <Name>Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Net\Net.csproj">
-      <Project>{0638B5D2-AA98-4FD3-8F2E-8DEDFB9F5A97}</Project>
-      <Name>Net</Name>
-    </ProjectReference>
     <ProjectReference Include="..\RealmServer.Core\RealmServer.Core.csproj">
       <Project>{763DE8C6-1140-44CB-84B9-A7E400CB65BF}</Project>
       <Name>RealmServer.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RealmServer.Data.NH\RealmServer.Data.NH.csproj">
-      <Project>{6F6CD02D-0627-4380-89A2-EFE17C2F6538}</Project>
-      <Name>RealmServer.Data.NH</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
