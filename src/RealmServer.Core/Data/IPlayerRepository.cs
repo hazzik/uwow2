@@ -2,6 +2,6 @@ using System;
 using Hazzik.Objects;
 
 namespace Hazzik.Data {
-	public interface IPlayerRepository : IDao<Player>, IGuidedSearch<Player>, INamedSearch<Player> {
+	public interface IPlayerRepository : IDao<Player>, IFindByGuid<Player>, IFindByName<Player> {
 	}
 }

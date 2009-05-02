@@ -38,8 +38,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IDao.cs" />
-    <Compile Include="IGuided.cs" />
-    <Compile Include="INamed.cs" />
+    <Compile Include="IFindById.cs" />
+    <Compile Include="IFindByGuid.cs" />
+    <Compile Include="IFindByName.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

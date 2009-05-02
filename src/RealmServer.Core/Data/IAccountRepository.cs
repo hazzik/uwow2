@@ -1,4 +1,4 @@
 namespace Hazzik.Data {
-	public interface IAccountRepository : IDao<Account>, INamedSearch<Account> {
+	public interface IAccountRepository : IDao<Account>, IFindByName<Account> {
 	}
 }
