@@ -1,5 +1,5 @@
 using System;
-using Hazzik.Data.Fake.Templates;
+using Hazzik.Data;
 using Hazzik.Skills;
 
 namespace Hazzik.Objects {
@@ -40,16 +40,16 @@ namespace Hazzik.Objects {
 			_player.NativeDisplayId = (uint)(51 + _player.Gender);
 			_player.FactionTemplate = 0x0000065D;
 			_player.WatchedFactionIndex = -1;
-			_player.Equipment.AutoAdd(Item.Create(new Abjurer_sBoots9936()));
-			_player.BackPack.AutoAdd(Item.Create(new AncestralBoots3289()));
-			_player.BackPack.AutoAdd(Item.Create(new FelIronShells23772()));
-			_player.BackPack.AutoAdd(Item.Create(new FelIronShells23772()));
-			_player.BackPack.AutoAdd(Item.Create(new LargeRedSack857()));
-			_player.BackPack.AutoAdd(Item.Create(new LargeRedSack857()));
-			_player.BackPack.AutoAdd(Item.Create(new LargeRedSack857()));
-			_player.BackPack.AutoAdd(Item.Create(new LargeRedSack857()));
-			_player.BackPack.AutoAdd(Item.Create(new AbjurerSRobe9943()));
-			_player.BackPack.AutoAdd(Item.Create(new AuchenaiKey30633()));
+			_player.Equipment.AutoAdd(Item.Create(Repository.ItemTemplate.FindById(9936)));
+			_player.BackPack.AutoAdd(Item.Create(Repository.ItemTemplate.FindById(3289)));
+			_player.BackPack.AutoAdd(Item.Create(Repository.ItemTemplate.FindById(23772)));
+			_player.BackPack.AutoAdd(Item.Create(Repository.ItemTemplate.FindById(23772)));
+			_player.BackPack.AutoAdd(Item.Create(Repository.ItemTemplate.FindById(857)));
+			_player.BackPack.AutoAdd(Item.Create(Repository.ItemTemplate.FindById(857)));
+			_player.BackPack.AutoAdd(Item.Create(Repository.ItemTemplate.FindById(857)));
+			_player.BackPack.AutoAdd(Item.Create(Repository.ItemTemplate.FindById(857)));
+			_player.BackPack.AutoAdd(Item.Create(Repository.ItemTemplate.FindById(9943)));
+			_player.BackPack.AutoAdd(Item.Create(Repository.ItemTemplate.FindById(30633)));
 
 			_player.TrainSpell(new[] {
 				78, // Heroic Strike Rank 1
