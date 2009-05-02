@@ -3,7 +3,9 @@ using Hazzik.Creatures;
 using Hazzik.Data.Fake.Templates;
 
 namespace Hazzik.Data.Fake {
-	public class FakeCreatureTemplateRepository {
+	public class FakeCreatureTemplateRepository : ICreatureTemplateRepository {
+		#region ICreatureTemplateRepository Members
+
 		public CreatureTemplate FindById(uint id) {
 			switch(id) {
 			case 647:
@@ -11,5 +13,7 @@ namespace Hazzik.Data.Fake {
 			}
 			return null;
 		}
+
+		#endregion
 	}
 }
