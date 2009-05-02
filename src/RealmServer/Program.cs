@@ -3,6 +3,7 @@ using System.Net;
 using System.Reflection;
 using Hazzik.Attributes;
 using Hazzik.Data;
+using Hazzik.Data.Fake;
 using Hazzik.Data.NH;
 using Hazzik.Net;
 using StructureMap;
@@ -14,6 +15,7 @@ namespace Hazzik {
 			                        	x.ForRequestedType<IAccountRepository>().AddConcreteType<NHAccountRepository>();
 			                        	x.ForRequestedType<IPlayerRepository>().AddConcreteType<NHPlayerRepository>();
 			                        	x.ForRequestedType<IGameObjectTemplateRepository>().AddConcreteType<NHGameObjectTemplateRepository>();
+			                        	x.ForRequestedType<ICreatureTemplateRepository>().AddConcreteType<FakeCreatureTemplateRepository>();
 			                        });
 
 			WorldClient.Handler = new PacketHandler<PacketHandlerClassAttribute, WorldPacketHandlerAttribute>();

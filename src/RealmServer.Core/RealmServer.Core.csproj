@@ -107,6 +107,7 @@
     <Compile Include="Objects\Update\UpdateFlags.cs" />
     <Compile Include="Objects\WarriorAttackPowerCalculator.cs" />
     <Compile Include="PacketHandlers\GameObjectHandler.cs" />
+    <Compile Include="Data\ICreatureTemplateRepository.cs" />
     <Compile Include="Skills\SkillLineAbility.cs" />
     <Compile Include="Dbc\SkillLineAbilityRepository.cs" />
     <Compile Include="Gossip\GossipHandler.cs" />
@@ -116,14 +117,14 @@
     <Compile Include="Gossip\NpcTexts.cs" />
     <Compile Include="Gossip\NpcText.cs" />
     <Compile Include="Gossip\QuestsMenuItem.cs" />
-    <Compile Include="Creatures\Templates\Creature647.cs" />
+    <Compile Include="Data\Fake\Templates\Creature647.cs" />
     <Compile Include="Items\Templates\LargeRedSack857.cs" />
     <Compile Include="Objects\Update\UpdateTimer.cs" />
     <Compile Include="Objects\Update\UpdateValuesDto.cs" />
     <Compile Include="Objects\Update\UpdateObjectDtoMapper.cs" />
     <Compile Include="Objects\Update\UpdateValue.cs" />
     <Compile Include="PacketHandlers\CreatureHandler.cs" />
-    <Compile Include="Repositories\CreatureTemplateRepository.cs" />
+    <Compile Include="Data\Fake\FakeCreatureTemplateRepository.cs" />
     <Compile Include="Repositories\ItemTemplateRepository.cs" />
     <Compile Include="Items\IContainer.cs" />
     <Compile Include="Items\IInventory.cs" />

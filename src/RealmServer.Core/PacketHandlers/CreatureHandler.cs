@@ -1,5 +1,6 @@
 ﻿using System;
 using Hazzik.Attributes;
+using Hazzik.Data;
 using Hazzik.Net;
 using Hazzik.Repositories;
 
@@ -10,7 +11,7 @@ namespace Hazzik.PacketHandlers {
 		public static void HandleCreatureQuery(ISession client, IPacket packet) {
 			var r = packet.CreateReader();
 			var creatureId = r.ReadUInt32();
-			var creature = CreatureTemplateRepository.FindById(creatureId);
+			var creature = Repository.CreatureTemplate.FindById(creatureId);
 			if(creature != null) {
 				client.Send(creature.GetResponce());
 			}

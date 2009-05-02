@@ -2,9 +2,9 @@ using System;
 using Hazzik.Creatures;
 using Hazzik.Creatures.Templates;
 
-namespace Hazzik.Repositories {
-	public class CreatureTemplateRepository {
-		public static CreatureTemplate FindById(uint id) {
+namespace Hazzik.Data.Fake {
+	public class FakeCreatureTemplateRepository {
+		public CreatureTemplate FindById(uint id) {
 			switch(id) {
 			case 647:
 				return new Creature647();
