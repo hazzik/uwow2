@@ -1,14 +1,12 @@
 using System;
+using System.IO;
 using System.Linq;
 using Hazzik.Attributes;
-using Hazzik.Creatures;
-using Hazzik.Creatures.Templates;
-using Hazzik.GameObjects;
+using Hazzik.Data;
 using Hazzik.Map;
 using Hazzik.Net;
 using Hazzik.Objects;
 using Hazzik.Objects.Update;
-using Hazzik.Repositories;
 
 namespace Hazzik {
 	[PacketHandlerClass]
@@ -65,8 +63,8 @@ namespace Hazzik {
 			};
 			new FakeCharacterCreateHandler(player).Init();
 			account.AddPlayer(player);
-			//Net.Repositories.Account.Save(account);
-			//Net.Repositories.Account.SubmitChanges();
+			//Repository.Account.Save(account);
+			//Repository.Account.SubmitChanges();
 			client.Send(Account.GetCharCreatePkt(47));
 		}
 
@@ -90,7 +88,7 @@ namespace Hazzik {
 			//   PosY = player.PosY,
 			//   PosZ = player.PosZ,
 			//});
-			var gameObject = GameObject.Create(GameObjectTemplateRepository.FindById(2489));
+			var gameObject = GameObject.Create(Repository.GameObjectTemplate.FindById(2489));
 			gameObject.PosX = player.PosX;
 			gameObject.PosY = player.PosY;
 			gameObject.PosZ = player.PosZ;

@@ -1,12 +1,11 @@
-﻿using System;
 using System.Collections.Generic;
 using Hazzik.GameObjects;
 
-namespace Hazzik.Repositories {
-	public class GameObjectTemplateRepository {
-		private static readonly IDictionary<uint, GameObjectTemplate> Templates = GetTemplates();
+namespace Hazzik.Data.Fake {
+	public class GameObjectTemplateRepository : IGameObjectTemplateRepository {
+		private readonly IDictionary<uint, GameObjectTemplate> _templates = GetTemplates();
 
-		private static Dictionary<uint, GameObjectTemplate> GetTemplates() {
+		public static Dictionary<uint, GameObjectTemplate> GetTemplates() {
 			var chair = new GameObjectTemplate { Id = 2489, Name = "Chair", Type = GameObjectType.Chair, DisplayId = 91, ScaleX = 1f, };
 			chair.Fields[0] = 1;
 			chair.Fields[1] = 1;
@@ -17,9 +16,9 @@ namespace Hazzik.Repositories {
 			return templates;
 		}
 
-		public static GameObjectTemplate FindById(uint id) {
+		public GameObjectTemplate FindById(uint id) {
 			GameObjectTemplate template;
-			Templates.TryGetValue(id, out template);
+			_templates.TryGetValue(id, out template);
 			return template;
 		}
 	}

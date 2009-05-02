@@ -73,6 +73,8 @@
     <Compile Include="Attributes\PacketHandlerAttribute.cs" />
     <Compile Include="Attributes\PacketHandlerClassAttribute.cs" />
     <Compile Include="Attributes\WorldPacketHandler.cs" />
+    <Compile Include="Data\Fake\GameObjectTemplateRepository.cs" />
+    <Compile Include="Data\IGameObjectTemplateRepository.cs" />
     <Compile Include="GameObjects\GameObjectTemplate.cs" />
     <Compile Include="Items\IEquipmentInventory.cs" />
     <Compile Include="Items\Inventories\BackPackInventory.cs" />
@@ -96,7 +98,7 @@
     <Compile Include="Creatures\CreatureTemplate.cs" />
     <Compile Include="Creatures\CreatureType.cs" />
     <Compile Include="Creatures\NpcFlags.cs" />
-    <Compile Include="Data\Repositories.cs" />
+    <Compile Include="Data\Repository.cs" />
     <Compile Include="Dbc\BankSlotPricesRepository.cs" />
     <Compile Include="Dbc\DbcLoader.cs" />
     <Compile Include="Dbc\IDbcRow.cs" />
@@ -115,7 +117,6 @@
     <Compile Include="Objects\Update\UpdateFlags.cs" />
     <Compile Include="Objects\WarriorAttackPowerCalculator.cs" />
     <Compile Include="PacketHandlers\GameObjectHandler.cs" />
-    <Compile Include="Repositories\GameObjectTemplateRepository.cs" />
     <Compile Include="Skills\SkillLineAbility.cs" />
     <Compile Include="Dbc\SkillLineAbilityRepository.cs" />
     <Compile Include="Gossip\GossipHandler.cs" />

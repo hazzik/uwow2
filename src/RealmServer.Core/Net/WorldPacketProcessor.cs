@@ -52,7 +52,7 @@ namespace Hazzik.Net {
 			uint clientSeed = r.ReadUInt32();
 			byte[] clientDigest = r.ReadBytes(20);
 
-			_client.Account = Repositories.Account.FindByName(accountName);
+			_client.Account = Data.Repository.Account.FindByName(accountName);
 
 			_client.SetSymmetricAlgorithm(new WowCryptRC4(_client.Account.SessionKey));
 

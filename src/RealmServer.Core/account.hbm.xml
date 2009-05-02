@@ -19,4 +19,13 @@
 		</id>
 		<property name="Name" column="Name" type="string" not-null="true" unique="true" length="255" />
 	</class>
+	<class name="Hazzik.GameObjects.GameObjectTemplate, Hazzik.RealmServer.Core" table="GameObjectTemplates" lazy="false" >
+		<id name="Id" column="Id" type="System.UInt32">
+			<generator class="native" />
+		</id>
+		<property name="Type" column="Type" type="Hazzik.GameObjects.GameObjectType, Hazzik.RealmServer.Core" />
+		<property name="DisplayId" column="DisplayId" type="System.UInt32" />
+		<property name="Name" column="DisplayId" type="System.String" />
+		<property name="ScaleX" column="ScaleX" type="System.Single" />
+	</class>
 </hibernate-mapping>
