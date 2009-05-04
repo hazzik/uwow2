@@ -40,6 +40,10 @@ namespace Hazzik.Net {
 		}
 
 		public override void Send(IPacket packet) {
+			var color = Console.ForegroundColor;
+			Console.ForegroundColor = ConsoleColor.Green;
+			Console.WriteLine((WMSG)packet.Code);
+			Console.ForegroundColor = color;
 			lock(this) {
 				var data = GetStream();
 				var head = _firstPacket ? data : new CryptoStream(data, _encryptor, CryptoStreamMode.Write);
@@ -50,6 +54,7 @@ namespace Hazzik.Net {
 		}
 
 		#endregion
+
 
 		public void SetSymmetricAlgorithm(SymmetricAlgorithm algorithm) {
 			_decryptor = algorithm.CreateDecryptor();
