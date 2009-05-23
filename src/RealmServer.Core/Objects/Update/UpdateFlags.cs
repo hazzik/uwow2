@@ -2,7 +2,7 @@ using System;
 
 namespace Hazzik.Objects.Update {
 	[Flags]
-	public enum UpdateFlags {
+	public enum UpdateFlags : ushort {
 		None = 0x00,
 		Self = 0x01,
 		Transport = 0x02,
@@ -11,6 +11,8 @@ namespace Hazzik.Objects.Update {
 		HighGuid = 0x10,
 		Mobile = 0x20,
 		HasPosition = 0x40,
-		Unknown1 = 0x80
+		Unk1 = 0x80,
+		Unk2 = 0x100,
+		Unk3 = 0x200,
 	}
 }
