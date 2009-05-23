@@ -40,7 +40,7 @@ namespace Hazzik.Objects {
 					return;
 				}
 				base.StandState = value;
-				Session.Client.Send(new WorldPacket(WMSG.SMSG_STANDSTATE_UPDATE, new[] { (byte)value }));
+				Session.SendStandstateUpdate();
 			}
 		}
 

@@ -84,18 +84,6 @@ namespace Hazzik {
 			}
 			return p;
 		}
-		
-		public static IPacket GetCharCreatePkt(int error) {
-			return new WorldPacket(WMSG.SMSG_CHAR_CREATE, new[] { (byte)error });
-		}
-
-		public static IPacket GetAccountDataTimesPkt() {
-			return new WorldPacket(WMSG.SMSG_ACCOUNT_DATA_TIMES, new byte[0x80]);
-		}
-
-		public static IPacket GetCharacterLoginFiledPkt(int error) {
-			return new WorldPacket(WMSG.SMSG_CHARACTER_LOGIN_FAILED, new[] { (byte)error });
-		}
 
 		#endregion
 	}

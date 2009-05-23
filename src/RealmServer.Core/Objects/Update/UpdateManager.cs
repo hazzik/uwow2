@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Hazzik.Map;
+using Hazzik.Net;
 using Hazzik.Objects.Update.Blocks;
 
 namespace Hazzik.Objects.Update {
@@ -17,9 +18,7 @@ namespace Hazzik.Objects.Update {
 
 		public void UpdateObjects() {
 			ICollection<IUpdateBlock> updateBlocks = GetUpdateBlocks();
-			if(updateBlocks.Count != 0) {
-				_player.Session.Client.Send(new UpdatePacketBuilder(updateBlocks).Build());
-			}
+			_player.Session.SendUpdateObjects(updateBlocks, new UpdatePacketBuilder(updateBlocks));
 		}
 
 		private ICollection<IUpdateBlock> GetUpdateBlocks() {

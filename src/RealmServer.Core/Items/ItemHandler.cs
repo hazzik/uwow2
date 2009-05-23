@@ -13,7 +13,7 @@ namespace Hazzik.Items {
 			var itemId = r.ReadUInt32();
 			var template = Repository.ItemTemplate.FindById(itemId);
 			if(template != null) {
-				session.Client.Send(template.GetResponce());
+				session.SendItemQuerySingleResponse(template);
 			}
 		}
 

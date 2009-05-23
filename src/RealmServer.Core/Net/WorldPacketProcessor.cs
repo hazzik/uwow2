@@ -10,13 +10,15 @@ using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 
 namespace Hazzik.Net {
 	public class WorldPacketProcessor : IPacketProcessor {
-		private readonly ISession _session;
 		private readonly uint _seed = (uint)(new Random().Next(0, Int32.MaxValue));
+		private readonly ISession _session;
 
 		public WorldPacketProcessor(ISession client) {
 			_session = client;
 			_session.Client.Send(GetAuthChallengePkt());
 		}
+
+		public static PacketHandler<PacketHandlerClassAttribute, WorldPacketHandlerAttribute> Handler { get; set; }
 
 		#region IPacketProcessor Members
 
@@ -29,7 +31,7 @@ namespace Hazzik.Net {
 				return;
 			}
 			if(code == WMSG.CMSG_PING) {
-				_session.Client.Send(GetPongPkt(packet.CreateReader().ReadUInt32()));
+				(_session.Client).Send(GetPongPkt(packet.CreateReader().ReadUInt32()));
 				return;
 			}
 			Handler.Handle(_session, packet);
@@ -38,7 +40,7 @@ namespace Hazzik.Net {
 		#endregion
 
 		private IPacket GetAuthChallengePkt() {
-			var result = WorldPacketFactory.Create(WMSG.SMSG_AUTH_CHALLENGE);
+			IPacket result = WorldPacketFactory.Create(WMSG.SMSG_AUTH_CHALLENGE);
 			BinaryWriter w = result.CreateWriter();
 			w.Write(_seed);
 			return result;
@@ -56,13 +58,13 @@ namespace Hazzik.Net {
 
 			_session.Account = Repository.Account.FindByName(accountName);
 
-			_session.Client.SetSymmetricAlgorithm(new WowCryptRC4(_session.Account.SessionKey));
+			(_session.Client).SetSymmetricAlgorithm(new WowCryptRC4(_session.Account.SessionKey));
 
 			if(!Utility.Equals(clientDigest, ComputeServerDigest(clientSeed))) {
 				throw new Exception();
 			}
 
-			_session.Client.Send(GetAuthResponcePkt());
+			(_session.Client).Send(GetAuthResponcePkt());
 
 			uint addonInfoBlockSize = r.ReadUInt32();
 			dataStream = new InflaterInputStream(dataStream); //дальше данные запакованы
@@ -80,11 +82,11 @@ namespace Hazzik.Net {
 			catch(Exception e) {
 			}
 			//_client.Send(GetAddonInfoPkt());
-			_session.Client.Send(GetTutorialFlagsPkt());
+			(_session.Client).Send(GetTutorialFlagsPkt());
 		}
 
 		private IPacket GetAuthResponcePkt() {
-			var result = WorldPacketFactory.Create(WMSG.SMSG_AUTH_RESPONSE);
+			IPacket result = WorldPacketFactory.Create(WMSG.SMSG_AUTH_RESPONSE);
 			BinaryWriter w = result.CreateWriter();
 			w.Write((byte)0x0C);
 			w.Write((uint)0);
@@ -95,7 +97,7 @@ namespace Hazzik.Net {
 		}
 
 		private static IPacket GetAddonInfoPkt() {
-			var result = WorldPacketFactory.Create(WMSG.SMSG_ADDON_INFO);
+			IPacket result = WorldPacketFactory.Create(WMSG.SMSG_ADDON_INFO);
 			BinaryWriter w = result.CreateWriter();
 			foreach(AddonInfo item in AddonManager.Instance.AddonInfos) {
 				w.Write((ulong)0x0102);
@@ -121,21 +123,19 @@ namespace Hazzik.Net {
 		}
 
 		public static IPacket GetPongPkt(uint ping) {
-			var result = WorldPacketFactory.Create(WMSG.SMSG_PONG);
+			IPacket result = WorldPacketFactory.Create(WMSG.SMSG_PONG);
 			BinaryWriter w = result.CreateWriter();
 			w.Write(ping);
 			return result;
 		}
 
 		public static IPacket GetTutorialFlagsPkt() {
-			var result = WorldPacketFactory.Create(WMSG.SMSG_TUTORIAL_FLAGS);
+			IPacket result = WorldPacketFactory.Create(WMSG.SMSG_TUTORIAL_FLAGS);
 			BinaryWriter w = result.CreateWriter();
 			for(int i = 0; i < 32; i++) {
 				w.Write((byte)0xff);
 			}
 			return result;
 		}
-
-		public static PacketHandler<PacketHandlerClassAttribute, WorldPacketHandlerAttribute> Handler { get; set; }
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using Hazzik.Creatures;
+using Hazzik.Net;
 
 namespace Hazzik.Objects {
 	public partial class Unit {

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
-using Hazzik.Objects;
 
 namespace Hazzik.Net {
 	public class WorldClientAcceptor : IClientAcceptor {

@@ -3,7 +3,6 @@ using System.IO;
 using Hazzik.Attributes;
 using Hazzik.Map;
 using Hazzik.Net;
-using Hazzik.Objects;
 
 namespace Hazzik {
 	[PacketHandlerClass]

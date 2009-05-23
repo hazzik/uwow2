@@ -20,13 +20,6 @@ namespace Hazzik.Objects {
 		public virtual void WriteCreateBlock(BinaryWriter writer) {
 		}
 
-		public IPacket GetDestroyObjectPkt() {
-			var result = WorldPacketFactory.Create(WMSG.SMSG_DESTROY_OBJECT);
-			var writer = result.CreateWriter();
-			writer.Write(Guid);
-			return result;
-		}
-
 		public void WriteCreateBlock(bool self, BinaryWriter writer) {
 			writer.Write((byte)TypeId);
 			writer.Write((ushort)(!self ? UpdateFlag : UpdateFlag | UpdateFlags.Self));

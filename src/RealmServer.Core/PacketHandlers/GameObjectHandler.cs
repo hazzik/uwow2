@@ -15,7 +15,7 @@ namespace Hazzik.PacketHandlers {
 			var id = reader.ReadUInt32();
 			var template = Data.Repository.GameObjectTemplate.FindById(id);
 			if(template != null) {
-				session.Client.Send(template.GetResponce());
+				session.SendGameObjectQueryResponce(template);
 			}
 		}
 

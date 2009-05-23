@@ -1,4 +1,5 @@
 ﻿using System;
+using Hazzik.Net;
 
 namespace Hazzik.Objects {
 	public partial class Item {

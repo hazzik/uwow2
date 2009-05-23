@@ -50,7 +50,7 @@ namespace Hazzik.Objects {
 
 		public void Destroy() {
 			if(Owner is Player) {
-				((Player)Owner).Session.Client.Send(GetDestroyObjectPkt());
+				((Player)Owner).Session.SendDestroy(this);
 			}
 		}
 
