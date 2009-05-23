@@ -9,16 +9,16 @@ namespace Hazzik.Gossip {
 	[PacketHandlerClass]
 	public class GossipHandler {
 		[WorldPacketHandler(WMSG.CMSG_GOSSIP_HELLO)]
-		public static void HandleGossipHello(ISession client, IPacket packet) {
+		public static void HandleGossipHello(ISession session, IPacket packet) {
 			ulong targetGuid = packet.CreateReader().ReadUInt64();
-			client.Send(GetGossipMessagePkt(targetGuid, 2, new List<GossipMenuItem> {
+			session.Client.Send(GetGossipMessagePkt(targetGuid, 2, new List<GossipMenuItem> {
 				//new GossipMenuItem(1, GossipMenuIcon.Gossip, false, "Hello?"),
 				new GossipMenuItem(2, GossipMenuIcon.Banker, false, "Hello?"),
 			}, null));
 		}
 
 		[WorldPacketHandler(WMSG.CMSG_GOSSIP_SELECT_OPTION)]
-		public static void HandleGossipSelectOption(ISession client, IPacket packet) {
+		public static void HandleGossipSelectOption(ISession session, IPacket packet) {
 			BinaryReader reader = packet.CreateReader();
 			ulong targetGuid = reader.ReadUInt64();
 			uint unk1 = reader.ReadUInt32();
@@ -26,17 +26,16 @@ namespace Hazzik.Gossip {
 		}
 
 		[WorldPacketHandler(WMSG.CMSG_NPC_TEXT_QUERY)]
-		public static void HandleNpcTextQuery(ISession client, IPacket packet) {
+		public static void HandleNpcTextQuery(ISession session, IPacket packet) {
 			var reader = packet.CreateReader();
 			var textId = reader.ReadUInt32();
 			var targetGuid = reader.ReadUInt64();
 			
 			var text = Repository.NpcText.FindById(textId);
 			if(text != null) {
-				client.Send(text.GetNpcTextUpdatePkt());
+				session.Client.Send(text.GetNpcTextUpdatePkt());
 			}
 		}
-
 
 		public static IPacket GetGossipMessagePkt(ulong guid, uint textId, IList<GossipMenuItem> gossipMenu, IList<QuestsMenuItem> questsMenu) {
 			var packet = WorldPacketFactory.Create(WMSG.SMSG_GOSSIP_MESSAGE);

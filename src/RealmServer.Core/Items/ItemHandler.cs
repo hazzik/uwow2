@@ -8,22 +8,22 @@ namespace Hazzik.Items {
 	[PacketHandlerClass]
 	public class ItemHandler {
 		[WorldPacketHandler(WMSG.CMSG_ITEM_QUERY_SINGLE)]
-		public static void HandleItemQuerySingle(ISession client, IPacket packet) {
+		public static void HandleItemQuerySingle(ISession session, IPacket packet) {
 			var r = packet.CreateReader();
 			var itemId = r.ReadUInt32();
 			var template = Repository.ItemTemplate.FindById(itemId);
 			if(template != null) {
-				client.Send(template.GetResponce());
+				session.Client.Send(template.GetResponce());
 			}
 		}
 
 		[WorldPacketHandler(WMSG.CMSG_DESTROYITEM)]
-		public static void HandleDestroyItem(ISession client, IPacket packet) {
+		public static void HandleDestroyItem(ISession session, IPacket packet) {
 			var reader = packet.CreateReader();
 			var bag = reader.ReadByte();
 			var slot = reader.ReadByte();
 
-			var inventory = client.Player.GetInventory(bag);
+			var inventory = session.Player.GetInventory(bag);
 			if(inventory != null) {
 				inventory.DestroyItem(slot);
 			}

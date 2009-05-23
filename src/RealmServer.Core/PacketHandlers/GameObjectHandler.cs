@@ -10,12 +10,12 @@ namespace Hazzik.PacketHandlers {
 	[PacketHandlerClass]
 	public class GameObjectHandler {
 		[WorldPacketHandler(WMSG.CMSG_GAMEOBJECT_QUERY)]
-		public static void HandleGameObjectQuery(ISession client, IPacket packet) {
+		public static void HandleGameObjectQuery(ISession session, IPacket packet) {
 			var reader = packet.CreateReader();
 			var id = reader.ReadUInt32();
 			var template = Data.Repository.GameObjectTemplate.FindById(id);
 			if(template != null) {
-				client.Send(template.GetResponce());
+				session.Client.Send(template.GetResponce());
 			}
 		}
 

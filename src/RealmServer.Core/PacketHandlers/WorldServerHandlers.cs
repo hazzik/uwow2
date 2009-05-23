@@ -12,23 +12,23 @@ namespace Hazzik {
 	[PacketHandlerClass]
 	public static class WorldServerHandlers {
 		[WorldPacketHandler(WMSG.CMSG_NAME_QUERY)]
-		public static void HandleNameQuery(ISession client, IPacket packet) {
+		public static void HandleNameQuery(ISession session, IPacket packet) {
 			var reader = packet.CreateReader();
 			var guid = reader.ReadUInt64();
 
-			var player = ObjectManager.GetPlayersNear(client.Player).FirstOrDefault(x => x.Guid == guid);
+			var player = ObjectManager.GetPlayersNear(session.Player).FirstOrDefault(x => x.Guid == guid);
 
 			if(player != null) {
-				client.Send(player.GetNameQueryResponcePkt());
+				session.Client.Send(player.GetNameQueryResponcePkt());
 			}
 		}
 
 		[WorldPacketHandler(WMSG.CMSG_REALM_SPLIT)]
-		public static void HandleRealmSplit(ISession client, IPacket packet) {
+		public static void HandleRealmSplit(ISession session, IPacket packet) {
 			var r = packet.CreateReader();
 			var unk1 = r.ReadUInt32();
 
-			client.Send(GetRealmSplitPkt(unk1));
+			session.Client.Send(GetRealmSplitPkt(unk1));
 		}
 
 		private static IPacket GetRealmSplitPkt(uint unk1) {
@@ -42,8 +42,8 @@ namespace Hazzik {
 		}
 
 		[WorldPacketHandler(WMSG.CMSG_CHAR_ENUM)]
-		public static void HandleCharEnum(ISession client, IPacket packet) {
-			client.Send(client.Account.GetCharEnumPkt());
+		public static void HandleCharEnum(ISession session, IPacket packet) {
+			session.Client.Send(session.Account.GetCharEnumPkt());
 		}
 
 		[WorldPacketHandler(WMSG.CMSG_CHAR_CREATE)]
@@ -65,20 +65,20 @@ namespace Hazzik {
 			account.AddPlayer(player);
 			//Repository.Account.Save(account);
 			//Repository.Account.SubmitChanges();
-			client.Send(Account.GetCharCreatePkt(47));
+			client.Client.Send(Account.GetCharCreatePkt(47));
 		}
 
 		[WorldPacketHandler(WMSG.CMSG_PLAYER_LOGIN)]
-		public static void HandlePlayerLogin(ISession client, IPacket packet) {
+		public static void HandlePlayerLogin(ISession session, IPacket packet) {
 			var reader = packet.CreateReader();
 			var guid = reader.ReadUInt64();
-			var player = client.Account.GetPlayer(guid);
+			var player = session.Account.GetPlayer(guid);
 			if(null == player) {
-				client.Send(Account.GetCharacterLoginFiledPkt(0x44));
+				session.Client.Send(Account.GetCharacterLoginFiledPkt(0x44));
 				return;
 			}
 
-			client.Player = player;
+			session.Player = player;
 			ObjectManager.Add(player);
 			//ObjectManager.Add(new Creature(new Creature647()) {
 			//   NpcFlags = /*NpcFlags.Gossip | NpcFlags.QuestGiver |*/ NpcFlags.Banker,
@@ -93,19 +93,19 @@ namespace Hazzik {
 			gameObject.PosY = player.PosY;
 			gameObject.PosZ = player.PosZ;
 			ObjectManager.Add(gameObject);
-			client.Send(player.GetLoginVerifyWorldPkt());
+			session.Client.Send(player.GetLoginVerifyWorldPkt());
 
-			client.Send(Account.GetAccountDataTimesPkt());
+			session.Client.Send(Account.GetAccountDataTimesPkt());
 
-			client.Send(GetLoginSetTimeSpeedPkt());
-			client.Send(GetProf(2, -1));
-			client.Send(GetProf(4, -1));
-			client.Send(GetProf(6, -1));
-			client.Send(player.GetInitialSpellsPkt());
+			session.Client.Send(GetLoginSetTimeSpeedPkt());
+			session.Client.Send(GetProf(2, -1));
+			session.Client.Send(GetProf(4, -1));
+			session.Client.Send(GetProf(6, -1));
+			session.Client.Send(player.GetInitialSpellsPkt());
 			var manager = new UpdateManager(player);
 			manager.UpdateObjects();
 
-			client.Send(GetTimeSyncReqPkt());
+			session.Client.Send(GetTimeSyncReqPkt());
 
 			manager.StartUpdateTimer();
 		}
@@ -155,7 +155,7 @@ namespace Hazzik {
 		[WorldPacketHandler(WMSG.CMSG_LOGOUT_CANCEL)]
 		public static void HandleLogoutCancel(ISession client, IPacket packet) {
 			client.Player.StandState = StandStates.Standing;
-			client.Send(GetLogoutCancelAckPkt());
+			client.Client.Send(GetLogoutCancelAckPkt());
 		}
 
 		private static IPacket GetLogoutCancelAckPkt() {

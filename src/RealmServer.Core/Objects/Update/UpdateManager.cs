@@ -18,7 +18,7 @@ namespace Hazzik.Objects.Update {
 		public void UpdateObjects() {
 			ICollection<IUpdateBlock> updateBlocks = GetUpdateBlocks();
 			if(updateBlocks.Count != 0) {
-				_player.Client.Send(new UpdatePacketBuilder(updateBlocks).Build());
+				_player.Session.Client.Send(new UpdatePacketBuilder(updateBlocks).Build());
 			}
 		}
 

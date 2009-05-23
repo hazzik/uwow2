@@ -27,16 +27,16 @@ namespace Hazzik.Map {
 
 		public static void SendNearExceptMe(Positioned me, IPacket responce) {
 			foreach(var player in GetPlayersNear(me)) {
-				if(player != me && player.Client!=null) {
-					player.Client.Send(responce);
+				if(player != me && player.Session!=null) {
+					player.Session.Client.Send(responce);
 				}
 			}
 		}
 
 		public static void SendNear(Positioned me, IPacket responce) {
 			foreach(var player in GetPlayersNear(me)) {
-				if(player.Client != null) {
-					player.Client.Send(responce);
+				if(player.Session != null) {
+					player.Session.Client.Send(responce);
 				}
 			}
 		}

@@ -41,11 +41,11 @@ namespace Hazzik.Objects {
 					return;
 				}
 				base.StandState = value;
-				Client.Send(new WorldPacket(WMSG.SMSG_STANDSTATE_UPDATE, new[] { (byte)value }));
+				Session.Client.Send(new WorldPacket(WMSG.SMSG_STANDSTATE_UPDATE, new[] { (byte)value }));
 			}
 		}
 
-		public ISession Client { get; protected internal set; }
+		public ISession Session { get; protected internal set; }
 
 		#region IContainer Members
 

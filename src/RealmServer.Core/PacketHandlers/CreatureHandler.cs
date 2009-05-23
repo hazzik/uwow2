@@ -8,12 +8,12 @@ namespace Hazzik.PacketHandlers {
 	[PacketHandlerClass]
 	public class CreatureHandler {
 		[WorldPacketHandler(WMSG.CMSG_CREATURE_QUERY)]
-		public static void HandleCreatureQuery(ISession client, IPacket packet) {
+		public static void HandleCreatureQuery(ISession session, IPacket packet) {
 			var r = packet.CreateReader();
 			var creatureId = r.ReadUInt32();
 			var creature = Repository.CreatureTemplate.FindById(creatureId);
 			if(creature != null) {
-				client.Send(GetResponce(creature));
+				session.Client.Send(GetResponce(creature));
 			}
 		}
 

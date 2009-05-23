@@ -25,12 +25,12 @@ namespace Hazzik.Net {
 			get { return _player; }
 			set {
 				if(null == value) {
-					_player.Client = null;
+					_player.Session = null;
 					_player = value;
 				}
 				else {
 					_player = value;
-					_player.Client = this;
+					_player.Session = this;
 				}
 			}
 		}
