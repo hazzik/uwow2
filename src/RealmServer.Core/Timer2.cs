@@ -14,10 +14,10 @@ namespace Hazzik {
 
 		#region Fields
 
-		private States state;
-		private long period;
+		private States _state;
+		private long _period;
 
-		private Timer timer;
+		private Timer _timer;
 
 		#endregion
 
@@ -30,8 +30,8 @@ namespace Hazzik {
 			: this((long)p) { }
 
 		public Timer2(long p) {
-			period = p;
-			state = States.Paused;
+			_period = p;
+			_state = States.Paused;
 		}
 
 		#endregion
@@ -39,29 +39,31 @@ namespace Hazzik {
 		#region Accessors
 
 		public int Delay {
-			get { return (int)period; }
+			get { return (int)_period; }
 			set {
-				if(null != timer && state == States.Started)
-					timer.Change(period, value);
-				period = value;
+				if(null != _timer && _state == States.Started)
+					_timer.Change(_period, value);
+				_period = value;
 			}
 		}
 
 		public States State {
-			get { return state; }
-			set { state = value == States.StopRequest && state != States.Started ? States.Paused : value; }
+			get { return _state; }
+			set { _state = value == States.StopRequest && _state != States.Started ? States.Paused : value; }
 		}
 
 		#endregion
 
 		#region Methods
 
-		private void _TC(object stateInfo) {
-			if(State == States.Started) {
+		private void Tc(object stateInfo) {
+			switch(State) {
+			case States.Started:
 				OnTick();
-			}
-			else if(State == States.StopRequest) {
+				break;
+			case States.StopRequest:
 				Stop();
+				break;
 			}
 		}
 
@@ -69,10 +71,10 @@ namespace Hazzik {
 		}
 
 		public virtual void Start() {
-			state = States.Started;
-			if(timer == null)
-				timer = new Timer(_TC);
-			timer.Change(period, period);
+			_state = States.Started;
+			if(_timer == null)
+				_timer = new Timer(Tc);
+			_timer.Change(_period, _period);
 		}
 
 		public virtual void Restart() {
@@ -80,12 +82,12 @@ namespace Hazzik {
 		}
 
 		public virtual void Stop() {
-			state = States.Paused;
-			if(timer == null) {
+			_state = States.Paused;
+			if(_timer == null) {
 				return;
 			}
-			timer.Dispose();
-			timer = null;
+			_timer.Dispose();
+			_timer = null;
 		}
 
 		#endregion
