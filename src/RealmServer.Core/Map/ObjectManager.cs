@@ -25,22 +25,6 @@ namespace Hazzik.Map {
 			return _allObjects.Values;
 		}
 
-		public static void SendNearExceptMe(Positioned me, IPacket responce) {
-			foreach(var player in GetPlayersNear(me)) {
-				if(player != me && player.Session!=null) {
-					player.Session.Client.Send(responce);
-				}
-			}
-		}
-
-		public static void SendNear(Positioned me, IPacket responce) {
-			foreach(var player in GetPlayersNear(me)) {
-				if(player.Session != null) {
-					player.Session.Client.Send(responce);
-				}
-			}
-		}
-
 		public static void Remove(WorldObject obj) {
 			_allObjects.Remove(obj.Guid);
 			_allLoggedPlayers.Remove(obj.Guid);

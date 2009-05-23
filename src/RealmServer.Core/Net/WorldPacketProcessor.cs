@@ -2,18 +2,20 @@ using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using Hazzik.Attributes;
 using Hazzik.Cryptography;
+using Hazzik.Data;
 using Hazzik.Helper;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 
 namespace Hazzik.Net {
 	public class WorldPacketProcessor : IPacketProcessor {
-		private readonly WorldClient _client;
+		private readonly ISession _session;
 		private readonly uint _seed = (uint)(new Random().Next(0, Int32.MaxValue));
 
-		public WorldPacketProcessor(WorldClient client) {
-			_client = client;
-			_client.Send(GetAuthChallengePkt());
+		public WorldPacketProcessor(ISession client) {
+			_session = client;
+			_session.Client.Send(GetAuthChallengePkt());
 		}
 
 		#region IPacketProcessor Members
@@ -27,10 +29,10 @@ namespace Hazzik.Net {
 				return;
 			}
 			if(code == WMSG.CMSG_PING) {
-				_client.Send(GetPongPkt(packet.CreateReader().ReadUInt32()));
+				_session.Client.Send(GetPongPkt(packet.CreateReader().ReadUInt32()));
 				return;
 			}
-			WorldClient.Handler.Handle(_client, packet);
+			Handler.Handle(_session, packet);
 		}
 
 		#endregion
@@ -52,15 +54,15 @@ namespace Hazzik.Net {
 			uint clientSeed = r.ReadUInt32();
 			byte[] clientDigest = r.ReadBytes(20);
 
-			_client.Account = Data.Repository.Account.FindByName(accountName);
+			_session.Account = Repository.Account.FindByName(accountName);
 
-			_client.SetSymmetricAlgorithm(new WowCryptRC4(_client.Account.SessionKey));
+			_session.Client.SetSymmetricAlgorithm(new WowCryptRC4(_session.Account.SessionKey));
 
 			if(!Utility.Equals(clientDigest, ComputeServerDigest(clientSeed))) {
 				throw new Exception();
 			}
 
-			_client.Send(GetAuthResponcePkt());
+			_session.Client.Send(GetAuthResponcePkt());
 
 			uint addonInfoBlockSize = r.ReadUInt32();
 			dataStream = new InflaterInputStream(dataStream); //дальше данные запакованы
@@ -78,7 +80,7 @@ namespace Hazzik.Net {
 			catch(Exception e) {
 			}
 			//_client.Send(GetAddonInfoPkt());
-			_client.Send(GetTutorialFlagsPkt());
+			_session.Client.Send(GetTutorialFlagsPkt());
 		}
 
 		private IPacket GetAuthResponcePkt() {
@@ -88,7 +90,7 @@ namespace Hazzik.Net {
 			w.Write((uint)0);
 			w.Write((byte)2);
 			w.Write((uint)0);
-			w.Write((byte)_client.Account.Expansion);
+			w.Write((byte)_session.Account.Expansion);
 			return result;
 		}
 
@@ -106,11 +108,11 @@ namespace Hazzik.Net {
 		private byte[] ComputeServerDigest(uint clientSeed) {
 			byte[] buff;
 			using(var w = new BinaryWriter(new MemoryStream())) {
-				w.Write(Encoding.UTF8.GetBytes(_client.Account.Name));
+				w.Write(Encoding.UTF8.GetBytes(_session.Account.Name));
 				w.Write(0);
 				w.Write(clientSeed);
 				w.Write(_seed);
-				w.Write(_client.Account.SessionKey);
+				w.Write(_session.Account.SessionKey);
 				w.Flush();
 				buff = ((MemoryStream)w.BaseStream).ToArray();
 				buff = SHA1.Create().ComputeHash(buff, 0, buff.Length);
@@ -133,5 +135,7 @@ namespace Hazzik.Net {
 			}
 			return result;
 		}
+
+		public static PacketHandler<PacketHandlerClassAttribute, WorldPacketHandlerAttribute> Handler { get; set; }
 	}
 }

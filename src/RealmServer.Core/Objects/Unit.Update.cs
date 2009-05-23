@@ -1,6 +1,5 @@
 ﻿using System;
 using Hazzik.Creatures;
-using Hazzik.Map;
 
 namespace Hazzik.Objects {
 	public partial class Unit {
@@ -99,7 +98,7 @@ namespace Hazzik.Objects {
 					return;
 				}
 				_power[(int)PowerType] = value;
-				ObjectManager.SendNearExceptMe(this, GetPowerUpdatePkt(value));
+				Session.SendNearExceptMe(this, GetPowerUpdatePkt(value));
 			}
 		}
 
@@ -174,7 +173,7 @@ namespace Hazzik.Objects {
 		#endregion
 
 		#region UNIT_FIELD_BASEATTACKTIME
-		
+
 		//UNIT_FIELD_BASEATTACKTIME : type = Int, size = 2, flag = Public
 		public int BaseAttackTime { get; set; }
 
@@ -565,11 +564,5 @@ namespace Hazzik.Objects {
 		//UNIT_FIELD_RESISTANCEBUFFMODSNEGATIVE : type = Int, size = 7, flag = Private, Owner
 
 		//UNIT_FIELD_PADDING : type = Int, size = 1, flag = None
-		
-		private class NullAttackPowerCalculator : IAttackPowerCalculator {
-			public uint Base() {
-				return 0;
-			}
-		}
 	}
 }

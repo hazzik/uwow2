@@ -3,6 +3,7 @@ using System.IO;
 using Hazzik.Attributes;
 using Hazzik.Map;
 using Hazzik.Net;
+using Hazzik.Objects;
 
 namespace Hazzik {
 	[PacketHandlerClass]
@@ -34,7 +35,7 @@ namespace Hazzik {
 		[WorldPacketHandler(WMSG.MSG_MOVE_FALL_LAND)]
 		public static void HandleMsgMove(ISession client, IPacket packet) {
 			var me = client.Player;
-			ObjectManager.SendNearExceptMe(me, GetMoveResponce(packet, me.Guid));
+			Session.SendNearExceptMe(me, GetMoveResponce(packet, me.Guid));
 			var reader = packet.CreateReader();
 			reader.BaseStream.Seek(0, SeekOrigin.Begin);
 			me.MovementInfo.Read(reader);

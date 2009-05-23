@@ -101,7 +101,7 @@ namespace Hazzik {
 			session.Client.Send(GetProf(2, -1));
 			session.Client.Send(GetProf(4, -1));
 			session.Client.Send(GetProf(6, -1));
-			session.Client.Send(player.GetInitialSpellsPkt());
+			player.Session.SendInitialSpells();
 			var manager = new UpdateManager(player);
 			manager.UpdateObjects();
 

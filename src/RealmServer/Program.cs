@@ -8,11 +8,11 @@ namespace Hazzik {
 	internal class Program {
 		private static void Main(string[] args) {
 			ServiceLocator.Initialize(new StructureMapServiceLocator());
-			WorldClient.Handler = new PacketHandler<PacketHandlerClassAttribute, WorldPacketHandlerAttribute>();
+			WorldPacketProcessor.Handler = new PacketHandler<PacketHandlerClassAttribute, WorldPacketHandlerAttribute>();
 			foreach(Assembly assembly in AppDomain.CurrentDomain.GetAssemblies()) {
-				WorldClient.Handler.AddAssembly(assembly);
+				WorldPacketProcessor.Handler.AddAssembly(assembly);
 			}
-			WorldClient.Handler.Load();
+			WorldPacketProcessor.Handler.Load();
 			var server = new Server("WORLD SERVER", new WorldClientAcceptor(), new IPEndPoint(IPAddress.Any, 3725));
 			server.Start();
 			Console.ReadLine();

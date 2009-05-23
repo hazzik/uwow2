@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
+using Hazzik.Objects;
 
 namespace Hazzik.Net {
 	public class WorldClientAcceptor : IClientAcceptor {
@@ -10,7 +11,7 @@ namespace Hazzik.Net {
 
 		public void OnAccept(Socket s) {
 			var client = new WorldClient(s);
-			client.SetProcessor(new WorldPacketProcessor(client));
+			client.SetProcessor(new WorldPacketProcessor(new Session(client)));
 			client.Start();	
 			_clients.Add(client);
 		}

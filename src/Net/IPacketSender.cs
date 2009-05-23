@@ -5,4 +5,3 @@ namespace Hazzik.Net {
 		void Send(IPacket packet);
 	}
 }
-

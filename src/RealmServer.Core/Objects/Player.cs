@@ -4,7 +4,6 @@ using System.Linq;
 using Hazzik.Dbc;
 using Hazzik.Items;
 using Hazzik.Items.Inventories;
-using Hazzik.Map;
 using Hazzik.Net;
 using Hazzik.Objects.Update;
 using Hazzik.Skills;
@@ -12,13 +11,13 @@ using Hazzik.Skills;
 namespace Hazzik.Objects {
 	public partial class Player : Unit, IContainer {
 		private readonly IInventory _inventory;
+		private readonly IList<Skill> _skills = new List<Skill>();
+
+		private readonly IList<int> _spells = new List<int>();
 		public bool Dead;
 		public int PetCreatureFamily;
 		public int PetDisplayId;
 		public int PetLevel;
-		private readonly IList<Skill> _skills = new List<Skill>();
-
-		private readonly IList<int> _spells = new List<int>();
 
 		public Player() {
 			Type |= ObjectTypes.Player;
@@ -47,6 +46,14 @@ namespace Hazzik.Objects {
 
 		public ISession Session { get; protected internal set; }
 
+		public IList<Skill> Skills {
+			get { return _skills; }
+		}
+
+		public IList<int> Spells {
+			get { return _spells; }
+		}
+
 		#region IContainer Members
 
 		WorldObject IContainer.Owner {
@@ -60,64 +67,44 @@ namespace Hazzik.Objects {
 		#endregion
 
 		public void TrainSpell(IEnumerable<int> spells) {
-			foreach(var id in spells) {
+			foreach(int id in spells) {
 				TrainSpell(id);
 			}
 		}
 
 		public void AddSkill(Skill skill) {
 			if(!HasSkill(skill.Id)) {
-				_skills.Add(skill);
+				Skills.Add(skill);
 			}
 		}
 
 		public Skill GetSkill(ushort id) {
-			return _skills.Where(s => s.Id == id).FirstOrDefault();
+			return Skills.Where(s => s.Id == id).FirstOrDefault();
 		}
 
 		private bool HasSkill(ushort id) {
-			return _skills.Where(s => s.Id == id).Any();
+			return Skills.Where(s => s.Id == id).Any();
 		}
 
 		public IInventory GetInventory(int bag) {
-			var container = bag == 0xff ? this : Inventory[bag] as IContainer;
+			IContainer container = bag == 0xff ? this : Inventory[bag] as IContainer;
 			return container != null ? container.Inventory : null;
 		}
 
-		public IList<Skill> Skills {
-			get { return _skills; }
-		}
-
 		public void TrainSpell(int spellId) {
-			var sla = new SkillLineAbilityRepository().FindBySpellId(spellId);
+			SkillLineAbility sla = new SkillLineAbilityRepository().FindBySpellId(spellId);
 			if(sla != null) {
 				AddSkill(new Skill { Id = (ushort)sla.SkillId });
 			}
-			_spells.Add(spellId);
-		}
-
-		public IPacket GetInitialSpellsPkt() {
-			var packet = WorldPacketFactory.Create(WMSG.SMSG_INITIAL_SPELLS);
-			var writer = packet.CreateWriter();
-			writer.Write((byte)0);
-			writer.Write((ushort)_spells.Count);
-			foreach(var i in _spells) {
-				writer.Write(i);
-			}
-			writer.Write((ushort)0);
-			return packet;
+			Spells.Add(spellId);
 		}
 
 		private void RemoveSpell(int spellId) {
-			_spells.Remove(spellId);
+			Spells.Remove(spellId);
 		}
 
 		public void HeartBeat() {
-			var packet = WorldPacketFactory.Create(WMSG.MSG_MOVE_HEARTBEAT);
-			var writer = packet.CreateWriter();
-			writer.WritePackGuid(Guid);
-			MovementInfo.Write(writer);
-			ObjectManager.SendNear(this, packet);
+			Session.SendHeartBeat();
 		}
 	}
 }

@@ -89,7 +89,9 @@
     <Compile Include="Dbc\IDbcRow.cs" />
     <Compile Include="Items\Inventories\PlayerInventory.cs" />
     <Compile Include="Items\ResistanceTypes.cs" />
+    <Compile Include="Net\IWorldClient.cs" />
     <Compile Include="Net\WorldPacketFactory.cs" />
+    <Compile Include="Objects\Session.cs" />
     <Compile Include="Objects\FakeCharacterCreateHandler.cs" />
     <Compile Include="Objects\IAttackPowerCalculator.cs" />
     <Compile Include="GameObjects\IGameObjectUseHandler.cs" />
