@@ -28,24 +28,17 @@ namespace Hazzik.Objects {
 			if(template == null) {
 				return null;
 			}
-			return !template.IsContainer
-			       	? new Item(template) {
-			       		Entry = (uint)template.Id,
-			       		Durability = (uint)template.MaxDurability,
-			       		MaxDurability = (uint)template.MaxDurability,
-			       		Flags = (uint)template.Flags,
-			       		Duration = (uint)template.AttackTime,
-			       		StackCount = (uint)template.MaxAmount,
-			       	}
-			       	: new Container(template) {
-			       		Entry = (uint)template.Id,
-			       		Durability = (uint)template.MaxDurability,
-			       		MaxDurability = (uint)template.MaxDurability,
-			       		Flags = (uint)template.Flags,
-			       		Duration = (uint)template.AttackTime,
-			       		StackCount = (uint)template.MaxAmount,
-			       		NumSlots = (uint)template.ContainerSlots,
-			       	};
+			Item item = !template.IsContainer
+			            	? new Item(template)
+			            	: new Container(template) { NumSlots = (uint)template.ContainerSlots };
+			item.Entry = (uint)template.Id;
+			item.Durability = (uint)template.MaxDurability;
+			item.MaxDurability = (uint)template.MaxDurability;
+			item.Flags = (uint)template.Flags;
+			item.Duration = (uint)template.AttackTime;
+			item.StackCount = (uint)template.MaxAmount;
+
+			return item;
 		}
 
 		public void Destroy() {
