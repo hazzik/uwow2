@@ -6,30 +6,6 @@ using Hazzik.Data;
 using Hazzik.Net;
 
 namespace Hazzik.Gossip {
-	public class GossipMessage {
-		private uint _textId;
-		private IList<GossipMenuItem> _gossipMenu;
-		private IList<QuestsMenuItem> _questsMenu;
-
-		public GossipMessage(uint textId, IList<GossipMenuItem> gossipMenu, IList<QuestsMenuItem> questsMenu) {
-			_textId = textId;
-			_gossipMenu = gossipMenu;
-			_questsMenu = questsMenu;
-		}
-
-		public uint TextId {
-			get { return _textId; }
-		}
-
-		public IList<GossipMenuItem> GossipMenu {
-			get { return _gossipMenu; }
-		}
-
-		public IList<QuestsMenuItem> QuestsMenu {
-			get { return _questsMenu; }
-		}
-	}
-
 	[PacketHandlerClass]
 	public class GossipHandler {
 		[WorldPacketHandler(WMSG.CMSG_GOSSIP_HELLO)]

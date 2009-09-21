@@ -1,5 +1,4 @@
 using System;
-using Hazzik.Net;
 
 namespace Hazzik.Gossip {
 	public class NpcTexts {
