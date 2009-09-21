@@ -1,5 +1,4 @@
 ﻿using System;
-using Hazzik.Net;
 
 namespace Hazzik.Objects {
 	public partial class Item {
@@ -119,6 +118,12 @@ namespace Hazzik.Objects {
 
 		#endregion
 
-		//ITEM_FIELD_PAD : type = Int, size = 1, flag = None
+		#region ITEM_FIELD_CREATE_PLAYED_TIME
+
+		//ITEM_FIELD_CREATE_PLAYED_TIME = OBJECT_END + 57, // 1 1:Int 1:Public
+
+		public virtual UInt32 CreatePlayedTime { get; set; }
+
+		#endregion
 	}
 }

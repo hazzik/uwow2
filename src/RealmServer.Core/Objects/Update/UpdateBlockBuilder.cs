@@ -18,7 +18,7 @@ namespace Hazzik.Objects.Update {
 		private BitArray CreateRequiredMask() {
 			var mask = new BitArray(GetMaxValues(_obj.TypeId), true);
 			for(int i = 0; i < mask.Length; i++) {
-				if(_obj.TypeId == ObjectTypeId.Player && _player != _obj && i > (int)UpdateFields.PLAYER_FIELD_PAD_0) {
+				if(_obj.TypeId == ObjectTypeId.Player && _player != _obj && i > (int)(UpdateFields.PLAYER_FIELD_INV_SLOT_HEAD - 1)) {
 					mask[i] = false;
 				}
 			}

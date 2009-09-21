@@ -30,34 +30,6 @@ namespace Hazzik.Objects {
 
 		#endregion
 
-		#region DYNAMICOBJECT_POS_X
-
-		//DYNAMICOBJECT_POS_X : type = Single, size = 1, flag = Public
-		public override Single PosX { get; set; }
-
-		#endregion
-
-		#region DYNAMICOBJECT_POS_Y
-
-		//DYNAMICOBJECT_POS_Y : type = Single, size = 1, flag = Public
-		public override Single PosY { get; set; }
-
-		#endregion
-
-		#region DYNAMICOBJECT_POS_Z
-
-		//DYNAMICOBJECT_POS_Z : type = Single, size = 1, flag = Public
-		public override Single PosZ { get; set; }
-
-		#endregion
-
-		#region DYNAMICOBJECT_FACING
-
-		//DYNAMICOBJECT_FACING : type = Single, size = 1, flag = Public
-		public override Single Facing { get; set; }
-
-		#endregion
-
 		#region DYNAMICOBJECT_CASTTIME
 
 		//DYNAMICOBJECT_CASTTIME : type = Int, size = 1, flag = Public

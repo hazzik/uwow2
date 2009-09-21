@@ -107,6 +107,13 @@ namespace Hazzik.Objects {
 
 		#endregion
 
+		#region PLAYER_FAKE_INEBRIATION
+
+		//PLAYER_FAKE_INEBRIATION : type = Int, size = 1, flag = Public
+		public virtual UInt32 FakeInebriation { get; set; }
+
+		#endregion
+
 		#region PLAYER_FARSIGHT
 
 		//PLAYER_FARSIGHT : type = Long, size = 2, flag = Private
@@ -272,6 +279,20 @@ namespace Hazzik.Objects {
 
 		//PLAYER_FIELD_MOD_HEALING_DONE_POS : type = Int, size = 1, flag = Private
 		public virtual UInt32 ModHealingDonePos { get; set; }
+
+		#endregion
+
+		#region PLAYER_FIELD_MOD_HEALING_PCT
+
+		//PLAYER_FIELD_MOD_HEALING_PCT : type = Single, size = 1, flag = Private
+		public virtual Single ModHealingPct { get; set; }
+
+		#endregion
+		
+		#region PLAYER_FIELD_MOD_HEALING_DONE_PCT
+
+		//PLAYER_FIELD_MOD_HEALING_DONE_PCT : type = Single, size = 1, flag = Private
+		public virtual Single ModHealingDonePct { get; set; }
 
 		#endregion
 

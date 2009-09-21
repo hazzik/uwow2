@@ -70,6 +70,7 @@ namespace Hazzik.Objects.Update {
 			dto.Set(UpdateFields.ITEM_FIELD_ITEM_TEXT_ID, obj.ItemTextId);
 			dto.Set(UpdateFields.ITEM_FIELD_DURABILITY, obj.Durability);
 			dto.Set(UpdateFields.ITEM_FIELD_MAXDURABILITY, obj.MaxDurability);
+			dto.Set(UpdateFields.ITEM_FIELD_CREATE_PLAYED_TIME, obj.CreatePlayedTime);
 		}
 
 		private static void UpdateContainer(UpdateValuesDto dto, Container obj) {
@@ -113,10 +114,6 @@ namespace Hazzik.Objects.Update {
 			dto.Set(UpdateFields.DYNAMICOBJECT_BYTES, obj.Bytes);
 			dto.Set(UpdateFields.DYNAMICOBJECT_SPELLID, obj.SpellId);
 			dto.Set(UpdateFields.DYNAMICOBJECT_RADIUS, obj.Radius);
-			dto.Set(UpdateFields.DYNAMICOBJECT_POS_X, obj.PosX);
-			dto.Set(UpdateFields.DYNAMICOBJECT_POS_Y, obj.PosY);
-			dto.Set(UpdateFields.DYNAMICOBJECT_POS_Z, obj.PosZ);
-			dto.Set(UpdateFields.DYNAMICOBJECT_CASTTIME, obj.Facing);
 			dto.Set(UpdateFields.DYNAMICOBJECT_CASTTIME, obj.CastTime);
 		}
 
@@ -283,7 +280,7 @@ namespace Hazzik.Objects.Update {
 				SetVisibleItem(dto, UpdateFields.PLAYER_VISIBLE_ITEM_1_ENTRYID + i * 2, item);
 			}
 			dto.Set(UpdateFields.PLAYER_CHOSEN_TITLE, obj.ChosenTitle);
-			//PLAYER_FIELD_PAD_0 = UNIT_END + 453, // 1 1:Int 0:None
+			dto.Set(UpdateFields.PLAYER_FAKE_INEBRIATION, obj.FakeInebriation);
 			//PLAYER_FIELD_INV_SLOT_HEAD = UNIT_END + 454, // 46 4:Long 2:Private
 			//PLAYER_FIELD_PACK_SLOT_1 = UNIT_END + 500, // 32 4:Long 2:Private
 			//PLAYER_FIELD_BANK_SLOT_1 = UNIT_END + 532, // 56 4:Long 2:Private
@@ -344,6 +341,8 @@ namespace Hazzik.Objects.Update {
 			//PLAYER_FIELD_MOD_DAMAGE_DONE_NEG = UNIT_END + 1406, // 7 1:Int 2:Private
 			//PLAYER_FIELD_MOD_DAMAGE_DONE_PCT = UNIT_END + 1413, // 7 1:Int 2:Private
 			dto.Set(UpdateFields.PLAYER_FIELD_MOD_HEALING_DONE_POS, obj.ModHealingDonePos);
+			dto.Set(UpdateFields.PLAYER_FIELD_MOD_HEALING_PCT, obj.ModHealingPct);
+			dto.Set(UpdateFields.PLAYER_FIELD_MOD_HEALING_DONE_PCT, obj.ModHealingDonePct);
 			dto.Set(UpdateFields.PLAYER_FIELD_MOD_TARGET_RESISTANCE, obj.ModTargetResistance);
 			dto.Set(UpdateFields.PLAYER_FIELD_MOD_TARGET_PHYSICAL_RESISTANCE, obj.ModTargetPhysicalResistance);
 			dto.Set(UpdateFields.PLAYER_FIELD_BYTES, obj.FieldBytes);
