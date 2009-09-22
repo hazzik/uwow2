@@ -48,7 +48,7 @@ namespace Hazzik.Objects {
 		}
 
 		public bool CanStack(Item srcItem) {
-			return Entry == srcItem.Entry && StackCount != Template.MaxAmount;
+			return srcItem != null && Entry == srcItem.Entry && StackCount != Template.MaxAmount;
 		}
 	}
 }

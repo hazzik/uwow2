@@ -1,6 +1,4 @@
 ﻿using System;
-using System.IO;
-using Hazzik.Net;
 
 namespace Hazzik.Items {
 	public class ItemTemplate {
@@ -64,6 +62,7 @@ namespace Hazzik.Items {
 		public int DisplayId;
 		public int ExtendedCost;
 		public int Flags;
+		public int Faction;
 		public int GemPropertiesId;
 		public int Id;
 		public InventoryTypes InventoryType;

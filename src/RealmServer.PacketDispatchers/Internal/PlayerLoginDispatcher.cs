@@ -1,6 +1,8 @@
 using System;
 using System.IO;
+using Hazzik.Creatures;
 using Hazzik.Data;
+using Hazzik.Data.Fake.Templates;
 using Hazzik.Map;
 using Hazzik.Net;
 using Hazzik.Objects;
@@ -22,14 +24,14 @@ namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 
 			session.Player = player;
 			ObjectManager.Add(player);
-			//ObjectManager.Add(new Creature(new Creature647()) {
-			//   NpcFlags = /*NpcFlags.Gossip | NpcFlags.QuestGiver |*/ NpcFlags.Banker,
-			//   BaseHealth = 500,
-			//   Health = 500,
-			//   PosX = player.PosX,
-			//   PosY = player.PosY,
-			//   PosZ = player.PosZ,
-			//});
+			Creature creature = Creature.Create(new Creature647());
+			creature.NpcFlags = NpcFlags.Banker;
+			creature.BaseHealth = 500;
+			creature.Health = 500;
+			creature.PosX = player.PosX;
+			creature.PosY = player.PosY;
+			creature.PosZ = player.PosZ;
+			ObjectManager.Add(creature);
 			GameObject gameObject = GameObject.Create(Repository.GameObjectTemplate.FindById(2489));
 			gameObject.PosX = player.PosX;
 			gameObject.PosY = player.PosY;

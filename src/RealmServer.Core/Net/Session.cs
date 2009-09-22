@@ -266,19 +266,22 @@ namespace Hazzik.Net {
 			writer.WriteCString("");
 			writer.WriteCString("");
 			writer.WriteCString(template.GuildName);
+			writer.WriteCString("");
 			writer.Write((uint)template.Flags);
 			writer.Write((uint)template.Type);
 			writer.Write((uint)template.Family);
 			writer.Write((uint)template.Rank);
-			writer.Write(0);
 			writer.Write(0); // SpellGroupId
 			writer.Write(template.DisplayId);
+			writer.Write(0);
 			writer.Write(0);
 			writer.Write(0);
 			writer.Write(0);
 			writer.Write(1f);
 			writer.Write(1f);
 			writer.Write((byte)0);
+			writer.Write(0);
+			writer.Write(0);
 			writer.Write(0);
 			writer.Write(0);
 			writer.Write(0);
@@ -325,6 +328,7 @@ namespace Hazzik.Net {
 			writer.Write(template.DisplayId);
 			writer.Write(template.Quality);
 			writer.Write(template.Flags);
+			writer.Write(template.Faction);
 			writer.Write(template.BuyPrice);
 			writer.Write(template.SellPrice);
 			writer.Write((int)template.InventoryType);

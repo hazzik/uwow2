@@ -1,6 +1,4 @@
 using System;
-using System.IO;
-using Hazzik.Net;
 
 namespace Hazzik.Creatures {
 	public class CreatureTemplate {
