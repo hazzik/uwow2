@@ -9,8 +9,10 @@ using Hazzik.Objects.Update;
 
 namespace Hazzik.PacketHandlers {
 	[PacketHandlerClass(WMSG.CMSG_PLAYER_LOGIN)]
-	internal class PlayerLoginDispatcher {
-		public static void Dispatch(ISession session, IPacket packet) {
+	internal class PlayerLoginDispatcher : IPacketDispatcher {
+		#region IPacketDispatcher Members
+
+		public void Dispatch(ISession session, IPacket packet) {
 			BinaryReader reader = packet.CreateReader();
 			ulong guid = reader.ReadUInt64();
 			Player player = session.Account.GetPlayer(guid);
@@ -50,5 +52,7 @@ namespace Hazzik.PacketHandlers {
 
 			manager.StartUpdateTimer();
 		}
+
+		#endregion
 	}
 }

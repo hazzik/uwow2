@@ -62,6 +62,7 @@
     <Compile Include="Data\IGameObjectTemplateRepository.cs" />
     <Compile Include="GameObjects\GameObjectTemplate.cs" />
     <Compile Include="Gossip\GossipMessage.cs" />
+    <Compile Include="IPacketDispatcherFactory.cs" />
     <Compile Include="Items\IEquipmentInventory.cs" />
     <Compile Include="Items\Inventories\BackPackInventory.cs" />
     <Compile Include="Items\Inventories\BankBagsInventory.cs" />
@@ -222,7 +223,7 @@
     <Compile Include="Objects\WorldObject.cs" />
     <Compile Include="Objects\WorldObject.Update.cs" />
     <Compile Include="Objects\Update\Blocks\OutOfRangeBlockWriter.cs" />
-    <Compile Include="PacketHandler.cs" />
+    <Compile Include="AttributesPacketDispatcherFactory.cs" />
     <Compile Include="PacketHandlers\SwapItemDispatcherBase.cs" />
     <Compile Include="PacketHandlers\MoveHandlers.cs" />
     <Compile Include="PacketHandlers\WorldServerHandlers.cs">

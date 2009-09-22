@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
-using Hazzik.Attributes;
 using Hazzik.Cryptography;
 using Hazzik.Data;
 using Hazzik.Helper;
@@ -18,7 +17,7 @@ namespace Hazzik.Net {
 			_session.Client.Send(GetAuthChallengePkt());
 		}
 
-		public static PacketHandler<PacketHandlerClassAttribute, WorldPacketHandlerAttribute> Handler { get; set; }
+		public static IPacketDispatcherFactory Factory { get; set; }
 
 		#region IPacketProcessor Members
 
@@ -34,7 +33,17 @@ namespace Hazzik.Net {
 				(_session.Client).Send(GetPongPkt(packet.CreateReader().ReadUInt32()));
 				return;
 			}
-			Handler.Handle(_session, packet);
+			IPacketDispatcher dispatcher = Factory.GetDispatcher((WMSG)packet.Code);
+			if(dispatcher != null) {
+				Console.WriteLine((WMSG)packet.Code);
+				dispatcher.Dispatch(_session, packet);
+			}
+			else {
+				ConsoleColor color = Console.ForegroundColor;
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.WriteLine((WMSG)packet.Code);
+				Console.ForegroundColor = color;
+			}
 		}
 
 		#endregion
