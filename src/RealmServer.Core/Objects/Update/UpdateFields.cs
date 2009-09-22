@@ -2,7 +2,7 @@
 File:             F:\games\World of Warcraft\wow.exe
 InternalName:     World of Warcraft
 OriginalFilename: WoW.exe
-FileVersion:      3, 2, 0, 10314
+FileVersion:      3, 2, 2, 10482
 FileDescription:  World of Warcraft Retail
 Product:          World of Warcraft
 ProductVersion:   Version 3.2
