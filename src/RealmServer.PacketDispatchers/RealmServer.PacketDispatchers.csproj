@@ -47,10 +47,59 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AttributesPacketDispatcherFactory.cs" />
+    <Compile Include="Internal\AutoBankItemDispatcher.cs" />
+    <Compile Include="Internal\AutoEquipDispatcher.cs" />
+    <Compile Include="Internal\AutoStoreBagItemDispatcher.cs" />
+    <Compile Include="Internal\AutoStoreBankItemDispatcher.cs" />
+    <Compile Include="Internal\BankerActivateDispatcher.cs" />
+    <Compile Include="Internal\BuyBankSlotDispatcher.cs" />
+    <Compile Include="Internal\CharCreateDispatcher.cs" />
+    <Compile Include="Internal\CharEnumDispatcher.cs" />
+    <Compile Include="Internal\CreatureQueryDispatcher.cs" />
+    <Compile Include="Internal\DestroyItemDispatcher.cs" />
+    <Compile Include="Internal\GameObjectQueryDispatcher.cs" />
+    <Compile Include="Internal\GameObjectUseDispatcher.cs" />
+    <Compile Include="Internal\GossipHelloDispatcher.cs" />
+    <Compile Include="Internal\GossipSelectOptionDispatcher.cs" />
+    <Compile Include="Internal\ItemQuerySingleDispatcher.cs" />
+    <Compile Include="Internal\LogoutCancelDispatcher.cs" />
+    <Compile Include="Internal\LogoutRequestDispatcher.cs" />
+    <Compile Include="Internal\MoveHandlers.cs" />
+    <Compile Include="Internal\NameQueryDispatcher.cs" />
+    <Compile Include="Internal\NpcTextQueryDispatcher.cs" />
+    <Compile Include="Internal\PlayerLoginDispatcher.cs" />
+    <Compile Include="Internal\RealmSplitDispatcher.cs" />
+    <Compile Include="Internal\SetAmmoDispatcher.cs" />
+    <Compile Include="Internal\SetSheathedDispatcher.cs" />
+    <Compile Include="Internal\SplitItemDispatcher.cs" />
+    <Compile Include="Internal\StandStateChangeDispatcher.cs" />
+    <Compile Include="Internal\SwapInvItemDispatcher.cs" />
+    <Compile Include="Internal\SwapItemDispatcher.cs" />
+    <Compile Include="Internal\SwapItemDispatcherBase.cs" />
+    <Compile Include="PacketHandlerClassAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Hazzik.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\lib\Helper\Helper.csproj">
+      <Project>{5BEC7A4C-7CB1-4D6B-B0E5-FD1860168494}</Project>
+      <Name>Helper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{6959839C-CE87-4006-9B2E-84544C5AA1C0}</Project>
+      <Name>Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Net\Net.csproj">
+      <Project>{0638B5D2-AA98-4FD3-8F2E-8DEDFB9F5A97}</Project>
+      <Name>Net</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RealmServer.Core\RealmServer.Core.csproj">
+      <Project>{763DE8C6-1140-44CB-84B9-A7E400CB65BF}</Project>
+      <Name>RealmServer.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

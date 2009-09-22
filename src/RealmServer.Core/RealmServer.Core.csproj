@@ -56,9 +56,6 @@
   <ItemGroup>
     <Compile Include="AddonInfo.cs" />
     <Compile Include="AddonManager.cs" />
-    <Compile Include="Attributes\PacketHandlerAttribute.cs" />
-    <Compile Include="Attributes\PacketHandlerClassAttribute.cs" />
-    <Compile Include="Attributes\WorldPacketHandler.cs" />
     <Compile Include="Data\IGameObjectTemplateRepository.cs" />
     <Compile Include="GameObjects\GameObjectTemplate.cs" />
     <Compile Include="Gossip\GossipMessage.cs" />
@@ -67,11 +64,6 @@
     <Compile Include="Items\Inventories\BackPackInventory.cs" />
     <Compile Include="Items\Inventories\BankBagsInventory.cs" />
     <Compile Include="Items\Inventories\BankInventory.cs" />
-    <Compile Include="PacketHandlers\AutoBankItemDispatcher.cs" />
-    <Compile Include="PacketHandlers\AutoEquipDispatcher.cs" />
-    <Compile Include="PacketHandlers\AutoStoreBagItemDispatcher.cs" />
-    <Compile Include="PacketHandlers\AutoStoreBankItemDispatcher.cs" />
-    <Compile Include="PacketHandlers\BankerActivateDispatcher.cs" />
     <Compile Include="Items\Inventories\ContainerInventory.cs" />
     <Compile Include="Items\Inventories\EquipmentInventory.cs" />
     <Compile Include="Items\EquipmentSlot.cs" />
@@ -110,34 +102,13 @@
     <Compile Include="Objects\Update\IPacketBuilder.cs" />
     <Compile Include="Objects\Update\UpdateFlags.cs" />
     <Compile Include="Objects\WarriorAttackPowerCalculator.cs" />
-    <Compile Include="PacketHandlers\BuyBankSlotDispatcher.cs" />
-    <Compile Include="PacketHandlers\CharCreateDispatcher.cs" />
-    <Compile Include="PacketHandlers\CharEnumDispatcher.cs" />
-    <Compile Include="PacketHandlers\DestroyItemDispatcher.cs" />
-    <Compile Include="PacketHandlers\GameObjectUseDispatcher.cs" />
     <Compile Include="Data\ICreatureTemplateRepository.cs" />
     <Compile Include="Data\IItemTemplateRepository.cs" />
     <Compile Include="Data\INpcTextRepository.cs" />
-    <Compile Include="PacketHandlers\GameObjectQueryDispatcher.cs" />
     <Compile Include="IPacketDispatcher.cs" />
-    <Compile Include="PacketHandlers\GossipHelloDispatcher.cs" />
-    <Compile Include="PacketHandlers\GossipSelectOptionDispatcher.cs" />
-    <Compile Include="PacketHandlers\ItemQuerySingleDispatcher.cs" />
-    <Compile Include="PacketHandlers\LogoutCancelDispatcher.cs" />
-    <Compile Include="PacketHandlers\LogoutRequestDispatcher.cs" />
-    <Compile Include="PacketHandlers\NameQueryDispatcher.cs" />
-    <Compile Include="PacketHandlers\PlayerLoginDispatcher.cs" />
-    <Compile Include="PacketHandlers\RealmSplitDispatcher.cs" />
-    <Compile Include="PacketHandlers\SetAmmoDispatcher.cs" />
-    <Compile Include="PacketHandlers\SetSheathedDispatcher.cs" />
-    <Compile Include="PacketHandlers\SplitItemDispatcher.cs" />
-    <Compile Include="PacketHandlers\StandStateChangeDispatcher.cs" />
-    <Compile Include="PacketHandlers\SwapInvItemDispatcher.cs" />
-    <Compile Include="PacketHandlers\SwapItemDispatcher.cs" />
     <Compile Include="ServiceLocator.cs" />
     <Compile Include="Skills\SkillLineAbility.cs" />
     <Compile Include="Dbc\SkillLineAbilityRepository.cs" />
-    <Compile Include="PacketHandlers\NpcTextQueryDispatcher.cs" />
     <Compile Include="Gossip\GossipMenuIcon.cs" />
     <Compile Include="Gossip\GossipMenuItem.cs" />
     <Compile Include="Data\Fake\FakeNpcTextRepository.cs" />
@@ -150,7 +121,6 @@
     <Compile Include="Objects\Update\UpdateValuesDto.cs" />
     <Compile Include="Objects\Update\UpdateObjectDtoMapper.cs" />
     <Compile Include="Objects\Update\UpdateValue.cs" />
-    <Compile Include="PacketHandlers\CreatureQueryDispatcher.cs" />
     <Compile Include="Data\Fake\FakeCreatureTemplateRepository.cs" />
     <Compile Include="Data\Fake\FakeItemTemplateRepository.cs" />
     <Compile Include="Items\IContainer.cs" />
@@ -223,12 +193,6 @@
     <Compile Include="Objects\WorldObject.cs" />
     <Compile Include="Objects\WorldObject.Update.cs" />
     <Compile Include="Objects\Update\Blocks\OutOfRangeBlockWriter.cs" />
-    <Compile Include="AttributesPacketDispatcherFactory.cs" />
-    <Compile Include="PacketHandlers\SwapItemDispatcherBase.cs" />
-    <Compile Include="PacketHandlers\MoveHandlers.cs" />
-    <Compile Include="PacketHandlers\WorldServerHandlers.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Account.cs" />
     <Compile Include="Skills\Skill.cs" />
     <Compile Include="Skills\SkillType.cs" />
@@ -241,8 +205,8 @@
     <Compile Include="Trade\TradeStatus.cs" />
     <Compile Include="WMSG.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Attributes\UpdateValueAttribute.cs" />
     <Compile Include="Net\WorldClient.cs" />
+    <Compile Include="WorldServerHandlers.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Net\Net.csproj">

@@ -1,0 +1,19 @@
+using System;
+using System.IO;
+using Hazzik.Net;
+
+namespace Hazzik.RealmServer.PacketDispatchers.Internal {
+	[PacketHandlerClass(WMSG.CMSG_GOSSIP_SELECT_OPTION)]
+	internal class GossipSelectOptionDispatcher : IPacketDispatcher {
+		#region IPacketDispatcher Members
+
+		public void Dispatch(ISession session, IPacket packet) {
+			BinaryReader reader = packet.CreateReader();
+			ulong targetGuid = reader.ReadUInt64();
+			uint unk1 = reader.ReadUInt32();
+			uint option = reader.ReadUInt32();
+		}
+
+		#endregion
+	}
+}

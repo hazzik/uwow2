@@ -43,7 +43,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="App.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StructureMapServiceLocator.cs" />
   </ItemGroup>
@@ -67,6 +67,10 @@
     <ProjectReference Include="..\RealmServer.Data.NH\RealmServer.Data.NH.csproj">
       <Project>{6F6CD02D-0627-4380-89A2-EFE17C2F6538}</Project>
       <Name>RealmServer.Data.NH</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RealmServer.PacketDispatchers\RealmServer.PacketDispatchers.csproj">
+      <Project>{96F60589-5487-4924-999D-23DB5465A8E9}</Project>
+      <Name>RealmServer.PacketDispatchers</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
