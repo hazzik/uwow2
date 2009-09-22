@@ -1,6 +1,6 @@
 using System;
 
-namespace Hazzik {
+namespace Hazzik.Net {
 	public interface IPacketDispatcherFactory {
 		IPacketDispatcher GetDispatcher(WMSG wmsg);
 	}

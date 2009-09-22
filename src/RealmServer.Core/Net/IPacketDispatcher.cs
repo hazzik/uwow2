@@ -1,7 +1,6 @@
 using System;
-using Hazzik.Net;
 
-namespace Hazzik {
+namespace Hazzik.Net {
 	public interface IPacketDispatcher {
 		void Dispatch(ISession session, IPacket packet);
 	}

@@ -59,7 +59,7 @@
     <Compile Include="Data\IGameObjectTemplateRepository.cs" />
     <Compile Include="GameObjects\GameObjectTemplate.cs" />
     <Compile Include="Gossip\GossipMessage.cs" />
-    <Compile Include="IPacketDispatcherFactory.cs" />
+    <Compile Include="Net\IPacketDispatcherFactory.cs" />
     <Compile Include="Items\IEquipmentInventory.cs" />
     <Compile Include="Items\Inventories\BackPackInventory.cs" />
     <Compile Include="Items\Inventories\BankBagsInventory.cs" />
@@ -105,7 +105,7 @@
     <Compile Include="Data\ICreatureTemplateRepository.cs" />
     <Compile Include="Data\IItemTemplateRepository.cs" />
     <Compile Include="Data\INpcTextRepository.cs" />
-    <Compile Include="IPacketDispatcher.cs" />
+    <Compile Include="Net\IPacketDispatcher.cs" />
     <Compile Include="ServiceLocator.cs" />
     <Compile Include="Skills\SkillLineAbility.cs" />
     <Compile Include="Dbc\SkillLineAbilityRepository.cs" />

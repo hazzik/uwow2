@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Hazzik.Net;
 
 namespace Hazzik.RealmServer.PacketDispatchers {
 	public class AttributesPacketDispatcherFactory : IPacketDispatcherFactory {
