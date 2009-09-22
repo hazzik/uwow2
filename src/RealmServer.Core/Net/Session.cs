@@ -7,6 +7,7 @@ using Hazzik.Items;
 using Hazzik.Map;
 using Hazzik.Objects;
 using Hazzik.Objects.Update;
+using Hazzik.PacketHandlers;
 
 namespace Hazzik.Net {
 	public class Session : ISession {

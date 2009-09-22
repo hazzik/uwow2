@@ -6,10 +6,11 @@ using Hazzik.Data;
 using Hazzik.Net;
 
 namespace Hazzik.PacketHandlers {
-	[PacketHandlerClass]
-	public class CreatureHandler {
-		[WorldPacketHandler(WMSG.CMSG_CREATURE_QUERY)]
-		public static void HandleCreatureQuery(ISession session, IPacket packet) {
+	[PacketHandlerClass(WMSG.CMSG_CREATURE_QUERY)]
+	public class CreatureQueryDispatcher : IPacketDispatcher {
+		#region IPacketDispatcher Members
+
+		public void Dispatch(ISession session, IPacket packet) {
 			BinaryReader r = packet.CreateReader();
 			uint creatureId = r.ReadUInt32();
 			CreatureTemplate creature = Repository.CreatureTemplate.FindById(creatureId);
@@ -17,5 +18,7 @@ namespace Hazzik.PacketHandlers {
 				session.SendCreatureQueryResponce(creature);
 			}
 		}
+
+		#endregion
 	}
 }
