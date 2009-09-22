@@ -51,7 +51,12 @@ namespace Hazzik.Net {
 		private IPacket GetAuthChallengePkt() {
 			IPacket result = WorldPacketFactory.Create(WMSG.SMSG_AUTH_CHALLENGE);
 			BinaryWriter w = result.CreateWriter();
+			w.Write(1);
 			w.Write(_seed);
+			w.Write(0);
+			w.Write(0);
+			w.Write(0);
+			w.Write(0);
 			return result;
 		}
 
@@ -63,11 +68,12 @@ namespace Hazzik.Net {
 			string accountName = r.ReadCString();
 			uint unk = r.ReadUInt32();
 			uint clientSeed = r.ReadUInt32();
+			ulong unk3 = r.ReadUInt64();
 			byte[] clientDigest = r.ReadBytes(20);
 
 			_session.Account = Repository.Account.FindByName(accountName);
 
-			(_session.Client).SetSymmetricAlgorithm(new WowCryptRC4(_session.Account.SessionKey));
+			_session.Client.SetSymmetricAlgorithm(new WowCryptRC4(_session.Account.SessionKey));
 
 			if(!Utility.Equals(clientDigest, ComputeServerDigest(clientSeed))) {
 				throw new Exception();
