@@ -1,5 +1,6 @@
 using System;
 using Hazzik.Objects;
+using Hazzik.Objects.PowerCalculators;
 using Xunit;
 
 namespace Tests {
@@ -36,7 +37,7 @@ namespace Tests {
 		}
 
 		///Warrior		AP:(Strength x 2) + (Level x 3) - 20 RAP:Level + Agility - 10 
-		///Druid (Bear)AP:(Strength x 2) + (Level x 3) - 20 RAP:0	
+		///Druid (Bear) AP:(Strength x 2) + (Level x 3) - 20 RAP:0	
 		///Paladin		AP:(Strength x 2) + (Level x 3) - 20 RAP:Agility - 10
 		[Fact]
 		public void WarriorAttackPowerCalculator() {
@@ -56,7 +57,7 @@ namespace Tests {
 		}
 
 		///Shaman	AP:Strength + Agility + (Level x 2) - 20 RAP:Agility - 10
-		///Rogue		AP:Strength + Agility + (Level x 2) - 20 RAP:Character Level + Agility - 10
+		///Rogue	AP:Strength + Agility + (Level x 2) - 20 RAP:Character Level + Agility - 10
 		///Hunter 	AP:Strength + Agility + (Level x 2) - 20 RAP:(Character Level x 2) + Agility - 10	
 		[Fact]
 		public void ShamanAttackPowerCalculator() {

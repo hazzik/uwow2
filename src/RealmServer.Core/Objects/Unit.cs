@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using Hazzik.Net;
 using Hazzik.Objects.Update;
 
 namespace Hazzik.Objects {
@@ -8,11 +7,13 @@ namespace Hazzik.Objects {
 		private readonly MovementInfo _movementInfo = new MovementInfo();
 
 		public Unit() {
-			_attackPower = new WarriorAttackPowerCalculator(this);
+			_attackPower = AttackPowerCalculatorFactory.CreateAttackPowerCalculator(this);
 			Type |= ObjectTypes.Unit;
 		}
 
-		public override ObjectTypeId TypeId { get { return ObjectTypeId.Unit; } }
+		public override ObjectTypeId TypeId {
+			get { return ObjectTypeId.Unit; }
+		}
 
 		public override UpdateFlags UpdateFlag {
 			get { return (base.UpdateFlag | UpdateFlags.Mobile); }

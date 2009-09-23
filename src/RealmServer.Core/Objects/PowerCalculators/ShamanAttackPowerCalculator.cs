@@ -1,7 +1,6 @@
 using System;
-using Hazzik.Objects;
 
-namespace Tests {
+namespace Hazzik.Objects.PowerCalculators {
 	public class ShamanAttackPowerCalculator : IAttackPowerCalculator {
 		private readonly Unit _unit;
 
@@ -9,8 +8,12 @@ namespace Tests {
 			_unit = unit;
 		}
 
+		#region IAttackPowerCalculator Members
+
 		public uint Base() {
 			return _unit.Stat0 + _unit.Stat1 + _unit.Level * 2 - 20;
 		}
+
+		#endregion
 	}
 }

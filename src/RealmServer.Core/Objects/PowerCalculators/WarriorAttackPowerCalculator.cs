@@ -1,6 +1,6 @@
 using System;
 
-namespace Hazzik.Objects {
+namespace Hazzik.Objects.PowerCalculators {
 	public class WarriorAttackPowerCalculator : IAttackPowerCalculator {
 		private readonly Unit _unit;
 
