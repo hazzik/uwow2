@@ -24,7 +24,7 @@ namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 
 			session.Player = player;
 			ObjectManager.Add(player);
-			Creature creature = Creature.Create(new Creature647());
+			Creature creature = Creature.Create(Repository.CreatureTemplate.FindById(647));
 			creature.NpcFlags = NpcFlags.Banker;
 			creature.BaseHealth = 500;
 			creature.Health = 500;

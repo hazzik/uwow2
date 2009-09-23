@@ -14,7 +14,9 @@ namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 			BinaryReader reader = packet.CreateReader();
 			ulong guid = reader.ReadUInt64();
 
-			Player player = ObjectManager.GetPlayersNear(session.Player).FirstOrDefault(x => x.Guid == guid);
+			Player player = ObjectManager
+				.GetPlayersNear(session.Player)
+				.FirstOrDefault(x => x.Guid == guid);
 
 			if(player != null) {
 				session.SendNameQueryResponce(player);

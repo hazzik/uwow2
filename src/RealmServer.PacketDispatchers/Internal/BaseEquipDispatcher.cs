@@ -5,10 +5,7 @@ using Hazzik.Net;
 using Hazzik.Objects;
 
 namespace Hazzik.RealmServer.PacketDispatchers.Internal {
-	[PacketHandlerClass(WMSG.CMSG_AUTOEQUIP_ITEM)]
-	internal class AutoEquipDispatcher : IPacketDispatcher {
-		#region IPacketDispatcher Members
-
+	internal abstract class BaseEquipDispatcher {
 		public void Dispatch(ISession session, IPacket packet) {
 			BinaryReader reader = packet.CreateReader();
 			byte srcBag = reader.ReadByte();
@@ -17,11 +14,13 @@ namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 			Player player = session.Player;
 
 			IInventory inventorySrc = player.GetInventory(srcBag);
-			IEquipmentInventory inventoryDst = player.Equipment;
+			IInventory inventoryDst = GetInventoryDst(player);
 
-			inventorySrc[srcSlot] = inventoryDst.AutoEquip(inventorySrc[srcSlot]);
+			if(inventoryDst.AutoAdd(inventorySrc[srcSlot])) {
+				inventorySrc[srcSlot] = null;
+			}
 		}
 
-		#endregion
+		protected abstract IInventory GetInventoryDst(Player player);
 	}
 }

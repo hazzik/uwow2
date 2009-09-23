@@ -52,6 +52,7 @@
     <Compile Include="Internal\AutoEquipDispatcher.cs" />
     <Compile Include="Internal\AutoStoreBagItemDispatcher.cs" />
     <Compile Include="Internal\AutoStoreBankItemDispatcher.cs" />
+    <Compile Include="Internal\BaseEquipDispatcher.cs" />
     <Compile Include="Internal\BankerActivateDispatcher.cs" />
     <Compile Include="Internal\BuyBankSlotDispatcher.cs" />
     <Compile Include="Internal\CharCreateDispatcher.cs" />

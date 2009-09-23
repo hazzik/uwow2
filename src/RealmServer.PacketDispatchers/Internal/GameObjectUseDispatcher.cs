@@ -14,7 +14,10 @@ namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 		public void Dispatch(ISession client, IPacket packet) {
 			BinaryReader reader = packet.CreateReader();
 			ulong guid = reader.ReadUInt64();
-			var go = ObjectManager.GetSeenObjectsNear(client.Player).Where(x => x.Guid == guid).FirstOrDefault() as GameObject;
+			var go = ObjectManager
+				.GetSeenObjectsNear(client.Player)
+				.Where(x => x.Guid == guid)
+				.FirstOrDefault() as GameObject;
 			new ChairHandler(go).Use(client.Player);
 		}
 

@@ -8,14 +8,14 @@ namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 	internal class SwapItemDispatcher : SwapItemDispatcherBase, IPacketDispatcher {
 		#region IPacketDispatcher Members
 
-		public void Dispatch(ISession client, IPacket packet) {
+		public void Dispatch(ISession session, IPacket packet) {
 			BinaryReader reader = packet.CreateReader();
 			byte dstBag = reader.ReadByte();
 			byte dstSlot = reader.ReadByte();
 			byte srcBag = reader.ReadByte();
 			byte srcSlot = reader.ReadByte();
 
-			Player player = client.Player;
+			Player player = session.Player;
 
 			SwapItems(player.GetInventory(srcBag), srcSlot, player.GetInventory(dstBag), dstSlot);
 		}

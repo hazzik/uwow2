@@ -6,14 +6,16 @@ using Hazzik.Objects;
 
 namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 	[PacketHandlerClass(WMSG.CMSG_AUTOSTORE_BAG_ITEM)]
-	internal class AutoStoreBagItemDispatcher:IPacketDispatcher {
-		public void Dispatch(ISession client, IPacket packet) {
+	internal class AutoStoreBagItemDispatcher : IPacketDispatcher {
+		#region IPacketDispatcher Members
+
+		public void Dispatch(ISession session, IPacket packet) {
 			BinaryReader reader = packet.CreateReader();
 			byte srcBag = reader.ReadByte();
 			byte srcSlot = reader.ReadByte();
 			byte dstBag = reader.ReadByte();
 
-			Player player = client.Player;
+			Player player = session.Player;
 
 			IInventory inventorySrc = player.GetInventory(srcBag);
 			IInventory inventoryDst = player.GetInventory(dstBag);
@@ -22,5 +24,7 @@ namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 				inventorySrc[srcSlot] = null;
 			}
 		}
+
+		#endregion
 	}
 }
