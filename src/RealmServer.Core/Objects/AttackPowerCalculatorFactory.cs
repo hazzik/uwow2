@@ -19,7 +19,8 @@ namespace Hazzik.Objects {
 			case Classes.Druid:
 				break;
 			default:
-				throw new ArgumentOutOfRangeException();
+				//throw new ArgumentOutOfRangeException();
+				break;
 			}
 			return new WarriorAttackPowerCalculator(unit);
 		}

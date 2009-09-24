@@ -55,6 +55,7 @@
     <Compile Include="Internal\BaseEquipDispatcher.cs" />
     <Compile Include="Internal\BankerActivateDispatcher.cs" />
     <Compile Include="Internal\BuyBankSlotDispatcher.cs" />
+    <Compile Include="Internal\CastSpellDispatcher.cs" />
     <Compile Include="Internal\CharCreateDispatcher.cs" />
     <Compile Include="Internal\CharEnumDispatcher.cs" />
     <Compile Include="Internal\CreatureQueryDispatcher.cs" />

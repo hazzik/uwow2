@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Hazzik.Creatures;
 using Hazzik.GameObjects;
@@ -166,6 +167,7 @@ namespace Hazzik.Net {
 			writer.Write((ushort)Player.Spells.Count);
 			foreach(int i in Player.Spells) {
 				writer.Write(i);
+				writer.Write((ushort)0);
 			}
 			writer.Write((ushort)0);
 			return packet;
