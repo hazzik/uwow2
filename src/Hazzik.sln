@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net", "Net\Net.csproj", "{0638B5D2-AA98-4FD3-8F2E-8DEDFB9F5A97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.NH", "Data.NH\Data.NH.csproj", "{5515693F-1E28-4C9C-8BC8-7A9BFAE4EE78}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "..\tests\Tests\Tests.csproj", "{908D8478-EFDC-4CE1-B9E1-D5B9CE6F0E0C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealmServer", "RealmServer\RealmServer.csproj", "{6F903808-70C1-4BB5-A37C-13A615C29954}"
@@ -22,6 +20,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealmServer.Data.NH", "RealmServer.Data.NH\RealmServer.Data.NH.csproj", "{6F6CD02D-0627-4380-89A2-EFE17C2F6538}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealmServer.PacketDispatchers", "RealmServer.PacketDispatchers\RealmServer.PacketDispatchers.csproj", "{96F60589-5487-4924-999D-23DB5465A8E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealmServer.Data.NH.Fluent", "RealmServer.Data.NH.Fluent\RealmServer.Data.NH.Fluent.csproj", "{39FC0C70-B937-48B3-8DC6-09DF18A0FED3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,10 +49,6 @@ Global
 		{0638B5D2-AA98-4FD3-8F2E-8DEDFB9F5A97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0638B5D2-AA98-4FD3-8F2E-8DEDFB9F5A97}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0638B5D2-AA98-4FD3-8F2E-8DEDFB9F5A97}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5515693F-1E28-4C9C-8BC8-7A9BFAE4EE78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5515693F-1E28-4C9C-8BC8-7A9BFAE4EE78}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5515693F-1E28-4C9C-8BC8-7A9BFAE4EE78}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5515693F-1E28-4C9C-8BC8-7A9BFAE4EE78}.Release|Any CPU.Build.0 = Release|Any CPU
 		{908D8478-EFDC-4CE1-B9E1-D5B9CE6F0E0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{908D8478-EFDC-4CE1-B9E1-D5B9CE6F0E0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{908D8478-EFDC-4CE1-B9E1-D5B9CE6F0E0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -69,6 +65,10 @@ Global
 		{96F60589-5487-4924-999D-23DB5465A8E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96F60589-5487-4924-999D-23DB5465A8E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96F60589-5487-4924-999D-23DB5465A8E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39FC0C70-B937-48B3-8DC6-09DF18A0FED3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39FC0C70-B937-48B3-8DC6-09DF18A0FED3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39FC0C70-B937-48B3-8DC6-09DF18A0FED3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39FC0C70-B937-48B3-8DC6-09DF18A0FED3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -48,10 +48,6 @@
     <Compile Include="StructureMapServiceLocator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Data.NH\Data.NH.csproj">
-      <Project>{5515693F-1E28-4C9C-8BC8-7A9BFAE4EE78}</Project>
-      <Name>Data.NH</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Data\Data.csproj">
       <Project>{6959839C-CE87-4006-9B2E-84544C5AA1C0}</Project>
       <Name>Data</Name>
@@ -63,6 +59,10 @@
     <ProjectReference Include="..\RealmServer.Core\RealmServer.Core.csproj">
       <Project>{763DE8C6-1140-44CB-84B9-A7E400CB65BF}</Project>
       <Name>RealmServer.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RealmServer.Data.NH.Fluent\RealmServer.Data.NH.Fluent.csproj">
+      <Project>{39FC0C70-B937-48B3-8DC6-09DF18A0FED3}</Project>
+      <Name>RealmServer.Data.NH.Fluent</Name>
     </ProjectReference>
     <ProjectReference Include="..\RealmServer.Data.NH\RealmServer.Data.NH.csproj">
       <Project>{6F6CD02D-0627-4380-89A2-EFE17C2F6538}</Project>

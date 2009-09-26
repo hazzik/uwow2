@@ -7,11 +7,11 @@ using Hazzik.Objects;
 namespace Hazzik {
 	[System.Xml.Serialization.XmlType("account")]
 	public class Account {
-		private IList<Player> _players = new List<Player>();
+		private IList<Player> players = new List<Player>();
 
 		public IList<Player> Players {
-			get { return _players; }
-			private set { _players = value; }
+			get { return players; }
+			private set { players = value; }
 		}
 
 		public virtual int Id { get; set; }
@@ -22,17 +22,17 @@ namespace Hazzik {
 		public virtual byte[] SessionKey { get; set; }
 
 		public Player GetPlayer(ulong guid) {
-			return (from player in _players
+			return (from player in players
 			        where player.Guid == guid
 			        select player).FirstOrDefault();
 		}
 
 		public void AddPlayer(Player player) {
-			_players.Add(player);
+			players.Add(player);
 		}
 
 		public void DelPlayer(Player player) {
-			_players.Remove(player);
+			players.Remove(player);
 		}
 		
 		#region packets

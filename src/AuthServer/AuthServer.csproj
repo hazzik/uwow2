@@ -50,6 +50,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\NHibernate.dll</HintPath>
     </Reference>
+    <Reference Include="NHibernate.ByteCode.Castle, Version=2.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\NHibernate.ByteCode.Castle.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -71,6 +75,7 @@
     <Compile Include="Account.cs" />
     <Compile Include="Data\IAccountDao.cs" />
     <Compile Include="Data\NH\NHAccountRepository.cs" />
+    <Compile Include="Data\NH\NHDao.cs" />
     <Compile Include="Infos\ClientInfo.cs" />
     <Compile Include="Enums\RMSG.cs" />
     <Compile Include="Infos\VersionInfo.cs" />
@@ -92,10 +97,6 @@
     <ProjectReference Include="..\Net\Net.csproj">
       <Project>{0638B5D2-AA98-4FD3-8F2E-8DEDFB9F5A97}</Project>
       <Name>Net</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Data.NH\Data.NH.csproj">
-      <Project>{5515693F-1E28-4C9C-8BC8-7A9BFAE4EE78}</Project>
-      <Name>Data.NH</Name>
     </ProjectReference>
     <ProjectReference Include="..\Data\Data.csproj">
       <Project>{6959839C-CE87-4006-9B2E-84544C5AA1C0}</Project>

@@ -20,15 +20,15 @@ namespace Hazzik.GameObjects.UseHandlers {
 		}
 
 		public int MaxCount {
-			get { return (int)gameObject.Template.Fields[0]; }
+			get { return (int)gameObject.Template.Field0; }
 		}
 
 		public int Hight {
-			get { return (int)gameObject.Template.Fields[1]; }
+			get { return (int)gameObject.Template.Field1; }
 		}
 
 		public bool Private {
-			get { return gameObject.Template.Fields[2] != 0; }
+			get { return gameObject.Template.Field2 != 0; }
 		}
 	}
 }

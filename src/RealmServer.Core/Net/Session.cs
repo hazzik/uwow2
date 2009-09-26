@@ -304,9 +304,30 @@ namespace Hazzik.Net {
 			writer.WriteCString(template.IconName);
 			writer.WriteCString(template.CastBarCaption);
 			writer.WriteCString("");
-			for(int i = 0; i < template.Fields.Length; i++) {
-				writer.Write(template.Fields[i]);
-			}
+			writer.Write(template.Field0);
+			writer.Write(template.Field1);
+			writer.Write(template.Field2);
+			writer.Write(template.Field3);
+			writer.Write(template.Field4);
+			writer.Write(template.Field5);
+			writer.Write(template.Field6);
+			writer.Write(template.Field7);
+			writer.Write(template.Field8);
+			writer.Write(template.Field9);
+			writer.Write(template.Field10);
+			writer.Write(template.Field11);
+			writer.Write(template.Field12);
+			writer.Write(template.Field13);
+			writer.Write(template.Field14);
+			writer.Write(template.Field15);
+			writer.Write(template.Field16);
+			writer.Write(template.Field17);
+			writer.Write(template.Field18);
+			writer.Write(template.Field19);
+			writer.Write(template.Field20);
+			writer.Write(template.Field21);
+			writer.Write(template.Field22);
+			writer.Write(template.Field23);
 			writer.Write(template.ScaleX);
 			writer.Write(0);
 			writer.Write(0);
