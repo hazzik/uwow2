@@ -19,7 +19,7 @@ namespace Hazzik.Net {
 		void SendCharCreate();
 		void SendCharacterLoginFiled();
 		void SendLoginVerifyWorld();
-		void SendAccountDataTimes();
+		void SendAccountDataTimes(uint mask);
 		void SendLoginSetTimeSpeed();
 		void SendTimeSyncReq();
 		void SendLogoutComplete();

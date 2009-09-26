@@ -75,8 +75,8 @@ namespace Hazzik.Net {
 			_client.Send(GetLoginVerifyWorldPkt(Player));
 		}
 
-		public void SendAccountDataTimes() {
-			_client.Send(GetAccountDataTimesPkt());
+		public void SendAccountDataTimes(uint mask) {
+			_client.Send(GetAccountDataTimesPkt(mask));
 		}
 
 		public void SendLoginSetTimeSpeed() {
@@ -219,8 +219,18 @@ namespace Hazzik.Net {
 			return result;
 		}
 
-		private static IPacket GetAccountDataTimesPkt() {
-			return new WorldPacket(WMSG.SMSG_ACCOUNT_DATA_TIMES, new byte[0x80]);
+		private static IPacket GetAccountDataTimesPkt(uint mask) {
+			var packet = WorldPacketFactory.Create(WMSG.SMSG_ACCOUNT_DATA_TIMES);
+			var writer = packet.CreateWriter();
+			writer.Write(0);
+			writer.Write((byte)1);
+			writer.Write(mask);
+			for(int i = 0; i < 8; i++) {
+				if((mask&(1<<i))!=0 ) {
+					writer.Write(DateTime.Today.ToUnixTimestamp());
+				}
+			}
+			return packet;
 		}
 
 		private static IPacket GetTimeSyncReqPkt() {

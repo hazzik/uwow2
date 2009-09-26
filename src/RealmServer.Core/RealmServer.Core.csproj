@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountDataType.cs" />
     <Compile Include="AddonInfo.cs" />
     <Compile Include="AddonManager.cs" />
     <Compile Include="Data\Fake\Templates\MiningPick2901.cs" />

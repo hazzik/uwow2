@@ -98,6 +98,7 @@ namespace Hazzik.Net {
 			}
 			//_client.Send(GetAddonInfoPkt());
 			(_session.Client).Send(GetTutorialFlagsPkt());
+			_session.SendAccountDataTimes(0x15);
 		}
 
 		private IPacket GetAuthResponcePkt() {

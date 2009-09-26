@@ -46,9 +46,7 @@ namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 			ObjectManager.Add(corpse);
 
 			session.SendLoginVerifyWorld();
-
-			session.SendAccountDataTimes();
-
+			session.SendAccountDataTimes(0xEA);
 			session.SendLoginSetTimeSpeed();
 			session.SendSetProficiency(2, -1);
 			session.SendSetProficiency(4, -1);
