@@ -11,7 +11,15 @@ namespace Hazzik.RealmServer.Data.NH.Fluent.Mappings {
 			Map(a => a.PasswordSalt).Column("PasswordSalt");
 			Map(a => a.PasswordVerifier).Column("PasswordVerifier");
 			Map(a => a.SessionKey).Column("SessionKey");
+			Map(a => a.Expansion).Column("Expansion");
 			HasMany(a => a.Players).KeyColumn("AccountId").Not.LazyLoad().Cascade.AllDeleteOrphan();
+			HasMany(a => a.Datas).Table("AccountDatas").KeyColumn("AccountId").Not.LazyLoad().Cascade.AllDeleteOrphan()
+				.Component(a => {
+				           	a.Map(ad => ad.Guid).Column("Guid");
+				           	a.Map(ad => ad.Type).Column("Type").CustomType(typeof(AccountDataType));
+				           	a.Map(ad => ad.Time).Column("Time");
+				           	a.Map(ad => ad.Data).Column("Data");
+				           });
 		}
 	}
 }

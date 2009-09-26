@@ -219,15 +219,15 @@ namespace Hazzik.Net {
 			return result;
 		}
 
-		private static IPacket GetAccountDataTimesPkt(uint mask) {
-			var packet = WorldPacketFactory.Create(WMSG.SMSG_ACCOUNT_DATA_TIMES);
-			var writer = packet.CreateWriter();
+		private IPacket GetAccountDataTimesPkt(uint mask) {
+			IPacket packet = WorldPacketFactory.Create(WMSG.SMSG_ACCOUNT_DATA_TIMES);
+			BinaryWriter writer = packet.CreateWriter();
 			writer.Write(0);
 			writer.Write((byte)1);
 			writer.Write(mask);
 			for(int i = 0; i < 8; i++) {
-				if((mask&(1<<i))!=0 ) {
-					writer.Write(DateTime.Today.ToUnixTimestamp());
+				if((mask & (1 << i)) != 0) {
+					writer.Write(Account.FindAccpuntData((AccountDataType)i, Player != null ? Player.Guid : 0).Time.ToUnixTimestamp());
 				}
 			}
 			return packet;

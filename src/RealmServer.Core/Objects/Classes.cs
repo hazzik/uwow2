@@ -8,6 +8,7 @@ namespace Hazzik.Objects {
 		Hunter = 3,
 		Rogue = 4,
 		Priest = 5,
+		LichKing = 6,
 		Shaman = 7,
 		Mage = 8,
 		Warlock = 9,

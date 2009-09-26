@@ -3,17 +3,31 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
+using Hazzik.Data;
 using Hazzik.Net;
 using Hazzik.Objects;
 
 namespace Hazzik {
+	public class AccpuntData {
+		public ulong Guid { get; set; }
+		public AccountDataType Type { get; set; }
+		public DateTime Time { get; set; }
+		public string Data { get; set; }
+	}
+
 	[XmlType("account")]
 	public class Account {
+		private IList<AccpuntData> datas = new List<AccpuntData>();
 		private IList<Player> players = new List<Player>();
 
 		public IList<Player> Players {
 			get { return players; }
-			private set { players = value; }
+			protected set { players = value; }
+		}
+
+		public IList<AccpuntData> Datas {
+			get { return datas; }
+			protected set { datas = value; }
 		}
 
 		public virtual int Id { get; set; }
@@ -35,6 +49,22 @@ namespace Hazzik {
 
 		public void DelPlayer(Player player) {
 			players.Remove(player);
+		}
+
+		public AccpuntData FindAccpuntData(AccountDataType type, ulong guid) {
+			if(Datas.Where(ad => ad.Type == type && ad.Guid == guid).FirstOrDefault() != null) {
+				return datas.Where(ad => ad.Type == type && ad.Guid == guid).FirstOrDefault();
+			}
+			var data = new AccpuntData {
+				Type = type,
+				Guid = guid,
+				Time = DateTimeExtension.ToDateTime(0),
+				Data = "",
+			};
+			datas.Add(data);
+			Repository.Account.Save(this);
+			Repository.Account.SubmitChanges();
+			return data;
 		}
 
 		#region packets
@@ -88,5 +118,12 @@ namespace Hazzik {
 		}
 
 		#endregion
+
+		public void SetAccountData(AccpuntData accpuntData) {
+			datas.Remove(datas.Where(ad => ad.Type == accpuntData.Type).FirstOrDefault());
+			datas.Add(accpuntData);
+			Repository.Account.Save(this);
+			Repository.Account.SubmitChanges();
+		}
 	}
 }
