@@ -34,22 +34,25 @@ namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 
 		public void Dispatch(ISession client, IPacket packet) {
 			Player me = client.Player;
-			Session.SendNearExceptMe(me, GetMoveResponce(packet, me.Guid));
+			Session.SendNearExceptMe(me, GetMoveResponce(packet));
 			BinaryReader reader = packet.CreateReader();
 			reader.BaseStream.Seek(0, SeekOrigin.Begin);
+			var guid = reader.ReadPackGuid();
+			if (guid != me.Guid) {
+				throw new Exception();
+			}
 			me.MovementInfo.Read(reader);
 		}
 
 		#endregion
 
-		private static IPacket GetMoveResponce(IPacket packet, ulong guid) {
+		private static IPacket GetMoveResponce(IPacket packet) {
 			BinaryReader reader = packet.CreateReader();
 			reader.BaseStream.Seek(0, SeekOrigin.Begin);
 			byte[] bytes = reader.ReadBytes(packet.Size);
 
 			IPacket responce = WorldPacketFactory.Create((WMSG)packet.Code);
 			BinaryWriter w = responce.CreateWriter();
-			w.WritePackGuid(guid);
 			w.Write(bytes);
 			return responce;
 		}

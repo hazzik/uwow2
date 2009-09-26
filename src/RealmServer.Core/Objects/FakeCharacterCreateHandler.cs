@@ -50,6 +50,7 @@ namespace Hazzik.Objects {
 			_player.BackPack.AutoAdd(Item.Create(Repository.ItemTemplate.FindById(857)));
 			_player.BackPack.AutoAdd(Item.Create(Repository.ItemTemplate.FindById(9943)));
 			_player.BackPack.AutoAdd(Item.Create(Repository.ItemTemplate.FindById(30633)));
+			_player.BackPack.AutoAdd(Item.Create(Repository.ItemTemplate.FindById(2901)));
 
 			_player.TrainSpell(new[] {
 				78, // Heroic Strike Rank 1

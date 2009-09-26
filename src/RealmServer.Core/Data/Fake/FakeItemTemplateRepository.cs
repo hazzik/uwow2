@@ -18,6 +18,8 @@ namespace Hazzik.Data.Fake {
 				return new LargeRedSack857();
 			case 9943:
 				return new AbjurerSRobe9943();
+			case 2901:
+				return new MiningPick2901();
 			default:
 				return new AuchenaiKey30633();
 			}

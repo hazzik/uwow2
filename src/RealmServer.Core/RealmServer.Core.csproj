@@ -56,7 +56,9 @@
   <ItemGroup>
     <Compile Include="AddonInfo.cs" />
     <Compile Include="AddonManager.cs" />
+    <Compile Include="Data\Fake\Templates\MiningPick2901.cs" />
     <Compile Include="Data\IGameObjectTemplateRepository.cs" />
+    <Compile Include="GameObjects\UseHandlers\ChairHandler.cs" />
     <Compile Include="GameObjects\GameObjectTemplate.cs" />
     <Compile Include="Gossip\GossipMessage.cs" />
     <Compile Include="Net\IPacketDispatcherFactory.cs" />
@@ -91,9 +93,11 @@
     <Compile Include="Net\WorldPacketFactory.cs" />
     <Compile Include="Net\Session.cs" />
     <Compile Include="Objects\AttackPowerCalculatorFactory.cs" />
+    <Compile Include="GameObjects\UseHandlers\ChestUseHandler.cs" />
     <Compile Include="Objects\FakeCharacterCreateHandler.cs" />
     <Compile Include="Objects\IAttackPowerCalculator.cs" />
     <Compile Include="GameObjects\IGameObjectUseHandler.cs" />
+    <Compile Include="GameObjects\UseHandlers\NullUseHandler.cs" />
     <Compile Include="Objects\PowerCalculators\MageAttackPowerCalculator.cs" />
     <Compile Include="Objects\MovementFlagsExtension.cs" />
     <Compile Include="Objects\PowerCalculators\ShamanAttackPowerCalculator.cs" />

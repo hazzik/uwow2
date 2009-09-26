@@ -121,13 +121,15 @@ namespace Hazzik.Objects.Update {
 			UpdateObject(dto, obj);
 			if(obj.Owner != null) {
 				dto.Set(UpdateFields.CORPSE_FIELD_OWNER, obj.Owner.Guid);
-				//Set(UpdateFields.CORPSE_FIELD_PARTY, obj.Owner.Party);
+				//dto.Set(UpdateFields.CORPSE_FIELD_PARTY, obj.Owner.Party);
 			}
 			dto.Set(UpdateFields.CORPSE_FIELD_DISPLAY_ID, obj.DisplayId);
 			if(obj.Owner != null) {
 				IInventory inventory = obj.Owner.Inventory;
 				for(int i = 0; i < 19; i++) {
-					dto.Set(UpdateFields.CORPSE_FIELD_ITEM + i, inventory[i].Entry);
+					if(null != inventory[i]) {
+						dto.Set(UpdateFields.CORPSE_FIELD_ITEM + i, inventory[i].Entry);
+					}
 				}
 			}
 			dto.Set(UpdateFields.CORPSE_FIELD_BYTES_1,
