@@ -1,6 +1,4 @@
 ﻿using System;
-using System.IO;
-using Hazzik.Net;
 
 namespace Hazzik.GameObjects {
 	public class GameObjectTemplate {
@@ -12,6 +10,8 @@ namespace Hazzik.GameObjects {
 		public GameObjectType Type { get; set; }
 		public uint DisplayId { get; set; }
 		public string Name { get; set; }
+		public string IconName { get; set; }
+		public string CastBarCaption { get; set; }
 		public uint[] Fields { get; set; }
 		public float ScaleX { get; set; }
 	}

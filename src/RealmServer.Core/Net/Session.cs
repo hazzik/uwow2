@@ -301,8 +301,8 @@ namespace Hazzik.Net {
 			writer.WriteCString("");
 			writer.WriteCString("");
 			writer.WriteCString("");
-			writer.WriteCString("");
-			writer.WriteCString("");
+			writer.WriteCString(template.IconName);
+			writer.WriteCString(template.CastBarCaption);
 			writer.WriteCString("");
 			for(int i = 0; i < template.Fields.Length; i++) {
 				writer.Write(template.Fields[i]);

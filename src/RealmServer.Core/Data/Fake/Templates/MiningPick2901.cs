@@ -17,8 +17,8 @@ namespace Hazzik.Data.Fake.Templates {
 			Level = 4;
 			RequiredLevel = 1;
 			//Stackable = 1;
-			//SetDamage(2F, 4F, Resistances.Armor);
-			//Delay = 2000;
+			SetDamage(2F, 4F, ResistanceTypes.Armor);
+			AttackTime = 2000;
 			Description = "Miners need a mining pick for digging.";
 			Material = 1;
 			TotemCategory = 11;

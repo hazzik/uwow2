@@ -3,32 +3,32 @@ using Hazzik.Objects;
 
 namespace Hazzik.GameObjects.UseHandlers {
 	internal class ChairHandler : IGameObjectUseHandler {
-		private readonly GameObject _go;
+		private readonly GameObject gameObject;
 
 		public ChairHandler(GameObject go) {
-			_go = go;
+			gameObject = go;
 		}
 
 		public bool Use(Player user) {
-			user.PosX = _go.PosX;
-			user.PosY = _go.PosY;
-			user.PosZ = _go.PosZ;
-			user.Facing = _go.Facing;
+			user.PosX = gameObject.PosX;
+			user.PosY = gameObject.PosY;
+			user.PosZ = gameObject.PosZ;
+			user.Facing = gameObject.Facing;
 			user.HeartBeat();
 			user.StandState = StandStates.SittingChairLow + Hight;
 			return true;
 		}
 
 		public int MaxCount {
-			get { return (int)_go.Template.Fields[0]; }
+			get { return (int)gameObject.Template.Fields[0]; }
 		}
 
 		public int Hight {
-			get { return (int)_go.Template.Fields[1]; }
+			get { return (int)gameObject.Template.Fields[1]; }
 		}
 
 		public bool Private {
-			get { return _go.Template.Fields[2] != 0; }
+			get { return gameObject.Template.Fields[2] != 0; }
 		}
 	}
 }
