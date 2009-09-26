@@ -33,7 +33,16 @@ namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 			//creature.PosY = player.PosY;
 			//creature.PosZ = player.PosZ;
 			//ObjectManager.Add(creature);
-			GameObject gameObject = GameObject.Create(Repository.GameObjectTemplate.FindById(1731));
+			GameObjectTemplate template = Repository.GameObjectTemplate.FindById(1731);
+			template.Fields[0] = 38;
+			template.Fields[1] = 1502;
+			template.Fields[2] = 0;
+			template.Fields[3] = 1;
+			template.Fields[4] = 2;
+			template.Fields[5] = 4;
+//			GameObjectDescriptions.Add(new GameObjectDescription(1731, "Copper Vein", 3, 310, 0.5f, 0, AllLoot.Lootes[7525], new uint[] {38, 1502, 0, 1, 2, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}));
+
+			GameObject gameObject = GameObject.Create(template);
 			gameObject.PosX = player.PosX;
 			gameObject.PosY = player.PosY;
 			gameObject.PosZ = player.PosZ;

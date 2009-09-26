@@ -49,7 +49,6 @@ namespace Hazzik.Objects {
 				break;
 			case GameObjectType.Chest:
 				return new ChestUseHandler(this);
-				break;
 			case GameObjectType.Binder:
 				break;
 			case GameObjectType.Generic:
