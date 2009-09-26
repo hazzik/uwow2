@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.5.452, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -72,6 +76,7 @@
     <Compile Include="Internal\NpcTextQueryDispatcher.cs" />
     <Compile Include="Internal\PlayerLoginDispatcher.cs" />
     <Compile Include="Internal\RealmSplitDispatcher.cs" />
+    <Compile Include="Internal\RequestAccountDataDispatcher.cs" />
     <Compile Include="Internal\SetAmmoDispatcher.cs" />
     <Compile Include="Internal\SetSheathedDispatcher.cs" />
     <Compile Include="Internal\SplitItemDispatcher.cs" />
@@ -79,6 +84,7 @@
     <Compile Include="Internal\SwapInvItemDispatcher.cs" />
     <Compile Include="Internal\SwapItemDispatcher.cs" />
     <Compile Include="Internal\SwapItemDispatcherBase.cs" />
+    <Compile Include="Internal\UpdateAccountDataDispatcher.cs" />
     <Compile Include="PacketHandlerClassAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
