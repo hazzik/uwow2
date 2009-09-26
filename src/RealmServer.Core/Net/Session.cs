@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using Hazzik.Creatures;
 using Hazzik.GameObjects;

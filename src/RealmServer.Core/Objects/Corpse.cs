@@ -2,11 +2,11 @@ using System;
 
 namespace Hazzik.Objects {
 	public partial class Corpse : Positioned {
-		public Player Owner { get; private set; }
-
 		public Corpse() {
 			Type |= ObjectTypes.Corpse;
 		}
+
+		public Player Owner { get; private set; }
 
 		public override ObjectTypeId TypeId {
 			get { return ObjectTypeId.Corpse; }

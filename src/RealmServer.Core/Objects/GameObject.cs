@@ -13,7 +13,7 @@ namespace Hazzik.Objects {
 			Entry = template.Id;
 			GameObjectType = template.Type;
 			DisplayId = template.DisplayId;
-			ScaleX = template.ScaleX;	
+			ScaleX = template.ScaleX;
 			_template = template;
 			_useHandler = GetHandler();
 		}

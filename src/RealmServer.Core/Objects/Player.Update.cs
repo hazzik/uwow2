@@ -288,7 +288,7 @@ namespace Hazzik.Objects {
 		public virtual Single ModHealingPct { get; set; }
 
 		#endregion
-		
+
 		#region PLAYER_FIELD_MOD_HEALING_DONE_PCT
 
 		//PLAYER_FIELD_MOD_HEALING_DONE_PCT : type = Single, size = 1, flag = Private

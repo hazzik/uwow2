@@ -1,3 +1,5 @@
+using System;
+
 namespace Hazzik.Objects {
 	public enum ObjectTypeId : byte {
 		Object = 0,

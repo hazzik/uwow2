@@ -4,15 +4,6 @@ using System.Xml.Serialization;
 namespace Hazzik {
 	[Serializable]
 	public class AddonInfo {
-		[XmlAttribute]
-		public string Name { get; set; }
-
-		[XmlAttribute]
-		public ulong Crc { get; set; }
-
-		[XmlAttribute]
-		public byte Status { get; set; }
-
 		public AddonInfo() {
 		}
 
@@ -29,5 +20,14 @@ namespace Hazzik {
 			Crc = crc;
 			Status = status;
 		}
+
+		[XmlAttribute]
+		public string Name { get; set; }
+
+		[XmlAttribute]
+		public ulong Crc { get; set; }
+
+		[XmlAttribute]
+		public byte Status { get; set; }
 	}
 }

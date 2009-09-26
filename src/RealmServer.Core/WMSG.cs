@@ -1,4 +1,6 @@
 // ReSharper disable InconsistentNaming
+using System;
+
 namespace Hazzik {
 	public enum WMSG {
 		MSG_NULL_ACTION = 0,
@@ -1194,4 +1196,5 @@ namespace Hazzik {
 		NUM_MSG_TYPES = 1190,
 	}
 }
+
 // ReSharper restore InconsistentNaming

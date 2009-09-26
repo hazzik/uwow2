@@ -11,7 +11,7 @@ namespace Hazzik.Net {
 		public void OnAccept(Socket s) {
 			var client = new WorldClient(s);
 			client.SetProcessor(new WorldPacketProcessor(new Session(client)));
-			client.Start();	
+			client.Start();
 			_clients.Add(client);
 		}
 

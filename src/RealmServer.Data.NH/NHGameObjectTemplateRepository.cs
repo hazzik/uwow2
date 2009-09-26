@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Hazzik.GameObjects;
+using NHibernate;
 using NHibernate.Criterion;
 
 namespace Hazzik.Data.NH {
@@ -8,7 +9,7 @@ namespace Hazzik.Data.NH {
 		#region IGameObjectTemplateRepository Members
 
 		public GameObjectTemplate FindById(uint id) {
-			var criteria = CreateCriteria();
+			ICriteria criteria = CreateCriteria();
 			criteria.Add(Restrictions.Eq("Id", id));
 			return criteria.List<GameObjectTemplate>().FirstOrDefault();
 		}

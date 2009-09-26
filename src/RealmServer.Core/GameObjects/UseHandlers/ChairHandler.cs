@@ -9,6 +9,20 @@ namespace Hazzik.GameObjects.UseHandlers {
 			gameObject = go;
 		}
 
+		public int MaxCount {
+			get { return gameObject.Template.Field0; }
+		}
+
+		public int Hight {
+			get { return gameObject.Template.Field1; }
+		}
+
+		public bool Private {
+			get { return gameObject.Template.Field2 != 0; }
+		}
+
+		#region IGameObjectUseHandler Members
+
 		public bool Use(Player user) {
 			user.PosX = gameObject.PosX;
 			user.PosY = gameObject.PosY;
@@ -19,16 +33,6 @@ namespace Hazzik.GameObjects.UseHandlers {
 			return true;
 		}
 
-		public int MaxCount {
-			get { return (int)gameObject.Template.Field0; }
-		}
-
-		public int Hight {
-			get { return (int)gameObject.Template.Field1; }
-		}
-
-		public bool Private {
-			get { return gameObject.Template.Field2 != 0; }
-		}
+		#endregion
 	}
 }

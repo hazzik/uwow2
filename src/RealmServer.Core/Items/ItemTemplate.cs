@@ -61,8 +61,8 @@ namespace Hazzik.Items {
 		public string Description = string.Empty;
 		public int DisplayId;
 		public int ExtendedCost;
-		public int Flags;
 		public int Faction;
+		public int Flags;
 		public int GemPropertiesId;
 		public int Id;
 		public InventoryTypes InventoryType;

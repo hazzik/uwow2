@@ -8,7 +8,7 @@ namespace Hazzik.Dbc {
 		private static readonly IDictionary<int, SkillLineAbility> Entities = Load();
 
 		private static IDictionary<int, SkillLineAbility> Load() {
-			var stream = File.OpenRead(@"DbFilesClient/SkillLineAbility.dbc");
+			FileStream stream = File.OpenRead(@"DbFilesClient/SkillLineAbility.dbc");
 			var dbcReader = new DbcDataReader(stream);
 			var result = new Dictionary<int, SkillLineAbility>();
 			foreach(IDbcRow row in dbcReader) {

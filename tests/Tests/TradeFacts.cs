@@ -1,4 +1,5 @@
-﻿using Hazzik.Objects;
+﻿using System;
+using Hazzik.Objects;
 using Hazzik.Trade;
 using Xunit;
 using Xunit.Extensions;
@@ -6,6 +7,7 @@ using Xunit.Extensions;
 namespace Tests {
 	public class TradeFacts {
 		public static Assertions Assert = new Assertions();
+
 		[Fact]
 		public void ConstructorAcceptsPlayer() {
 			var player = new Player();

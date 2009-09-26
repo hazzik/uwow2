@@ -1,3 +1,5 @@
+using System;
+
 namespace Hazzik.Objects {
 	public enum LogoutResponses {
 		Accepted = 00,

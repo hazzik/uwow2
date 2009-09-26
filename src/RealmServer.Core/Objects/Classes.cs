@@ -1,3 +1,5 @@
+using System;
+
 namespace Hazzik.Objects {
 	public enum Classes {
 		Any = 0,

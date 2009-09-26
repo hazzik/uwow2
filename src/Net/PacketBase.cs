@@ -15,6 +15,8 @@ namespace Hazzik.Net {
 			Code = code;
 		}
 
+		#region IPacket Members
+
 		public int Code { get; protected set; }
 
 		public int Size {
@@ -39,11 +41,13 @@ namespace Hazzik.Net {
 		public virtual void WriteBody(Stream stream) {
 			int bytesRead;
 			var buffer = new byte[1024];
-			var packetStream = GetStream();
+			Stream packetStream = GetStream();
 			packetStream.Seek(0, SeekOrigin.Begin);
 			while((bytesRead = packetStream.Read(buffer, 0, 1024)) > 0) {
 				stream.Write(buffer, 0, bytesRead);
 			}
 		}
+
+		#endregion
 	}
 }

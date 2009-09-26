@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Xml.Serialization;
 using Hazzik.Net;
 using Hazzik.Objects;
 
 namespace Hazzik {
-	[System.Xml.Serialization.XmlType("account")]
+	[XmlType("account")]
 	public class Account {
 		private IList<Player> players = new List<Player>();
 
@@ -34,14 +36,14 @@ namespace Hazzik {
 		public void DelPlayer(Player player) {
 			players.Remove(player);
 		}
-		
+
 		#region packets
 
 		public IPacket GetCharEnumPkt() {
-			var p = WorldPacketFactory.Create(WMSG.SMSG_CHAR_ENUM);
-			var w = p.CreateWriter();
+			IPacket p = WorldPacketFactory.Create(WMSG.SMSG_CHAR_ENUM);
+			BinaryWriter w = p.CreateWriter();
 			w.Write((byte)Players.Count);
-			foreach(var player in Players) {
+			foreach(Player player in Players) {
 				w.Write(player.Guid);
 				w.WriteCString(player.Name);
 				w.Write((byte)player.Race);
@@ -68,8 +70,8 @@ namespace Hazzik {
 				w.Write(player.PetLevel);
 				w.Write(player.PetCreatureFamily);
 				w.Write(0);
-				for(var i = 0; i < 20; i++) {
-					var item = player.Inventory[i];
+				for(int i = 0; i < 20; i++) {
+					Item item = player.Inventory[i];
 					if(item != null) {
 						w.Write(item.Template.DisplayId);
 						w.Write((byte)item.Template.InventoryType);

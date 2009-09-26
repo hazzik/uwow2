@@ -2,8 +2,7 @@ using System;
 using Hazzik.Items;
 
 namespace Hazzik.Data.Fake.Templates {
-	public class MiningPick2901 : ItemTemplate
-	{
+	public class MiningPick2901 : ItemTemplate {
 		public MiningPick2901() {
 			Id = 2901;
 			ObjectClass = 2;

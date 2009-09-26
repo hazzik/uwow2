@@ -1,3 +1,5 @@
+using System;
+
 namespace Hazzik.Creatures {
 	public enum CreatureFamily {
 		None = 0,

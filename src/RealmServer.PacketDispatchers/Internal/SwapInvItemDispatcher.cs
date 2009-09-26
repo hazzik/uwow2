@@ -12,7 +12,7 @@ namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 			BinaryReader reader = packet.CreateReader();
 			byte srcSlot = reader.ReadByte();
 			byte dstSlot = reader.ReadByte();
-			
+
 			Player player = session.Player;
 
 			SwapItems(player.Inventory, srcSlot, player.Inventory, dstSlot);

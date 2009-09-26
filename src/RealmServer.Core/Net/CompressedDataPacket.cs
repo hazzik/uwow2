@@ -58,8 +58,8 @@ namespace Hazzik.Net {
 
 		public override Stream GetStream() {
 			if(null == _stream || _dirty) {
-				var size = 0;
-				foreach(var packet in _packets) {
+				int size = 0;
+				foreach(IPacket packet in _packets) {
 					size += 3 + packet.Size;
 				}
 				_stream = new MemoryStream();
@@ -69,7 +69,7 @@ namespace Hazzik.Net {
 				_stream.WriteByte((byte)(size >> 0x18));
 
 				var compressedStream = new DeflaterOutputStream(_stream);
-				foreach(var packet in _packets) {
+				foreach(IPacket packet in _packets) {
 					compressedStream.WriteByte((byte)(packet.Size + 2));
 					compressedStream.WriteByte((byte)(Code));
 					compressedStream.WriteByte((byte)(Code >> 0x08));

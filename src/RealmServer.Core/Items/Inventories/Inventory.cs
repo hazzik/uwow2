@@ -38,7 +38,7 @@ namespace Hazzik.Items.Inventories {
 		}
 
 		public void DestroyItem(int slot) {
-			var item = GetItem(slot);
+			Item item = GetItem(slot);
 			if(item != null) {
 				item.Destroy();
 			}
@@ -46,7 +46,7 @@ namespace Hazzik.Items.Inventories {
 		}
 
 		public bool AutoAdd(Item item) {
-			var slot = FindFreeSlot();
+			int slot = FindFreeSlot();
 			if(slot != -1) {
 				this[slot] = item;
 				return true;

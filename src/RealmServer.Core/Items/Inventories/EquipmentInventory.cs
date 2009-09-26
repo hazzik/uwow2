@@ -8,8 +8,10 @@ namespace Hazzik.Items.Inventories {
 			: base(player.Inventory, 0, 22) {
 		}
 
+		#region IEquipmentInventory Members
+
 		public override bool AutoAdd(Item item) {
-			var slot = FindFreeSlot(item.Template.CanBeEquipedIn);
+			int slot = FindFreeSlot(item.Template.CanBeEquipedIn);
 			if(slot != -1) {
 				this[slot] = item;
 				return true;
@@ -18,18 +20,20 @@ namespace Hazzik.Items.Inventories {
 		}
 
 		public Item AutoEquip(Item item) {
-			var slot = FindFreeSlot(item.Template);
+			int slot = FindFreeSlot(item.Template);
 			if(slot != -1) {
-				var old = this[slot];
+				Item old = this[slot];
 				this[slot] = item;
 				return old;
 			}
 			return item;
 		}
 
+		#endregion
+
 		private int FindFreeSlot(ItemTemplate template) {
-			var slots = template.CanBeEquipedIn;
-			var slot = FindFreeSlot(slots);
+			int[] slots = template.CanBeEquipedIn;
+			int slot = FindFreeSlot(slots);
 			if(slot == -1 && !template.IsBag && slots.Length > 0) {
 				return slots[0];
 			}

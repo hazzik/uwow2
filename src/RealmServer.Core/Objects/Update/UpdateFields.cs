@@ -404,6 +404,5 @@ namespace Hazzik.Objects.Update {
 		CORPSE_FIELD_DYNAMIC_FLAGS = OBJECT_END + 28, // 1 1:Int 256:Dynamic
 		CORPSE_FIELD_PAD = OBJECT_END + 29, // 1 1:Int 0:None
 		CORPSE_END = OBJECT_END + 30,
-
 	}
 }

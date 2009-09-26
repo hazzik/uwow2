@@ -1,3 +1,5 @@
+using System;
+
 namespace Hazzik.Creatures {
 	public enum CreatureRank {
 		Normal = 0,

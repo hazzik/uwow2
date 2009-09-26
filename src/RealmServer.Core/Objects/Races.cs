@@ -1,3 +1,5 @@
+using System;
+
 namespace Hazzik {
 	public enum Races {
 		Human = 1,

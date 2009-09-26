@@ -11,7 +11,7 @@ namespace Hazzik.Skills {
 		public ushort Cap { get; set; }
 
 		public ushort Modifier { get; set; }
-		
+
 		public ushort Modifier2 { get; set; }
 
 		public override string ToString() {

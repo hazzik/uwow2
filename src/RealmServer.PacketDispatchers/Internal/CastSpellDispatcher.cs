@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Hazzik.Net;
 
 namespace Hazzik.RealmServer.PacketDispatchers.Internal {
@@ -7,13 +8,13 @@ namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 		#region IPacketDispatcher Members
 
 		public void Dispatch(ISession session, IPacket packet) {
-			var reader = packet.CreateReader();
-			var castCount = reader.ReadByte();
-			var spellId = reader.ReadUInt32();
-			var unklags = reader.ReadByte();
+			BinaryReader reader = packet.CreateReader();
+			byte castCount = reader.ReadByte();
+			uint spellId = reader.ReadUInt32();
+			byte unklags = reader.ReadByte();
 
-			var pkt = WorldPacketFactory.Create(WMSG.SMSG_SPELL_GO);
-			var writer = pkt.CreateWriter();
+			IPacket pkt = WorldPacketFactory.Create(WMSG.SMSG_SPELL_GO);
+			BinaryWriter writer = pkt.CreateWriter();
 			writer.WritePackGuid(session.Player.Guid);
 			writer.WritePackGuid(session.Player.Guid);
 			writer.Write(castCount);

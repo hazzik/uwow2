@@ -41,7 +41,7 @@ namespace Tests {
 		///Paladin		AP:(Strength x 2) + (Level x 3) - 20 RAP:Agility - 10
 		[Fact]
 		public void WarriorAttackPowerCalculator() {
-			var unit = CreatePlayerWithRandomLevelStrength();
+			Unit unit = CreatePlayerWithRandomLevelStrength();
 			var calculator = new WarriorAttackPowerCalculator(unit);
 			Assert.Equal(unit.Stat0 * 2 + unit.Level * 3 - 20, calculator.Base());
 		}
@@ -51,7 +51,7 @@ namespace Tests {
 		///Warlock	AP:Strength - 10 RAP:Agility - 10
 		[Fact]
 		public void MageAttackPowerCalculator() {
-			var unit = CreatePlayerWithRandomLevelStrength();
+			Unit unit = CreatePlayerWithRandomLevelStrength();
 			var calcualator = new MageAttackPowerCalculator(unit);
 			Assert.Equal(unit.Stat0 - 10, calcualator.Base());
 		}

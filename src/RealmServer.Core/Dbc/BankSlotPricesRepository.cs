@@ -7,7 +7,7 @@ namespace Hazzik.Dbc {
 		private static readonly IDictionary<uint, uint> Entities = Load();
 
 		private static IDictionary<uint, uint> Load() {
-			var stream = File.OpenRead(@"DbFilesClient/BankBagSlotPrices.dbc");
+			FileStream stream = File.OpenRead(@"DbFilesClient/BankBagSlotPrices.dbc");
 			var dbcReader = new DbcDataReader(stream);
 			var result = new Dictionary<uint, uint>();
 			foreach(IDbcRow row in dbcReader) {

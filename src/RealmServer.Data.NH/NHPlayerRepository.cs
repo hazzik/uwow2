@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Hazzik.Objects;
+using NHibernate;
 using NHibernate.Criterion;
 
 namespace Hazzik.Data.NH {
@@ -8,13 +9,13 @@ namespace Hazzik.Data.NH {
 		#region IPlayerRepository Members
 
 		public Player FindByGuid(ulong guid) {
-			var criteria = CreateCriteria();
+			ICriteria criteria = CreateCriteria();
 			criteria.Add(Restrictions.Eq("Guid", guid));
 			return criteria.List<Player>().FirstOrDefault();
 		}
 
 		public Player FindByName(string name) {
-			var criteria = CreateCriteria();
+			ICriteria criteria = CreateCriteria();
 			criteria.Add(Restrictions.Eq("Name", name.ToUpper()));
 			return criteria.List<Player>().FirstOrDefault();
 		}

@@ -1,9 +1,6 @@
 using System;
 using System.IO;
-using Hazzik.Creatures;
 using Hazzik.Data;
-using Hazzik.Data.Fake.Templates;
-using Hazzik.GameObjects;
 using Hazzik.Map;
 using Hazzik.Net;
 using Hazzik.Objects;
@@ -40,7 +37,7 @@ namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 			gameObject.PosZ = player.PosZ;
 			ObjectManager.Add(gameObject);
 
-			var corpse =Corpse.Create(player);
+			Corpse corpse = Corpse.Create(player);
 			corpse.PosX = player.PosX;
 			corpse.PosY = player.PosY;
 			corpse.PosZ = player.PosZ;

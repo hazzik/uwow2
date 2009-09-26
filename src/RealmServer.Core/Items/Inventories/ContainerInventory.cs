@@ -7,7 +7,7 @@ namespace Hazzik.Items.Inventories {
 		}
 
 		public override int FindFreeSlot() {
-			for(var i = 0; i < Slots; i++) {
+			for(int i = 0; i < Slots; i++) {
 				if(null == this[i]) {
 					return i;
 				}

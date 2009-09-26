@@ -4,7 +4,7 @@ namespace Hazzik.Gossip {
 	public class QuestsMenuItem {
 		public QuestsMenuItem(uint menuId, uint icon, string text) {
 			Id = menuId;
-			Icon = (uint)icon;
+			Icon = icon;
 			Text = text;
 		}
 

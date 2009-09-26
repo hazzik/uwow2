@@ -9,26 +9,14 @@ namespace Hazzik {
 		private static readonly XmlSerializer _serializer = new XmlSerializer(typeof(List<AddonInfo>));
 		private static AddonManager _instance;
 
+		public List<AddonInfo> AddonInfos = new List<AddonInfo>();
+
 		public static AddonManager Instance {
 			get {
 				if(_instance == null) {
 					_instance = new AddonManager();
 				}
 				return _instance;
-			}
-		}
-
-		public List<AddonInfo> AddonInfos = new List<AddonInfo>();
-
-		public void Load(string fileName) {
-			using(var file = new FileInfo(fileName).Open(FileMode.OpenOrCreate, FileAccess.Read)) {
-				AddonInfos = (List<AddonInfo>)_serializer.Deserialize(file);
-			}
-		}
-
-		public void Save(string filename) {
-			using(var file = new FileInfo(filename).Open(FileMode.Create, FileAccess.Write)) {
-				_serializer.Serialize(file, AddonInfos);
 			}
 		}
 
@@ -39,11 +27,23 @@ namespace Hazzik {
 				        select addon).FirstOrDefault();
 			}
 			set {
-				var addon = this[name];
+				AddonInfo addon = this[name];
 				if(addon != null) {
 					AddonInfos.Remove(addon);
 				}
 				AddonInfos.Add(value);
+			}
+		}
+
+		public void Load(string fileName) {
+			using(FileStream file = new FileInfo(fileName).Open(FileMode.OpenOrCreate, FileAccess.Read)) {
+				AddonInfos = (List<AddonInfo>)_serializer.Deserialize(file);
+			}
+		}
+
+		public void Save(string filename) {
+			using(FileStream file = new FileInfo(filename).Open(FileMode.Create, FileAccess.Write)) {
+				_serializer.Serialize(file, AddonInfos);
 			}
 		}
 	}

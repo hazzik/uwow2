@@ -9,32 +9,32 @@ namespace Hazzik.Net {
 		}
 
 		public override IPacket ReadPacket() {
-			var stream = GetStream();
+			Stream stream = GetStream();
 			var reader = new BinaryReader(stream);
-			var code = ReadCode(stream);
-			var size = ReadSize(stream, code);
+			int code = ReadCode(stream);
+			int size = ReadSize(stream, code);
 			var buffer = new byte[size];
 			stream.Read(buffer, 0, buffer.Length);
 			return new AuthPacket((RMSG)code, buffer);
 		}
 
 		public override void ReadPacketAsync(Action<IPacket> func) {
-			var stream = GetStream();
-			var code = ReadCode(stream);
-			var size = ReadSize(stream, code);
+			Stream stream = GetStream();
+			int code = ReadCode(stream);
+			int size = ReadSize(stream, code);
 			var buffer = new byte[size];
 			stream.ReadAsync(buffer, 0, buffer.Length, () => func(new AuthPacket((RMSG)code, buffer)));
 		}
 
 		public override void Send(IPacket packet) {
-			var data = GetStream();
-			var head = data;
+			Stream data = GetStream();
+			Stream head = data;
 
 			WriteCode(head, packet);
 			WriteSize(head, packet);
 			packet.WriteBody(data);
 		}
-	
+
 		private static int ReadCode(Stream stream) {
 			return stream.ReadByte();
 		}
@@ -48,7 +48,7 @@ namespace Hazzik.Net {
 			switch((RMSG)code) {
 			case RMSG.AUTH_LOGON_CHALLENGE:
 			case RMSG.AUTH_LOGON_RECODE_CHALLENGE:
-				var unk = reader.ReadByte();
+				byte unk = reader.ReadByte();
 				return reader.ReadUInt16();
 			case RMSG.AUTH_LOGON_PROOF:
 				return 0x4A;

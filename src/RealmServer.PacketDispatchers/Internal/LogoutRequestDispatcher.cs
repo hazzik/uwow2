@@ -10,6 +10,7 @@ namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 		public void Dispatch(ISession client, IPacket packet) {
 			client.Player.StandState = StandStates.Sitting;
 			client.SendLogoutResponce();
+			client.Player.Logout();
 			client.Player = null;
 			client.SendLogoutComplete();
 		}

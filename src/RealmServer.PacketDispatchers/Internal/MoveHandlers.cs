@@ -37,8 +37,8 @@ namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 			Session.SendNearExceptMe(me, GetMoveResponce(packet));
 			BinaryReader reader = packet.CreateReader();
 			reader.BaseStream.Seek(0, SeekOrigin.Begin);
-			var guid = reader.ReadPackGuid();
-			if (guid != me.Guid) {
+			ulong guid = reader.ReadPackGuid();
+			if(guid != me.Guid) {
 				throw new Exception();
 			}
 			me.MovementInfo.Read(reader);

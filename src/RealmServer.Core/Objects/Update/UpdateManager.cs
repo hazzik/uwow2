@@ -12,6 +12,7 @@ namespace Hazzik.Objects.Update {
 
 		public UpdateManager(Player player) {
 			_player = player;
+			_player.SetUpdateManager(this);
 			_updateTimer = new UpdateTimer(this);
 		}
 
@@ -50,6 +51,10 @@ namespace Hazzik.Objects.Update {
 
 		public void StartUpdateTimer() {
 			_updateTimer.Start();
+		}
+
+		public void StopUpdateTimer() {
+			_updateTimer.Stop();
 		}
 	}
 }

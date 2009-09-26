@@ -7,15 +7,16 @@ namespace Hazzik {
 		RP = 6,
 		PvPRP = 8,
 	}
-	public enum ServerStatus : byte {
-			Green = 0,
-			Red = 1,
-			Offline = 2,
 
-			RecomendedBlue = 32,
-			RecomendedGreen = 64,
-			Full = 128,
-		}
+	public enum ServerStatus : byte {
+		Green = 0,
+		Red = 1,
+		Offline = 2,
+
+		RecomendedBlue = 32,
+		RecomendedGreen = 64,
+		Full = 128,
+	}
 
 	public class WorldServerInfo {
 		public ServerType Type { get; set; }

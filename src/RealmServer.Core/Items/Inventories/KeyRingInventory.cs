@@ -12,7 +12,7 @@ namespace Hazzik.Items.Inventories {
 
 		public override uint Slots {
 			get {
-				var level = _player.Level;
+				uint level = _player.Level;
 				return (uint)(level >= 60 ? 16 : level >= 50 ? 12 : level >= 40 ? 8 : 4);
 			}
 		}

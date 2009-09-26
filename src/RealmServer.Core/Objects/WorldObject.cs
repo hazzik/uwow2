@@ -1,10 +1,9 @@
 using System;
 using System.IO;
-using Hazzik.Net;
 using Hazzik.Objects.Update;
 
 namespace Hazzik.Objects {
-	public abstract partial class WorldObject  {
+	public abstract partial class WorldObject {
 		protected WorldObject() {
 			Guid = ObjectGuid.NewGuid();
 			Type = ObjectTypes.Object;

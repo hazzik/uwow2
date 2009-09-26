@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 
 namespace Hazzik.Net {
 	public class AuthPacket : PacketBase, IPacket {

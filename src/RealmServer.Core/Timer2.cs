@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 
 namespace Hazzik {
@@ -14,8 +15,8 @@ namespace Hazzik {
 
 		#region Fields
 
-		private States _state;
 		private long _period;
+		private States _state;
 
 		private Timer _timer;
 
@@ -24,10 +25,12 @@ namespace Hazzik {
 		#region ctors
 
 		public Timer2(double p)
-			: this((long)p) { }
+			: this((long)p) {
+		}
 
 		public Timer2(int p)
-			: this((long)p) { }
+			: this((long)p) {
+		}
 
 		public Timer2(long p) {
 			_period = p;
@@ -41,8 +44,9 @@ namespace Hazzik {
 		public int Delay {
 			get { return (int)_period; }
 			set {
-				if(null != _timer && _state == States.Started)
+				if(null != _timer && _state == States.Started) {
 					_timer.Change(_period, value);
+				}
 				_period = value;
 			}
 		}
@@ -72,8 +76,9 @@ namespace Hazzik {
 
 		public virtual void Start() {
 			_state = States.Started;
-			if(_timer == null)
+			if(_timer == null) {
 				_timer = new Timer(Tc);
+			}
 			_timer.Change(_period, _period);
 		}
 

@@ -8,6 +8,9 @@ namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 		#region IPacketDispatcher Members
 
 		public void Dispatch(ISession client, IPacket packet) {
+			if(client.Player == null) {
+				return;
+			}
 			client.Player.StandState = StandStates.Standing;
 			client.SendLogoutCancelAck();
 		}

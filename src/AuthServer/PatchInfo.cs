@@ -5,11 +5,11 @@ using System.Security.Cryptography;
 namespace Hazzik {
 	[Serializable]
 	public class PatchInfo {
-		private static HashAlgorithm s_hashAlgo = MD5.Create();
+		private static readonly HashAlgorithm s_hashAlgo = MD5.Create();
 
-		private VersionInfo _versionInfo = new VersionInfo();
 		private FileInfo _fileInfo;
 		private byte[] _hash;
+		private VersionInfo _versionInfo = new VersionInfo();
 
 		public VersionInfo VersionInfo {
 			get { return _versionInfo; }

@@ -22,7 +22,7 @@ namespace Tests {
 		private static TestInventory CreateInventory(IContainer player, uint slotsCount) {
 			return new TestInventory(player, slotsCount);
 		}
-		
+
 		private static Item CreateItem() {
 			return Item.Create(new ItemTemplate());
 		}
@@ -74,7 +74,6 @@ namespace Tests {
 			Assert.Equal(container, item.Contained);
 			Assert.Equal(player, item.Owner);
 		}
-
 
 		#region Nested type: TestInventory
 

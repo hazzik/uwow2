@@ -14,7 +14,7 @@ namespace Hazzik.GameObjects.UseHandlers {
 		public bool Use(Player user) {
 			gameObject.Flags = 0;
 
-			return true;	
+			return true;
 		}
 
 		#endregion

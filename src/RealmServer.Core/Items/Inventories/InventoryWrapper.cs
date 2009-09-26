@@ -39,15 +39,6 @@ namespace Hazzik.Items.Inventories {
 			}
 		}
 
-		public virtual int FindFreeSlot() {
-			for(int i = 0; i < Slots; i++) {
-				if(this[i + Offset] == null) {
-					return i + Offset;
-				}
-			}
-			return -1;
-		}
-
 		IEnumerator<Item> IEnumerable<Item>.GetEnumerator() {
 			return GetEnumerator();
 		}
@@ -57,7 +48,7 @@ namespace Hazzik.Items.Inventories {
 		}
 
 		public virtual bool AutoAdd(Item item) {
-			var slot = FindFreeSlot();
+			int slot = FindFreeSlot();
 			if(slot != -1) {
 				this[slot] = item;
 				return true;
@@ -66,6 +57,15 @@ namespace Hazzik.Items.Inventories {
 		}
 
 		#endregion
+
+		public virtual int FindFreeSlot() {
+			for(int i = 0; i < Slots; i++) {
+				if(this[i + Offset] == null) {
+					return i + Offset;
+				}
+			}
+			return -1;
+		}
 
 		private IEnumerator<Item> GetEnumerator() {
 			for(int i = 0; i < Slots; i++) {
