@@ -10,11 +10,11 @@ using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 namespace Hazzik.Net {
 	public class WorldPacketProcessor : IPacketProcessor {
 		private readonly uint serverSeed = (uint)(new Random().Next(0, Int32.MaxValue));
-		private readonly ISession _session;
+		private readonly ISession session;
 
 		public WorldPacketProcessor(ISession client) {
-			_session = client;
-			_session.Client.Send(GetAuthChallengePkt());
+			session = client;
+			session.Client.Send(GetAuthChallengePkt());
 		}
 
 		public static IPacketDispatcherFactory Factory { get; set; }
@@ -23,20 +23,19 @@ namespace Hazzik.Net {
 
 		public void Process(IPacket packet) {
 			var code = (WMSG)packet.Code;
-			//Console.WriteLine("Handle {0}", code);
 			if(code == WMSG.CMSG_AUTH_SESSION) {
 				HandleAuthSession(packet);
 				return;
 			}
-			IPacketDispatcher dispatcher = Factory.GetDispatcher((WMSG)packet.Code);
+			IPacketDispatcher dispatcher = Factory.GetDispatcher(code);
 			if(dispatcher != null) {
-				Console.WriteLine((WMSG)packet.Code);
-				dispatcher.Dispatch(_session, packet);
+				Console.WriteLine(code);
+				dispatcher.Dispatch(session, packet);
 			}
 			else {
 				ConsoleColor color = Console.ForegroundColor;
 				Console.ForegroundColor = ConsoleColor.Red;
-				Console.WriteLine((WMSG)packet.Code);
+				Console.WriteLine(code);
 				Console.ForegroundColor = color;
 			}
 		}
@@ -66,15 +65,15 @@ namespace Hazzik.Net {
 			ulong unk3 = r.ReadUInt64();
 			byte[] clientDigest = r.ReadBytes(20);
 
-			_session.Account = Repository.Account.FindByName(accountName);
+			session.Account = Repository.Account.FindByName(accountName);
 
-			_session.Client.SetSymmetricAlgorithm(new WowCryptRC4(_session.Account.SessionKey));
+			session.Client.SetSymmetricAlgorithm(new WowCryptRC4(session.Account.SessionKey));
 
 			if(!Utility.Equals(clientDigest, ComputeServerDigest(clientSeed))) {
 				throw new Exception();
 			}
 
-			(_session.Client).Send(GetAuthResponcePkt());
+			(session.Client).Send(GetAuthResponcePkt());
 
 			uint addonInfoBlockSize = r.ReadUInt32();
 			dataStream = new InflaterInputStream(dataStream); //дальше данные запакованы
@@ -92,8 +91,8 @@ namespace Hazzik.Net {
 			catch(Exception e) {
 			}
 			//_client.Send(GetAddonInfoPkt());
-			(_session.Client).Send(GetTutorialFlagsPkt());
-			_session.SendAccountDataTimes(0x15);
+			(session.Client).Send(GetTutorialFlagsPkt());
+			session.SendAccountDataTimes(0x15);
 		}
 
 		private IPacket GetAuthResponcePkt() {
@@ -103,7 +102,7 @@ namespace Hazzik.Net {
 			w.Write((uint)0);
 			w.Write((byte)2);
 			w.Write((uint)0);
-			w.Write((byte)_session.Account.Expansion);
+			w.Write((byte)session.Account.Expansion);
 			return result;
 		}
 
@@ -121,11 +120,11 @@ namespace Hazzik.Net {
 		private byte[] ComputeServerDigest(uint clientSeed) {
 			byte[] buff;
 			using(var w = new BinaryWriter(new MemoryStream())) {
-				w.Write(Encoding.UTF8.GetBytes(_session.Account.Name));
+				w.Write(Encoding.UTF8.GetBytes(session.Account.Name));
 				w.Write(0);
 				w.Write(clientSeed);
 				w.Write(serverSeed);
-				w.Write(_session.Account.SessionKey);
+				w.Write(session.Account.SessionKey);
 				w.Flush();
 				buff = ((MemoryStream)w.BaseStream).ToArray();
 				buff = SHA1.Create().ComputeHash(buff, 0, buff.Length);
