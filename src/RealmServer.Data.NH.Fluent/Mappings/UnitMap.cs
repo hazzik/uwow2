@@ -3,11 +3,11 @@ using FluentNHibernate.Mapping;
 using Hazzik.Objects;
 
 namespace Hazzik.RealmServer.Data.NH.Fluent.Mappings {
-	public class UnitMap : ClassMap<Unit> {
+	public class UnitMap : SubclassMap<Unit> {
 		public UnitMap() {
 			Table("Units");
 			Not.LazyLoad();
-			Id(p => p.Guid).Column("UnitId").UnsavedValue("any").GeneratedBy.Native();
+			KeyColumn("UnitId");
 			Map(p => p.Name).Column("Name").Not.Nullable().Unique().Length(255);
 			Map(p => p.Race).Column("Race").CustomType(typeof(Races));
 			Map(p => p.Classe).Column("Class").CustomType(typeof(Classes));

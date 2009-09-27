@@ -63,6 +63,7 @@
     <Compile Include="FluentSessionFactoryFactory.cs" />
     <Compile Include="Mappings\GameObjectTemplateMap.cs" />
     <Compile Include="Mappings\PlayerMap.cs" />
+    <Compile Include="Mappings\PositionedMap.cs" />
     <Compile Include="Mappings\UnitMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

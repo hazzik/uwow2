@@ -4,7 +4,7 @@ using Hazzik.Objects.Update;
 
 namespace Hazzik.Objects {
 	public partial class Unit : Positioned {
-		private readonly MovementInfo _movementInfo = new MovementInfo();
+		private readonly MovementInfo movementInfo = new MovementInfo();
 
 		public Unit() {
 			_attackPower = AttackPowerCalculatorFactory.CreateAttackPowerCalculator(this);
@@ -20,23 +20,23 @@ namespace Hazzik.Objects {
 		}
 
 		public override float PosX {
-			get { return _movementInfo.X; }
-			set { _movementInfo.X = value; }
+			get { return movementInfo.X; }
+			set { movementInfo.X = value; }
 		}
 
 		public override float PosY {
-			get { return _movementInfo.Y; }
-			set { _movementInfo.Y = value; }
+			get { return movementInfo.Y; }
+			set { movementInfo.Y = value; }
 		}
 
 		public override float PosZ {
-			get { return _movementInfo.Z; }
-			set { _movementInfo.Z = value; }
+			get { return movementInfo.Z; }
+			set { movementInfo.Z = value; }
 		}
 
 		public override float Facing {
-			get { return _movementInfo.O; }
-			set { _movementInfo.O = value; }
+			get { return movementInfo.O; }
+			set { movementInfo.O = value; }
 		}
 
 		public float Speed0 { get; set; }
@@ -49,13 +49,13 @@ namespace Hazzik.Objects {
 		public float TurnRate { get; set; }
 
 		public MovementInfo MovementInfo {
-			get { return _movementInfo; }
+			get { return movementInfo; }
 		}
 
 		public string Name { get; set; }
 
 		public override void WriteCreateBlock(BinaryWriter w) {
-			_movementInfo.Write(w);
+			movementInfo.Write(w);
 			w.Write(Speed0);
 			w.Write(Speed1);
 			w.Write(Speed2);
