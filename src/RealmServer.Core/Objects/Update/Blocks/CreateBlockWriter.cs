@@ -3,14 +3,14 @@ using System.IO;
 
 namespace Hazzik.Objects.Update.Blocks {
 	internal class CreateBlockWriter : IUpdateBlock {
-		private readonly UpdateValuesDto _dto;
-		private readonly WorldObject _obj;
-		private readonly bool _self;
+		private readonly UpdateValuesDto dto;
+		private readonly WorldObject obj;
+		private readonly bool self;
 
 		public CreateBlockWriter(bool self, WorldObject obj, UpdateValuesDto dto) {
-			_self = self;
-			_obj = obj;
-			_dto = dto;
+			this.self = self;
+			this.obj = obj;
+			this.dto = dto;
 		}
 
 		#region IUpdateBlock Members
@@ -20,15 +20,15 @@ namespace Hazzik.Objects.Update.Blocks {
 		}
 
 		public UpdateType UpdateType {
-			get { return _self ? UpdateType.CreateObject2 : UpdateType.CreateObject; }
+			get { return self ? UpdateType.CreateObject2 : UpdateType.CreateObject; }
 		}
 
 		public void Write(BinaryWriter writer) {
-			writer.WritePackGuid(_obj.Guid);
+			writer.WritePackGuid(obj.Guid);
 
-			_obj.WriteCreateBlock(_self, writer);
+			obj.WriteCreateBlock(self, writer);
 
-			_dto.Write(writer);
+			dto.Write(writer);
 		}
 
 		#endregion

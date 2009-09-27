@@ -4,21 +4,21 @@ using Hazzik.Objects.Update.Blocks;
 
 namespace Hazzik.Objects.Update {
 	internal class UpdateBlockBuilder {
-		private readonly WorldObject _obj;
-		private readonly Player _player;
-		private readonly UpdateValuesDto _sendedDto;
-		private bool _isNew = true;
+		private readonly WorldObject worldObject;
+		private readonly Player player;
+		private readonly UpdateValuesDto sendedDto;
+		private bool isNew = true;
 
 		public UpdateBlockBuilder(Player player, WorldObject obj) {
-			_player = player;
-			_obj = obj;
-			_sendedDto = new UpdateValuesDto(GetMaxValues(_obj.TypeId), CreateRequiredMask());
+			this.player = player;
+			worldObject = obj;
+			sendedDto = new UpdateValuesDto(GetMaxValues(worldObject.TypeId), CreateRequiredMask());
 		}
 
 		private BitArray CreateRequiredMask() {
-			var mask = new BitArray(GetMaxValues(_obj.TypeId), true);
+			var mask = new BitArray(GetMaxValues(worldObject.TypeId), true);
 			for(int i = 0; i < mask.Length; i++) {
-				if(_obj.TypeId == ObjectTypeId.Player && _player != _obj && i > (int)(UpdateFields.PLAYER_FIELD_INV_SLOT_HEAD - 1)) {
+				if(worldObject.TypeId == ObjectTypeId.Player && player != worldObject && i > (int)(UpdateFields.PLAYER_FIELD_INV_SLOT_HEAD - 1)) {
 					mask[i] = false;
 				}
 			}
@@ -26,12 +26,12 @@ namespace Hazzik.Objects.Update {
 		}
 
 		public IUpdateBlock CreateUpdateBlock() {
-			UpdateObjectDtoMapper.Update(_sendedDto, _obj);
-			if(_isNew) {
-				_isNew = false;
-				return new CreateBlockWriter(_obj.Guid == _player.Guid, _obj, _sendedDto);
+			UpdateObjectDtoMapper.Update(sendedDto, worldObject);
+			if(isNew) {
+				isNew = false;
+				return new CreateBlockWriter(worldObject.Guid == player.Guid, worldObject, sendedDto);
 			}
-			return new UpdateBlockWriter(_obj.Guid, _sendedDto);
+			return new UpdateBlockWriter(worldObject.Guid, sendedDto);
 		}
 
 		public static int GetMaxValues(ObjectTypeId typeId) {

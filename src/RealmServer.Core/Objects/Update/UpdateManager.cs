@@ -6,55 +6,55 @@ using Hazzik.Objects.Update.Blocks;
 
 namespace Hazzik.Objects.Update {
 	public class UpdateManager {
-		private readonly Player _player;
-		private readonly Timer2 _updateTimer;
-		private IDictionary<ulong, UpdateBlockBuilder> _updateBlockBuilders = new Dictionary<ulong, UpdateBlockBuilder>();
+		private readonly Player player;
+		private readonly Timer2 updateTimer;
+		private IDictionary<ulong, UpdateBlockBuilder> updateBlockBuilders = new Dictionary<ulong, UpdateBlockBuilder>();
 
 		public UpdateManager(Player player) {
-			_player = player;
-			_player.SetUpdateManager(this);
-			_updateTimer = new UpdateTimer(this);
+			this.player = player;
+			this.player.SetUpdateManager(this);
+			updateTimer = new UpdateTimer(this);
 		}
 
 		public void UpdateObjects() {
 			ICollection<IUpdateBlock> updateBlocks = GetUpdateBlocks();
-			_player.Session.SendUpdateObjects(new UpdatePacketBuilder(updateBlocks));
+			player.Session.SendUpdateObjects(new UpdatePacketBuilder(updateBlocks));
 		}
 
 		private ICollection<IUpdateBlock> GetUpdateBlocks() {
-			IEnumerable<IUpdateBlock> allBlocks = new[] { GetOutOfRange() }.Concat(_updateBlockBuilders.Values.Select(x => x.CreateUpdateBlock()));
+			IEnumerable<IUpdateBlock> allBlocks = new[] { GetOutOfRange() }.Concat(updateBlockBuilders.Values.Select(x => x.CreateUpdateBlock()));
 			return allBlocks.Where(x => !x.IsEmpty).ToList();
 		}
 
 		private IUpdateBlock GetOutOfRange() {
 			Dictionary<ulong, UpdateBlockBuilder> updateBuilders = GetObjectsForUpdate().ToDictionary(x => x.Guid, x => GetBuilder(x));
-			List<ulong> outOfRange = _updateBlockBuilders.Keys.Except(updateBuilders.Keys).ToList();
-			_updateBlockBuilders = updateBuilders;
+			List<ulong> outOfRange = updateBlockBuilders.Keys.Except(updateBuilders.Keys).ToList();
+			updateBlockBuilders = updateBuilders;
 			return new OutOfRangeBlockWriter(outOfRange);
 		}
 
 		private IEnumerable<WorldObject> GetObjectsForUpdate() {
-			IEnumerable<WorldObject> items = _player.Inventory.Cast<WorldObject>();
-			IEnumerable<WorldObject> seenObjects = ObjectManager.GetSeenObjectsNear(_player).Cast<WorldObject>();
+			IEnumerable<WorldObject> items = player.Inventory.Cast<WorldObject>();
+			IEnumerable<WorldObject> seenObjects = ObjectManager.GetSeenObjectsNear(player).Cast<WorldObject>();
 			return items.Concat(seenObjects);
 		}
 
 		private UpdateBlockBuilder GetBuilder(WorldObject obj) {
 			UpdateBlockBuilder result;
-			if(!_updateBlockBuilders.TryGetValue(obj.Guid, out result)) {
-				var updater = new UpdateBlockBuilder(_player, obj);
-				_updateBlockBuilders[obj.Guid] = updater;
+			if(!updateBlockBuilders.TryGetValue(obj.Guid, out result)) {
+				var updater = new UpdateBlockBuilder(player, obj);
+				updateBlockBuilders[obj.Guid] = updater;
 				return updater;
 			}
 			return result;
 		}
 
 		public void StartUpdateTimer() {
-			_updateTimer.Start();
+			updateTimer.Start();
 		}
 
 		public void StopUpdateTimer() {
-			_updateTimer.Stop();
+			updateTimer.Stop();
 		}
 	}
 }
