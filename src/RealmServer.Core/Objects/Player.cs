@@ -4,6 +4,7 @@ using System.Linq;
 using Hazzik.Dbc;
 using Hazzik.Items;
 using Hazzik.Items.Inventories;
+using Hazzik.Map;
 using Hazzik.Net;
 using Hazzik.Objects.Update;
 using Hazzik.Skills;
@@ -109,6 +110,7 @@ namespace Hazzik.Objects {
 		}
 
 		public void Logout() {
+			ObjectManager.Remove(this);	
 			updateManager.StopUpdateTimer();
 		}
 

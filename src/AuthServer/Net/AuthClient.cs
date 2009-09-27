@@ -18,12 +18,12 @@ namespace Hazzik.Net {
 			return new AuthPacket((RMSG)code, buffer);
 		}
 
-		public override void ReadPacketAsync(Action<IPacket> func) {
+		public override void ReadPacketAsync(Action<IPacket> callback) {
 			Stream stream = GetStream();
 			int code = ReadCode(stream);
 			int size = ReadSize(stream, code);
 			var buffer = new byte[size];
-			stream.ReadAsync(buffer, 0, buffer.Length, () => func(new AuthPacket((RMSG)code, buffer)));
+			stream.ReadAsync(buffer, 0, buffer.Length, () => callback(new AuthPacket((RMSG)code, buffer)));
 		}
 
 		public override void Send(IPacket packet) {

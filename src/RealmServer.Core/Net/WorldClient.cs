@@ -5,10 +5,10 @@ using System.Security.Cryptography;
 
 namespace Hazzik.Net {
 	public class WorldClient : ClientBase, IWorldClient {
-		private ICryptoTransform _decryptor;
-		private ICryptoTransform _encryptor;
+		private ICryptoTransform decryptor;
+		private ICryptoTransform encryptor;
 
-		private bool _firstPacket = true;
+		private bool firstPacket = true;
 
 		public WorldClient(Socket socket)
 			: base(socket) {
@@ -23,7 +23,7 @@ namespace Hazzik.Net {
 			Console.ForegroundColor = color;
 			lock(this) {
 				Stream data = GetStream();
-				Stream head = _firstPacket ? data : new CryptoStream(data, _encryptor, CryptoStreamMode.Write);
+				Stream head = firstPacket ? data : new CryptoStream(data, encryptor, CryptoStreamMode.Write);
 				WriteSize(head, packet);
 				WriteCode(head, packet);
 				packet.WriteBody(data);
@@ -31,16 +31,16 @@ namespace Hazzik.Net {
 		}
 
 		public void SetSymmetricAlgorithm(SymmetricAlgorithm algorithm) {
-			_decryptor = algorithm.CreateDecryptor();
-			_encryptor = algorithm.CreateEncryptor();
-			_firstPacket = false;
+			decryptor = algorithm.CreateDecryptor();
+			encryptor = algorithm.CreateEncryptor();
+			firstPacket = false;
 		}
 
 		#endregion
 
 		public override IPacket ReadPacket() {
 			Stream data = GetStream();
-			Stream head = _firstPacket ? data : new CryptoStream(data, _decryptor, CryptoStreamMode.Read);
+			Stream head = firstPacket ? data : new CryptoStream(data, decryptor, CryptoStreamMode.Read);
 
 			int size = ReadSize(head);
 			int code = ReadCode(head);
@@ -50,15 +50,15 @@ namespace Hazzik.Net {
 			return new WorldPacket((WMSG)code, buffer);
 		}
 
-		public override void ReadPacketAsync(Action<IPacket> func) {
+		public override void ReadPacketAsync(Action<IPacket> callback) {
 			Stream data = GetStream();
-			Stream head = _firstPacket ? data : new CryptoStream(data, _decryptor, CryptoStreamMode.Read);
+			Stream head = firstPacket ? data : new CryptoStream(data, decryptor, CryptoStreamMode.Read);
 
 			int size = ReadSize(head);
 			int code = ReadCode(head);
 
 			var buffer = new byte[size - 4];
-			data.ReadAsync(buffer, 0, buffer.Length, () => func(new WorldPacket((WMSG)code, buffer)));
+			data.ReadAsync(buffer, 0, buffer.Length, () => callback(new WorldPacket((WMSG)code, buffer)));
 		}
 
 		private static int ReadCode(Stream stream) {

@@ -62,8 +62,6 @@ namespace Hazzik {
 				Data = "",
 			};
 			datas.Add(data);
-			Repository.Account.Save(this);
-			Repository.Account.SubmitChanges();
 			return data;
 		}
 
@@ -122,8 +120,6 @@ namespace Hazzik {
 		public void SetAccountData(AccpuntData accpuntData) {
 			datas.Remove(datas.Where(ad => ad.Type == accpuntData.Type).FirstOrDefault());
 			datas.Add(accpuntData);
-			Repository.Account.Save(this);
-			Repository.Account.SubmitChanges();
 		}
 	}
 }
