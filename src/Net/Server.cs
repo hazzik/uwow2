@@ -1,22 +1,24 @@
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 
 namespace Hazzik.Net {
 	public class Server : IDisposable {
+		private readonly IList<ClientBase> clients = new List<ClientBase>();
 		private static readonly ManualResetEvent allDone = new ManualResetEvent(false);
-		private readonly ClientAcceptor acceptor;
+		private readonly string name;
 		private bool disposed;
 		private Socket listenSocket;
 
 		private IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Any, 0);
-		private string name;
+		private readonly IClientFactory clientFactory;
 
-		private Server(string name, ClientAcceptor acceptor, IPEndPoint localEndPoint) {
+		private Server(string name, IClientFactory clientFactory, IPEndPoint localEndPoint) {
 			this.name = name;
 			this.localEndPoint = localEndPoint;
-			this.acceptor = acceptor;
+			this.clientFactory = clientFactory;
 		}
 
 		public IPEndPoint LocalEndPoint {
@@ -69,11 +71,17 @@ namespace Hazzik.Net {
 			while(!disposed) {
 				allDone.Reset();
 				listenSocket.BeginAccept(ar => {
-				                          	allDone.Set();
-				                          	acceptor.OnAccept(listenSocket.EndAccept(ar));
-				                          }, null);
+				                         	allDone.Set();
+				                         	Accept(listenSocket.EndAccept(ar));
+				                         }, null);
 				allDone.WaitOne();
 			}
+		}
+
+		private void Accept(Socket socket) {
+			ClientBase client = clientFactory.Create(socket);
+			client.Start();
+			clients.Add(client);
 		}
 
 		~Server() {
@@ -81,7 +89,7 @@ namespace Hazzik.Net {
 		}
 
 		public static Server Create(string name, IPEndPoint localEndPoint, IClientFactory clientFactory) {
-			return new Server(name, new ClientAcceptor(clientFactory), localEndPoint);
+			return new Server(name, clientFactory, localEndPoint);
 		}
 	}
 }
