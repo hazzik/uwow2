@@ -16,7 +16,7 @@ namespace Hazzik {
 			factory.Load();
 
 			WorldPacketProcessor.Factory = factory;
-			var server = new Server("WORLD SERVER", new ClientAcceptor(new WorldClientFactory()), new IPEndPoint(IPAddress.Any, 3725));
+			var server = Server.Create("WORLD SERVER", new IPEndPoint(IPAddress.Any, 3725), new WorldClientFactory());
 			server.Start();
 			Console.ReadLine();
 		}
