@@ -5,10 +5,10 @@ using System.Net.Sockets;
 namespace Hazzik.Net {
 	public abstract class ClientBase : IPacketSender {
 		protected IPacketProcessor processor;
-		protected Socket _socket;
+		protected Socket socket;
 
 		protected ClientBase(Socket socket) {
-			_socket = socket;
+			this.socket = socket;
 		}
 
 		#region IPacketSender Members
@@ -32,7 +32,7 @@ namespace Hazzik.Net {
 				Console.WriteLine(e.Message);
 				Console.WriteLine(e.StackTrace);
 			}
-			//_socket.Close();
+			//socket.Close();
 		}
 
 		public virtual void StartSync() {
@@ -47,17 +47,13 @@ namespace Hazzik.Net {
 				Console.WriteLine(e.Message);
 				Console.WriteLine(e.StackTrace);
 			}
-			_socket.Close();
+			socket.Close();
 		}
 
 		public virtual Stream GetStream() {
-			return new NetworkStream(_socket, false);
+			return new NetworkStream(socket, false);
 		}
 
 		public abstract void ReadPacketAsync(Action<IPacket> func);
-
-		public void SetProcessor(IPacketProcessor processor) {
-			this.processor = processor;
-		}
 	}
 }
