@@ -74,6 +74,7 @@
     <Compile Include="Internal\MoveHandlers.cs" />
     <Compile Include="Internal\NameQueryDispatcher.cs" />
     <Compile Include="Internal\NpcTextQueryDispatcher.cs" />
+    <Compile Include="Internal\PingDispatcher.cs" />
     <Compile Include="Internal\PlayerLoginDispatcher.cs" />
     <Compile Include="Internal\RealmSplitDispatcher.cs" />
     <Compile Include="Internal\RequestAccountDataDispatcher.cs" />

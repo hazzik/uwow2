@@ -17,6 +17,8 @@ namespace Hazzik.Net {
 
 		#endregion
 
+		public abstract void ReadPacketAsync(Action<IPacket> func);
+		
 		public abstract IPacket ReadPacket();
 
 		public virtual void Start() {
@@ -53,7 +55,5 @@ namespace Hazzik.Net {
 		public virtual Stream GetStream() {
 			return new NetworkStream(socket, false);
 		}
-
-		public abstract void ReadPacketAsync(Action<IPacket> func);
 	}
 }

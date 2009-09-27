@@ -9,7 +9,7 @@ using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 
 namespace Hazzik.Net {
 	public class WorldPacketProcessor : IPacketProcessor {
-		private readonly uint _seed = (uint)(new Random().Next(0, Int32.MaxValue));
+		private readonly uint serverSeed = (uint)(new Random().Next(0, Int32.MaxValue));
 		private readonly ISession _session;
 
 		public WorldPacketProcessor(ISession client) {
@@ -22,15 +22,10 @@ namespace Hazzik.Net {
 		#region IPacketProcessor Members
 
 		public void Process(IPacket packet) {
-			int size = packet.Size;
 			var code = (WMSG)packet.Code;
 			//Console.WriteLine("Handle {0}", code);
 			if(code == WMSG.CMSG_AUTH_SESSION) {
 				HandleAuthSession(packet);
-				return;
-			}
-			if(code == WMSG.CMSG_PING) {
-				(_session.Client).Send(GetPongPkt(packet.CreateReader().ReadUInt32()));
 				return;
 			}
 			IPacketDispatcher dispatcher = Factory.GetDispatcher((WMSG)packet.Code);
@@ -52,7 +47,7 @@ namespace Hazzik.Net {
 			IPacket result = WorldPacketFactory.Create(WMSG.SMSG_AUTH_CHALLENGE);
 			BinaryWriter w = result.CreateWriter();
 			w.Write(1);
-			w.Write(_seed);
+			w.Write(serverSeed);
 			w.Write(0);
 			w.Write(0);
 			w.Write(0);
@@ -129,20 +124,13 @@ namespace Hazzik.Net {
 				w.Write(Encoding.UTF8.GetBytes(_session.Account.Name));
 				w.Write(0);
 				w.Write(clientSeed);
-				w.Write(_seed);
+				w.Write(serverSeed);
 				w.Write(_session.Account.SessionKey);
 				w.Flush();
 				buff = ((MemoryStream)w.BaseStream).ToArray();
 				buff = SHA1.Create().ComputeHash(buff, 0, buff.Length);
 			}
 			return buff;
-		}
-
-		public static IPacket GetPongPkt(uint ping) {
-			IPacket result = WorldPacketFactory.Create(WMSG.SMSG_PONG);
-			BinaryWriter w = result.CreateWriter();
-			w.Write(ping);
-			return result;
 		}
 
 		public static IPacket GetTutorialFlagsPkt() {
