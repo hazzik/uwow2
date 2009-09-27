@@ -4,7 +4,7 @@ using System.Net.Sockets;
 
 namespace Hazzik.Net {
 	public class AuthClient : ClientBase {
-		private AuthClient(Socket client) :
+		public AuthClient(Socket client) :
 			base(client) {
 			processor = new AuthPacketProcessor(this);
 		}
@@ -71,10 +71,6 @@ namespace Hazzik.Net {
 				stream.WriteByte((byte)(packet.Size));
 				stream.WriteByte((byte)(packet.Size >> 0x08));
 			}
-		}
-
-		public static AuthClient Create(Socket s) {
-			return new AuthClient(s);
 		}
 	}
 }

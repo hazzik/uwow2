@@ -12,6 +12,7 @@ namespace Hazzik.Net {
 
 		public WorldClient(Socket socket)
 			: base(socket) {
+			processor = new WorldPacketProcessor(new Session(this));
 		}
 
 		#region IWorldClient Members
@@ -92,12 +93,6 @@ namespace Hazzik.Net {
 			}
 			head.WriteByte((byte)(size >> 0x08));
 			head.WriteByte((byte)(size));
-		}
-
-		public static WorldClient Create(Socket s) {
-			var client = new WorldClient(s);
-			client.processor = new WorldPacketProcessor(new Session(client));
-			return client;
 		}
 	}
 }

@@ -6,14 +6,14 @@ using System.Threading;
 namespace Hazzik.Net {
 	public class Server : IDisposable {
 		private static readonly ManualResetEvent allDone = new ManualResetEvent(false);
-		private readonly IClientAcceptor _acceptor;
+		private readonly ClientAcceptor _acceptor;
 		private bool _disposed;
 		protected Socket _listenSocket;
 
 		private IPEndPoint _localEndPoint = new IPEndPoint(IPAddress.Any, 0);
 		protected string _name;
 
-		public Server(string name, IClientAcceptor acceptor, IPEndPoint localEndPoint) {
+		public Server(string name, ClientAcceptor acceptor, IPEndPoint localEndPoint) {
 			_name = name;
 			_localEndPoint = localEndPoint;
 			_acceptor = acceptor;

@@ -91,6 +91,7 @@
     <Compile Include="Items\Inventories\PlayerInventory.cs" />
     <Compile Include="Items\ResistanceTypes.cs" />
     <Compile Include="Net\IWorldClient.cs" />
+    <Compile Include="Net\WorldClientFactory.cs" />
     <Compile Include="Net\WorldPacketFactory.cs" />
     <Compile Include="Net\Session.cs" />
     <Compile Include="Objects\AttackPowerCalculatorFactory.cs" />
@@ -148,7 +149,6 @@
     <Compile Include="Map\ObjectManager.cs" />
     <Compile Include="Net\CompressedDataPacket.cs" />
     <Compile Include="Net\ISession.cs" />
-    <Compile Include="Net\WorldClientAcceptor.cs" />
     <Compile Include="Net\WorldPacketProcessor.cs" />
     <Compile Include="Net\WorldPacket.cs" />
     <Compile Include="Objects\Classes.cs" />

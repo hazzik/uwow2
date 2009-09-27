@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 
 namespace Hazzik.Net {
-	public class AuthClientAcceptor : IClientAcceptor {
+	public class ClientAcceptor {
+		private readonly IClientFactory clientFacory;
 		private readonly IList<ClientBase> clients = new List<ClientBase>();
 
-		#region IClientAcceptor Members
+		public ClientAcceptor(IClientFactory clientFacory) {
+			this.clientFacory = clientFacory;
+		}
 
 		public void OnAccept(Socket s) {
-			AuthClient client = AuthClient.Create(s);
+			ClientBase client = clientFacory.Create(s);
 			client.Start();
 			clients.Add(client);
 		}
-
-		#endregion
 	}
 }
