@@ -4,15 +4,14 @@ using System.Net.Sockets;
 
 namespace Hazzik.Net {
 	public class AuthClientAcceptor : IClientAcceptor {
-		protected IList<ClientBase> _clients = new List<ClientBase>();
+		private readonly IList<ClientBase> clients = new List<ClientBase>();
 
 		#region IClientAcceptor Members
 
 		public void OnAccept(Socket s) {
-			var client = new AuthClient(s);
-			client.SetProcessor(new AuthPacketProcessor(client));
+			AuthClient client = AuthClient.Create(s);
 			client.Start();
-			_clients.Add(client);
+			clients.Add(client);
 		}
 
 		#endregion
