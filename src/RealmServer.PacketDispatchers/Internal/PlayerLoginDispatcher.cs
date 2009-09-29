@@ -31,12 +31,14 @@ namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 			//creature.PosZ = player.PosZ;
 			//ObjectManager.Add(creature);
 
-			GameObject gameObject = GameObject.Create(Repository.GameObjectTemplate.FindById(1731));
+
+			GameObject gameObject = GameObject.Create(Repository.GameObjectTemplate.FindById(35591));
 			gameObject.PosX = player.PosX;
 			gameObject.PosY = player.PosY;
 			gameObject.PosZ = player.PosZ;
 			ObjectManager.Add(gameObject);
-
+			  
+			/*
 			Corpse corpse = Corpse.Create(player);
 			corpse.PosX = player.PosX;
 			corpse.PosY = player.PosY;
@@ -44,7 +46,7 @@ namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 			corpse.Flags |= CorpseFlags.IsClaimed;
 			corpse.DynamicFlags |= CorpseDynamicFlags.PlayerLootable;
 			ObjectManager.Add(corpse);
-
+			  */
 			session.SendLoginVerifyWorld();
 			session.SendAccountDataTimes(0xEA);
 			session.SendLoginSetTimeSpeed();

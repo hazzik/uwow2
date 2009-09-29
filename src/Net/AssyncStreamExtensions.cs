@@ -8,17 +8,17 @@ namespace Hazzik.Net {
 		}
 
 		private static void BeginRead(ReadState rs, Action callback) {
-			AsyncCallback asyncCallback = (ar => {
-			                          	int count = rs.Stream.EndRead(ar);
-			                          	rs.Offset += count;
-			                          	rs.Count -= count;
-			                          	if(rs.Count > 0) {
-			                          		BeginRead(rs, callback);
-			                          	}
-			                          	else {
-			                          		callback();
-			                          	}
-			                          });
+			AsyncCallback asyncCallback = ar => {
+			                              	int count = rs.Stream.EndRead(ar);
+			                              	rs.Offset += count;
+			                              	rs.Count -= count;
+			                              	if(rs.Count > 0) {
+			                              		BeginRead(rs, callback);
+			                              	}
+			                              	else {
+			                              		callback();
+			                              	}
+			                              };
 			rs.Stream.BeginRead(rs.Buffer, rs.Offset, rs.Count, asyncCallback, rs);
 		}
 

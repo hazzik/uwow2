@@ -4,55 +4,87 @@ using Hazzik.Skills;
 
 namespace Hazzik.Objects {
 	public class FakeCharacterCreateHandler {
-		private readonly Player _player;
+		private readonly Player player;
 
 		public FakeCharacterCreateHandler(Player player) {
-			_player = player;
+			this.player = player;
 		}
 
 		public void Init() {
 			//return;
 			//{X:-2133,334 Y:135,4584 Z:-9070,833}
-			_player.PosX = -997.8f;
-			_player.PosY = -3823.5f;
-			_player.PosZ = 7f;
-			_player.MapId = 1;
-			_player.Facing = 2.083644F;
+			player.PosX = -997.8f;
+			player.PosY = -3823.5f;
+			player.PosZ = 7f;
+			player.MapId = 1;
+			player.Facing = 2.083644F;
 
-			_player.Speed0 = 2.5F;
-			_player.Speed1 = 7F;
-			_player.Speed2 = 4.5F;
-			_player.Speed3 = 4.722222F;
-			_player.Speed4 = 2.5F;
-			_player.Speed5 = 7F;
-			_player.Speed6 = 4.5F;
-			_player.TurnRate = 3.141593F;
+			player.Speed0 = 2.5F;
+			player.Speed1 = 7F;
+			player.Speed2 = 4.5F;
+			player.Speed3 = 4.722222F;
+			player.Speed4 = 2.5F;
+			player.Speed5 = 7F;
+			player.Speed6 = 4.5F;
+			player.TurnRate = 3.141593F;
+			Player c = player;
+			//player.Race = Races.Orc;
+			//player.Classe = Classes.Warrior;
+			//player.Gender = GenderType.Male;
+			player.PowerType = PowerType.Rage;
+			player.Health = 50;
+			player.Power = 100;
+			player.Level = 80;
+			player.Stat0 = 20;
+			switch(player.Race) {
+			case Races.Human:
+			c.NativeDisplayId=	c.DisplayId = 49 + (uint)c.Gender;
+				break;
+			case Races.Orc:
+				c.NativeDisplayId = c.DisplayId = 51 + (uint)c.Gender;
+				break;
+			case Races.Dwarf:
+				c.NativeDisplayId = c.DisplayId = 53 + (uint)c.Gender;
+				break;
+			case Races.NightElf:
+				c.NativeDisplayId = c.DisplayId = 55 + (uint)c.Gender;
+				break;
+			case Races.Undead:
+				c.NativeDisplayId = c.DisplayId = 57 + (uint)c.Gender;
+				break;
+			case Races.Tauren:
+				c.NativeDisplayId = c.DisplayId = 59 + (uint)c.Gender;
+				break;
+			case Races.Gnome:
+				c.NativeDisplayId = c.DisplayId = 1563 + (uint)c.Gender;
+				break;
+			case Races.Troll:
+				c.NativeDisplayId = c.DisplayId = 1478 + (uint)c.Gender;
+				break;
+			case Races.BloodElf:
+				c.NativeDisplayId = c.DisplayId = 15476 - (uint)c.Gender;
+				break;
+			case Races.Draenei:
+				c.NativeDisplayId = c.DisplayId = 16125 + (uint)c.Gender;
+				break;
+			default:
+				throw new ArgumentOutOfRangeException();
+			}
+			player.FactionTemplate = 0x0000065D;
+			player.WatchedFactionIndex = -1;
+			player.Equipment.AutoAdd(Item.Create(Repository.ItemTemplate.FindById(9936)));
+			player.BackPack.AutoAdd(Item.Create(Repository.ItemTemplate.FindById(3289)));
+			player.BackPack.AutoAdd(Item.Create(Repository.ItemTemplate.FindById(23772)));
+			player.BackPack.AutoAdd(Item.Create(Repository.ItemTemplate.FindById(23772)));
+			player.BackPack.AutoAdd(Item.Create(Repository.ItemTemplate.FindById(857)));
+			player.BackPack.AutoAdd(Item.Create(Repository.ItemTemplate.FindById(857)));
+			player.BackPack.AutoAdd(Item.Create(Repository.ItemTemplate.FindById(857)));
+			player.BackPack.AutoAdd(Item.Create(Repository.ItemTemplate.FindById(857)));
+			player.BackPack.AutoAdd(Item.Create(Repository.ItemTemplate.FindById(9943)));
+			player.BackPack.AutoAdd(Item.Create(Repository.ItemTemplate.FindById(30633)));
+			player.BackPack.AutoAdd(Item.Create(Repository.ItemTemplate.FindById(2901)));
 
-			_player.Race = Races.Orc;
-			_player.Classe = Classes.Warrior;
-			_player.Gender = GenderType.Male;
-			_player.PowerType = PowerType.Rage;
-			_player.Health = 50;
-			_player.Power = 100;
-			_player.Level = 80;
-			_player.Stat0 = 20;
-			_player.DisplayId = (uint)(51 + _player.Gender);
-			_player.NativeDisplayId = (uint)(51 + _player.Gender);
-			_player.FactionTemplate = 0x0000065D;
-			_player.WatchedFactionIndex = -1;
-			_player.Equipment.AutoAdd(Item.Create(Repository.ItemTemplate.FindById(9936)));
-			_player.BackPack.AutoAdd(Item.Create(Repository.ItemTemplate.FindById(3289)));
-			_player.BackPack.AutoAdd(Item.Create(Repository.ItemTemplate.FindById(23772)));
-			_player.BackPack.AutoAdd(Item.Create(Repository.ItemTemplate.FindById(23772)));
-			_player.BackPack.AutoAdd(Item.Create(Repository.ItemTemplate.FindById(857)));
-			_player.BackPack.AutoAdd(Item.Create(Repository.ItemTemplate.FindById(857)));
-			_player.BackPack.AutoAdd(Item.Create(Repository.ItemTemplate.FindById(857)));
-			_player.BackPack.AutoAdd(Item.Create(Repository.ItemTemplate.FindById(857)));
-			_player.BackPack.AutoAdd(Item.Create(Repository.ItemTemplate.FindById(9943)));
-			_player.BackPack.AutoAdd(Item.Create(Repository.ItemTemplate.FindById(30633)));
-			_player.BackPack.AutoAdd(Item.Create(Repository.ItemTemplate.FindById(2901)));
-
-			_player.TrainSpell(new[] {
+			player.TrainSpell(new[] {
 				78, // Heroic Strike Rank 1
 				81, // Dodge Passive
 				107, // Block Passive
@@ -95,15 +127,17 @@ namespace Hazzik.Objects {
 				22810, // Opening - No Text 
 				32215, // Victorious State
 			});
-			_player.AddSkill(new Skill { Id = (ushort)SkillType.Protection, Value = 1, Cap = 1 });
-			_player.AddSkill(new Skill { Id = (ushort)SkillType.Arms, Value = 1, Cap = 1 });
-			_player.AddSkill(new Skill { Id = (ushort)SkillType.Fury, Value = 1, Cap = 1 });
+			/*
+			player.AddSkill(new Skill { Id = (ushort)SkillType.Protection, Value = 1, Cap = 1 });
+			player.AddSkill(new Skill { Id = (ushort)SkillType.Arms, Value = 1, Cap = 1 });
+			player.AddSkill(new Skill { Id = (ushort)SkillType.Fury, Value = 1, Cap = 1 });
 			//armor skills
-			_player.AddSkill(new Skill { Id = (ushort)SkillType.Cloth, Value = 1, Cap = 1 });
-			_player.AddSkill(new Skill { Id = (ushort)SkillType.Leather, Value = 1, Cap = 1 });
-			_player.AddSkill(new Skill { Id = (ushort)SkillType.Mail, Value = 1, Cap = 1 });
-			_player.AddSkill(new Skill { Id = (ushort)SkillType.Shield, Value = 1, Cap = 1 });
-			_player.Coinage = 100 * 100 * 1000;
+			player.AddSkill(new Skill { Id = (ushort)SkillType.Cloth, Value = 1, Cap = 1 });
+			player.AddSkill(new Skill { Id = (ushort)SkillType.Leather, Value = 1, Cap = 1 });
+			player.AddSkill(new Skill { Id = (ushort)SkillType.Mail, Value = 1, Cap = 1 });
+			player.AddSkill(new Skill { Id = (ushort)SkillType.Shield, Value = 1, Cap = 1 });
+			*/
+			player.Coinage = 100 * 100 * 1000;
 		}
 	}
 }

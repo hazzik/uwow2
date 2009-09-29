@@ -26,6 +26,16 @@ namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 			writer.Write(session.Player.Guid);
 			writer.Write((byte)0);
 			session.Client.Send(pkt);
+
+			packet = WorldPacketFactory.Create(WMSG.SMSG_AURA_UPDATE);
+			writer = packet.CreateWriter();
+			writer.WritePackGuid(session.Player.Guid);
+			writer.Write((byte)0);
+			writer.Write(spellId);
+			writer.Write((byte)0);
+			writer.Write((byte)1);
+			writer.Write((byte)0);
+			session.Client.Send(packet);
 		}
 
 		#endregion

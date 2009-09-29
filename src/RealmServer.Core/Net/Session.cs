@@ -3,6 +3,7 @@ using System.IO;
 using Hazzik.Creatures;
 using Hazzik.GameObjects;
 using Hazzik.Gossip;
+using Hazzik.Helper;
 using Hazzik.Items;
 using Hazzik.Map;
 using Hazzik.Objects;
@@ -137,7 +138,12 @@ namespace Hazzik.Net {
 
 		public void SendUpdateObjects(IPacketBuilder builder) {
 			if(!builder.IsEmpty) {
-				_client.Send(builder.Build());
+				IPacket packet = builder.Build();
+				//var array = (packet.GetStream() as MemoryStream).ToArray();
+				//using(var a = File.AppendText("123.txt")) {
+				//	Utility.View(a, array, 0, array.Length);
+				//}
+				_client.Send(packet);
 			}
 		}
 

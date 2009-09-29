@@ -96,7 +96,7 @@ namespace Hazzik.Objects {
 		public void TrainSpell(int spellId) {
 			SkillLineAbility sla = new SkillLineAbilityRepository().FindBySpellId(spellId);
 			if(sla != null) {
-				AddSkill(new Skill { Id = (ushort)sla.SkillId });
+				AddSkill(new Skill { Id = (ushort)sla.SkillId,Value = 1,Cap = 1});
 			}
 			Spells.Add(spellId);
 		}
