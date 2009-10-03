@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace Hazzik.Net {
 	public class Server : IDisposable {
-		private readonly IList<ClientBase> clients = new List<ClientBase>();
+		private readonly IList<IClient> clients = new List<IClient>();
 		private static readonly ManualResetEvent allDone = new ManualResetEvent(false);
 		private readonly string name;
 		private bool disposed;
@@ -79,7 +79,7 @@ namespace Hazzik.Net {
 		}
 
 		private void Accept(Socket socket) {
-			ClientBase client = clientFactory.Create(socket);
+			IClient client = clientFactory.Create(socket);
 			client.Start();
 			clients.Add(client);
 		}
