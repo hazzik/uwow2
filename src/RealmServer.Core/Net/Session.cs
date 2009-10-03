@@ -137,12 +137,7 @@ namespace Hazzik.Net {
 
 		public void SendUpdateObjects(IPacketBuilder builder) {
 			if(!builder.IsEmpty) {
-				IPacket packet = builder.Build();
-				//var array = (packet.GetStream() as MemoryStream).ToArray();
-				//using(var a = File.AppendText("123.txt")) {
-				//	Utility.View(a, array, 0, array.Length);
-				//}
-				_client.Send(packet);
+				_client.Send(builder.Build());
 			}
 		}
 
