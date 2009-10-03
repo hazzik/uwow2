@@ -5,14 +5,14 @@ using System.Security.Cryptography;
 
 namespace Hazzik.Net {
 	internal class WorldPacketReceiver : WorldPacketReceiverBase, IPacketReceiver {
-		public WorldPacketReceiver(Socket socket) : base(socket) {
+		public WorldPacketReceiver(Socket socket, ICryptor cryptor) : base(socket, cryptor) {
 		}
 
 		#region IPacketReceiver Members
 
 		public IPacket Receive() {
 			Stream data = GetStream();
-			Stream head = firstPacket ? data : new CryptoStream(data, decryptor, CryptoStreamMode.Read);
+			Stream head = cryptor.DecryptStream(data);
 
 			int size = ReadSize(head);
 			int code = ReadCode(head);

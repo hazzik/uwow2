@@ -54,6 +54,7 @@
     <Compile Include="PacketBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server.cs" />
+    <Compile Include="SocketHolder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Hazzik.snk" />

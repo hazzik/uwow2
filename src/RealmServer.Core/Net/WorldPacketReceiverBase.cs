@@ -3,8 +3,11 @@ using System.IO;
 using System.Net.Sockets;
 
 namespace Hazzik.Net {
-	internal class WorldPacketReceiverBase : WorldClient {
-		public WorldPacketReceiverBase(Socket socket) : base(socket) {
+	internal class WorldPacketReceiverBase : SocketHolder {
+		protected readonly ICryptor cryptor;
+
+		public WorldPacketReceiverBase(Socket socket, ICryptor cryptor) : base(socket) {
+			this.cryptor = cryptor;
 		}
 
 		protected static int ReadCode(Stream stream) {

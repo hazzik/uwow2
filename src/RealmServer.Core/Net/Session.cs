@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Security.Cryptography;
 using Hazzik.Creatures;
 using Hazzik.GameObjects;
 using Hazzik.Gossip;

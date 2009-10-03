@@ -1,18 +1,17 @@
 using System;
 using System.IO;
 using System.Net.Sockets;
-using System.Security.Cryptography;
 
 namespace Hazzik.Net {
 	internal class AsyncWorldPaketReceiver : WorldPacketReceiverBase, IAsyncPacketReceiver {
-		public AsyncWorldPaketReceiver(Socket socket) : base(socket) {
+		public AsyncWorldPaketReceiver(Socket socket, ICryptor cryptor) : base(socket, cryptor) {
 		}
 
 		#region IAsyncPacketReceiver Members
 
 		public void ReceiveAsync(Action<IPacket> callback) {
 			Stream data = GetStream();
-			Stream head = firstPacket ? data : new CryptoStream(data, decryptor, CryptoStreamMode.Read);
+			Stream head = cryptor.DecryptStream(data);
 
 			int size = ReadSize(head);
 			int code = ReadCode(head);

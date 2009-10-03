@@ -11,8 +11,10 @@ namespace Hazzik.Net {
 	public class WorldPacketProcessor : IPacketProcessor {
 		private readonly uint serverSeed = (uint)(new Random().Next(0, Int32.MaxValue));
 		private readonly ISession session;
+		private readonly ICryptor cryptor;
 
-		public WorldPacketProcessor(ISession client) {
+		public WorldPacketProcessor(ISession client, ICryptor cryptor) {
+			this.cryptor = cryptor;
 			session = client;
 			session.Client.Send(GetAuthChallengePkt());
 		}
@@ -67,7 +69,7 @@ namespace Hazzik.Net {
 
 			session.Account = Repository.Account.FindByName(accountName);
 
-			((IWorldClient)session.Client).SetSymmetricAlgorithm(new WowCryptRC4(session.Account.SessionKey));
+			cryptor.SetSymmetricAlgorithm(new WowCryptRC4(session.Account.SessionKey));
 
 			if(!Utility.Equals(clientDigest, ComputeServerDigest(clientSeed))) {
 				throw new Exception();
