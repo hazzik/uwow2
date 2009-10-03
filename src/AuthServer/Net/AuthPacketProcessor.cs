@@ -19,7 +19,7 @@ namespace Hazzik.Net {
 			new BigInteger("894B645E89E1535BBDAD5B8B290650530801B18EBFBF5E8FAB3C82872A3E9BB7", 16);
 
 		private static readonly SHA1 sha1 = SHA1.Create();
-		private readonly AuthClient _client;
+		private readonly IPacketSender _client;
 		private readonly IAccountDao _dao = new NHAccountRepository();
 		private readonly IList<WorldServerInfo> _realmList = new List<WorldServerInfo>();
 		private readonly BigInteger bi_b = BigInteger.genPseudoPrime(160, 5, Utility.seed2);
@@ -28,7 +28,7 @@ namespace Hazzik.Net {
 		private BigInteger bi_s = BigInteger.genPseudoPrime(256, 5, Utility.seed2);
 		private BigInteger bi_v;
 
-		public AuthPacketProcessor(AuthClient client) {
+		public AuthPacketProcessor(IPacketSender client) {
 			_client = client;
 			_realmList = new List<WorldServerInfo> {
 				new WorldServerInfo {

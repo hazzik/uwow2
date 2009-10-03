@@ -62,7 +62,7 @@
     <Compile Include="GameObjects\UseHandlers\ChairHandler.cs" />
     <Compile Include="GameObjects\GameObjectTemplate.cs" />
     <Compile Include="Gossip\GossipMessage.cs" />
-    <Compile Include="Net\AsyncWorldClient.cs" />
+    <Compile Include="Net\AsyncWorldPaketReceiver.cs" />
     <Compile Include="Net\IPacketDispatcherFactory.cs" />
     <Compile Include="Items\IEquipmentInventory.cs" />
     <Compile Include="Items\Inventories\BackPackInventory.cs" />
@@ -95,6 +95,7 @@
     <Compile Include="Net\WorldClientFactory.cs" />
     <Compile Include="Net\WorldPacketFactory.cs" />
     <Compile Include="Net\Session.cs" />
+    <Compile Include="Net\WorldPacketReceiver.cs" />
     <Compile Include="Objects\AttackPowerCalculatorFactory.cs" />
     <Compile Include="GameObjects\UseHandlers\ChestUseHandler.cs" />
     <Compile Include="Objects\FakeCharacterCreateHandler.cs" />

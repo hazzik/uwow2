@@ -4,37 +4,16 @@ using System.Net.Sockets;
 using System.Security.Cryptography;
 
 namespace Hazzik.Net {
-	public class WorldClient : IWorldClient, IPacketSender, IClient {
+	public class WorldClient : IWorldClient, IPacketSender {
 		protected ICryptoTransform decryptor;
 		private ICryptoTransform encryptor;
 
 		protected bool firstPacket = true;
-		protected IPacketProcessor processor;
 		protected Socket socket;
 
 		public WorldClient(Socket socket) {
 			this.socket = socket;
-			processor = new WorldPacketProcessor(new Session(this));
 		}
-
-		#region IClient Members
-
-		public virtual void Start() {
-			try {
-				while(true) {
-					processor.Process(ReadPacket());
-				}
-			}
-			catch(SocketException) {
-			}
-			catch(Exception e) {
-				Console.WriteLine(e.Message);
-				Console.WriteLine(e.StackTrace);
-			}
-			socket.Close();
-		}
-
-		#endregion
 
 		#region IWorldClient Members
 
@@ -59,18 +38,6 @@ namespace Hazzik.Net {
 		}
 
 		#endregion
-
-		public IPacket ReadPacket() {
-			Stream data = GetStream();
-			Stream head = firstPacket ? data : new CryptoStream(data, decryptor, CryptoStreamMode.Read);
-
-			int size = ReadSize(head);
-			int code = ReadCode(head);
-
-			var buffer = new byte[size - 4];
-			data.Read(buffer, 0, buffer.Length);
-			return new WorldPacket((WMSG)code, buffer);
-		}
 
 		protected static int ReadCode(Stream stream) {
 			int code = 0;

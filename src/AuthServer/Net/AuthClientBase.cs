@@ -3,33 +3,12 @@ using System.IO;
 using System.Net.Sockets;
 
 namespace Hazzik.Net {
-	public class AuthClient : IPacketSender, IClient {
-		protected IPacketProcessor processor;
+	public class AuthClientBase : IPacketSender {
 		protected Socket socket;
 
-		public AuthClient(Socket client) {
+		public AuthClientBase(Socket client) {
 			socket = client;
-			processor = new AuthPacketProcessor(this);
 		}
-
-		#region IClient Members
-
-		public virtual void Start() {
-			try {
-				while(true) {
-					processor.Process(ReadPacket());
-				}
-			}
-			catch(SocketException) {
-			}
-			catch(Exception e) {
-				Console.WriteLine(e.Message);
-				Console.WriteLine(e.StackTrace);
-			}
-			socket.Close();
-		}
-
-		#endregion
 
 		#region IPacketSender Members
 
@@ -43,15 +22,6 @@ namespace Hazzik.Net {
 		}
 
 		#endregion
-
-		public IPacket ReadPacket() {
-			Stream stream = GetStream();
-			int code = ReadCode(stream);
-			int size = ReadSize(stream, code);
-			var buffer = new byte[size];
-			stream.Read(buffer, 0, buffer.Length);
-			return new AuthPacket((RMSG)code, buffer);
-		}
 
 		protected static int ReadCode(Stream stream) {
 			return stream.ReadByte();

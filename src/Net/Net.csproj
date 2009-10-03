@@ -37,12 +37,17 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssyncStreamExtensions.cs" />
-    <Compile Include="IAsyncPacketReader.cs" />
+    <Compile Include="AsyncStreamExtensions.cs" />
+    <Compile Include="AsyncClient.cs" />
+    <Compile Include="Client.cs" />
+    <Compile Include="IAsyncPacketReceiver.cs" />
     <Compile Include="IClient.cs" />
     <Compile Include="IClientFactory.cs" />
+    <Compile Include="IPacketReceiver.cs" />
     <Compile Include="IPacketSender.cs" />
     <Compile Include="IPacket.cs" />
     <Compile Include="IPacketProcessor.cs" />

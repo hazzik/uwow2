@@ -2,7 +2,7 @@ using System;
 using System.IO;
 
 namespace Hazzik.Net {
-	public static class AssyncStreamExtensions {
+	public static class AsyncStreamExtensions {
 		public static void ReadAsync(this Stream stream, byte[] buffer, int offset, int count, Action callback) {
 			BeginRead(new ReadState(stream, buffer) { Offset = offset, Count = count }, callback);
 		}
