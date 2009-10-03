@@ -21,7 +21,7 @@ namespace Hazzik.Net {
 		
 		public abstract IPacket ReadPacket();
 
-		public virtual void Start() {
+		public virtual void StartAsync() {
 			try {
 				ReadPacketAsync(packet => {
 				                	processor.Process(packet);
@@ -37,7 +37,7 @@ namespace Hazzik.Net {
 			//socket.Close();
 		}
 
-		public virtual void StartSync() {
+		public virtual void Start() {
 			try {
 				while(true) {
 					processor.Process(ReadPacket());
