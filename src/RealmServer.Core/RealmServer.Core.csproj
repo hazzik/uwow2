@@ -62,6 +62,7 @@
     <Compile Include="GameObjects\UseHandlers\ChairHandler.cs" />
     <Compile Include="GameObjects\GameObjectTemplate.cs" />
     <Compile Include="Gossip\GossipMessage.cs" />
+    <Compile Include="Net\AsyncWorldClient.cs" />
     <Compile Include="Net\IPacketDispatcherFactory.cs" />
     <Compile Include="Items\IEquipmentInventory.cs" />
     <Compile Include="Items\Inventories\BackPackInventory.cs" />

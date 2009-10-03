@@ -80,6 +80,7 @@
     <Compile Include="Enums\RMSG.cs" />
     <Compile Include="Infos\VersionInfo.cs" />
     <Compile Include="Math\BigInteger.cs" />
+    <Compile Include="Net\AsyncAuthClient.cs" />
     <Compile Include="Net\AuthClientFactory.cs" />
     <Compile Include="Net\AuthPacket.cs" />
     <Compile Include="Net\AuthPacketProcessor.cs" />
