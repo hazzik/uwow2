@@ -3,7 +3,7 @@ using System.IO;
 using System.Net.Sockets;
 
 namespace Hazzik.Net {
-	internal class AsyncAuthPacketReceiver : AuthClientBase, IAsyncPacketReceiver {
+	internal class AsyncAuthPacketReceiver : AuthPacketReceiverBase, IAsyncPacketReceiver {
 		public AsyncAuthPacketReceiver(Socket client) : base(client) {
 		}
 
