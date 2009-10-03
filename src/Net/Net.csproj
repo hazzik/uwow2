@@ -40,7 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssyncStreamExtensions.cs" />
-    <Compile Include="ClientBase.cs" />
+    <Compile Include="IAsyncPacketReader.cs" />
     <Compile Include="IClient.cs" />
     <Compile Include="IClientFactory.cs" />
     <Compile Include="IPacketSender.cs" />

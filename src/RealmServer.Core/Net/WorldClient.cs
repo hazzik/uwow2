@@ -4,20 +4,41 @@ using System.Net.Sockets;
 using System.Security.Cryptography;
 
 namespace Hazzik.Net {
-	public class WorldClient : ClientBase, IWorldClient {
-		private ICryptoTransform decryptor;
+	public class WorldClient : IWorldClient, IPacketSender, IClient {
+		protected ICryptoTransform decryptor;
 		private ICryptoTransform encryptor;
 
-		private bool firstPacket = true;
+		protected bool firstPacket = true;
+		protected IPacketProcessor processor;
+		protected Socket socket;
 
-		public WorldClient(Socket socket)
-			: base(socket) {
+		public WorldClient(Socket socket) {
+			this.socket = socket;
 			processor = new WorldPacketProcessor(new Session(this));
 		}
 
+		#region IClient Members
+
+		public virtual void Start() {
+			try {
+				while(true) {
+					processor.Process(ReadPacket());
+				}
+			}
+			catch(SocketException) {
+			}
+			catch(Exception e) {
+				Console.WriteLine(e.Message);
+				Console.WriteLine(e.StackTrace);
+			}
+			socket.Close();
+		}
+
+		#endregion
+
 		#region IWorldClient Members
 
-		public override void Send(IPacket packet) {
+		public void Send(IPacket packet) {
 			ConsoleColor color = Console.ForegroundColor;
 			Console.ForegroundColor = ConsoleColor.Green;
 			Console.WriteLine((WMSG)packet.Code);
@@ -39,7 +60,7 @@ namespace Hazzik.Net {
 
 		#endregion
 
-		public override IPacket ReadPacket() {
+		public IPacket ReadPacket() {
 			Stream data = GetStream();
 			Stream head = firstPacket ? data : new CryptoStream(data, decryptor, CryptoStreamMode.Read);
 
@@ -51,18 +72,7 @@ namespace Hazzik.Net {
 			return new WorldPacket((WMSG)code, buffer);
 		}
 
-		public override void ReadPacketAsync(Action<IPacket> callback) {
-			Stream data = GetStream();
-			Stream head = firstPacket ? data : new CryptoStream(data, decryptor, CryptoStreamMode.Read);
-
-			int size = ReadSize(head);
-			int code = ReadCode(head);
-
-			var buffer = new byte[size - 4];
-			data.ReadAsync(buffer, 0, buffer.Length, () => callback(new WorldPacket((WMSG)code, buffer)));
-		}
-
-		private static int ReadCode(Stream stream) {
+		protected static int ReadCode(Stream stream) {
 			int code = 0;
 			code |= stream.ReadByte();
 			code |= stream.ReadByte() << 0x08;
@@ -76,7 +86,7 @@ namespace Hazzik.Net {
 			head.WriteByte((byte)(packet.Code >> 0x08));
 		}
 
-		private static int ReadSize(Stream stream) {
+		protected static int ReadSize(Stream stream) {
 			int size = stream.ReadByte();
 			if((size & 0x80) != 0x00) {
 				size &= 0x7f;
@@ -93,6 +103,10 @@ namespace Hazzik.Net {
 			}
 			head.WriteByte((byte)(size >> 0x08));
 			head.WriteByte((byte)(size));
+		}
+
+		public virtual Stream GetStream() {
+			return new NetworkStream(socket, false);
 		}
 	}
 }

@@ -3,30 +3,37 @@ using System.IO;
 using System.Net.Sockets;
 
 namespace Hazzik.Net {
-	public class AuthClient : ClientBase {
-		public AuthClient(Socket client) :
-			base(client) {
+	public class AuthClient : IPacketSender, IClient {
+		protected IPacketProcessor processor;
+		protected Socket socket;
+
+		public AuthClient(Socket client) {
+			socket = client;
 			processor = new AuthPacketProcessor(this);
 		}
 
-		public override IPacket ReadPacket() {
-			Stream stream = GetStream();
-			int code = ReadCode(stream);
-			int size = ReadSize(stream, code);
-			var buffer = new byte[size];
-			stream.Read(buffer, 0, buffer.Length);
-			return new AuthPacket((RMSG)code, buffer);
+		#region IClient Members
+
+		public virtual void Start() {
+			try {
+				while(true) {
+					processor.Process(ReadPacket());
+				}
+			}
+			catch(SocketException) {
+			}
+			catch(Exception e) {
+				Console.WriteLine(e.Message);
+				Console.WriteLine(e.StackTrace);
+			}
+			socket.Close();
 		}
 
-		public override void ReadPacketAsync(Action<IPacket> callback) {
-			Stream stream = GetStream();
-			int code = ReadCode(stream);
-			int size = ReadSize(stream, code);
-			var buffer = new byte[size];
-			stream.ReadAsync(buffer, 0, buffer.Length, () => callback(new AuthPacket((RMSG)code, buffer)));
-		}
+		#endregion
 
-		public override void Send(IPacket packet) {
+		#region IPacketSender Members
+
+		public void Send(IPacket packet) {
 			Stream data = GetStream();
 			Stream head = data;
 
@@ -35,7 +42,18 @@ namespace Hazzik.Net {
 			packet.WriteBody(data);
 		}
 
-		private static int ReadCode(Stream stream) {
+		#endregion
+
+		public IPacket ReadPacket() {
+			Stream stream = GetStream();
+			int code = ReadCode(stream);
+			int size = ReadSize(stream, code);
+			var buffer = new byte[size];
+			stream.Read(buffer, 0, buffer.Length);
+			return new AuthPacket((RMSG)code, buffer);
+		}
+
+		protected static int ReadCode(Stream stream) {
 			return stream.ReadByte();
 		}
 
@@ -71,6 +89,10 @@ namespace Hazzik.Net {
 				stream.WriteByte((byte)(packet.Size));
 				stream.WriteByte((byte)(packet.Size >> 0x08));
 			}
+		}
+
+		public virtual Stream GetStream() {
+			return new NetworkStream(socket, false);
 		}
 	}
 }
