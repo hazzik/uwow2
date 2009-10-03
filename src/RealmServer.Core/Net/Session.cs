@@ -3,7 +3,6 @@ using System.IO;
 using Hazzik.Creatures;
 using Hazzik.GameObjects;
 using Hazzik.Gossip;
-using Hazzik.Helper;
 using Hazzik.Items;
 using Hazzik.Map;
 using Hazzik.Objects;
@@ -11,10 +10,10 @@ using Hazzik.Objects.Update;
 
 namespace Hazzik.Net {
 	public class Session : ISession {
-		private readonly IWorldClient _client;
+		private readonly IPacketSender _client;
 		private Player _player;
 
-		public Session(IWorldClient sender) {
+		public Session(IPacketSender sender) {
 			_client = sender;
 		}
 
@@ -36,7 +35,7 @@ namespace Hazzik.Net {
 
 		public Account Account { get; set; }
 
-		public IWorldClient Client {
+		public IPacketSender Client {
 			get { return _client; }
 		}
 

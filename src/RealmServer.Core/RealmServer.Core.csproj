@@ -97,6 +97,7 @@
     <Compile Include="Net\Session.cs" />
     <Compile Include="Net\WorldPacketReceiverBase.cs" />
     <Compile Include="Net\WorldPacketReceiver.cs" />
+    <Compile Include="Net\WorldPacketSender.cs" />
     <Compile Include="Objects\AttackPowerCalculatorFactory.cs" />
     <Compile Include="GameObjects\UseHandlers\ChestUseHandler.cs" />
     <Compile Include="Objects\FakeCharacterCreateHandler.cs" />

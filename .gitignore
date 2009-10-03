@@ -161,3 +161,9 @@
 /tests/Tests/obj/Debug/Tests.csproj.FileListAbsolute.txt
 /tests/Tests/obj/Debug/Tests.dll
 /tests/Tests/obj/Debug/Tests.pdb
+/src/AuthServer/obj/Debug/Hazzik.AuthServer.pdb
+/src/RealmServer/bin/Debug/Hazzik.RealmServer.vshost.exe
+/src/RealmServer/bin/Debug/Hazzik.RealmServer.vshost.exe.config
+/src/RealmServer/bin/Debug/Hazzik.RealmServer.vshost.exe.manifest
+/src/Hazzik.4.5.resharper.user
+/src/_ReSharper.Hazzik/Xaml/CacheProvider.dat

@@ -67,7 +67,7 @@ namespace Hazzik.Net {
 
 			session.Account = Repository.Account.FindByName(accountName);
 
-			session.Client.SetSymmetricAlgorithm(new WowCryptRC4(session.Account.SessionKey));
+			((IWorldClient)session.Client).SetSymmetricAlgorithm(new WowCryptRC4(session.Account.SessionKey));
 
 			if(!Utility.Equals(clientDigest, ComputeServerDigest(clientSeed))) {
 				throw new Exception();

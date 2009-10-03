@@ -10,7 +10,7 @@ namespace Hazzik.Net {
 	public interface ISession {
 		Account Account { get; set; }
 		Player Player { get; set; }
-		IWorldClient Client { get; }
+		IPacketSender Client { get; }
 		void SendHeartBeat();
 		void SendInitialSpells();
 		void SendNameQueryResponce(Player player);
