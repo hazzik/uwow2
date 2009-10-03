@@ -4,7 +4,7 @@ using System.Net.Sockets;
 using System.Security.Cryptography;
 
 namespace Hazzik.Net {
-	internal class WorldPacketReceiver : WorldClient, IPacketReceiver {
+	internal class WorldPacketReceiver : WorldPacketReceiverBase, IPacketReceiver {
 		public WorldPacketReceiver(Socket socket) : base(socket) {
 		}
 

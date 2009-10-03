@@ -39,28 +39,9 @@ namespace Hazzik.Net {
 
 		#endregion
 
-		protected static int ReadCode(Stream stream) {
-			int code = 0;
-			code |= stream.ReadByte();
-			code |= stream.ReadByte() << 0x08;
-			code |= stream.ReadByte() << 0x10;
-			code |= stream.ReadByte() << 0x18;
-			return code;
-		}
-
 		private static void WriteCode(Stream head, IPacket packet) {
 			head.WriteByte((byte)(packet.Code));
 			head.WriteByte((byte)(packet.Code >> 0x08));
-		}
-
-		protected static int ReadSize(Stream stream) {
-			int size = stream.ReadByte();
-			if((size & 0x80) != 0x00) {
-				size &= 0x7f;
-				size = (size << 0x08) | stream.ReadByte();
-			}
-			size = (size << 0x08) | stream.ReadByte();
-			return size;
 		}
 
 		private static void WriteSize(Stream head, IPacket packet) {

@@ -4,7 +4,7 @@ using System.Net.Sockets;
 using System.Security.Cryptography;
 
 namespace Hazzik.Net {
-	internal class AsyncWorldPaketReceiver : WorldClient, IAsyncPacketReceiver {
+	internal class AsyncWorldPaketReceiver : WorldPacketReceiverBase, IAsyncPacketReceiver {
 		public AsyncWorldPaketReceiver(Socket socket) : base(socket) {
 		}
 
