@@ -21,22 +21,6 @@ namespace Hazzik.Net {
 		
 		public abstract IPacket ReadPacket();
 
-		public virtual void StartAsync() {
-			try {
-				ReadPacketAsync(packet => {
-				                	processor.Process(packet);
-				                	Start();
-				                });
-			}
-			catch(SocketException) {
-			}
-			catch(Exception e) {
-				Console.WriteLine(e.Message);
-				Console.WriteLine(e.StackTrace);
-			}
-			//socket.Close();
-		}
-
 		public virtual void Start() {
 			try {
 				while(true) {
