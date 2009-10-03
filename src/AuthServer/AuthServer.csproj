@@ -86,6 +86,7 @@
     <Compile Include="Net\AuthPacketProcessor.cs" />
     <Compile Include="Net\AuthPacketReceiver.cs" />
     <Compile Include="Net\AuthPacketReceiverBase.cs" />
+    <Compile Include="Net\AuthPacketSender.cs" />
     <Compile Include="PatchInfo.cs" />
     <Compile Include="App.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
