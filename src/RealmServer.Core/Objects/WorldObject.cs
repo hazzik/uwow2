@@ -16,7 +16,7 @@ namespace Hazzik.Objects {
 			get { return UpdateFlags.HighGuid | UpdateFlags.LowGuid; }
 		}
 
-		public virtual void WriteCreateBlock(BinaryWriter writer) {
+		protected virtual void WriteCreateBlock(BinaryWriter writer) {
 		}
 
 		public void WriteCreateBlock(bool self, BinaryWriter writer) {

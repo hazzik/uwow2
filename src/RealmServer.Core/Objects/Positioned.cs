@@ -15,7 +15,7 @@ namespace Hazzik.Objects {
 		public virtual float PosZ { get; set; }
 		public virtual float Facing { get; set; }
 
-		public override void WriteCreateBlock(BinaryWriter writer) {
+		protected override void WriteCreateBlock(BinaryWriter writer) {
 			writer.Write(PosX);
 			writer.Write(PosY);
 			writer.Write(PosZ);

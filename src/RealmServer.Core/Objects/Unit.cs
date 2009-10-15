@@ -54,7 +54,7 @@ namespace Hazzik.Objects {
 
 		public string Name { get; set; }
 
-		public override void WriteCreateBlock(BinaryWriter w) {
+		protected override void WriteCreateBlock(BinaryWriter w) {
 			movementInfo.Write(w);
 			w.Write(Speed0);
 			w.Write(Speed1);
