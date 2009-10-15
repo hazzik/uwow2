@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using System.Security.Cryptography;
 using Hazzik.Creatures;
 using Hazzik.GameObjects;
 using Hazzik.Gossip;
@@ -11,33 +10,27 @@ using Hazzik.Objects.Update;
 
 namespace Hazzik.Net {
 	public class Session : ISession {
-		private readonly IPacketSender _client;
-		private Player _player;
+		private readonly IPacketSender packetSender;
+		private Player player;
 
 		public Session(IPacketSender sender) {
-			_client = sender;
+			packetSender = sender;
 		}
 
 		#region ISession Members
 
 		public Player Player {
-			get { return _player; }
+			get { return player; }
 			set {
-				if(null == value) {
-					_player.Session = null;
-					_player = value;
-				}
-				else {
-					_player = value;
-					_player.Session = this;
-				}
+				player = value;
+				player.Session = this;
 			}
 		}
 
 		public Account Account { get; set; }
 
 		public IPacketSender Client {
-			get { return _client; }
+			get { return packetSender; }
 		}
 
 		public void SendHeartBeat() {
@@ -49,97 +42,103 @@ namespace Hazzik.Net {
 		}
 
 		public void SendInitialSpells() {
-			_client.Send(GetInitialSpellsPkt());
+			packetSender.Send(GetInitialSpellsPkt());
 		}
 
 		public void SendNameQueryResponce(Player player) {
-			_client.Send(GetNameQueryResponcePkt(player));
+			packetSender.Send(GetNameQueryResponcePkt(player));
 		}
 
 		public void SendRealmSplitPkt(uint unk1) {
-			_client.Send(GetRealmSplitPkt(unk1));
+			packetSender.Send(GetRealmSplitPkt(unk1));
 		}
 
 		public void SendCharEnum() {
-			_client.Send(Account.GetCharEnumPkt());
+			packetSender.Send(Account.GetCharEnumPkt());
 		}
 
 		public void SendCharCreate() {
-			_client.Send(GetCharCreatePkt(47));
+			packetSender.Send(GetCharCreatePkt(47));
 		}
 
 		public void SendCharacterLoginFiled() {
-			_client.Send(GetCharacterLoginFiledPkt(0x44));
+			packetSender.Send(GetCharacterLoginFiledPkt(0x44));
 		}
 
 		public void SendLoginVerifyWorld() {
-			_client.Send(GetLoginVerifyWorldPkt(Player));
+			packetSender.Send(GetLoginVerifyWorldPkt(Player));
 		}
 
 		public void SendAccountDataTimes(uint mask) {
-			_client.Send(GetAccountDataTimesPkt(mask));
+			packetSender.Send(GetAccountDataTimesPkt(mask));
 		}
 
 		public void SendLoginSetTimeSpeed() {
-			_client.Send(GetLoginSetTimeSpeedPkt());
+			packetSender.Send(GetLoginSetTimeSpeedPkt());
 		}
 
 		public void SendTimeSyncReq() {
-			_client.Send(GetTimeSyncReqPkt());
+			packetSender.Send(GetTimeSyncReqPkt());
 		}
 
 		public void SendLogoutComplete() {
-			_client.Send(GetLogoutCompletePkt());
+			packetSender.Send(GetLogoutCompletePkt());
 		}
 
 		public void SendLogoutResponce() {
-			_client.Send(GetLogoutResponcePkt(LogoutResponses.Accepted));
+			packetSender.Send(GetLogoutResponcePkt(LogoutResponses.Accepted));
 		}
 
 		public void SendLogoutCancelAck() {
-			_client.Send(GetLogoutCancelAckPkt());
+			packetSender.Send(GetLogoutCancelAckPkt());
 		}
 
 		public void SendShowBank(ulong guid) {
-			_client.Send(GetShowBankPkt(guid));
+			packetSender.Send(GetShowBankPkt(guid));
 		}
 
 		public void SendDestroy(WorldObject item) {
-			_client.Send(GetDestroyObjectPkt(item));
+			packetSender.Send(GetDestroyObjectPkt(item));
 		}
 
 		public void SendCreatureQueryResponce(CreatureTemplate creature) {
-			_client.Send(GetCreatureQueryResponse(creature));
+			packetSender.Send(GetCreatureQueryResponse(creature));
 		}
 
 		public void SendGameObjectQueryResponce(GameObjectTemplate template) {
-			_client.Send(GetGameObjectQueryResponcePkt(template));
+			packetSender.Send(GetGameObjectQueryResponcePkt(template));
 		}
 
 		public void SendItemQuerySingleResponse(ItemTemplate template) {
-			_client.Send(GetItemQuerySingleResponsePkt(template));
+			packetSender.Send(GetItemQuerySingleResponsePkt(template));
 		}
 
 		public void SendSetProficiency(byte type, int bitmask) {
-			_client.Send(GetSetProficiencyPkt(type, bitmask));
+			packetSender.Send(GetSetProficiencyPkt(type, bitmask));
 		}
 
 		public void SendNpcTextUpdate(NpcTexts text) {
-			_client.Send(GetNpcTextUpdatePkt(text));
+			packetSender.Send(GetNpcTextUpdatePkt(text));
 		}
 
 		public void SendStandstateUpdate() {
-			_client.Send(new WorldPacket(WMSG.SMSG_STANDSTATE_UPDATE, new[] { (byte)_player.StandState }));
+			packetSender.Send(new WorldPacket(WMSG.SMSG_STANDSTATE_UPDATE, new[] { (byte)player.StandState }));
 		}
 
 		public void SendGossipMessage(ulong targetGuid, GossipMessage message) {
-			_client.Send(GetGossipMessagePkt(targetGuid, message));
+			packetSender.Send(GetGossipMessagePkt(targetGuid, message));
 		}
 
 		public void SendUpdateObjects(IPacketBuilder builder) {
 			if(!builder.IsEmpty) {
-				_client.Send(builder.Build());
+				packetSender.Send(builder.Build());
 			}
+		}
+
+		public void LogOut() {
+			player.Logout();
+			player.Session = null;
+			player = null;
 		}
 
 		#endregion

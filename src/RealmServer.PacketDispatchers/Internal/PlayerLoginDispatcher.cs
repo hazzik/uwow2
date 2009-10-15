@@ -37,7 +37,7 @@ namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 			gameObject.PosY = player.PosY;
 			gameObject.PosZ = player.PosZ;
 			ObjectManager.Add(gameObject);
-			  
+
 			/*
 			Corpse corpse = Corpse.Create(player);
 			corpse.PosX = player.PosX;

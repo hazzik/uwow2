@@ -1,5 +1,4 @@
 using System;
-using System.Security.Cryptography;
 using Hazzik.Creatures;
 using Hazzik.GameObjects;
 using Hazzik.Gossip;
@@ -36,5 +35,6 @@ namespace Hazzik.Net {
 		void SendStandstateUpdate();
 		void SendGossipMessage(ulong targetGuid, GossipMessage message);
 		void SendUpdateObjects(IPacketBuilder builder);
+		void LogOut();
 	}
 }
