@@ -3,7 +3,7 @@ using System.IO;
 using Hazzik.Net;
 
 namespace Hazzik.RealmServer.PacketDispatchers.Internal {
-	[PacketHandlerClass(WMSG.CMSG_PING)]
+	[WorldPacketHandler(WMSG.CMSG_PING)]
 	internal class PingDispatcher : IPacketDispatcher {
 		#region IPacketDispatcher Members
 

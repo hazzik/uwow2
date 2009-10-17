@@ -7,7 +7,7 @@ using Hazzik.Objects;
 using Hazzik.Objects.Update;
 
 namespace Hazzik.RealmServer.PacketDispatchers.Internal {
-	[PacketHandlerClass(WMSG.CMSG_PLAYER_LOGIN)]
+	[WorldPacketHandler(WMSG.CMSG_PLAYER_LOGIN)]
 	internal class PlayerLoginDispatcher : IPacketDispatcher {
 		#region IPacketDispatcher Members
 

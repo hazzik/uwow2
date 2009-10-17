@@ -6,7 +6,7 @@ using Hazzik.Net;
 using Hazzik.Objects;
 
 namespace Hazzik.RealmServer.PacketDispatchers.Internal {
-	[PacketHandlerClass(WMSG.CMSG_GAMEOBJ_USE)]
+	[WorldPacketHandler(WMSG.CMSG_GAMEOBJ_USE)]
 	internal class GameObjectUseDispatcher : IPacketDispatcher {
 		#region IPacketDispatcher Members
 

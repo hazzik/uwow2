@@ -5,7 +5,7 @@ using Hazzik.Net;
 using Hazzik.Objects;
 
 namespace Hazzik.RealmServer.PacketDispatchers.Internal {
-	[PacketHandlerClass(WMSG.CMSG_AUTOEQUIP_ITEM)]
+	[WorldPacketHandler(WMSG.CMSG_AUTOEQUIP_ITEM)]
 	internal class AutoEquipDispatcher : IPacketDispatcher {
 		#region IPacketDispatcher Members
 

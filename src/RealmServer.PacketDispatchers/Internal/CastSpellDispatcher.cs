@@ -3,7 +3,7 @@ using System.IO;
 using Hazzik.Net;
 
 namespace Hazzik.RealmServer.PacketDispatchers.Internal {
-	[PacketHandlerClass(WMSG.CMSG_CAST_SPELL)]
+	[WorldPacketHandler(WMSG.CMSG_CAST_SPELL)]
 	internal class CastSpellDispatcher : IPacketDispatcher {
 		#region IPacketDispatcher Members
 

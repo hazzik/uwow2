@@ -5,7 +5,7 @@ using Hazzik.Data;
 using Hazzik.Net;
 
 namespace Hazzik.RealmServer.PacketDispatchers.Internal {
-	[PacketHandlerClass(WMSG.CMSG_CREATURE_QUERY)]
+	[WorldPacketHandler(WMSG.CMSG_CREATURE_QUERY)]
 	internal class CreatureQueryDispatcher : IPacketDispatcher {
 		#region IPacketDispatcher Members
 

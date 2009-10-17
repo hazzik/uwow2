@@ -2,7 +2,7 @@ using System;
 using Hazzik.Net;
 
 namespace Hazzik.RealmServer.PacketDispatchers.Internal {
-	[PacketHandlerClass(WMSG.CMSG_SET_AMMO)]
+	[WorldPacketHandler(WMSG.CMSG_SET_AMMO)]
 	internal class SetAmmoDispatcher : IPacketDispatcher {
 		#region IPacketDispatcher Members
 

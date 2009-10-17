@@ -3,7 +3,7 @@ using System.IO;
 using Hazzik.Net;
 
 namespace Hazzik.RealmServer.PacketDispatchers.Internal {
-	[PacketHandlerClass(WMSG.CMSG_GOSSIP_SELECT_OPTION)]
+	[WorldPacketHandler(WMSG.CMSG_GOSSIP_SELECT_OPTION)]
 	internal class GossipSelectOptionDispatcher : IPacketDispatcher {
 		#region IPacketDispatcher Members
 

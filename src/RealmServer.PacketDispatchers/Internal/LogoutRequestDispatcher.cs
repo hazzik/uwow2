@@ -3,7 +3,7 @@ using Hazzik.Net;
 using Hazzik.Objects;
 
 namespace Hazzik.RealmServer.PacketDispatchers.Internal {
-	[PacketHandlerClass(WMSG.CMSG_LOGOUT_REQUEST)]
+	[WorldPacketHandler(WMSG.CMSG_LOGOUT_REQUEST)]
 	internal class LogoutRequestDispatcher : IPacketDispatcher {
 		#region IPacketDispatcher Members
 

@@ -5,7 +5,7 @@ using Hazzik.Net;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 
 namespace Hazzik.RealmServer.PacketDispatchers.Internal {
-	[PacketHandlerClass(WMSG.CMSG_UPDATE_ACCOUNT_DATA)]
+	[WorldPacketHandler(WMSG.CMSG_UPDATE_ACCOUNT_DATA)]
 	internal class UpdateAccountDataDispatcher : IPacketDispatcher {
 		#region IPacketDispatcher Members
 

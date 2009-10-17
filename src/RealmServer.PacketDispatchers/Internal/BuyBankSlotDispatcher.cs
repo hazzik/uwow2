@@ -2,7 +2,7 @@ using System;
 using Hazzik.Net;
 
 namespace Hazzik.RealmServer.PacketDispatchers.Internal {
-	[PacketHandlerClass(WMSG.CMSG_BUY_BANK_SLOT)]
+	[WorldPacketHandler(WMSG.CMSG_BUY_BANK_SLOT)]
 	internal class BuyBankSlotDispatcher : IPacketDispatcher {
 		#region IPacketDispatcher Members
 

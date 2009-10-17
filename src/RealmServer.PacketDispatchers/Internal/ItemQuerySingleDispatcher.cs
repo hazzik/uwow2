@@ -5,7 +5,7 @@ using Hazzik.Items;
 using Hazzik.Net;
 
 namespace Hazzik.RealmServer.PacketDispatchers.Internal {
-	[PacketHandlerClass(WMSG.CMSG_ITEM_QUERY_SINGLE)]
+	[WorldPacketHandler(WMSG.CMSG_ITEM_QUERY_SINGLE)]
 	internal class ItemQuerySingleDispatcher : IPacketDispatcher {
 		#region IPacketDispatcher Members
 

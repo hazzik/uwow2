@@ -31,11 +31,11 @@ namespace Hazzik.RealmServer.PacketDispatchers {
 		}
 
 		protected void LoadType(Type type) {
-			var attribs = (PacketHandlerClassAttribute[])type.GetCustomAttributes(typeof(PacketHandlerClassAttribute), true);
+			var attribs = (WorldPacketHandlerAttribute[])type.GetCustomAttributes(typeof(WorldPacketHandlerAttribute), true);
 			if(attribs.Length == 0) {
 				return;
 			}
-			foreach(PacketHandlerClassAttribute attrib in attribs) {
+			foreach(WorldPacketHandlerAttribute attrib in attribs) {
 				_dispatchers[(int)attrib.MessageType] = (IPacketDispatcher)Activator.CreateInstance(type);
 			}
 		}

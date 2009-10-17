@@ -5,7 +5,7 @@ using Hazzik.Net;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 
 namespace Hazzik.RealmServer.PacketDispatchers.Internal {
-	[PacketHandlerClass(WMSG.CMSG_REQUEST_ACCOUNT_DATA)]
+	[WorldPacketHandler(WMSG.CMSG_REQUEST_ACCOUNT_DATA)]
 	internal class RequestAccountDataDispatcher : IPacketDispatcher {
 		#region IPacketDispatcher Members
 

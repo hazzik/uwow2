@@ -3,7 +3,7 @@ using System.IO;
 using Hazzik.Net;
 
 namespace Hazzik.RealmServer.PacketDispatchers.Internal {
-	[PacketHandlerClass(WMSG.CMSG_REALM_SPLIT)]
+	[WorldPacketHandler(WMSG.CMSG_REALM_SPLIT)]
 	internal class RealmSplitDispatcher : IPacketDispatcher {
 		#region IPacketDispatcher Members
 

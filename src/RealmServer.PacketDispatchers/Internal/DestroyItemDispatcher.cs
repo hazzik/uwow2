@@ -4,7 +4,7 @@ using Hazzik.Items;
 using Hazzik.Net;
 
 namespace Hazzik.RealmServer.PacketDispatchers.Internal {
-	[PacketHandlerClass(WMSG.CMSG_DESTROYITEM)]
+	[WorldPacketHandler(WMSG.CMSG_DESTROYITEM)]
 	internal class DestroyItemDispatcher : IPacketDispatcher {
 		#region IPacketDispatcher Members
 

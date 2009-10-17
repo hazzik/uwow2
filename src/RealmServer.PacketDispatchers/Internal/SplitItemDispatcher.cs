@@ -5,7 +5,7 @@ using Hazzik.Net;
 using Hazzik.Objects;
 
 namespace Hazzik.RealmServer.PacketDispatchers.Internal {
-	[PacketHandlerClass(WMSG.CMSG_SPLIT_ITEM)]
+	[WorldPacketHandler(WMSG.CMSG_SPLIT_ITEM)]
 	internal class SplitItemDispatcher : IPacketDispatcher {
 		#region IPacketDispatcher Members
 

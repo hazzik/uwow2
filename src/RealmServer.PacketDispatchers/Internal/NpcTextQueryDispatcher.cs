@@ -5,7 +5,7 @@ using Hazzik.Gossip;
 using Hazzik.Net;
 
 namespace Hazzik.RealmServer.PacketDispatchers.Internal {
-	[PacketHandlerClass(WMSG.CMSG_NPC_TEXT_QUERY)]
+	[WorldPacketHandler(WMSG.CMSG_NPC_TEXT_QUERY)]
 	internal class NpcTextQueryDispatcher : IPacketDispatcher {
 		#region IPacketDispatcher Members
 

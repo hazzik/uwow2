@@ -86,7 +86,7 @@
     <Compile Include="Internal\SwapItemDispatcher.cs" />
     <Compile Include="Internal\SwapItemDispatcherBase.cs" />
     <Compile Include="Internal\UpdateAccountDataDispatcher.cs" />
-    <Compile Include="PacketHandlerClassAttribute.cs" />
+    <Compile Include="WorldPacketHandlerAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

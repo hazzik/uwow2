@@ -4,7 +4,7 @@ using Hazzik.Net;
 using Hazzik.Objects;
 
 namespace Hazzik.RealmServer.PacketDispatchers.Internal {
-	[PacketHandlerClass(WMSG.CMSG_AUTOBANK_ITEM)]
+	[WorldPacketHandler(WMSG.CMSG_AUTOBANK_ITEM)]
 	internal class AutoBankItemDispatcher : BaseEquipDispatcher, IPacketDispatcher {
 		protected override IInventory GetInventoryDst(Player player) {
 			return player.Bank;

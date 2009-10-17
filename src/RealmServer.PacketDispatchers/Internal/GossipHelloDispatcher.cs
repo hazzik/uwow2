@@ -4,7 +4,7 @@ using Hazzik.Gossip;
 using Hazzik.Net;
 
 namespace Hazzik.RealmServer.PacketDispatchers.Internal {
-	[PacketHandlerClass(WMSG.CMSG_GOSSIP_HELLO)]
+	[WorldPacketHandler(WMSG.CMSG_GOSSIP_HELLO)]
 	internal class GossipHelloDispatcher : IPacketDispatcher {
 		#region IPacketDispatcher Members
 

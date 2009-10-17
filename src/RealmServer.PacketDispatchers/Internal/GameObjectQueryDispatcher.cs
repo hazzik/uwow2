@@ -5,7 +5,7 @@ using Hazzik.GameObjects;
 using Hazzik.Net;
 
 namespace Hazzik.RealmServer.PacketDispatchers.Internal {
-	[PacketHandlerClass(WMSG.CMSG_GAMEOBJECT_QUERY)]
+	[WorldPacketHandler(WMSG.CMSG_GAMEOBJECT_QUERY)]
 	internal class GameObjectQueryDispatcher : IPacketDispatcher {
 		#region IPacketDispatcher Members
 
