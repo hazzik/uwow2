@@ -3,10 +3,10 @@ using Hazzik.Items;
 
 namespace Hazzik.Objects {
 	public partial class Item : WorldObject {
-		private readonly ItemTemplate _template;
+		private readonly ItemTemplate template;
 
 		public Item(ItemTemplate template) {
-			_template = template;
+			this.template = template;
 			Type |= ObjectTypes.Item;
 		}
 
@@ -21,7 +21,7 @@ namespace Hazzik.Objects {
 		public IContainer Contained { get; set; }
 
 		public ItemTemplate Template {
-			get { return _template; }
+			get { return template; }
 		}
 
 		public static Item Create(ItemTemplate template) {

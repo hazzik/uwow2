@@ -9,7 +9,7 @@ namespace Hazzik.Objects {
 		StrafeLeft = 0x00000004,
 		StrafeRight = 0x00000008,
 		Left = 0x00000010,
-		RIGHT = 0x00000020,
+		Right = 0x00000020,
 		PitchUp = 0x00000040,
 		PitchDown = 0x00000080,
 		Walk = 0x00000100,

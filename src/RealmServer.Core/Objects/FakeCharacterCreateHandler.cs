@@ -1,6 +1,5 @@
 using System;
 using Hazzik.Data;
-using Hazzik.Skills;
 
 namespace Hazzik.Objects {
 	public class FakeCharacterCreateHandler {
@@ -27,45 +26,43 @@ namespace Hazzik.Objects {
 			player.Speed5 = 7F;
 			player.Speed6 = 4.5F;
 			player.TurnRate = 3.141593F;
-			Player c = player;
-			//player.Race = Races.Orc;
-			//player.Classe = Classes.Warrior;
-			//player.Gender = GenderType.Male;
+
 			player.PowerType = PowerType.Rage;
 			player.Health = 50;
 			player.Power = 100;
 			player.Level = 80;
 			player.Stat0 = 20;
+
 			switch(player.Race) {
 			case Races.Human:
-			c.NativeDisplayId=	c.DisplayId = 49 + (uint)c.Gender;
+				player.NativeDisplayId = player.DisplayId = 49 + (uint)player.Gender;
 				break;
 			case Races.Orc:
-				c.NativeDisplayId = c.DisplayId = 51 + (uint)c.Gender;
+				player.NativeDisplayId = player.DisplayId = 51 + (uint)player.Gender;
 				break;
 			case Races.Dwarf:
-				c.NativeDisplayId = c.DisplayId = 53 + (uint)c.Gender;
+				player.NativeDisplayId = player.DisplayId = 53 + (uint)player.Gender;
 				break;
 			case Races.NightElf:
-				c.NativeDisplayId = c.DisplayId = 55 + (uint)c.Gender;
+				player.NativeDisplayId = player.DisplayId = 55 + (uint)player.Gender;
 				break;
 			case Races.Undead:
-				c.NativeDisplayId = c.DisplayId = 57 + (uint)c.Gender;
+				player.NativeDisplayId = player.DisplayId = 57 + (uint)player.Gender;
 				break;
 			case Races.Tauren:
-				c.NativeDisplayId = c.DisplayId = 59 + (uint)c.Gender;
+				player.NativeDisplayId = player.DisplayId = 59 + (uint)player.Gender;
 				break;
 			case Races.Gnome:
-				c.NativeDisplayId = c.DisplayId = 1563 + (uint)c.Gender;
+				player.NativeDisplayId = player.DisplayId = 1563 + (uint)player.Gender;
 				break;
 			case Races.Troll:
-				c.NativeDisplayId = c.DisplayId = 1478 + (uint)c.Gender;
+				player.NativeDisplayId = player.DisplayId = 1478 + (uint)player.Gender;
 				break;
 			case Races.BloodElf:
-				c.NativeDisplayId = c.DisplayId = 15476 - (uint)c.Gender;
+				player.NativeDisplayId = player.DisplayId = 15476 - (uint)player.Gender;
 				break;
 			case Races.Draenei:
-				c.NativeDisplayId = c.DisplayId = 16125 + (uint)c.Gender;
+				player.NativeDisplayId = player.DisplayId = 16125 + (uint)player.Gender;
 				break;
 			default:
 				throw new ArgumentOutOfRangeException();

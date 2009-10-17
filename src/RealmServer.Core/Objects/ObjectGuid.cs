@@ -2,10 +2,10 @@ using System;
 
 namespace Hazzik {
 	public class ObjectGuid {
-		private static ulong _lastGuid;
+		private static ulong lastGuid;
 
 		public static ulong NewGuid() {
-			return ++_lastGuid;
+			return ++lastGuid;
 		}
 	}
 }

@@ -34,7 +34,7 @@ namespace Hazzik.Objects.Update {
 			return new UpdateBlockWriter(worldObject.Guid, sendedDto);
 		}
 
-		public static int GetMaxValues(ObjectTypeId typeId) {
+		private static int GetMaxValues(ObjectTypeId typeId) {
 			switch(typeId) {
 			case ObjectTypeId.Object:
 				return (int)UpdateFields.OBJECT_END;
