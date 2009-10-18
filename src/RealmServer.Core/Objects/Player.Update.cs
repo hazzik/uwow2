@@ -12,7 +12,7 @@ namespace Hazzik.Objects {
 		#region PLAYER_FLAGS
 
 		//PLAYER_FLAGS : type = Int, size = 1, flag = Public
-		public virtual UInt32 Flags { get; set; }
+		public virtual PlayerFlags Flags { get; set; }
 
 		#endregion
 

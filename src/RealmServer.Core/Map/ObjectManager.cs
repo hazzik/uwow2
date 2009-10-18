@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Hazzik.Objects;
 
 namespace Hazzik.Map {
@@ -7,12 +8,12 @@ namespace Hazzik.Map {
 		private static readonly IDictionary<ulong, Player> allLoggedPlayers = new Dictionary<ulong, Player>();
 		private static readonly IDictionary<ulong, Positioned> allObjects = new Dictionary<ulong, Positioned>();
 
-		public static void Add(Positioned player) {
-			if(!allObjects.ContainsKey(player.Guid)) {
-				allObjects.Add(player.Guid, player);
+		public static void Add(Positioned positioned) {
+			if(!allObjects.ContainsKey(positioned.Guid)) {
+				allObjects.Add(positioned.Guid, positioned);
 			}
-			if(player is Player && !allLoggedPlayers.ContainsKey(player.Guid)) {
-				allLoggedPlayers.Add(player.Guid, (Player)player);
+			if(positioned is Player && !allLoggedPlayers.ContainsKey(positioned.Guid)) {
+				allLoggedPlayers.Add(positioned.Guid, (Player)positioned);
 			}
 		}
 
@@ -21,7 +22,7 @@ namespace Hazzik.Map {
 		}
 
 		public static IEnumerable<Positioned> GetSeenObjectsNear(Player me) {
-			return allObjects.Values;
+			return allObjects.Values.Where(o => o.IsSeenBy(me));
 		}
 
 		public static void Remove(WorldObject obj) {

@@ -21,5 +21,9 @@ namespace Hazzik.Objects {
 			writer.Write(PosZ);
 			writer.Write(Facing);
 		}
+
+		public virtual bool IsSeenBy(Player player) {
+			return true;
+		}
 	}
 }

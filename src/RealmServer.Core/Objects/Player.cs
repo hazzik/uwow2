@@ -15,7 +15,6 @@ namespace Hazzik.Objects {
 		private readonly IList<Skill> _skills = new List<Skill>();
 
 		private readonly IList<int> _spells = new List<int>();
-		public bool Dead;
 		public int PetCreatureFamily;
 		public int PetDisplayId;
 		public int PetLevel;
@@ -54,6 +53,23 @@ namespace Hazzik.Objects {
 
 		public IList<int> Spells {
 			get { return _spells; }
+		}
+
+		public override uint Health {
+			get { return !Ghost ? base.Health : 1; }
+			set { base.Health = value; }
+		}
+
+		public bool Ghost {
+			get { return (Flags & PlayerFlags.Ghost) != 0; }
+			set {
+				if(value) {
+					Flags |= PlayerFlags.Ghost;
+				}
+				else {
+					Flags &= ~PlayerFlags.Ghost;
+				}
+			}
 		}
 
 		#region IContainer Members
@@ -96,7 +112,7 @@ namespace Hazzik.Objects {
 		public void TrainSpell(int spellId) {
 			SkillLineAbility sla = new SkillLineAbilityRepository().FindBySpellId(spellId);
 			if(sla != null) {
-				AddSkill(new Skill { Id = (ushort)sla.SkillId,Value = 1,Cap = 1});
+				AddSkill(new Skill { Id = (ushort)sla.SkillId, Value = 1, Cap = 1 });
 			}
 			Spells.Add(spellId);
 		}
@@ -110,12 +126,29 @@ namespace Hazzik.Objects {
 		}
 
 		public void Logout() {
-			ObjectManager.Remove(this);	
+			ObjectManager.Remove(this);
 			updateManager.StopUpdateTimer();
 		}
 
 		public void SetUpdateManager(UpdateManager manager) {
 			updateManager = manager;
+		}
+
+		public void Repop() {
+			Corpse corpse = Corpse.Create(this);
+			this.Corpse = corpse;
+			ObjectManager.Add(corpse);
+
+			Ghost = true;
+		}
+
+		public Corpse Corpse { get; set; }
+
+		public override bool IsSeenBy(Player unit) {
+			if(Ghost && !unit.Ghost) {
+				return false;  //non ghost cant see ghost
+			}
+			return base.IsSeenBy(unit);
 		}
 	}
 }

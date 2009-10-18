@@ -6,8 +6,8 @@ using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 
 namespace Hazzik.Net {
 	internal class CompressedDataPacket : WorldPacket, ICollection<IPacket> {
-		private readonly IList<IPacket> _packets = new List<IPacket>();
-		private bool _dirty;
+		private readonly IList<IPacket> packets = new List<IPacket>();
+		private bool dirty;
 
 		public CompressedDataPacket()
 			: base(WMSG.SMSG_COMPRESSED_MOVES) {
@@ -16,25 +16,25 @@ namespace Hazzik.Net {
 		#region ICollection<IPacket> Members
 
 		public void Add(IPacket item) {
-			_packets.Add(item);
-			_dirty = true;
+			packets.Add(item);
+			dirty = true;
 		}
 
 		public void Clear() {
-			_packets.Clear();
-			_dirty = true;
+			packets.Clear();
+			dirty = true;
 		}
 
 		public bool Contains(IPacket item) {
-			return _packets.Contains(item);
+			return packets.Contains(item);
 		}
 
 		public void CopyTo(IPacket[] array, int arrayIndex) {
-			_packets.CopyTo(array, arrayIndex);
+			packets.CopyTo(array, arrayIndex);
 		}
 
 		public int Count {
-			get { return _packets.Count; }
+			get { return packets.Count; }
 		}
 
 		public bool IsReadOnly {
@@ -42,24 +42,24 @@ namespace Hazzik.Net {
 		}
 
 		public bool Remove(IPacket item) {
-			_dirty = true;
-			return _packets.Remove(item);
+			dirty = true;
+			return packets.Remove(item);
 		}
 
 		IEnumerator IEnumerable.GetEnumerator() {
-			return _packets.GetEnumerator();
+			return packets.GetEnumerator();
 		}
 
 		IEnumerator<IPacket> IEnumerable<IPacket>.GetEnumerator() {
-			return _packets.GetEnumerator();
+			return packets.GetEnumerator();
 		}
 
 		#endregion
 
 		public override Stream GetStream() {
-			if(null == _stream || _dirty) {
+			if(null == _stream || dirty) {
 				int size = 0;
-				foreach(IPacket packet in _packets) {
+				foreach(IPacket packet in packets) {
 					size += 3 + packet.Size;
 				}
 				_stream = new MemoryStream();
@@ -69,7 +69,7 @@ namespace Hazzik.Net {
 				_stream.WriteByte((byte)(size >> 0x18));
 
 				var compressedStream = new DeflaterOutputStream(_stream);
-				foreach(IPacket packet in _packets) {
+				foreach(IPacket packet in packets) {
 					compressedStream.WriteByte((byte)(packet.Size + 2));
 					compressedStream.WriteByte((byte)(Code));
 					compressedStream.WriteByte((byte)(Code >> 0x08));

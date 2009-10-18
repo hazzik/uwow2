@@ -62,6 +62,7 @@
     <Compile Include="Internal\CastSpellDispatcher.cs" />
     <Compile Include="Internal\CharCreateDispatcher.cs" />
     <Compile Include="Internal\CharEnumDispatcher.cs" />
+    <Compile Include="Internal\CorpseQuery.cs" />
     <Compile Include="Internal\CreatureQueryDispatcher.cs" />
     <Compile Include="Internal\DestroyItemDispatcher.cs" />
     <Compile Include="Internal\GameObjectQueryDispatcher.cs" />
@@ -77,6 +78,8 @@
     <Compile Include="Internal\PingDispatcher.cs" />
     <Compile Include="Internal\PlayerLoginDispatcher.cs" />
     <Compile Include="Internal\RealmSplitDispatcher.cs" />
+    <Compile Include="Internal\ReclaimCorpse.cs" />
+    <Compile Include="Internal\RepopRequest.cs" />
     <Compile Include="Internal\RequestAccountDataDispatcher.cs" />
     <Compile Include="Internal\SetAmmoDispatcher.cs" />
     <Compile Include="Internal\SetSheathedDispatcher.cs" />

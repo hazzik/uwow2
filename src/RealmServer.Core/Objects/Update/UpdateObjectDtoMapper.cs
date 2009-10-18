@@ -254,7 +254,7 @@ namespace Hazzik.Objects.Update {
 			//obj.Coinage = uint.MaxValue;
 			UpdateUnit(dto, obj);
 			dto.Set(UpdateFields.PLAYER_DUEL_ARBITER, obj.DuelArbiterGuid);
-			dto.Set(UpdateFields.PLAYER_FLAGS, obj.Flags);
+			dto.Set(UpdateFields.PLAYER_FLAGS, (uint)obj.Flags);
 			dto.Set(UpdateFields.PLAYER_GUILDID, obj.GuildId);
 			dto.Set(UpdateFields.PLAYER_GUILDRANK, obj.GuildRank);
 			dto.Set(UpdateFields.PLAYER_BYTES,

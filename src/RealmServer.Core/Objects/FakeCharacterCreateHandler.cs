@@ -29,6 +29,7 @@ namespace Hazzik.Objects {
 
 			player.PowerType = PowerType.Rage;
 			player.Health = 50;
+			player.MaxHealth = 50;
 			player.Power = 100;
 			player.Level = 80;
 			player.Stat0 = 20;

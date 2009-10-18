@@ -8,10 +8,13 @@ namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 		#region IPacketDispatcher Members
 
 		public void Dispatch(ISession session, IPacket packet) {
+			session.Player.Health = 0;
+			/*
 			BinaryReader reader = packet.CreateReader();
 			byte castCount = reader.ReadByte();
 			uint spellId = reader.ReadUInt32();
 			byte unklags = reader.ReadByte();
+
 
 			IPacket pkt = WorldPacketFactory.Create(WMSG.SMSG_SPELL_GO);
 			BinaryWriter writer = pkt.CreateWriter();
@@ -35,7 +38,7 @@ namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 			writer.Write((byte)0);
 			writer.Write((byte)1);
 			writer.Write((byte)0);
-			session.Client.Send(packet);
+			session.Client.Send(packet);*/
 		}
 
 		#endregion
