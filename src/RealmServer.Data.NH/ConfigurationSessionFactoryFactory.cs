@@ -1,9 +1,8 @@
 using System;
-using NHibernate;
 using NHibernate.Cfg;
 
 namespace Hazzik.Data.NH {
-	public class ConfigurationSessionFactoryFactory : IConfigurationFactory {
+	internal class ConfigurationSessionFactoryFactory : IConfigurationFactory {
 		#region IConfigurationFactory Members
 
 		public Configuration CreateConfiguration() {

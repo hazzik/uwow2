@@ -39,6 +39,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Solution Items\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="IDao.cs" />
     <Compile Include="IFindById.cs" />
     <Compile Include="IFindByGuid.cs" />

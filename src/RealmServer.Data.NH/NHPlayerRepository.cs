@@ -5,7 +5,7 @@ using NHibernate;
 using NHibernate.Criterion;
 
 namespace Hazzik.Data.NH {
-	public class NHPlayerRepository : NHDao<Player>, IPlayerRepository {
+	internal class NHPlayerRepository : NHDao<Player>, IPlayerRepository {
 		#region IPlayerRepository Members
 
 		public Player FindByGuid(ulong guid) {

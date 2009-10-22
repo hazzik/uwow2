@@ -50,6 +50,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\src\Solution Items\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="BinaryReaderExtension.cs" />
     <Compile Include="BinaryWriterExtension.cs" />
     <Compile Include="DateTimeExtension.cs" />

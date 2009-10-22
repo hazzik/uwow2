@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Hazzik.Data.NH</RootNamespace>
-    <AssemblyName>Hazzik.Data.NHibernate</AssemblyName>
+    <AssemblyName>Hazzik.Data.NH</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SignAssembly>true</SignAssembly>
@@ -43,6 +43,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Solution Items\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="IConfigurationFactory.cs" />
     <Compile Include="NHDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
