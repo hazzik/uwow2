@@ -6,11 +6,11 @@ using NHibernate;
 using NHibernate.Cfg;
 
 namespace Hazzik.RealmServer.Data.NH.Fluent {
-	public class FluentSessionFactoryFactory : ISessionFactoryFactory {
-		#region ISessionFactoryFactory Members
+	public class FluentSessionFactoryFactory : IConfigurationFactory {
+		#region IConfigurationFactory Members
 
-		public ISessionFactory GetFactory() {
-			Configuration configuration = Fluently
+		public Configuration CreateConfiguration() {
+			return Fluently
 				.Configure()
 				.Database(SQLiteConfiguration
 				          	.Standard
@@ -24,8 +24,6 @@ namespace Hazzik.RealmServer.Data.NH.Fluent {
 				               	.AddFromAssemblyOf<FluentSessionFactoryFactory>()
 				               	.ExportTo(@"g:\uwow2\uwow2\src\"))
 				.BuildConfiguration();
-
-			return configuration.BuildSessionFactory();
 		}
 
 		#endregion

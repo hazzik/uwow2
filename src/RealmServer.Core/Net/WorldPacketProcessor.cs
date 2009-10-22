@@ -4,7 +4,6 @@ using System.Security.Cryptography;
 using System.Text;
 using Hazzik.Cryptography;
 using Hazzik.Data;
-using Hazzik.Helper;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 
 namespace Hazzik.Net {

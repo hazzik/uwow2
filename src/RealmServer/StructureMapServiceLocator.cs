@@ -9,7 +9,7 @@ namespace Hazzik {
 	internal class StructureMapServiceLocator : ServiceLocator {
 		static StructureMapServiceLocator() {
 			ObjectFactory.Configure(config => {
-			                        	config.ForRequestedType<ISessionFactoryFactory>().AddConcreteType<FluentSessionFactoryFactory>();
+			                        	config.ForRequestedType<IConfigurationFactory>().AddConcreteType<FluentSessionFactoryFactory>();
 			                        	config.ForRequestedType<IAccountRepository>().AddConcreteType<NHAccountRepository>();
 			                        	config.ForRequestedType<IPlayerRepository>().AddConcreteType<NHPlayerRepository>();
 			                        	config.ForRequestedType<IGameObjectTemplateRepository>().AddConcreteType<NHGameObjectTemplateRepository>();

@@ -3,12 +3,12 @@ using NHibernate;
 using NHibernate.Cfg;
 
 namespace Hazzik.Data.NH {
-	public class ConfigurationSessionFactoryFactory : ISessionFactoryFactory {
-		#region ISessionFactoryFactory Members
+	public class ConfigurationSessionFactoryFactory : IConfigurationFactory {
+		#region IConfigurationFactory Members
 
-		public ISessionFactory GetFactory() {
+		public Configuration CreateConfiguration() {
 			var cfg = new Configuration();
-			return cfg.Configure().BuildSessionFactory();
+			return cfg.Configure();
 		}
 
 		#endregion

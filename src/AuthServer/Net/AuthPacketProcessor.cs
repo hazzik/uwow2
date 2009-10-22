@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading;
 using Hazzik.Data;
 using Hazzik.Data.NH;
-using Hazzik.Helper;
 
 namespace Hazzik.Net {
 	public class AuthPacketProcessor : IPacketProcessor {

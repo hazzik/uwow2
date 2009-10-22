@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 
-namespace Hazzik.Helper {
+namespace Hazzik {
 	public static class Utility {
 		private static DateTime _deltaTime = new DateTime(1970, 1, 1);
 		public static Random seed2 = new Random();

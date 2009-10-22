@@ -4,7 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 
-namespace Hazzik.Helper {
+namespace Hazzik {
 	public class PacketsHelper {
 		public static byte[] GetBytes(string pkt) {
 			var r = new StringReader(pkt);

@@ -2,7 +2,6 @@ using System;
 using System.Security.Cryptography;
 using System.Text;
 using System.Xml.Serialization;
-using Hazzik.Helper;
 
 namespace Hazzik {
 	[XmlType("account")]

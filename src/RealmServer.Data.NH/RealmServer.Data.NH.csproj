@@ -47,7 +47,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ISessionFactoryFactory.cs" />
+    <Compile Include="IConfigurationFactory.cs" />
     <Compile Include="NHAccountRepository.cs" />
     <Compile Include="NHDao.cs" />
     <Compile Include="NHGameObjectTemplateRepository.cs" />
