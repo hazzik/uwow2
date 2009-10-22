@@ -2,7 +2,6 @@ using System;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using Hazzik.Data.NH;
-using NHibernate;
 using NHibernate.Cfg;
 
 namespace Hazzik.RealmServer.Data.NH.Fluent {

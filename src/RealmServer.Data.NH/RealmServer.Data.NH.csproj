@@ -47,15 +47,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IConfigurationFactory.cs" />
     <Compile Include="NHAccountRepository.cs" />
-    <Compile Include="NHDao.cs" />
     <Compile Include="NHGameObjectTemplateRepository.cs" />
     <Compile Include="NHPlayerRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ConfigurationSessionFactoryFactory.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Data.NH\Data.NH.csproj">
+      <Project>{5515693F-1E28-4C9C-8BC8-7A9BFAE4EE78}</Project>
+      <Name>Data.NH</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Data\Data.csproj">
       <Project>{6959839C-CE87-4006-9B2E-84544C5AA1C0}</Project>
       <Name>Data</Name>
