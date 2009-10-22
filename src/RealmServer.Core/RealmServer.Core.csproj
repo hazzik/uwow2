@@ -65,6 +65,7 @@
     <Compile Include="GameObjects\UseHandlers\ChairHandler.cs" />
     <Compile Include="GameObjects\GameObjectTemplate.cs" />
     <Compile Include="Gossip\GossipMessage.cs" />
+    <Compile Include="IoC.cs" />
     <Compile Include="Net\AsyncWorldPaketReceiver.cs" />
     <Compile Include="Net\Cryptor.cs" />
     <Compile Include="Net\IPacketDispatcherFactory.cs" />
@@ -122,7 +123,7 @@
     <Compile Include="Data\IItemTemplateRepository.cs" />
     <Compile Include="Data\INpcTextRepository.cs" />
     <Compile Include="Net\IPacketDispatcher.cs" />
-    <Compile Include="ServiceLocator.cs" />
+    <Compile Include="IDependencyResolver.cs" />
     <Compile Include="Skills\SkillLineAbility.cs" />
     <Compile Include="Dbc\SkillLineAbilityRepository.cs" />
     <Compile Include="Gossip\GossipMenuIcon.cs" />

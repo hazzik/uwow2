@@ -3,7 +3,7 @@ using NHibernate;
 
 namespace Hazzik.Data.NH {
 	public abstract class NHDao<T> : IDao<T> {
-		private static readonly ISession session = ServiceLocator.Resolve<IConfigurationFactory>()
+		private static readonly ISession session = IoC.Resolve<IConfigurationFactory>()
 			.CreateConfiguration()
 			.BuildSessionFactory()
 			.OpenSession();

@@ -6,8 +6,8 @@ using Hazzik.RealmServer.Data.NH.Fluent;
 using StructureMap;
 
 namespace Hazzik {
-	internal class StructureMapServiceLocator : ServiceLocator {
-		static StructureMapServiceLocator() {
+	internal class StructureMapResolver : IDependencyResolver {
+		static StructureMapResolver() {
 			ObjectFactory.Configure(config => {
 			                        	config.ForRequestedType<IConfigurationFactory>().AddConcreteType<FluentSessionFactoryFactory>();
 			                        	config.ForRequestedType<IAccountRepository>().AddConcreteType<NHAccountRepository>();
@@ -19,7 +19,7 @@ namespace Hazzik {
 			                        });
 		}
 
-		protected override T ResolveImpl<T>() {
+		public virtual T Resolve<T>() {
 			return ObjectFactory.GetInstance<T>();
 		}
 	}

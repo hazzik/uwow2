@@ -7,7 +7,7 @@ using Hazzik.RealmServer.PacketDispatchers;
 namespace Hazzik {
 	internal class App {
 		private static void Main(string[] args) {
-			ServiceLocator.Initialize(new StructureMapServiceLocator());
+			IoC.Initialize(new StructureMapResolver());
 
 			var factory = new AttributesPacketDispatcherFactory();
 			foreach(Assembly assembly in AppDomain.CurrentDomain.GetAssemblies()) {
