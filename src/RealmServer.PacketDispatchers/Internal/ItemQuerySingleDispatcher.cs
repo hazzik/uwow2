@@ -12,7 +12,7 @@ namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 		public void Dispatch(ISession session, IPacket packet) {
 			BinaryReader r = packet.CreateReader();
 			uint itemId = r.ReadUInt32();
-			ItemTemplate template = Repository.ItemTemplate.FindById(itemId);
+			ItemTemplate template = IoC.Resolve<IItemTemplateRepository>().FindById(itemId);
 			if(template != null) {
 				session.SendItemQuerySingleResponse(template);
 			}

@@ -32,7 +32,7 @@ namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 			//ObjectManager.Add(creature);
 
 
-			GameObject gameObject = GameObject.Create(Repository.GameObjectTemplate.FindById(35591));
+			GameObject gameObject = GameObject.Create(IoC.Resolve<IGameObjectTemplateRepository>().FindById(35591));
 			gameObject.PosX = player.PosX;
 			gameObject.PosY = player.PosY;
 			gameObject.PosZ = player.PosZ;

@@ -90,7 +90,6 @@
     <Compile Include="Creatures\CreatureTemplate.cs" />
     <Compile Include="Creatures\CreatureType.cs" />
     <Compile Include="Creatures\NpcFlags.cs" />
-    <Compile Include="Data\Repository.cs" />
     <Compile Include="Dbc\BankSlotPricesRepository.cs" />
     <Compile Include="Dbc\DbcLoader.cs" />
     <Compile Include="Dbc\IDbcRow.cs" />

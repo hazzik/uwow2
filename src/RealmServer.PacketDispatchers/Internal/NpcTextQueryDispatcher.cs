@@ -14,7 +14,7 @@ namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 			uint textId = reader.ReadUInt32();
 			ulong targetGuid = reader.ReadUInt64();
 
-			NpcTexts text = Repository.NpcText.FindById(textId);
+			NpcTexts text = IoC.Resolve<INpcTextRepository>().FindById(textId);
 			if(text != null) {
 				session.SendNpcTextUpdate(text);
 			}

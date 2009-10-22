@@ -66,7 +66,7 @@ namespace Hazzik.Net {
 			ulong unk3 = r.ReadUInt64();
 			byte[] clientDigest = r.ReadBytes(20);
 
-			session.Account = Repository.Account.FindByName(accountName);
+			session.Account = IoC.Resolve<IAccountRepository>().FindByName(accountName);
 
 			cryptor.SetSymmetricAlgorithm(new WowCryptRC4(session.Account.SessionKey));
 
