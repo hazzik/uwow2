@@ -5,25 +5,25 @@ using Hazzik.Net;
 
 namespace Hazzik.RealmServer.PacketDispatchers {
 	public class AttributesPacketDispatcherFactory : IPacketDispatcherFactory {
-		private readonly IList<Assembly> _assemblies = new List<Assembly>();
-		private readonly IDictionary<int, IPacketDispatcher> _dispatchers = new Dictionary<int, IPacketDispatcher>();
+		private readonly IList<Assembly> assemblies = new List<Assembly>();
+		private readonly IDictionary<int, IPacketDispatcher> dispatchers = new Dictionary<int, IPacketDispatcher>();
 
 		#region IPacketDispatcherFactory Members
 
 		public IPacketDispatcher GetDispatcher(WMSG wmsg) {
 			IPacketDispatcher dispatcher;
-			_dispatchers.TryGetValue((int)wmsg, out dispatcher);
+			dispatchers.TryGetValue((int)wmsg, out dispatcher);
 			return dispatcher;
 		}
 
 		#endregion
 
 		public void AddAssembly(Assembly assembly) {
-			_assemblies.Add(assembly);
+			assemblies.Add(assembly);
 		}
 
 		public void Load() {
-			foreach(Assembly assembly in _assemblies) {
+			foreach(Assembly assembly in assemblies) {
 				foreach(Type type in assembly.GetTypes()) {
 					LoadType(type);
 				}
@@ -36,7 +36,7 @@ namespace Hazzik.RealmServer.PacketDispatchers {
 				return;
 			}
 			foreach(WorldPacketHandlerAttribute attrib in attribs) {
-				_dispatchers[(int)attrib.MessageType] = (IPacketDispatcher)Activator.CreateInstance(type);
+				dispatchers[(int)attrib.MessageType] = (IPacketDispatcher)Activator.CreateInstance(type);
 			}
 		}
 	}
