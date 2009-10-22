@@ -62,12 +62,7 @@
     <Compile Include="..\Solution Items\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Mappings\AccountMap.cs" />
     <Compile Include="FluentConfigurationFactory.cs" />
-    <Compile Include="Mappings\GameObjectTemplateMap.cs" />
-    <Compile Include="Mappings\PlayerMap.cs" />
-    <Compile Include="Mappings\PositionedMap.cs" />
-    <Compile Include="Mappings\UnitMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

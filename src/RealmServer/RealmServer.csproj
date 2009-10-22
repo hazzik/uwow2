@@ -71,10 +71,6 @@
       <Project>{763DE8C6-1140-44CB-84B9-A7E400CB65BF}</Project>
       <Name>RealmServer.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RealmServer.Data.NH.Fluent\RealmServer.Data.NH.Fluent.csproj">
-      <Project>{39FC0C70-B937-48B3-8DC6-09DF18A0FED3}</Project>
-      <Name>RealmServer.Data.NH.Fluent</Name>
-    </ProjectReference>
     <ProjectReference Include="..\RealmServer.Data.NH\RealmServer.Data.NH.csproj">
       <Project>{6F6CD02D-0627-4380-89A2-EFE17C2F6538}</Project>
       <Name>RealmServer.Data.NH</Name>

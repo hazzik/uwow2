@@ -2,7 +2,7 @@ using System;
 using FluentNHibernate.Mapping;
 using Hazzik.Objects;
 
-namespace Hazzik.RealmServer.Data.NH.Fluent.Mappings {
+namespace Hazzik.Data.NH.Mappings {
 	public class PositionedMap : ClassMap<Positioned> {
 		public PositionedMap() {
 			Table("Positioneds");

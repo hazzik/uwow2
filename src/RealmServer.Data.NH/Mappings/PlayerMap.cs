@@ -2,7 +2,7 @@
 using FluentNHibernate.Mapping;
 using Hazzik.Objects;
 
-namespace Hazzik.RealmServer.Data.NH.Fluent.Mappings {
+namespace Hazzik.Data.NH.Mappings {
 	public class PlayerMap : SubclassMap<Player> {
 		public PlayerMap() {
 			Table("Players");

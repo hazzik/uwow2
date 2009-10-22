@@ -2,7 +2,7 @@
 using FluentNHibernate.Mapping;
 using Hazzik.GameObjects;
 
-namespace Hazzik.RealmServer.Data.NH.Fluent.Mappings {
+namespace Hazzik.Data.NH.Mappings {
 	public class GameObjectTemplateMap : ClassMap<GameObjectTemplate> {
 		public GameObjectTemplateMap() {
 			Table("GameObjectTemplates");

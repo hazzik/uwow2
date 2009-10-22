@@ -1,7 +1,7 @@
 ﻿using System;
 using FluentNHibernate.Mapping;
 
-namespace Hazzik.RealmServer.Data.NH.Fluent.Mappings {
+namespace Hazzik.Data.NH.Mappings {
 	public class AccountMap : ClassMap<Account> {
 		public AccountMap() {
 			Table("Accounts");

@@ -2,7 +2,6 @@ using System;
 using Hazzik.Data;
 using Hazzik.Data.Fake;
 using Hazzik.Data.NH;
-using Hazzik.RealmServer.Data.NH.Fluent;
 using StructureMap;
 
 namespace Hazzik {

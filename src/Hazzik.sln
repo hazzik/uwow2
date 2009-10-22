@@ -21,8 +21,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealmServer.Data.NH", "Real
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealmServer.PacketDispatchers", "RealmServer.PacketDispatchers\RealmServer.PacketDispatchers.csproj", "{96F60589-5487-4924-999D-23DB5465A8E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealmServer.Data.NH.Fluent", "RealmServer.Data.NH.Fluent\RealmServer.Data.NH.Fluent.csproj", "{39FC0C70-B937-48B3-8DC6-09DF18A0FED3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.NH", "Data.NH\Data.NH.csproj", "{5515693F-1E28-4C9C-8BC8-7A9BFAE4EE78}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AEB4FC70-6FDC-40D8-8AE0-A57E7A341FAD}"
@@ -72,10 +70,6 @@ Global
 		{96F60589-5487-4924-999D-23DB5465A8E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96F60589-5487-4924-999D-23DB5465A8E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96F60589-5487-4924-999D-23DB5465A8E9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{39FC0C70-B937-48B3-8DC6-09DF18A0FED3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{39FC0C70-B937-48B3-8DC6-09DF18A0FED3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{39FC0C70-B937-48B3-8DC6-09DF18A0FED3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{39FC0C70-B937-48B3-8DC6-09DF18A0FED3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5515693F-1E28-4C9C-8BC8-7A9BFAE4EE78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5515693F-1E28-4C9C-8BC8-7A9BFAE4EE78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5515693F-1E28-4C9C-8BC8-7A9BFAE4EE78}.Release|Any CPU.ActiveCfg = Release|Any CPU
