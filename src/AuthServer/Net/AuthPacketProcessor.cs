@@ -7,7 +7,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using Hazzik.Data;
-using Hazzik.Data.NH;
 
 namespace Hazzik.Net {
 	public class AuthPacketProcessor : IPacketProcessor {
@@ -19,7 +18,7 @@ namespace Hazzik.Net {
 
 		private static readonly SHA1 sha1 = SHA1.Create();
 		private readonly IPacketSender _client;
-		private readonly IAccountDao _dao = new NHAccountRepository();
+		private readonly IAccountRepository repository = IoC.Resolve<IAccountRepository>();
 		private readonly IList<WorldServerInfo> _realmList = new List<WorldServerInfo>();
 		private readonly BigInteger bi_b = BigInteger.genPseudoPrime(160, 5, Utility.seed2);
 		public Account _account;
@@ -104,12 +103,12 @@ namespace Hazzik.Net {
 				AccountName = accountName,
 			};
 
-			_account = _dao.FindByName(accountName);
+			_account = repository.FindByName(accountName);
 			if(_account == null) {
 				_account = new Account { Name = accountName };
 				_account.SetPassword(accountName);
-				_dao.Save(_account);
-				_dao.SubmitChanges();
+				repository.Save(_account);
+				repository.SubmitChanges();
 			}
 
 			bi_s = new BigInteger(_account.PasswordSalt.Reverse());
@@ -165,8 +164,8 @@ namespace Hazzik.Net {
 			}
 
 			_account.SessionKey = (byte[])SS_Hash.Clone();
-			_dao.Save(_account);
-			_dao.SubmitChanges();
+			repository.Save(_account);
+			repository.SubmitChanges();
 
 			byte[] N_Hash = sha1.ComputeHash(bi_N.getBytes().Reverse());
 			byte[] G_Hash = sha1.ComputeHash(bi_g.getBytes().Reverse());

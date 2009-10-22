@@ -1,24 +1,34 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Hazzik.Map;
+using Hazzik.Net;
 using Hazzik.Objects.Update.Blocks;
 
 namespace Hazzik.Objects.Update {
-	public class UpdateManager {
-		private readonly Player player;
-		private readonly Timer2 updateTimer;
+	public class UpdateManager : IDisposable {
+		private readonly ISession session;
+		private Timer timer;
 		private IDictionary<ulong, UpdateBlockBuilder> updateBlockBuilders = new Dictionary<ulong, UpdateBlockBuilder>();
 
-		public UpdateManager(Player player) {
-			this.player = player;
-			this.player.SetUpdateManager(this);
-			updateTimer = new UpdateTimer(this);
+		public UpdateManager(ISession session) {
+			this.session = session;
+			this.session.UpdateManager = this;
+			timer = new Timer(state => UpdateObjects(), null, 0, 1000);
 		}
 
+		#region IDisposable Members
+
+		public void Dispose() {
+			timer.Dispose();
+			timer = null;
+		}
+
+		#endregion
+
 		public void UpdateObjects() {
-			ICollection<IUpdateBlock> updateBlocks = GetUpdateBlocks();
-			player.Session.SendUpdateObjects(new UpdatePacketBuilder(updateBlocks));
+			session.SendUpdateObjects(new UpdatePacketBuilder(GetUpdateBlocks()));
 		}
 
 		private ICollection<IUpdateBlock> GetUpdateBlocks() {
@@ -34,27 +44,27 @@ namespace Hazzik.Objects.Update {
 		}
 
 		private IEnumerable<WorldObject> GetObjectsForUpdate() {
-			IEnumerable<WorldObject> items = player.Inventory.Cast<WorldObject>();
-			IEnumerable<WorldObject> seenObjects = ObjectManager.GetSeenObjectsNear(player).Cast<WorldObject>();
+			IEnumerable<WorldObject> items = session.Player.Inventory.Cast<WorldObject>();
+			IEnumerable<WorldObject> seenObjects = ObjectManager.GetSeenObjectsNear(session.Player).Cast<WorldObject>();
 			return items.Concat(seenObjects);
 		}
 
 		private UpdateBlockBuilder GetBuilder(WorldObject obj) {
 			UpdateBlockBuilder result;
 			if(!updateBlockBuilders.TryGetValue(obj.Guid, out result)) {
-				var updater = new UpdateBlockBuilder(player, obj);
+				var updater = new UpdateBlockBuilder(session.Player, obj);
 				updateBlockBuilders[obj.Guid] = updater;
 				return updater;
 			}
 			return result;
 		}
 
-		public void StartUpdateTimer() {
-			updateTimer.Start();
+		public void Start() {
+			timer.Change(0, 1000);
 		}
 
-		public void StopUpdateTimer() {
-			updateTimer.Stop();
+		public void Stop() {
+			timer.Change(Timeout.Infinite, Timeout.Infinite);
 		}
 	}
 }

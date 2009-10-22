@@ -5,7 +5,7 @@ using Hazzik.Data.NH;
 using NHibernate.Cfg;
 
 namespace Hazzik.RealmServer.Data.NH.Fluent {
-	public class FluentSessionFactoryFactory : IConfigurationFactory {
+	public class FluentConfigurationFactory : IConfigurationFactory {
 		#region IConfigurationFactory Members
 
 		public Configuration CreateConfiguration() {
@@ -20,7 +20,7 @@ namespace Hazzik.RealmServer.Data.NH.Fluent {
 				          	.QuerySubstitutions("true=1;false=0")
 				          	.ShowSql())
 				.Mappings(m => m.FluentMappings
-				               	.AddFromAssemblyOf<FluentSessionFactoryFactory>()
+				               	.AddFromAssemblyOf<FluentConfigurationFactory>()
 				               	.ExportTo(@"g:\uwow2\uwow2\src\"))
 				.BuildConfiguration();
 		}

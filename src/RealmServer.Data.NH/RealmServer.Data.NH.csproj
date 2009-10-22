@@ -58,7 +58,6 @@
     <Compile Include="NHGameObjectTemplateRepository.cs" />
     <Compile Include="NHPlayerRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ConfigurationSessionFactoryFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Data.NH\Data.NH.csproj">

@@ -18,7 +18,6 @@ namespace Hazzik.Objects {
 		public int PetCreatureFamily;
 		public int PetDisplayId;
 		public int PetLevel;
-		private UpdateManager updateManager;
 
 		public Player() {
 			Type |= ObjectTypes.Player;
@@ -125,18 +124,10 @@ namespace Hazzik.Objects {
 			Session.SendHeartBeat();
 		}
 
-		public void Logout() {
-			ObjectManager.Remove(this);
-			updateManager.StopUpdateTimer();
-		}
-
-		public void SetUpdateManager(UpdateManager manager) {
-			updateManager = manager;
-		}
-
 		public void Repop() {
 			Corpse corpse = Corpse.Create(this);
-			this.Corpse = corpse;
+			
+			Corpse = corpse;
 			ObjectManager.Add(corpse);
 
 			Ghost = true;

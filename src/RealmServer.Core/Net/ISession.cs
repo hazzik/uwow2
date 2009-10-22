@@ -11,6 +11,7 @@ namespace Hazzik.Net {
 		Account Account { get; set; }
 		Player Player { get; set; }
 		IPacketSender Client { get; }
+		UpdateManager UpdateManager { get; set; }
 		void SendHeartBeat();
 		void SendInitialSpells();
 		void SendNameQueryResponce(Player player);

@@ -54,12 +54,11 @@ namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 			session.SendSetProficiency(4, -1);
 			session.SendSetProficiency(6, -1);
 			session.SendInitialSpells();
-			var manager = new UpdateManager(player);
-			manager.UpdateObjects();
+
+			new UpdateManager(player.Session).Start();
 
 			session.SendTimeSyncReq();
 
-			manager.StartUpdateTimer();
 		}
 
 		#endregion

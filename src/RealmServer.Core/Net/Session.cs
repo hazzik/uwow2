@@ -33,6 +33,8 @@ namespace Hazzik.Net {
 			get { return packetSender; }
 		}
 
+		public UpdateManager UpdateManager { get; set; }
+
 		public void SendHeartBeat() {
 			IPacket packet = WorldPacketFactory.Create(WMSG.MSG_MOVE_HEARTBEAT);
 			BinaryWriter writer = packet.CreateWriter();
@@ -136,7 +138,8 @@ namespace Hazzik.Net {
 		}
 
 		public void LogOut() {
-			player.Logout();
+			ObjectManager.Remove(player);
+			UpdateManager.Stop();
 			player.Session = null;
 			player = null;
 		}

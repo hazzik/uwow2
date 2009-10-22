@@ -46,18 +46,19 @@
     <Compile Include="..\Solution Items\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="ConfigurationFactory.cs" />
     <Compile Include="IConfigurationFactory.cs" />
     <Compile Include="NHDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\lib\Helper\Helper.csproj">
+      <Project>{5BEC7A4C-7CB1-4D6B-B0E5-FD1860168494}</Project>
+      <Name>Helper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Data\Data.csproj">
       <Project>{6959839C-CE87-4006-9B2E-84544C5AA1C0}</Project>
       <Name>Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RealmServer.Core\RealmServer.Core.csproj">
-      <Project>{763DE8C6-1140-44CB-84B9-A7E400CB65BF}</Project>
-      <Name>RealmServer.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

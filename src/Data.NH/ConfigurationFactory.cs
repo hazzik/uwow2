@@ -2,7 +2,7 @@ using System;
 using NHibernate.Cfg;
 
 namespace Hazzik.Data.NH {
-	internal class ConfigurationSessionFactoryFactory : IConfigurationFactory {
+	public class ConfigurationFactory : IConfigurationFactory {
 		#region IConfigurationFactory Members
 
 		public Configuration CreateConfiguration() {

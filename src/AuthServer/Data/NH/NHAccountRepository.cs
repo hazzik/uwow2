@@ -4,8 +4,8 @@ using NHibernate;
 using NHibernate.Criterion;
 
 namespace Hazzik.Data.NH {
-	internal class NHAccountRepository : NHDao<Account>, IAccountDao {
-		#region IAccountDao Members
+	internal class NHAccountRepository : NHDao<Account>, IAccountRepository {
+		#region IAccountRepository Members
 
 		public Account FindByName(string name) {
 			ICriteria criteria = CreateCriteria();

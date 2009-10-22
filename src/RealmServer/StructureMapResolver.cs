@@ -9,7 +9,7 @@ namespace Hazzik {
 	internal class StructureMapResolver : IDependencyResolver {
 		static StructureMapResolver() {
 			ObjectFactory.Configure(config => {
-			                        	config.ForRequestedType<IConfigurationFactory>().AddConcreteType<FluentSessionFactoryFactory>();
+			                        	config.ForRequestedType<IConfigurationFactory>().AddConcreteType<FluentConfigurationFactory>();
 			                        	config.ForRequestedType<IAccountRepository>().AddConcreteType<NHAccountRepository>();
 			                        	config.ForRequestedType<IPlayerRepository>().AddConcreteType<NHPlayerRepository>();
 			                        	config.ForRequestedType<IGameObjectTemplateRepository>().AddConcreteType<NHGameObjectTemplateRepository>();
