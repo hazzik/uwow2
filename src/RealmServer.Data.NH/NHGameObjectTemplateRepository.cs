@@ -5,7 +5,7 @@ using NHibernate;
 using NHibernate.Criterion;
 
 namespace Hazzik.Data.NH {
-	internal class NHGameObjectTemplateRepository : NHDao<GameObjectTemplate>, IGameObjectTemplateRepository {
+	public class NHGameObjectTemplateRepository : NHDao<GameObjectTemplate>, IGameObjectTemplateRepository {
 		#region IGameObjectTemplateRepository Members
 
 		public GameObjectTemplate FindById(uint id) {

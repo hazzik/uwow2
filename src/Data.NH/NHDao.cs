@@ -3,10 +3,12 @@ using NHibernate;
 
 namespace Hazzik.Data.NH {
 	public abstract class NHDao<T> : IDao<T> {
-		private static readonly ISession session = IoC.Resolve<IConfigurationFactory>()
+		private static readonly ISessionFactory sessionFactory = IoC
+			.Resolve<IConfigurationFactory>()
 			.CreateConfiguration()
-			.BuildSessionFactory()
-			.OpenSession();
+			.BuildSessionFactory();
+
+		private readonly ISession session = sessionFactory.OpenSession();
 
 		#region IDao<T> Members
 

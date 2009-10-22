@@ -18,7 +18,6 @@ namespace Hazzik.Net {
 
 		private static readonly SHA1 sha1 = SHA1.Create();
 		private readonly IPacketSender _client;
-		private readonly IAccountRepository repository = IoC.Resolve<IAccountRepository>();
 		private readonly IList<WorldServerInfo> _realmList = new List<WorldServerInfo>();
 		private readonly BigInteger bi_b = BigInteger.genPseudoPrime(160, 5, Utility.seed2);
 		public Account _account;
@@ -103,12 +102,13 @@ namespace Hazzik.Net {
 				AccountName = accountName,
 			};
 
-			_account = repository.FindByName(accountName);
+			var repository1 = IoC.Resolve<IAccountRepository>();
+			_account = repository1.FindByName(accountName);
 			if(_account == null) {
 				_account = new Account { Name = accountName };
 				_account.SetPassword(accountName);
-				repository.Save(_account);
-				repository.SubmitChanges();
+				repository1.Save(_account);
+				repository1.SubmitChanges();
 			}
 
 			bi_s = new BigInteger(_account.PasswordSalt.Reverse());
@@ -164,8 +164,9 @@ namespace Hazzik.Net {
 			}
 
 			_account.SessionKey = (byte[])SS_Hash.Clone();
-			repository.Save(_account);
-			repository.SubmitChanges();
+			var repository1 = IoC.Resolve<IAccountRepository>();
+			repository1.Save(_account);
+			repository1.SubmitChanges();
 
 			byte[] N_Hash = sha1.ComputeHash(bi_N.getBytes().Reverse());
 			byte[] G_Hash = sha1.ComputeHash(bi_g.getBytes().Reverse());
