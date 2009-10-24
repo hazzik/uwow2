@@ -3,7 +3,7 @@ using System.Collections;
 using Xunit;
 
 namespace Tests {
-	public class BitArrayFacts {
+	public class BitArrayFacts:TestFixture {
 		[Fact]
 		public void Length() {
 			var ba = new BitArray(32);

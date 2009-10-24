@@ -6,7 +6,7 @@ using Hazzik.Objects;
 using Xunit;
 
 namespace Tests {
-	public class InventoryFacts {
+	public class InventoryFacts : TestFixture {
 		private static TestInventory CreateInventory() {
 			return CreateInventory(new Player());
 		}
@@ -77,7 +77,7 @@ namespace Tests {
 
 		#region Nested type: TestInventory
 
-		public class TestInventory : Inventory {
+		private class TestInventory : Inventory {
 			public TestInventory(IContainer owner, uint slotsCount)
 				: base(owner, slotsCount) {
 			}

@@ -2,12 +2,9 @@
 using Hazzik.Objects;
 using Hazzik.Trade;
 using Xunit;
-using Xunit.Extensions;
 
 namespace Tests {
-	public class TradeFacts {
-		public static Assertions Assert = new Assertions();
-
+	public class TradeFacts:TestFixture {
 		[Fact]
 		public void ConstructorAcceptsPlayer() {
 			var player = new Player();

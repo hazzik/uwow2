@@ -60,9 +60,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BitArrayFacts.cs" />
-    <Compile Include="IEnumerableFacts.cs" />
+    <Compile Include="EnumerableFacts.cs" />
     <Compile Include="InventoryFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestFixture.cs" />
     <Compile Include="TradeFacts.cs" />
     <Compile Include="AttackPowerCalculatorFacts.cs" />
   </ItemGroup>

@@ -20,7 +20,7 @@ namespace Tests {
 	/// Warlock; Strength - 10 ; Agility - 10
 	/// Warrior; (Strength x 2) + (Character Level x 3) - 20 ; Character Level + Agility - 10 
 	/// </summary>
-	public class AttackPowerCalculatorFacts {
+	public class AttackPowerCalculatorFacts : TestFixture {
 		private static Unit CreatePlayerWithRandomLevelStrength() {
 			return new Player {
 				Level = (uint)(new Random().Next() % 80),
