@@ -1,7 +1,9 @@
 ﻿using System;
 using FluentNHibernate.Mapping;
+using JetBrains.Annotations;
 
 namespace Hazzik.Data.NH.Mappings {
+	[UsedImplicitly]
 	public class AccountMap : ClassMap<Account> {
 		public AccountMap() {
 			Table("Accounts");

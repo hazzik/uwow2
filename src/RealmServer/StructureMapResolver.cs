@@ -5,7 +5,7 @@ using Hazzik.Data.NH;
 using StructureMap;
 
 namespace Hazzik {
-	internal class StructureMapResolver : IDependencyResolver {
+	internal sealed class StructureMapResolver : IDependencyResolver {
 		static StructureMapResolver() {
 			ObjectFactory.Configure(config => {
 			                        	config.ForRequestedType<IConfigurationFactory>().AddConcreteType<FluentConfigurationFactory>();
@@ -18,7 +18,7 @@ namespace Hazzik {
 			                        });
 		}
 
-		public virtual T Resolve<T>() {
+		public T Resolve<T>() {
 			return ObjectFactory.GetInstance<T>();
 		}
 	}

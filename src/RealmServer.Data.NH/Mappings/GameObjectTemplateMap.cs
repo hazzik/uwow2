@@ -1,8 +1,10 @@
 ﻿using System;
 using FluentNHibernate.Mapping;
 using Hazzik.GameObjects;
+using JetBrains.Annotations;
 
 namespace Hazzik.Data.NH.Mappings {
+	[UsedImplicitly]
 	public class GameObjectTemplateMap : ClassMap<GameObjectTemplate> {
 		public GameObjectTemplateMap() {
 			Table("GameObjectTemplates");

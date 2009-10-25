@@ -1,9 +1,11 @@
 using System;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
+using JetBrains.Annotations;
 using NHibernate.Cfg;
 
 namespace Hazzik.Data.NH {
+	[UsedImplicitly]
 	public class FluentConfigurationFactory : IConfigurationFactory {
 		#region IConfigurationFactory Members
 
