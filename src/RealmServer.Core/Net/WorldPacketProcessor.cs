@@ -71,7 +71,7 @@ namespace Hazzik.Net {
 
 			cryptor.SetSymmetricAlgorithm(new WowCryptRC4(session.Account.SessionKey));
 
-			if(!Utility.Equals(clientDigest, ComputeServerDigest(clientSeed))) {
+			if(!ByteArrayExtensions.Equals(clientDigest, ComputeServerDigest(clientSeed))) {
 				throw new Exception();
 			}
 

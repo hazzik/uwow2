@@ -11,10 +11,10 @@ namespace Hazzik.Net {
 
 		public IPacket Receive() {
 			Stream data = GetStream();
-			Stream head = cryptor.DecryptStream(data);
+			var reader = new BinaryReader(cryptor.DecryptStream(data));
 
-			int size = ReadSize(head);
-			int code = ReadCode(head);
+			int size = ReadSize(reader);
+			int code = ReadCode(reader);
 
 			var buffer = new byte[size - 4];
 			data.Read(buffer, 0, buffer.Length);

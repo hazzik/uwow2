@@ -11,8 +11,11 @@ namespace Hazzik.Net {
 
 		public void ReceiveAsync(Action<IPacket> callback) {
 			Stream stream = GetStream();
-			int code = ReadCode(stream);
-			int size = ReadSize(stream, code);
+			var reader = new BinaryReader(stream);
+
+			int code = ReadCode(reader);
+			int size = ReadSize(reader, code);
+			
 			var buffer = new byte[size];
 			stream.ReadAsync(buffer, 0, buffer.Length, () => callback(new AuthPacket((RMSG)code, buffer)));
 		}

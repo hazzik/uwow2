@@ -4,15 +4,14 @@ using System.Net.Sockets;
 
 namespace Hazzik.Net {
 	internal class AuthPacketReceiverBase : SocketHolder {
-		public AuthPacketReceiverBase(Socket client) : base(client) {
+		protected AuthPacketReceiverBase(Socket client) : base(client) {
 		}
 
-		protected static int ReadCode(Stream stream) {
-			return stream.ReadByte();
+		protected static int ReadCode(BinaryReader reader) {
+			return reader.ReadByte();
 		}
 
-		protected static int ReadSize(Stream stream, int code) {
-			var reader = new BinaryReader(stream);
+		protected static int ReadSize(BinaryReader reader, int code) {
 			switch((RMSG)code) {
 			case RMSG.AUTH_LOGON_CHALLENGE:
 			case RMSG.AUTH_LOGON_RECODE_CHALLENGE:

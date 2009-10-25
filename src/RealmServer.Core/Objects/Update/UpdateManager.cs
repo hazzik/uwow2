@@ -8,13 +8,13 @@ using Hazzik.Objects.Update.Blocks;
 
 namespace Hazzik.Objects.Update {
 	public class UpdateManager : IDisposable {
+		private readonly object lockObject = new object();
 		private readonly ISession session;
 		private Timer timer;
 		private IDictionary<ulong, UpdateBlockBuilder> updateBlockBuilders = new Dictionary<ulong, UpdateBlockBuilder>();
 
 		public UpdateManager(ISession session) {
 			this.session = session;
-			this.session.UpdateManager = this;
 			timer = new Timer(state => UpdateObjects(), null, 0, 1000);
 		}
 
@@ -27,8 +27,10 @@ namespace Hazzik.Objects.Update {
 
 		#endregion
 
-		public void UpdateObjects() {
-			session.SendUpdateObjects(new UpdatePacketBuilder(GetUpdateBlocks()));
+		private void UpdateObjects() {
+			lock(lockObject) {
+				session.SendUpdateObjects(new UpdatePacketBuilder(GetUpdateBlocks()));
+			}
 		}
 
 		private ICollection<IUpdateBlock> GetUpdateBlocks() {
@@ -60,7 +62,8 @@ namespace Hazzik.Objects.Update {
 		}
 
 		public void Start() {
-			timer.Change(0, 1000);
+			UpdateObjects();
+			timer.Change(1000, 1000);
 		}
 
 		public void Stop() {

@@ -6,26 +6,26 @@ namespace Hazzik.Net {
 	internal class WorldPacketReceiverBase : SocketHolder {
 		protected readonly ICryptor cryptor;
 
-		public WorldPacketReceiverBase(Socket socket, ICryptor cryptor) : base(socket) {
+		protected WorldPacketReceiverBase(Socket socket, ICryptor cryptor) : base(socket) {
 			this.cryptor = cryptor;
 		}
 
-		protected static int ReadCode(Stream stream) {
+		protected static int ReadCode(BinaryReader reader) {
 			int code = 0;
-			code |= stream.ReadByte();
-			code |= stream.ReadByte() << 0x08;
-			code |= stream.ReadByte() << 0x10;
-			code |= stream.ReadByte() << 0x18;
+			code |= reader.ReadByte();
+			code |= reader.ReadByte() << 0x08;
+			code |= reader.ReadByte() << 0x10;
+			code |= reader.ReadByte() << 0x18;
 			return code;
 		}
 
-		protected static int ReadSize(Stream stream) {
-			int size = stream.ReadByte();
+		protected static int ReadSize(BinaryReader reader) {
+			int size = reader.ReadByte();
 			if((size & 0x80) != 0x00) {
 				size &= 0x7f;
-				size = (size << 0x08) | stream.ReadByte();
+				size = (size << 0x08) | reader.ReadByte();
 			}
-			size = (size << 0x08) | stream.ReadByte();
+			size = (size << 0x08) | reader.ReadByte();
 			return size;
 		}
 	}

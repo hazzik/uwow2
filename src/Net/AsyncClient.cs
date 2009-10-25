@@ -1,5 +1,5 @@
 using System;
-using System.Net.Sockets;
+using System.IO;
 
 namespace Hazzik.Net {
 	public class AsyncClient : IClient {
@@ -16,17 +16,18 @@ namespace Hazzik.Net {
 		public void Start() {
 			try {
 				asyncPacketReceiver.ReceiveAsync(packet => {
-				                                  	packetProcessor.Process(packet);
-				                                  	Start();
-				                                  });
+				                                 	try {
+				                                 		packetProcessor.Process(packet);
+				                                 		Start();
+				                                 	}
+				                                 	catch(Exception e) {
+				                                 		Console.WriteLine(e.Message);
+				                                 		Console.WriteLine(e.StackTrace);
+				                                 	}
+				                                 });
 			}
-			catch(SocketException) {
+			catch(EndOfStreamException) {
 			}
-			catch(Exception e) {
-				Console.WriteLine(e.Message);
-				Console.WriteLine(e.StackTrace);
-			}
-			//socket.Close();
 		}
 
 		#endregion

@@ -11,8 +11,9 @@ namespace Hazzik.Net {
 
 		public IPacket Receive() {
 			Stream stream = GetStream();
-			int code = ReadCode(stream);
-			int size = ReadSize(stream, code);
+			var reader = new BinaryReader(stream);
+			int code = ReadCode(reader);
+			int size = ReadSize(reader, code);
 			var buffer = new byte[size];
 			stream.Read(buffer, 0, buffer.Length);
 			return new AuthPacket((RMSG)code, buffer);

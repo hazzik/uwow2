@@ -11,11 +11,9 @@ namespace Hazzik.Net {
 
 		public void ReceiveAsync(Action<IPacket> callback) {
 			Stream data = GetStream();
-			Stream head = cryptor.DecryptStream(data);
-
+			var head = new BinaryReader(cryptor.DecryptStream(data));
 			int size = ReadSize(head);
 			int code = ReadCode(head);
-
 			var buffer = new byte[size - 4];
 			data.ReadAsync(buffer, 0, buffer.Length, () => callback(new WorldPacket((WMSG)code, buffer)));
 		}

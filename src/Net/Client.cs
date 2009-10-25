@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Net.Sockets;
+using System.IO;
 
 namespace Hazzik.Net {
 	public class Client : IClient {
@@ -19,7 +19,7 @@ namespace Hazzik.Net {
 					packetProcessor.Process(packetReceiver.Receive());
 				}
 			}
-			catch(SocketException) {
+			catch(EndOfStreamException) {
 			}
 			catch(Exception e) {
 				Console.WriteLine(e.Message);

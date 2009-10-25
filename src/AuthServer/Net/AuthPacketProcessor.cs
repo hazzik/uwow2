@@ -1,7 +1,7 @@
-// ReSharper disable InvokeAsExtensionMethod
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
@@ -21,7 +21,7 @@ namespace Hazzik.Net {
 		private readonly IPacketSender _client;
 		private readonly IList<WorldServerInfo> _realmList = new List<WorldServerInfo>();
 		private readonly BigInteger bi_b = BigInteger.genPseudoPrime(160, 5, Utility.Seed);
-		public Account _account;
+		private Account _account;
 		private BigInteger bi_B;
 		private BigInteger bi_s = BigInteger.genPseudoPrime(256, 5, Utility.Seed);
 		private BigInteger bi_v;
@@ -43,9 +43,9 @@ namespace Hazzik.Net {
 			};
 		}
 
-		public ClientInfo ClientInfo { get; set; }
+		private ClientInfo ClientInfo { get; set; }
 
-		public bool AcceptPatch { get; set; }
+		private bool AcceptPatch { get; set; }
 
 		#region IPacketProcessor Members
 
@@ -119,7 +119,7 @@ namespace Hazzik.Net {
 			_client.Send(GetLogonChallenge());
 		}
 
-		public IPacket GetLogonChallenge() {
+		private IPacket GetLogonChallenge() {
 			var result = new AuthPacket(RMSG.AUTH_LOGON_CHALLENGE);
 			BinaryWriter w = result.CreateWriter();
 			w.Write((byte)0);
@@ -141,12 +141,12 @@ namespace Hazzik.Net {
 			var bi_A = new BigInteger(gr.ReadBytes(32).Reverse());
 			var bi_M1 = new BigInteger(gr.ReadBytes(20).Reverse());
 
-			byte[] u = sha1.ComputeHash(Utility.Concat(bi_A.getBytes().Reverse(), bi_B.getBytes().Reverse()));
+			byte[] u = H(bi_A.getBytes().Reverse().Concat(bi_B.getBytes().Reverse()));
 			var bi_u = new BigInteger(u.Reverse());
 
 			BigInteger bi_Temp2 = (bi_A * bi_v.modPow(bi_u, bi_N)) % bi_N; // v^u
 			BigInteger bi_S = bi_Temp2.modPow(bi_b, bi_N); // (Av^u)^b
-			//Console.WriteLine(bi_S.ToHexString());
+
 			byte[] S = bi_S.getBytes().Reverse();
 			var S1 = new byte[16];
 			var S2 = new byte[16];
@@ -157,46 +157,53 @@ namespace Hazzik.Net {
 			}
 
 			var SS_Hash = new byte[40];
-			byte[] S1_Hash = sha1.ComputeHash(S1);
-			byte[] S2_Hash = sha1.ComputeHash(S2);
+			byte[] S1_Hash = H(S1);
+			byte[] S2_Hash = H(S2);
 			for(int i = 0; i < 20; i++) {
 				SS_Hash[i * 2] = S1_Hash[i];
 				SS_Hash[i * 2 + 1] = S2_Hash[i];
 			}
 
 			_account.SessionKey = (byte[])SS_Hash.Clone();
-			var repository1 = IoC.Resolve<IAccountRepository>();
-			repository1.Save(_account);
-			repository1.SubmitChanges();
 
-			byte[] N_Hash = sha1.ComputeHash(bi_N.getBytes().Reverse());
-			byte[] G_Hash = sha1.ComputeHash(bi_g.getBytes().Reverse());
+			var accountRepository = IoC.Resolve<IAccountRepository>();
+			accountRepository.Save(_account);
+			accountRepository.SubmitChanges();
+
+			byte[] N_Hash = H(bi_N.getBytes().Reverse());
+			byte[] G_Hash = H(bi_g.getBytes().Reverse());
 			for(int i = 0; (i < 20); i++) {
 				N_Hash[i] ^= G_Hash[i];
 			}
 
-			byte[] UserHash = sha1.ComputeHash(Encoding.UTF8.GetBytes(ClientInfo.AccountName));
+			byte[] userHash = H(Encoding.UTF8.GetBytes(ClientInfo.AccountName));
 
-			byte[] Temp = Utility.Concat(N_Hash, UserHash);
-			Temp = Utility.Concat(Temp, bi_s.getBytes().Reverse());
-			Temp = Utility.Concat(Temp, bi_A.getBytes().Reverse());
-			Temp = Utility.Concat(Temp, bi_B.getBytes().Reverse());
-			Temp = Utility.Concat(Temp, SS_Hash);
+			IEnumerable<byte> temp = N_Hash
+				.Concat(userHash)
+				.Concat(bi_s.getBytes().Reverse())
+				.Concat(bi_A.getBytes().Reverse())
+				.Concat(bi_B.getBytes().Reverse())
+				.Concat(SS_Hash);
 
-			var bi_M1Temp = new BigInteger(sha1.ComputeHash(Temp).Reverse());
-			if(bi_M1Temp != bi_M1) {
+			var biM1Temp = new BigInteger(H(temp).Reverse());
+			if(biM1Temp != bi_M1) {
 				_client.Send(GetLogonProof());
 				return;
 			}
 
-			Temp = Utility.Concat(bi_A.getBytes().Reverse(), bi_M1Temp.getBytes().Reverse());
-			Temp = Utility.Concat(Temp, SS_Hash);
-			byte[] M2 = sha1.ComputeHash(Temp);
+			temp = bi_A.getBytes().Reverse()
+				.Concat(biM1Temp.getBytes().Reverse());
+			temp = temp.Concat(SS_Hash);
+			byte[] M2 = H(temp);
 
 			_client.Send(GetLogonProof(M2));
 		}
 
-		public static IPacket GetLogonProof() {
+		private static byte[] H(IEnumerable<byte> buffer) {
+			return sha1.ComputeHash(buffer.ToArray());
+		}
+
+		private static IPacket GetLogonProof() {
 			var result = new AuthPacket(RMSG.AUTH_LOGON_PROOF);
 			BinaryWriter w = result.CreateWriter();
 			w.Write((byte)4);
@@ -205,7 +212,7 @@ namespace Hazzik.Net {
 			return result;
 		}
 
-		public static IPacket GetLogonProof(byte[] M2) {
+		private static IPacket GetLogonProof(byte[] M2) {
 			var result = new AuthPacket(RMSG.AUTH_LOGON_PROOF);
 			BinaryWriter w = result.CreateWriter();
 			w.Write((byte)0);
@@ -220,7 +227,7 @@ namespace Hazzik.Net {
 			_client.Send(GetRealmList());
 		}
 
-		public IPacket GetRealmList() {
+		private IPacket GetRealmList() {
 			var result = new AuthPacket(RMSG.REALM_LIST);
 
 			BinaryWriter w = result.CreateWriter();
@@ -244,12 +251,12 @@ namespace Hazzik.Net {
 		private void HandleXferResume(IPacket packet) {
 			AcceptPatch = true;
 			BinaryReader gr = packet.CreateReader();
-			sendPatch("wow-patch.mpq", gr.ReadInt64());
+			SendPatch("wow-patch.mpq", gr.ReadInt64());
 		}
 
 		private void HandleXferAccept() {
 			AcceptPatch = true;
-			sendPatch("wow-patch.mpq", 0);
+			SendPatch("wow-patch.mpq", 0);
 		}
 
 		private void HandleXferCancel() {
@@ -257,14 +264,14 @@ namespace Hazzik.Net {
 		}
 
 
-		public void sendPatch(string filename, long offset) {
-			var th = new Thread(ThreadedSend) {
+		private void SendPatch(string filename, long offset) {
+			var th = new Thread(SendPatchBackground) {
 				IsBackground = true
 			};
 			th.Start(new PatchInfo { FileName = filename, Offset = offset });
 		}
 
-		public void ThreadedSend(object state) {
+		private void SendPatchBackground(object state) {
 			var pinfo = (PatchInfo)state;
 			try {
 				using(var s = (Stream)new FileStream(pinfo.FileName, FileMode.OpenOrCreate)) {
@@ -280,7 +287,7 @@ namespace Hazzik.Net {
 			}
 		}
 
-		public static IPacket GetXferData(byte[] buff, int index, int count) {
+		private static IPacket GetXferData(byte[] buff, int index, int count) {
 			var result = new AuthPacket(RMSG.XFER_DATA);
 			BinaryWriter w = result.CreateWriter();
 			w.Write(buff, index, count);
@@ -289,9 +296,9 @@ namespace Hazzik.Net {
 
 		#region Nested type: PatchInfo
 
-		public struct PatchInfo {
-			public string FileName;
-			public long Offset;
+		private struct PatchInfo {
+			public string FileName { get; set; }
+			public long Offset { get; set; }
 		}
 
 		#endregion
