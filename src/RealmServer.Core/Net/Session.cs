@@ -3,6 +3,7 @@ using System.IO;
 using Hazzik.Creatures;
 using Hazzik.GameObjects;
 using Hazzik.Gossip;
+using Hazzik.IO;
 using Hazzik.Items;
 using Hazzik.Map;
 using Hazzik.Objects;
@@ -11,7 +12,7 @@ using Hazzik.Objects.Update;
 namespace Hazzik.Net {
 	public class Session : ISession {
 		private readonly IPacketSender packetSender;
-		private Player player;
+		private UpdateManager updateManager;
 
 		public Session(IPacketSender sender) {
 			packetSender = sender;
@@ -19,13 +20,7 @@ namespace Hazzik.Net {
 
 		#region ISession Members
 
-		public Player Player {
-			get { return player; }
-			set {
-				player = value;
-				player.Session = this;
-			}
-		}
+		public Player Player { get; private set; }
 
 		public Account Account { get; set; }
 
@@ -33,18 +28,12 @@ namespace Hazzik.Net {
 			get { return packetSender; }
 		}
 
-		public UpdateManager UpdateManager { get; set; }
-
 		public void SendHeartBeat() {
 			IPacket packet = WorldPacketFactory.Create(WMSG.MSG_MOVE_HEARTBEAT);
 			BinaryWriter writer = packet.CreateWriter();
 			writer.WritePackGuid(Player.Guid);
 			Player.MovementInfo.Write(writer);
 			SendNear(Player, packet);
-		}
-
-		public void SendInitialSpells() {
-			packetSender.Send(GetInitialSpellsPkt());
 		}
 
 		public void SendNameQueryResponce(Player player) {
@@ -63,24 +52,8 @@ namespace Hazzik.Net {
 			packetSender.Send(GetCharCreatePkt(47));
 		}
 
-		public void SendCharacterLoginFiled() {
-			packetSender.Send(GetCharacterLoginFiledPkt(0x44));
-		}
-
-		public void SendLoginVerifyWorld() {
-			packetSender.Send(GetLoginVerifyWorldPkt(Player));
-		}
-
 		public void SendAccountDataTimes(uint mask) {
 			packetSender.Send(GetAccountDataTimesPkt(mask));
-		}
-
-		public void SendLoginSetTimeSpeed() {
-			packetSender.Send(GetLoginSetTimeSpeedPkt());
-		}
-
-		public void SendTimeSyncReq() {
-			packetSender.Send(GetTimeSyncReqPkt());
 		}
 
 		public void SendLogoutComplete() {
@@ -115,16 +88,12 @@ namespace Hazzik.Net {
 			packetSender.Send(GetItemQuerySingleResponsePkt(template));
 		}
 
-		public void SendSetProficiency(byte type, int bitmask) {
-			packetSender.Send(GetSetProficiencyPkt(type, bitmask));
-		}
-
 		public void SendNpcTextUpdate(NpcTexts text) {
 			packetSender.Send(GetNpcTextUpdatePkt(text));
 		}
 
 		public void SendStandstateUpdate() {
-			packetSender.Send(new WorldPacket(WMSG.SMSG_STANDSTATE_UPDATE, new[] { (byte)player.StandState }));
+			packetSender.Send(new WorldPacket(WMSG.SMSG_STANDSTATE_UPDATE, new[] { (byte)Player.StandState }));
 		}
 
 		public void SendGossipMessage(ulong targetGuid, GossipMessage message) {
@@ -138,13 +107,73 @@ namespace Hazzik.Net {
 		}
 
 		public void LogOut() {
-			ObjectManager.Remove(player);
-			UpdateManager.Stop();
-			player.Session = null;
-			player = null;
+			ObjectManager.Remove(Player);
+			updateManager.Stop();
+			Player.Session = null;
+			Player = null;
+		}
+
+		public void Login(Player player) {
+			if(null == player) {
+				SendCharacterLoginFiled();
+				return;
+			}
+
+			Player = player;
+			Player.Session = this;
+
+			ObjectManager.Add(player);
+
+			SendLoginVerifyWorld();
+			SendAccountDataTimes(0xEA);
+			SendLoginSetTimeSpeed();
+			SendSetProficiency(2, -1);
+			SendSetProficiency(4, -1);
+			SendSetProficiency(6, -1);
+			SendInitialSpells();
+
+			updateManager = new UpdateManager(player.Session);
+			updateManager.Start();
+
+			SendTimeSyncReq();
 		}
 
 		#endregion
+
+		public void SendInitialSpells() {
+			packetSender.Send(GetInitialSpellsPkt());
+		}
+
+		public void SendCharacterLoginFiled() {
+			packetSender.Send(GetCharacterLoginFiledPkt(0x44));
+		}
+
+		public void SendLoginVerifyWorld() {
+			packetSender.Send(GetLoginVerifyWorldPkt());
+		}
+
+		private IPacket GetLoginVerifyWorldPkt() {
+			IPacket result = WorldPacketFactory.Create(WMSG.SMSG_LOGIN_VERIFY_WORLD);
+			BinaryWriter writer = result.CreateWriter();
+			writer.Write(Player.MapId);
+			writer.Write(Player.PosX);
+			writer.Write(Player.PosY);
+			writer.Write(Player.PosZ);
+			writer.Write(Player.Facing);
+			return result;
+		}
+
+		public void SendLoginSetTimeSpeed() {
+			packetSender.Send(GetLoginSetTimeSpeedPkt());
+		}
+
+		public void SendTimeSyncReq() {
+			packetSender.Send(GetTimeSyncReqPkt());
+		}
+
+		public void SendSetProficiency(byte type, int bitmask) {
+			packetSender.Send(GetSetProficiencyPkt(type, bitmask));
+		}
 
 		public static void SendNear(Positioned me, IPacket responce) {
 			foreach(Player player in ObjectManager.GetPlayersNear(me)) {
@@ -209,17 +238,6 @@ namespace Hazzik.Net {
 
 		private static IPacket GetCharacterLoginFiledPkt(int error) {
 			return new WorldPacket(WMSG.SMSG_CHARACTER_LOGIN_FAILED, new[] { (byte)error });
-		}
-
-		private static IPacket GetLoginVerifyWorldPkt(Player player) {
-			IPacket result = WorldPacketFactory.Create(WMSG.SMSG_LOGIN_VERIFY_WORLD);
-			BinaryWriter writer = result.CreateWriter();
-			writer.Write(player.MapId);
-			writer.Write(player.PosX);
-			writer.Write(player.PosY);
-			writer.Write(player.PosZ);
-			writer.Write(player.Facing);
-			return result;
 		}
 
 		private IPacket GetAccountDataTimesPkt(uint mask) {

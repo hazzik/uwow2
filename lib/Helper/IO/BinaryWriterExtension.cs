@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Text;
 
-namespace Hazzik {
+namespace Hazzik.IO {
 	public static class BinaryWriterExtension {
 		public static void WriteCString(this BinaryWriter w, string value) {
 			WriteCString(w, value, Encoding.UTF8);

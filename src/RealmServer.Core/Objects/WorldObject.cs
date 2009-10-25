@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Hazzik.IO;
 using Hazzik.Objects.Update;
 
 namespace Hazzik.Objects {

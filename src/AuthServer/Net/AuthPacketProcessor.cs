@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using Hazzik.Data;
+using Hazzik.IO;
 
 namespace Hazzik.Net {
 	public class AuthPacketProcessor : IPacketProcessor {
@@ -22,7 +23,7 @@ namespace Hazzik.Net {
 		private readonly BigInteger bi_b = BigInteger.genPseudoPrime(160, 5, Utility.Seed);
 		public Account _account;
 		private BigInteger bi_B;
-		private BigInteger bi_s = BigInteger.genPseudoPrime(256, 5, Utility.seed2);
+		private BigInteger bi_s = BigInteger.genPseudoPrime(256, 5, Utility.Seed);
 		private BigInteger bi_v;
 
 		public AuthPacketProcessor(IPacketSender client) {

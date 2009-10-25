@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace Hazzik {
+namespace Hazzik.IO {
 	public static class BinaryReaderExtension {
 		public static string ReadCString(this BinaryReader r) {
 			return ReadCString(r, Encoding.UTF8);

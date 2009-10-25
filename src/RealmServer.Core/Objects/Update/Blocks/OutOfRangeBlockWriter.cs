@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Hazzik.IO;
 
 namespace Hazzik.Objects.Update.Blocks {
 	internal class OutOfRangeBlockWriter : IUpdateBlock {

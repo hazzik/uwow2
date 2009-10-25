@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using Hazzik.IO;
 using Hazzik.Net;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 

@@ -3,51 +3,52 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
+using Hazzik.IO;
 
 namespace Hazzik.Dbc {
 	public class DbcDataReader : IEnumerable<IDbcRow>, IDbcRow {
-		private readonly int _fieldCount;
-		private readonly DbcField[] _fields;
+		private readonly int fieldCount;
+		private readonly DbcField[] fields;
 
-		private readonly int _numRows;
-		private readonly BinaryReader _reader;
-		private readonly int _rowSize;
-		private readonly IDictionary<int, string> _strBlock = new Dictionary<int, string>();
+		private readonly int numRows;
+		private readonly BinaryReader reader;
+		private readonly int rowSize;
+		private readonly IDictionary<int, string> strBlock = new Dictionary<int, string>();
 
-		private readonly int _strSize;
-		private bool _isOpen = true;
-		private int _readCount;
+		private readonly int strSize;
+		private bool isOpen = true;
+		private int readCount;
 
 		public DbcDataReader(Stream stream) {
-			_reader = new BinaryReader(CreateInputStream(stream));
-			if(new string(_reader.ReadChars(4)) != "WDBC") {
+			reader = new BinaryReader(CreateInputStream(stream));
+			if(new string(reader.ReadChars(4)) != "WDBC") {
 				throw new Exception("Invalid DBC file.");
 			}
-			_numRows = _reader.ReadInt32();
-			_fieldCount = _reader.ReadInt32();
-			_rowSize = _reader.ReadInt32();
-			_strSize = _reader.ReadInt32();
+			numRows = reader.ReadInt32();
+			fieldCount = reader.ReadInt32();
+			rowSize = reader.ReadInt32();
+			strSize = reader.ReadInt32();
 
-			_fields = new DbcField[FieldCount];
+			fields = new DbcField[FieldCount];
 			// its not true. each field must have its own size:)
 
-			_strBlock = LoadStringsBlock();
+			strBlock = LoadStringsBlock();
 		}
 
 		public bool HasRows {
-			get { return _numRows > 0; }
+			get { return numRows > 0; }
 		}
 
 		public int FieldCount {
-			get { return _fieldCount; }
+			get { return fieldCount; }
 		}
 
 		public bool IsClosed {
-			get { return !_isOpen; }
+			get { return !isOpen; }
 		}
 
 		private int StringsBlockOffset {
-			get { return 20 + _numRows * _rowSize; }
+			get { return 20 + numRows * rowSize; }
 		}
 
 		#region IDbcRow Members
@@ -69,15 +70,15 @@ namespace Hazzik.Dbc {
 		}
 
 		public decimal GetDecimal(int i) {
-			return _fields[i].Int32;
+			return fields[i].Int32;
 		}
 
 		public double GetDouble(int i) {
-			return _fields[i].Single;
+			return fields[i].Single;
 		}
 
 		public float GetFloat(int i) {
-			return _fields[i].Single;
+			return fields[i].Single;
 		}
 
 		public short GetInt16(int i) {
@@ -85,21 +86,21 @@ namespace Hazzik.Dbc {
 		}
 
 		public int GetInt32(int i) {
-			return _fields[i].Int32;
+			return fields[i].Int32;
 		}
 
 		public long GetInt64(int i) {
-			return _fields[i].Int32;
+			return fields[i].Int32;
 		}
 
 		public string GetString(int i) {
 			string result;
-			_strBlock.TryGetValue(GetInt32(i), out result);
+			strBlock.TryGetValue(GetInt32(i), out result);
 			return result;
 		}
 
 		public object GetValue(int i) {
-			return _fields[i];
+			return fields[i];
 		}
 
 		public int GetValues(object[] values) {
@@ -128,10 +129,10 @@ namespace Hazzik.Dbc {
 		#endregion
 
 		private IDictionary<int, string> LoadStringsBlock() {
-			_reader.BaseStream.Seek(StringsBlockOffset, SeekOrigin.Begin);
+			reader.BaseStream.Seek(StringsBlockOffset, SeekOrigin.Begin);
 			var result = new Dictionary<int, string>();
-			while(_reader.BaseStream.Position - StringsBlockOffset < _strSize) {
-				result.Add((int)(_reader.BaseStream.Position - StringsBlockOffset), _reader.ReadCString());
+			while(reader.BaseStream.Position - StringsBlockOffset < strSize) {
+				result.Add((int)(reader.BaseStream.Position - StringsBlockOffset), reader.ReadCString());
 			}
 			return result;
 		}
@@ -154,25 +155,25 @@ namespace Hazzik.Dbc {
 		}
 
 		public void Close() {
-			if(_isOpen) {
-				_reader.Close();
+			if(isOpen) {
+				reader.Close();
 			}
-			_isOpen = false;
+			isOpen = false;
 		}
 
 		public bool NextResult() {
-			return _readCount < _numRows;
+			return readCount < numRows;
 		}
 
 		public bool Read() {
 			if(!NextResult()) {
 				return false;
 			}
-			_reader.BaseStream.Seek(20 + _readCount * _rowSize, SeekOrigin.Begin);
+			reader.BaseStream.Seek(20 + readCount * rowSize, SeekOrigin.Begin);
 			for(int i = 0; i < FieldCount; i++) {
-				_fields[i].Int32 = _reader.ReadInt32();
+				fields[i].Int32 = reader.ReadInt32();
 			}
-			_readCount++;
+			readCount++;
 			return true;
 		}
 

@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Hazzik.IO;
 
 namespace Hazzik.Objects {
 	public class TransportInfo {
