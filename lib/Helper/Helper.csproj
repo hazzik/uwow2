@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Hazzik</RootNamespace>
-    <AssemblyName>Hazzik.Core</AssemblyName>
+    <AssemblyName>Hazzik.Helper</AssemblyName>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>2.0</OldToolsVersion>
