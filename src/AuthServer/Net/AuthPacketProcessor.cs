@@ -19,7 +19,7 @@ namespace Hazzik.Net {
 		private static readonly SHA1 sha1 = SHA1.Create();
 		private readonly IPacketSender _client;
 		private readonly IList<WorldServerInfo> _realmList = new List<WorldServerInfo>();
-		private readonly BigInteger bi_b = BigInteger.genPseudoPrime(160, 5, Utility.seed2);
+		private readonly BigInteger bi_b = BigInteger.genPseudoPrime(160, 5, Utility.Seed);
 		public Account _account;
 		private BigInteger bi_B;
 		private BigInteger bi_s = BigInteger.genPseudoPrime(256, 5, Utility.seed2);
