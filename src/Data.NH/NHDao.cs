@@ -26,7 +26,7 @@ namespace Hazzik.Data.NH {
 
 		#endregion
 
-		public ICriteria CreateCriteria() {
+		protected ICriteria CreateCriteria() {
 			return session.CreateCriteria(typeof(T));
 		}
 	}
