@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Linq;
 using Hazzik.Objects;
-using JetBrains.Annotations;
 using NHibernate;
 using NHibernate.Criterion;
 
 namespace Hazzik.Data.NH {
-	[UsedImplicitly]
 	public class NHPlayerRepository : NHDao<Player>, IPlayerRepository {
 		#region IPlayerRepository Members
 

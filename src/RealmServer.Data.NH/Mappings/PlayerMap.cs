@@ -1,10 +1,8 @@
 ﻿using System;
 using FluentNHibernate.Mapping;
 using Hazzik.Objects;
-using JetBrains.Annotations;
 
 namespace Hazzik.Data.NH.Mappings {
-	[UsedImplicitly]
 	public class PlayerMap : ClassMap<Player> {
 		public PlayerMap() {
 			Table("Players");
