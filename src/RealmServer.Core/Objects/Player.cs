@@ -12,9 +12,10 @@ using Hazzik.Skills;
 namespace Hazzik.Objects {
 	public partial class Player : Unit, IContainer {
 		private readonly IInventory _inventory;
-		private readonly IList<Skill> _skills = new List<Skill>();
+		private readonly IList<QuestInfo> quests = new List<QuestInfo>();
+		private readonly IList<Skill> skills = new List<Skill>();
+		private readonly IList<int> spells = new List<int>();
 
-		private readonly IList<int> _spells = new List<int>();
 		public int PetCreatureFamily;
 		public int PetDisplayId;
 		public int PetLevel;
@@ -28,6 +29,7 @@ namespace Hazzik.Objects {
 			_bankBags = new BankBagsInventory(this);
 			_keyRing = new KeyRingInventory(this);
 		}
+
 
 		public override ObjectTypeId TypeId {
 			get { return ObjectTypeId.Player; }
@@ -46,12 +48,16 @@ namespace Hazzik.Objects {
 
 		public ISession Session { get; protected internal set; }
 
+		public IList<QuestInfo> Quests {
+			get { return quests; }
+		}
+
 		public IList<Skill> Skills {
-			get { return _skills; }
+			get { return skills; }
 		}
 
 		public IList<int> Spells {
-			get { return _spells; }
+			get { return spells; }
 		}
 
 		public override uint Health {
@@ -70,6 +76,8 @@ namespace Hazzik.Objects {
 				}
 			}
 		}
+
+		public Corpse Corpse { get; set; }
 
 		#region IContainer Members
 
@@ -126,18 +134,16 @@ namespace Hazzik.Objects {
 
 		public void Repop() {
 			Corpse corpse = Corpse.Create(this);
-			
+
 			Corpse = corpse;
 			ObjectManager.Add(corpse);
 
 			Ghost = true;
 		}
 
-		public Corpse Corpse { get; set; }
-
 		public override bool IsSeenBy(Player unit) {
 			if(Ghost && !unit.Ghost) {
-				return false;  //non ghost cant see ghost
+				return false; //non ghost cant see ghost
 			}
 			return base.IsSeenBy(unit);
 		}

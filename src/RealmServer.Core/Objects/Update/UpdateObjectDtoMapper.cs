@@ -274,9 +274,22 @@ namespace Hazzik.Objects.Update {
 			        obj.PvPRank);
 			dto.Set(UpdateFields.PLAYER_DUEL_TEAM, obj.DuelTeam);
 			dto.Set(UpdateFields.PLAYER_GUILD_TIMESTAMP, obj.GuildTimestamp);
-			//for(int i = 0; i < 25; i++) {
-			//   Set(UpdateFields.PLAYER_QUEST_LOG_1_1, );
-			//}
+			for(int i = 0; i < 25; i++) {
+				if(obj.Quests.Count < i && obj.Quests[i] != null) {
+					QuestInfo questInfo = obj.Quests[i];
+					dto.Set(UpdateFields.PLAYER_QUEST_LOG_1_1 + i, questInfo.Id);
+					dto.Set(UpdateFields.PLAYER_QUEST_LOG_1_2 + i, questInfo.FinishTime);
+					dto.Set(UpdateFields.PLAYER_QUEST_LOG_1_3 + i, questInfo.Byte1,
+					        questInfo.Byte2,
+					        questInfo.Byte3,
+					        questInfo.Byte4);
+				}
+				else {
+					dto.Set(UpdateFields.PLAYER_QUEST_LOG_1_1 + i, 0);
+					dto.Set(UpdateFields.PLAYER_QUEST_LOG_1_2 + i, 0);
+					dto.Set(UpdateFields.PLAYER_QUEST_LOG_1_3 + i, 0);
+				}
+			}
 			for(int i = 0; i < 19; i++) {
 				Item item = obj.Inventory[i];
 				SetVisibleItem(dto, UpdateFields.PLAYER_VISIBLE_ITEM_1_ENTRYID + i * 2, item);
@@ -306,8 +319,6 @@ namespace Hazzik.Objects.Update {
 			dto.Set(UpdateFields.PLAYER_FIELD_KNOWN_CURRENCIES, obj.KnownCurrenciesGuid);
 			dto.Set(UpdateFields.PLAYER_XP, obj.Xp);
 			dto.Set(UpdateFields.PLAYER_NEXT_LEVEL_XP, obj.NextLevelXp);
-			//PLAYER_SKILL_INFO_1_1 = UNIT_END + 864, // 384 2:Shorts 2:Private
-			//obj.Skills.Add(new Skill() { Id = 43, Cap = 300, Value = 300 });
 			for(int i = 0; i < 128; i++) {
 				Skill skill;
 				if((i < obj.Skills.Count) && (skill = obj.Skills[i]) != null) {

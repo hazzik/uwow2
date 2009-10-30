@@ -113,6 +113,7 @@
     <Compile Include="Objects\PowerCalculators\ShamanAttackPowerCalculator.cs" />
     <Compile Include="Data\Fake\Templates\Abjurer_sRobe9943.cs" />
     <Compile Include="Data\Fake\Templates\AuchenaiKey30633.cs" />
+    <Compile Include="Objects\QuestInfo.cs" />
     <Compile Include="Objects\TransportInfo.cs" />
     <Compile Include="Objects\Update\IPacketBuilder.cs" />
     <Compile Include="Objects\Update\UpdateFlags.cs" />
