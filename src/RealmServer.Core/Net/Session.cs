@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using Hazzik.Creatures;
+using Hazzik.Data;
 using Hazzik.GameObjects;
 using Hazzik.Gossip;
 using Hazzik.IO;
@@ -124,6 +125,16 @@ namespace Hazzik.Net {
 
 			ObjectManager.Add(player);
 
+			Creature creature = Creature.Create(IoC.Resolve<ICreatureTemplateRepository>().FindById(647));
+			creature.PosX = player.PosX;
+			creature.PosY = player.PosY;
+			creature.PosZ = player.PosZ;
+			creature.Health = 100;
+			creature.MaxHealth = 100;
+			creature.NpcFlags = NpcFlags.Gossip | NpcFlags.QuestGiver;
+			ObjectManager.Add(creature);
+
+
 			SendLoginVerifyWorld();
 			SendAccountDataTimes(0xEA);
 			SendLoginSetTimeSpeed();
@@ -132,7 +143,7 @@ namespace Hazzik.Net {
 			SendSetProficiency(6, -1);
 			SendInitialSpells();
 
-			updateManager = new UpdateManager(player.Session);
+			updateManager = new UpdateManager(this);
 			updateManager.Start();
 
 			SendTimeSyncReq();
@@ -504,33 +515,23 @@ namespace Hazzik.Net {
 			writer.Write(guid);
 			writer.Write(0);
 			writer.Write(gossipMessage.TextId);
-			if((gossipMessage.GossipMenu != null) && (gossipMessage.GossipMenu.Count > 0)) {
-				writer.Write(gossipMessage.GossipMenu.Count);
-				foreach(GossipMenuItem menuItem in gossipMessage.GossipMenu) {
-					writer.Write(menuItem.MenuId);
-					writer.Write((byte)menuItem.Icon);
-					writer.Write((byte)(menuItem.InputBox ? 1 : 0));
-					writer.Write(menuItem.Cost);
-					writer.WriteCString(menuItem.Text);
-					writer.WriteCString(menuItem.AcceptText);
-				}
+			writer.Write(gossipMessage.GossipMenu.Count);
+			foreach(GossipMenuItem menuItem in gossipMessage.GossipMenu) {
+				writer.Write(menuItem.MenuId);
+				writer.Write((byte)menuItem.Icon);
+				writer.Write((byte)(menuItem.InputBox ? 1 : 0));
+				writer.Write(menuItem.Cost);
+				writer.WriteCString(menuItem.Text);
+				writer.WriteCString(menuItem.AcceptText);
 			}
-			else {
-				writer.Write(0);
+			writer.Write(gossipMessage.QuestsMenu.Count);
+			foreach(QuestsMenuItem menuItem in gossipMessage.QuestsMenu) {
+				writer.Write(menuItem.Id);
+				writer.Write(menuItem.Icon);
+				writer.Write((uint)0);
+				writer.Write(menuItem.Text);
 			}
 
-			if((gossipMessage.QuestsMenu != null) && (gossipMessage.QuestsMenu.Count > 0)) {
-				writer.Write(gossipMessage.QuestsMenu.Count);
-				foreach(QuestsMenuItem menuItem in gossipMessage.QuestsMenu) {
-					writer.Write(menuItem.Id);
-					writer.Write(menuItem.Icon);
-					writer.Write((uint)0);
-					writer.Write(menuItem.Text);
-				}
-			}
-			else {
-				writer.Write(0);
-			}
 			return packet;
 		}
 	}

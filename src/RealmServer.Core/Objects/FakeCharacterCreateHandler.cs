@@ -70,18 +70,18 @@ namespace Hazzik.Objects {
 			}
 			player.FactionTemplate = 0x0000065D;
 			player.WatchedFactionIndex = -1;
-			var itemTemplate = IoC.Resolve<IItemTemplateRepository>();
-			player.Equipment.AutoAdd(Item.Create(itemTemplate.FindById(9936)));
-			player.BackPack.AutoAdd(Item.Create(itemTemplate.FindById(3289)));
-			player.BackPack.AutoAdd(Item.Create(itemTemplate.FindById(23772)));
-			player.BackPack.AutoAdd(Item.Create(itemTemplate.FindById(23772)));
-			player.BackPack.AutoAdd(Item.Create(itemTemplate.FindById(857)));
-			player.BackPack.AutoAdd(Item.Create(itemTemplate.FindById(857)));
-			player.BackPack.AutoAdd(Item.Create(itemTemplate.FindById(857)));
-			player.BackPack.AutoAdd(Item.Create(itemTemplate.FindById(857)));
-			player.BackPack.AutoAdd(Item.Create(itemTemplate.FindById(9943)));
-			player.BackPack.AutoAdd(Item.Create(itemTemplate.FindById(30633)));
-			player.BackPack.AutoAdd(Item.Create(itemTemplate.FindById(2901)));
+			var itemTemplateRepository = IoC.Resolve<IItemTemplateRepository>();
+			player.Equipment.AutoAdd(Item.Create(itemTemplateRepository.FindById(9936)));
+			player.BackPack.AutoAdd(Item.Create(itemTemplateRepository.FindById(3289)));
+			player.BackPack.AutoAdd(Item.Create(itemTemplateRepository.FindById(23772)));
+			player.BackPack.AutoAdd(Item.Create(itemTemplateRepository.FindById(23772)));
+			player.BackPack.AutoAdd(Item.Create(itemTemplateRepository.FindById(857)));
+			player.BackPack.AutoAdd(Item.Create(itemTemplateRepository.FindById(857)));
+			player.BackPack.AutoAdd(Item.Create(itemTemplateRepository.FindById(857)));
+			player.BackPack.AutoAdd(Item.Create(itemTemplateRepository.FindById(857)));
+			player.BackPack.AutoAdd(Item.Create(itemTemplateRepository.FindById(9943)));
+			player.BackPack.AutoAdd(Item.Create(itemTemplateRepository.FindById(30633)));
+			player.BackPack.AutoAdd(Item.Create(itemTemplateRepository.FindById(2901)));
 
 			player.TrainSpell(new[] {
 				78, // Heroic Strike Rank 1
