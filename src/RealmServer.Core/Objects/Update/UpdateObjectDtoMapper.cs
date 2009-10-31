@@ -275,7 +275,7 @@ namespace Hazzik.Objects.Update {
 			dto.Set(UpdateFields.PLAYER_DUEL_TEAM, obj.DuelTeam);
 			dto.Set(UpdateFields.PLAYER_GUILD_TIMESTAMP, obj.GuildTimestamp);
 			for(int i = 0; i < 25; i++) {
-				if(obj.Quests.Count < i && obj.Quests[i] != null) {
+				if(i < obj.Quests.Count && obj.Quests[i] != null) {
 					QuestInfo questInfo = obj.Quests[i];
 					dto.Set(UpdateFields.PLAYER_QUEST_LOG_1_1 + i, questInfo.Id);
 					dto.Set(UpdateFields.PLAYER_QUEST_LOG_1_2 + i, questInfo.FinishTime);
