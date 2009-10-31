@@ -57,18 +57,18 @@ namespace Hazzik.Net {
 		#endregion
 
 		public override Stream GetStream() {
-			if(null == _stream || dirty) {
+			if(null == stream || dirty) {
 				int size = 0;
 				foreach(IPacket packet in packets) {
 					size += 3 + packet.Size;
 				}
-				_stream = new MemoryStream();
-				_stream.WriteByte((byte)(size));
-				_stream.WriteByte((byte)(size >> 0x08));
-				_stream.WriteByte((byte)(size >> 0x10));
-				_stream.WriteByte((byte)(size >> 0x18));
+				stream = new MemoryStream();
+				stream.WriteByte((byte)(size));
+				stream.WriteByte((byte)(size >> 0x08));
+				stream.WriteByte((byte)(size >> 0x10));
+				stream.WriteByte((byte)(size >> 0x18));
 
-				var compressedStream = new DeflaterOutputStream(_stream);
+				var compressedStream = new DeflaterOutputStream(stream);
 				foreach(IPacket packet in packets) {
 					compressedStream.WriteByte((byte)(packet.Size + 2));
 					compressedStream.WriteByte((byte)(Code));
@@ -76,7 +76,7 @@ namespace Hazzik.Net {
 					packet.WriteBody(compressedStream);
 				}
 			}
-			return _stream;
+			return stream;
 		}
 	}
 }

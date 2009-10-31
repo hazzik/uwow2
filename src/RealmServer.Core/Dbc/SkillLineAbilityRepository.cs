@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Hazzik.Dbc {
 	public class SkillLineAbilityRepository {
-		private static readonly IDictionary<int, SkillLineAbility> Entities = Load();
+		private static readonly IDictionary<int, SkillLineAbility> entities = Load();
 
 		private static IDictionary<int, SkillLineAbility> Load() {
 			FileStream stream = File.OpenRead(@"DbFilesClient/SkillLineAbility.dbc");
@@ -27,8 +27,8 @@ namespace Hazzik.Dbc {
 			return result;
 		}
 
-		public ICollection<SkillLineAbility> FindAll() {
-			return Entities.Values;
+		private IEnumerable<SkillLineAbility> FindAll() {
+			return entities.Values;
 		}
 
 		public SkillLineAbility FindBySpellId(int spellId) {

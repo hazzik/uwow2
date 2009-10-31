@@ -151,15 +151,15 @@ namespace Hazzik.Net {
 
 		#endregion
 
-		public void SendInitialSpells() {
+		private void SendInitialSpells() {
 			packetSender.Send(GetInitialSpellsPkt());
 		}
 
-		public void SendCharacterLoginFiled() {
+		private void SendCharacterLoginFiled() {
 			packetSender.Send(GetCharacterLoginFiledPkt(0x44));
 		}
 
-		public void SendLoginVerifyWorld() {
+		private void SendLoginVerifyWorld() {
 			packetSender.Send(GetLoginVerifyWorldPkt());
 		}
 
@@ -174,19 +174,19 @@ namespace Hazzik.Net {
 			return result;
 		}
 
-		public void SendLoginSetTimeSpeed() {
+		private void SendLoginSetTimeSpeed() {
 			packetSender.Send(GetLoginSetTimeSpeedPkt());
 		}
 
-		public void SendTimeSyncReq() {
+		private void SendTimeSyncReq() {
 			packetSender.Send(GetTimeSyncReqPkt());
 		}
 
-		public void SendSetProficiency(byte type, int bitmask) {
+		private void SendSetProficiency(byte type, int bitmask) {
 			packetSender.Send(GetSetProficiencyPkt(type, bitmask));
 		}
 
-		public static void SendNear(Positioned me, IPacket responce) {
+		private static void SendNear(Positioned me, IPacket responce) {
 			foreach(Player player in ObjectManager.GetPlayersNear(me)) {
 				if(player.Session != null) {
 					player.Session.Client.Send(responce);
@@ -196,7 +196,7 @@ namespace Hazzik.Net {
 
 		public static void SendNearExceptMe(Positioned me, IPacket responce) {
 			foreach(Player player in ObjectManager.GetPlayersNear(me)) {
-				if(player != me && player.Session != null) {
+				if(player.Session != null && player != me) {
 					player.Session.Client.Send(responce);
 				}
 			}

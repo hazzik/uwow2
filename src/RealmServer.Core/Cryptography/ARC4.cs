@@ -25,6 +25,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.Security.Cryptography;
 
 namespace Mono.Security.Cryptography {
@@ -34,14 +35,14 @@ namespace Mono.Security.Cryptography {
 
 	public class ARC4 : RC4, ICryptoTransform {
 		private byte[] key;
-		private bool m_disposed;
+		private bool disposed;
 		private byte[] state;
 		private byte x;
 		private byte y;
 
 		public ARC4() {
 			state = new byte[256];
-			m_disposed = false;
+			disposed = false;
 		}
 
 		public override byte[] Key {
@@ -102,18 +103,19 @@ namespace Mono.Security.Cryptography {
 		}
 
 		protected override void Dispose(bool disposing) {
-			if(!m_disposed) {
-				x = 0;
-				y = 0;
-				if(key != null) {
-					Array.Clear(key, 0, key.Length);
-					key = null;
-				}
-				Array.Clear(state, 0, state.Length);
-				state = null;
-				GC.SuppressFinalize(this);
-				m_disposed = true;
+			if(disposed) {
+				return;
 			}
+			x = 0;
+			y = 0;
+			if(key != null) {
+				Array.Clear(key, 0, key.Length);
+				key = null;
+			}
+			Array.Clear(state, 0, state.Length);
+			state = null;
+			GC.SuppressFinalize(this);
+			disposed = true;
 		}
 
 		public override ICryptoTransform CreateEncryptor(byte[] rgbKey, byte[] rgvIV) {
@@ -154,7 +156,7 @@ namespace Mono.Security.Cryptography {
 			}
 		}
 
-		private void CheckInput(byte[] inputBuffer, int inputOffset, int inputCount) {
+		private static void CheckInput(ICollection<byte> inputBuffer, int inputOffset, int inputCount) {
 			if(inputBuffer == null) {
 				throw new ArgumentNullException("inputBuffer");
 			}
@@ -165,14 +167,13 @@ namespace Mono.Security.Cryptography {
 				throw new ArgumentOutOfRangeException("inputCount", "< 0");
 			}
 			// ordered to avoid possible integer overflow
-			if(inputOffset > inputBuffer.Length - inputCount) {
+			if(inputOffset > inputBuffer.Count - inputCount) {
 				throw new ArgumentException("Overflow", "inputBuffer");
 			}
 		}
 
 		private int InternalTransformBlock(byte[] inputBuffer, int inputOffset, int inputCount, byte[] outputBuffer,
 		                                   int outputOffset) {
-			byte xorIndex;
 			for(int counter = 0; counter < inputCount; counter ++) {
 				x = (byte)(x + 1);
 				y = (byte)(state[x] + y);
@@ -181,7 +182,7 @@ namespace Mono.Security.Cryptography {
 				state[x] = state[y];
 				state[y] = tmp;
 
-				xorIndex = (byte)(state[x] + state[y]);
+				var xorIndex = (byte)(state[x] + state[y]);
 				outputBuffer[outputOffset + counter] = (byte)(inputBuffer[inputOffset + counter] ^ state[xorIndex]);
 			}
 			return inputCount;

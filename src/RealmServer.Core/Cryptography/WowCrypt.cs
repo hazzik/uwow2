@@ -46,15 +46,15 @@ namespace Hazzik.Cryptography {
 		#region Nested type: Transform
 
 		private class Transform : ICryptoTransform {
-			protected readonly Direction _direction;
-			protected readonly byte[] _key;
-			protected byte _iv;
-			protected int _keyPosition;
+			private readonly Direction direction;
+			private readonly byte[] key;
+			private byte iv;
+			private int keyPosition;
 
 			internal Transform(Direction direction, byte[] key, byte iv) {
-				_direction = direction;
-				_key = key;
-				_iv = iv;
+				this.direction = direction;
+				this.key = key;
+				this.iv = iv;
 			}
 
 			#region ICryptoTransform Members
@@ -82,18 +82,18 @@ namespace Hazzik.Cryptography {
 					for(long i = inputOffset, o = outputOffset;
 						i < inputCount + inputOffset;
 						i++, o++) {
-						_keyPosition %= _key.Length;
+						keyPosition %= key.Length;
 
-						if(_direction == Direction.Encryption) {
-							outputBuffer[o] = (byte)((inputBuffer[i] ^ _key[_keyPosition]) + _iv);
-							_iv = outputBuffer[o];
+						if(direction == Direction.Encryption) {
+							outputBuffer[o] = (byte)((inputBuffer[i] ^ key[keyPosition]) + iv);
+							iv = outputBuffer[o];
 						}
 						else {
-							outputBuffer[o] = (byte)((inputBuffer[i] - _iv) ^ _key[_keyPosition]);
-							_iv = inputBuffer[i];
+							outputBuffer[o] = (byte)((inputBuffer[i] - iv) ^ key[keyPosition]);
+							iv = inputBuffer[i];
 						}
 
-						_keyPosition++;
+						keyPosition++;
 						bytes++;
 					}
 
@@ -108,11 +108,11 @@ namespace Hazzik.Cryptography {
 			}
 
 			public void Dispose() {
-				for(int i = 0; i < _key.Length; i++) {
-					_key[i] = 0;
+				for(int i = 0; i < key.Length; i++) {
+					key[i] = 0;
 				}
-				_iv = 0;
-				_keyPosition = 0;
+				iv = 0;
+				keyPosition = 0;
 			}
 
 			#endregion

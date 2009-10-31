@@ -8,8 +8,8 @@ using System.Xml.Serialization;
 namespace Hazzik {
 	[XmlType("account")]
 	public class Account {
-		private static BigInteger bi_g = 7;
-		private static BigInteger bi_N = new BigInteger("894B645E89E1535BBDAD5B8B290650530801B18EBFBF5E8FAB3C82872A3E9BB7", 16);
+		private static readonly BigInteger bi_g = 7;
+		private static readonly BigInteger bi_N = new BigInteger("894B645E89E1535BBDAD5B8B290650530801B18EBFBF5E8FAB3C82872A3E9BB7", 16);
 		private readonly SHA1 sha1 = SHA1.Create();
 
 		public virtual int Id { get; set; }
