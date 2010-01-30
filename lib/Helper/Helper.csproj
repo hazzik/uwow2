@@ -61,6 +61,7 @@
     <Compile Include="IoC.cs" />
     <Compile Include="PacketsHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CustomAttributeProviderExtensions.cs" />
     <Compile Include="Utility.cs" />
   </ItemGroup>
   <ItemGroup>

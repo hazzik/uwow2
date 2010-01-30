@@ -34,7 +34,7 @@ namespace Hazzik.Net {
 					Locked = false,
 					Status = 0,
 					Name = "TestRealm",
-					Address = "127.0.0.1:3725",
+					Address = "77.222.102.234:3725",
 					CharactersCount = 1,
 					Language = 8,
 					Population = 1,
