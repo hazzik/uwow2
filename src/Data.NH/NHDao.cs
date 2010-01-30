@@ -2,7 +2,7 @@
 using NHibernate;
 
 namespace Hazzik.Data.NH {
-    public abstract class NHDao<T> : IDao<T> {
+    public abstract class NHDao<T> : IDao<T> where T : class {
         private static readonly ISessionFactory sessionFactory = IoC
             .Resolve<IConfigurationFactory>()
             .CreateConfiguration()
@@ -27,7 +27,7 @@ namespace Hazzik.Data.NH {
         #endregion
 
         protected ICriteria CreateCriteria() {
-            return session.CreateCriteria(typeof(T));
+            return session.CreateCriteria<T>();
         }
     }
 }
