@@ -1,17 +1,19 @@
 ﻿using System;
 
 namespace Hazzik.Objects {
-	public class QuestInfo {
-		public int Id { get; set; }
+    public class QuestInfo {
+        public static readonly QuestInfo Empty = new QuestInfo();
+        
+        public int Id { get; set; }
 
-		public uint FinishTime { get; set; }
+        public uint FinishTime { get; set; }
 
-		public byte Byte1 { get; set; }
+        public short Short1 { get; set; }
 
-		public byte Byte2 { get; set; }
+        public short Short2 { get; set; }
 
-		public byte Byte3 { get; set; }
+        public short Short3 { get; set; }
 
-		public byte Byte4 { get; set; }
-	}
+        public short Short4 { get; set; }
+    }
 }

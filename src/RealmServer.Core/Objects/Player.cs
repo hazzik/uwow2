@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Hazzik.Annotations;
 using Hazzik.Dbc;
 using Hazzik.Items;
 using Hazzik.Items.Inventories;
@@ -48,7 +49,7 @@ namespace Hazzik.Objects {
 
 		public ISession Session { get; protected internal set; }
 
-		public IList<QuestInfo> Quests {
+	    public IList<QuestInfo> Quests {
 			get { return quests; }
 		}
 
@@ -147,5 +148,14 @@ namespace Hazzik.Objects {
 			}
 			return base.IsSeenBy(unit);
 		}
+
+        [NotNull]
+        public QuestInfo GetQuestInfo(int questIndex) {
+            if(questIndex < 0 && questIndex >= 25)
+                throw new ArgumentOutOfRangeException("questIndex", questIndex, "questIndex must be between 0 and 25");
+            if(questIndex < Quests.Count && Quests[questIndex] != null)
+                return Quests[questIndex];
+            return QuestInfo.Empty;
+        }
 	}
 }

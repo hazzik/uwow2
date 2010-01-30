@@ -20,7 +20,7 @@ namespace Hazzik.Data.NH {
 				          	.ShowSql())
 				.Mappings(m => m.FluentMappings
 				               	.AddFromAssemblyOf<FluentConfigurationFactory>()
-				               	.ExportTo(@"g:\uwow2\uwow2\src\"))
+				               	.ExportTo(@"f:\uwow2\uwow2\src\"))
 				.BuildConfiguration();
 		}
 

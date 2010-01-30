@@ -5,7 +5,7 @@ using Hazzik.Net;
 using Hazzik.RealmServer.PacketDispatchers;
 
 namespace Hazzik {
-	internal class App {
+	internal static class App {
 		private static void Main() {
 			IoC.Initialize(new StructureMapResolver());
 

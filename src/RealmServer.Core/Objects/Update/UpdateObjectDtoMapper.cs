@@ -275,23 +275,10 @@ namespace Hazzik.Objects.Update {
 			dto.Set(UpdateFields.PLAYER_DUEL_TEAM, obj.DuelTeam);
 			dto.Set(UpdateFields.PLAYER_GUILD_TIMESTAMP, obj.GuildTimestamp);
 			for(int i = 0; i < 25; i++) {
-				if(i < obj.Quests.Count && obj.Quests[i] != null) {
-					QuestInfo questInfo = obj.Quests[i];
-					dto.Set(UpdateFields.PLAYER_QUEST_LOG_1_1 + i, questInfo.Id);
-					dto.Set(UpdateFields.PLAYER_QUEST_LOG_1_2 + i, questInfo.FinishTime);
-					dto.Set(UpdateFields.PLAYER_QUEST_LOG_1_3 + i, questInfo.Byte1,
-					        questInfo.Byte2,
-					        questInfo.Byte3,
-					        questInfo.Byte4);
-				}
-				else {
-					dto.Set(UpdateFields.PLAYER_QUEST_LOG_1_1 + i, 0);
-					dto.Set(UpdateFields.PLAYER_QUEST_LOG_1_2 + i, 0);
-					dto.Set(UpdateFields.PLAYER_QUEST_LOG_1_3 + i, 0);
-				}
+			    SetQuestInfo(dto, obj.GetQuestInfo(i), i);
 			}
-			for(int i = 0; i < 19; i++) {
-				Item item = obj.Inventory[i];
+		    for(int i = 0; i < 19; i++) {
+		        Item item = obj.Inventory[i];
 				SetVisibleItem(dto, UpdateFields.PLAYER_VISIBLE_ITEM_1_ENTRYID + i * 2, item);
 			}
 			dto.Set(UpdateFields.PLAYER_CHOSEN_TITLE, obj.ChosenTitle);
@@ -383,7 +370,14 @@ namespace Hazzik.Objects.Update {
 			dto.Set(UpdateFields.PLAYER_GLYPHS_ENABLED, obj.GlyphsEnabled);
 		}
 
-		private static void SetVisibleItem(UpdateValuesDto dto, UpdateFields field, Item item) {
+	    private static void SetQuestInfo(UpdateValuesDto dto, QuestInfo questInfo, int questIndex) {
+	        dto.Set(UpdateFields.PLAYER_QUEST_LOG_1_1 + questIndex, questInfo.Id);
+	        dto.Set(UpdateFields.PLAYER_QUEST_LOG_1_2 + questIndex, questInfo.FinishTime);
+	        dto.Set(UpdateFields.PLAYER_QUEST_LOG_1_3 + questIndex, questInfo.Short1, questInfo.Short2);
+	        dto.Set(UpdateFields.PLAYER_QUEST_LOG_1_3 + questIndex + 1, questInfo.Short3, questInfo.Short4);
+	    }
+
+	    private static void SetVisibleItem(UpdateValuesDto dto, UpdateFields field, Item item) {
 			if(item != null) {
 				dto.Set(field, item.Entry);
 				dto.Set(field + 1, (ushort)0, 0);

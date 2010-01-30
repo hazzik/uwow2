@@ -3,14 +3,14 @@ using System.IO;
 using System.Net.Sockets;
 
 namespace Hazzik.Net {
-	public class SocketHolder {
-		protected Socket socket;
+	public abstract class SocketHolder {
+	    private readonly Socket socket;
 
-		public SocketHolder(Socket socket) {
+	    protected SocketHolder(Socket socket) {
 			this.socket = socket;
 		}
 
-		public virtual Stream GetStream() {
+	    protected virtual Stream GetStream() {
 			return new NetworkStream(socket, false);
 		}
 	}
