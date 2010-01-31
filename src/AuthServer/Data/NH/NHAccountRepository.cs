@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Linq;
-using NHibernate;
-using NHibernate.Criterion;
 
 namespace Hazzik.Data.NH {
-	public class NHAccountRepository : NHDao<Account>, IAccountRepository {
-		#region IAccountRepository Members
+    public class NHAccountRepository : NHDao<Account>, IAccountRepository {
+        #region IAccountRepository Members
 
-		public Account FindByName(string name) {
-			ICriteria criteria = CreateCriteria();
-			criteria.Add(Restrictions.Eq("Name", name.ToUpper()));
-			return criteria.List<Account>().FirstOrDefault();
-		}
+        public Account FindByName(string name) {
+            return session.QueryOver<Account>()
+                .Where(x => x.Name == name.ToUpper())
+                .SingleOrDefault();
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

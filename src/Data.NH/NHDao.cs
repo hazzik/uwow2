@@ -8,7 +8,7 @@ namespace Hazzik.Data.NH {
             .CreateConfiguration()
             .BuildSessionFactory();
 
-        private readonly ISession session = sessionFactory.OpenSession();
+        protected readonly ISession session = sessionFactory.OpenSession();
 
         #region IDao<T> Members
 
@@ -25,9 +25,5 @@ namespace Hazzik.Data.NH {
         }
 
         #endregion
-
-        protected ICriteria CreateCriteria() {
-            return session.CreateCriteria<T>();
-        }
     }
 }
