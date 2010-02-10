@@ -107,6 +107,7 @@
     <Compile Include="Objects\IAttackPowerCalculator.cs" />
     <Compile Include="GameObjects\IGameObjectUseHandler.cs" />
     <Compile Include="GameObjects\UseHandlers\NullUseHandler.cs" />
+    <Compile Include="Objects\MovementFlags2.cs" />
     <Compile Include="Objects\PlayerFlags.cs" />
     <Compile Include="Objects\PowerCalculators\MageAttackPowerCalculator.cs" />
     <Compile Include="Objects\MovementFlagsExtension.cs" />
