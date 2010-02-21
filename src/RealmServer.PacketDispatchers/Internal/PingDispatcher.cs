@@ -8,7 +8,7 @@ namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 		#region IPacketDispatcher Members
 
 		public void Dispatch(ISession session, IPacket packet) {
-			session.Client.Send(GetPongPkt(packet.CreateReader().ReadUInt32()));
+			session.Send(GetPongPkt(packet.CreateReader().ReadUInt32()));
 		}
 
 		#endregion

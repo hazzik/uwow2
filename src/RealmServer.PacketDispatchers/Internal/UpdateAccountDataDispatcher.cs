@@ -25,8 +25,7 @@ namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 			};
 
 			session.Account.SetAccountData(ad);
-
-			session.Client.Send(GetUpdateAccountDataCompletePkt(type));
+			session.Send(GetUpdateAccountDataCompletePkt(type));
 		}
 
 		private static IPacket GetUpdateAccountDataCompletePkt(AccountDataType type) {

@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BitArrayFacts.cs" />
+    <Compile Include="DnsTests.cs" />
     <Compile Include="EnumerableFacts.cs" />
     <Compile Include="InventoryFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

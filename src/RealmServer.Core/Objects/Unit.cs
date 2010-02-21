@@ -66,5 +66,5 @@ namespace Hazzik.Objects {
 			w.Write(TurnRate);
 			w.Write(TurnRate);
 		}
-	}
+    }
 }

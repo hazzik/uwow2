@@ -25,11 +25,7 @@ namespace Hazzik.Net {
 
 		public Account Account { get; set; }
 
-		public IPacketSender Client {
-			get { return packetSender; }
-		}
-
-		public void SendHeartBeat() {
+	    public void SendHeartBeat() {
 			IPacket packet = WorldPacketFactory.Create(WMSG.MSG_MOVE_HEARTBEAT);
 			BinaryWriter writer = packet.CreateWriter();
 			writer.WritePackGuid(Player.Guid);
@@ -38,72 +34,72 @@ namespace Hazzik.Net {
 		}
 
 		public void SendNameQueryResponce(Player player) {
-			packetSender.Send(GetNameQueryResponcePkt(player));
+			Send(GetNameQueryResponcePkt(player));
 		}
 
 		public void SendRealmSplitPkt(uint unk1) {
-			packetSender.Send(GetRealmSplitPkt(unk1));
+			Send(GetRealmSplitPkt(unk1));
 		}
 
 		public void SendCharEnum() {
-			packetSender.Send(Account.GetCharEnumPkt());
+			Send(Account.GetCharEnumPkt());
 		}
 
 		public void SendCharCreate() {
-			packetSender.Send(GetCharCreatePkt(47));
+			Send(GetCharCreatePkt(47));
 		}
 
 		public void SendAccountDataTimes(uint mask) {
-			packetSender.Send(GetAccountDataTimesPkt(mask));
+			Send(GetAccountDataTimesPkt(mask));
 		}
 
 		public void SendLogoutComplete() {
-			packetSender.Send(GetLogoutCompletePkt());
+			Send(GetLogoutCompletePkt());
 		}
 
 		public void SendLogoutResponce() {
-			packetSender.Send(GetLogoutResponcePkt(LogoutResponses.Accepted));
+			Send(GetLogoutResponcePkt(LogoutResponses.Accepted));
 		}
 
 		public void SendLogoutCancelAck() {
-			packetSender.Send(GetLogoutCancelAckPkt());
+			Send(GetLogoutCancelAckPkt());
 		}
 
 		public void SendShowBank(ulong guid) {
-			packetSender.Send(GetShowBankPkt(guid));
+			Send(GetShowBankPkt(guid));
 		}
 
 		public void SendDestroy(WorldObject item) {
-			packetSender.Send(GetDestroyObjectPkt(item));
+			Send(GetDestroyObjectPkt(item));
 		}
 
 		public void SendCreatureQueryResponce(CreatureTemplate creature) {
-			packetSender.Send(GetCreatureQueryResponse(creature));
+			Send(GetCreatureQueryResponse(creature));
 		}
 
 		public void SendGameObjectQueryResponce(GameObjectTemplate template) {
-			packetSender.Send(GetGameObjectQueryResponcePkt(template));
+			Send(GetGameObjectQueryResponcePkt(template));
 		}
 
 		public void SendItemQuerySingleResponse(ItemTemplate template) {
-			packetSender.Send(GetItemQuerySingleResponsePkt(template));
+			Send(GetItemQuerySingleResponsePkt(template));
 		}
 
 		public void SendNpcTextUpdate(NpcTexts text) {
-			packetSender.Send(GetNpcTextUpdatePkt(text));
+			Send(GetNpcTextUpdatePkt(text));
 		}
 
 		public void SendStandstateUpdate() {
-			packetSender.Send(new WorldPacket(WMSG.SMSG_STANDSTATE_UPDATE, new[] { (byte)Player.StandState }));
+			Send(new WorldPacket(WMSG.SMSG_STANDSTATE_UPDATE, new[] { (byte)Player.StandState }));
 		}
 
 		public void SendGossipMessage(ulong targetGuid, GossipMessage message) {
-			packetSender.Send(GetGossipMessagePkt(targetGuid, message));
+			Send(GetGossipMessagePkt(targetGuid, message));
 		}
 
-		public void SendUpdateObjects(IPacketBuilder builder) {
-			if(!builder.IsEmpty) {
-				packetSender.Send(builder.Build());
+		public void Send(IPacketBuilder packetBuilder) {
+			if(!packetBuilder.IsEmpty) {
+				Send(packetBuilder.Build());
 			}
 		}
 
@@ -149,18 +145,27 @@ namespace Hazzik.Net {
 			SendTimeSyncReq();
 		}
 
-		#endregion
+        public void Send(IPacket packet) {
+            try {
+                packetSender.Send(packet);
+            }
+            catch(Exception) {
+                LogOut();
+            }
+        }
+
+	    #endregion
 
 		private void SendInitialSpells() {
-			packetSender.Send(GetInitialSpellsPkt());
+			Send(GetInitialSpellsPkt());
 		}
 
 		private void SendCharacterLoginFiled() {
-			packetSender.Send(GetCharacterLoginFiledPkt(0x44));
+			Send(GetCharacterLoginFiledPkt(0x44));
 		}
 
 		private void SendLoginVerifyWorld() {
-			packetSender.Send(GetLoginVerifyWorldPkt());
+			Send(GetLoginVerifyWorldPkt());
 		}
 
 		private IPacket GetLoginVerifyWorldPkt() {
@@ -175,21 +180,21 @@ namespace Hazzik.Net {
 		}
 
 		private void SendLoginSetTimeSpeed() {
-			packetSender.Send(GetLoginSetTimeSpeedPkt());
+			Send(GetLoginSetTimeSpeedPkt());
 		}
 
 		private void SendTimeSyncReq() {
-			packetSender.Send(GetTimeSyncReqPkt());
+			Send(GetTimeSyncReqPkt());
 		}
 
 		private void SendSetProficiency(byte type, int bitmask) {
-			packetSender.Send(GetSetProficiencyPkt(type, bitmask));
+			Send(GetSetProficiencyPkt(type, bitmask));
 		}
 
 		private static void SendNear(Positioned me, IPacket responce) {
 			foreach(Player player in ObjectManager.GetPlayersNear(me)) {
 				if(player.Session != null) {
-					player.Session.Client.Send(responce);
+					player.Session.Send(responce);
 				}
 			}
 		}
@@ -197,7 +202,7 @@ namespace Hazzik.Net {
 		public static void SendNearExceptMe(Positioned me, IPacket responce) {
 			foreach(Player player in ObjectManager.GetPlayersNear(me)) {
 				if(player.Session != null && player != me) {
-					player.Session.Client.Send(responce);
+				    player.Session.Send(responce);
 				}
 			}
 		}

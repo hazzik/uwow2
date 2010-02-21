@@ -15,7 +15,7 @@ namespace Hazzik.Objects.Update {
 
 		public UpdateManager(ISession session) {
 			this.session = session;
-			timer = new Timer(state => UpdateObjects(), null, 0, 1000);
+		    timer = new Timer(state => UpdateObjects(), null, 0, 1000);
 		}
 
 		#region IDisposable Members
@@ -29,7 +29,7 @@ namespace Hazzik.Objects.Update {
 
 		private void UpdateObjects() {
 			lock(lockObject) {
-				session.SendUpdateObjects(new UpdatePacketBuilder(GetUpdateBlocks()));
+                    session.Send(new UpdatePacketBuilder(GetUpdateBlocks()));
 			}
 		}
 

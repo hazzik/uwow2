@@ -34,7 +34,9 @@ namespace Hazzik.Net {
 					Locked = false,
 					Status = 0,
 					Name = "TestRealm",
-					Address = "77.222.102.234:3725",
+					Address = Dns.GetHostEntry("i.hazzik.ru")
+					              .AddressList
+					              .First() + ":3725",
 					CharactersCount = 1,
 					Language = 8,
 					Population = 1,

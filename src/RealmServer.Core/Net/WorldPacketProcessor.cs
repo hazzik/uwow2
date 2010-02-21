@@ -16,7 +16,7 @@ namespace Hazzik.Net {
 		public WorldPacketProcessor(ISession client, ICryptor cryptor) {
 			this.cryptor = cryptor;
 			session = client;
-			session.Client.Send(GetAuthChallengePkt());
+			session.Send(GetAuthChallengePkt());
 		}
 
 		public static IPacketDispatcherFactory Factory { get; set; }
@@ -75,7 +75,7 @@ namespace Hazzik.Net {
 				throw new Exception();
 			}
 
-			(session.Client).Send(GetAuthResponcePkt());
+			session.Send(GetAuthResponcePkt());
 
 			uint addonInfoBlockSize = r.ReadUInt32();
 			dataStream = new InflaterInputStream(dataStream); //дальше данные запакованы
@@ -93,7 +93,7 @@ namespace Hazzik.Net {
 			catch(Exception e) {
 			}
 			//_client.Send(GetAddonInfoPkt());
-			(session.Client).Send(GetTutorialFlagsPkt());
+			session.Send(GetTutorialFlagsPkt());
 			session.SendAccountDataTimes(0x15);
 		}
 

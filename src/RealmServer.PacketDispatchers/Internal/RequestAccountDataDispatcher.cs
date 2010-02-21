@@ -17,7 +17,7 @@ namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 
 			AccpuntData accpuntData = session.Account.FindAccpuntData(type, guid);
 
-			session.Client.Send(GetUpdateAccountDataPkt(accpuntData));
+			session.Send(GetUpdateAccountDataPkt(accpuntData));
 		}
 
 		private static IPacket GetUpdateAccountDataPkt(AccpuntData accpuntData) {

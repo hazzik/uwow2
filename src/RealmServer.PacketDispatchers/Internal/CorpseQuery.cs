@@ -10,7 +10,7 @@ namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 
 		public void Dispatch(ISession session, IPacket packet) {
 			IPacket pkt = GetCorpseQuery(session.Player.Corpse);
-			session.Client.Send(pkt);
+			session.Send(pkt);
 		}
 
 		#endregion

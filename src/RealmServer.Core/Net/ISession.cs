@@ -9,20 +9,13 @@ using Hazzik.Objects.Update;
 namespace Hazzik.Net {
 	public interface ISession {
 		Account Account { get; set; }
-		Player Player { get; set; }
-		IPacketSender Client { get; }
-		UpdateManager UpdateManager { get; set; }
-		void SendHeartBeat();
-		void SendInitialSpells();
+		Player Player { get; }
+	    void SendHeartBeat();
 		void SendNameQueryResponce(Player player);
 		void SendRealmSplitPkt(uint unk1);
 		void SendCharEnum();
 		void SendCharCreate();
-		void SendCharacterLoginFiled();
-		void SendLoginVerifyWorld();
 		void SendAccountDataTimes(uint mask);
-		void SendLoginSetTimeSpeed();
-		void SendTimeSyncReq();
 		void SendLogoutComplete();
 		void SendLogoutResponce();
 		void SendLogoutCancelAck();
@@ -31,11 +24,12 @@ namespace Hazzik.Net {
 		void SendCreatureQueryResponce(CreatureTemplate creature);
 		void SendGameObjectQueryResponce(GameObjectTemplate template);
 		void SendItemQuerySingleResponse(ItemTemplate template);
-		void SendSetProficiency(byte type, int bitmask);
 		void SendNpcTextUpdate(NpcTexts text);
 		void SendStandstateUpdate();
 		void SendGossipMessage(ulong targetGuid, GossipMessage message);
-		void SendUpdateObjects(IPacketBuilder builder);
+		void Send(IPacketBuilder packetBuilder);
 		void LogOut();
+		void Login(Player player);
+	    void Send(IPacket packet);
 	}
 }

@@ -26,7 +26,7 @@ namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 			writer.Write(0); //cast flags
 			writer.Write(0); //ticks count
 			writer.Write(0); //targetflags
-			session.Client.Send(pkt);
+			session.Send(pkt);
 
 			Thread.Sleep(5000);
 			pkt = WorldPacketFactory.Create(WMSG.SMSG_SPELL_GO);
@@ -41,7 +41,7 @@ namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 			writer.Write(session.Player.Guid);
 			writer.Write((byte)0); //miss count
 			writer.Write(0); // targetflags
-			session.Client.Send(pkt);
+			session.Send(pkt);
 		}
 
 		#endregion
