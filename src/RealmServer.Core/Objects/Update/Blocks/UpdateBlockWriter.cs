@@ -11,7 +11,7 @@ namespace Hazzik.Objects.Update.Blocks {
 		public UpdateBlockWriter(ulong guid, UpdateValuesDto dto) {
 			this.guid = guid;
 			this.dto = dto;
-			isEmpty = !dto.HasChanges;
+			isEmpty = !dto.Dirty;
 		}
 
 		#region IUpdateBlock Members

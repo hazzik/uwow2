@@ -210,7 +210,6 @@
     <Compile Include="Account.cs" />
     <Compile Include="Skills\Skill.cs" />
     <Compile Include="Skills\SkillType.cs" />
-    <Compile Include="Timer2.cs" />
     <Compile Include="Objects\Update\Blocks\UpdateBlockWriter.cs" />
     <Compile Include="Objects\Update\UpdateManager.cs" />
     <Compile Include="Objects\Update\UpdatePacketBuilder.cs" />

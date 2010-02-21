@@ -4,7 +4,7 @@ using System.Linq;
 using Hazzik.Objects;
 
 namespace Hazzik.Map {
-	public class ObjectManager {
+	public static class ObjectManager {
 		private static readonly IDictionary<ulong, Player> allLoggedPlayers = new Dictionary<ulong, Player>();
 		private static readonly IDictionary<ulong, Positioned> allObjects = new Dictionary<ulong, Positioned>();
 

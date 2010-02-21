@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.IO;
+using System.Linq;
 
 namespace Hazzik.Objects.Update {
 	internal class UpdateValuesDto {
@@ -65,26 +66,11 @@ namespace Hazzik.Objects.Update {
 
 		#endregion
 
-		public bool HasChanges {
-			get {
-				for(int i = 0; i < updateMask.Length; i++) {
-					if(updateMask[i]) {
-						return true;
-					}
-				}
-				return false;
-			}
+		public bool Dirty {
+            get { return updateMask.Cast<bool>().Any(b => b); }
 		}
 
-		public BitArray BuildChangesMask(UpdateValuesDto dto) {
-			var mask = new BitArray(values.Length);
-			for(int i = 0; i < mask.Length; i++) {
-				mask[i] = !Equals(values[i], dto.values[i]);
-			}
-			return mask;
-		}
-
-		public void Write(BinaryWriter writer) {
+	    public void Write(BinaryWriter writer) {
 			var length = (byte)GetLengthInDwords(updateMask.Length);
 			var buffer = new byte[length << 2];
 			updateMask.CopyTo(buffer, 0);
