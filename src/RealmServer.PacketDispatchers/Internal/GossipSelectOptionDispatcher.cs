@@ -1,5 +1,8 @@
 using System;
 using System.IO;
+using System.Linq;
+using Hazzik.Creatures;
+using Hazzik.Map;
 using Hazzik.Net;
 
 namespace Hazzik.RealmServer.PacketDispatchers.Internal {
@@ -12,9 +15,11 @@ namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 			ulong targetGuid = reader.ReadUInt64();
 		    uint unk1 = reader.ReadUInt32();
 			uint option = reader.ReadUInt32();
-            if(option==1) {
+		    if(option==1) {
                 session.Player.Health = 0;
-            }
+            }else {
+		        session.SendShowBank(targetGuid);
+		    }
 		}
 
 		#endregion

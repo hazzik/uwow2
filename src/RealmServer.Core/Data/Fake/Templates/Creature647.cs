@@ -3,7 +3,7 @@ using Hazzik.Creatures;
 
 namespace Hazzik.Data.Fake.Templates {
 	public class Creature647 : CreatureTemplate {
-		public Creature647() {
+	    public Creature647() {
 			Id = 647;
 			//Level = 20;
 			Name = "Captain Greenskin";

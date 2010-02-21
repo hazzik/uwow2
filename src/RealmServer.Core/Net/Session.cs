@@ -127,7 +127,7 @@ namespace Hazzik.Net {
 			creature.PosZ = player.PosZ;
 			creature.Health = 100;
 			creature.MaxHealth = 100;
-			creature.NpcFlags = NpcFlags.Gossip | NpcFlags.QuestGiver;
+		    creature.NpcFlags = NpcFlags.Gossip | NpcFlags.QuestGiver | NpcFlags.Banker;
 			ObjectManager.Add(creature);
 
 
