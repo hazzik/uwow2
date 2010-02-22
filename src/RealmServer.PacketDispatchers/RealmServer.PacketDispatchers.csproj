@@ -55,6 +55,8 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="AttributesPacketDispatcherFactory.cs" />
+    <Compile Include="Chat\JoinChannel.cs" />
+    <Compile Include="Chat\MessageChat.cs" />
     <Compile Include="Internal\AutoBankItemDispatcher.cs" />
     <Compile Include="Internal\AutoEquipDispatcher.cs" />
     <Compile Include="Internal\AutoStoreBagItemDispatcher.cs" />

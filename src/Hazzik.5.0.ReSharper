@@ -76,6 +76,14 @@
       <Abbreviation Text="MODF" />
       <Abbreviation Text="MOHD" />
       <Abbreviation Text="SQL" />
+      <Abbreviation Text="AFK" />
+      <Abbreviation Text="DND" />
+      <Abbreviation Text="LFG" />
     </Naming2>
   </CodeStyleSettings>
+  <CodeAnnotations>
+    <Namespace>Hazzik.Annotations</Namespace>
+    <Namespace>JetBrains.Annotations</Namespace>
+    <DefaultNamespace>Hazzik.Annotations</DefaultNamespace>
+  </CodeAnnotations>
 </Configuration>

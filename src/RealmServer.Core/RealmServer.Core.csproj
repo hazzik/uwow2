@@ -60,6 +60,7 @@
     <Compile Include="AccountDataType.cs" />
     <Compile Include="AddonInfo.cs" />
     <Compile Include="AddonManager.cs" />
+    <Compile Include="Chat\MessageType.cs" />
     <Compile Include="Data\Fake\Templates\MiningPick2901.cs" />
     <Compile Include="Data\IGameObjectTemplateRepository.cs" />
     <Compile Include="GameObjects\UseHandlers\ChairHandler.cs" />
