@@ -33,7 +33,7 @@ namespace Hazzik.RealmServer.PacketDispatchers.Chat
             var pkt = WorldPacketFactory.Create(WMSG.SMSG_CHANNEL_NOTIFY);
             var writer = pkt.CreateWriter();
             writer.Write((byte)ChannelNotification.YouJoined);
-            writer.Write(msg.ChanneName);
+            writer.WriteCString(msg.ChanneName);
             writer.Write((byte)0);
             writer.Write(msg.ChannelId);
             writer.Write(0);
