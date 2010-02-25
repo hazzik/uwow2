@@ -52,7 +52,7 @@ namespace Hazzik.Objects {
 		#region CORPSE_FIELD_GUILD
 
 		//CORPSE_FIELD_GUILD : type = Int, size = 1, flag = Public
-		public virtual UInt32 GuildId { get; set; }
+		public virtual Int32 GuildId { get; set; }
 
 		#endregion
 

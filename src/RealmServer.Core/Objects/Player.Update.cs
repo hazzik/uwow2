@@ -20,16 +20,14 @@ namespace Hazzik.Objects {
 		#region PLAYER_GUILDID
 
 		//PLAYER_GUILDID : type = Int, size = 1, flag = Public
-		public virtual UInt32 GuildId { get; set; }
 
-		#endregion
+	    #endregion
 
 		#region PLAYER_GUILDRANK
 
 		//PLAYER_GUILDRANK : type = Int, size = 1, flag = Public
-		public virtual UInt32 GuildRank { get; set; }
 
-		#endregion
+	    #endregion
 
 		#region PLAYER_BYTES
 
@@ -81,9 +79,8 @@ namespace Hazzik.Objects {
 		#region PLAYER_GUILD_TIMESTAMP
 
 		//PLAYER_GUILD_TIMESTAMP : type = Int, size = 1, flag = Public
-		public virtual UInt32 GuildTimestamp { get; set; }
 
-		#endregion
+	    #endregion
 
 		#region PLAYER_QUEST_LOG_1_1 * 25
 

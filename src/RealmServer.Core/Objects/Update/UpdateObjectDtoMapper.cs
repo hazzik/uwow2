@@ -1,6 +1,7 @@
 using System;
 using Hazzik.Items;
 using Hazzik.Skills;
+using Hazzik.Utils;
 
 namespace Hazzik.Objects.Update {
 	internal static class UpdateObjectDtoMapper {
@@ -255,8 +256,8 @@ namespace Hazzik.Objects.Update {
 			UpdateUnit(dto, obj);
 			dto.Set(UpdateFields.PLAYER_DUEL_ARBITER, obj.DuelArbiterGuid);
 			dto.Set(UpdateFields.PLAYER_FLAGS, (uint)obj.Flags);
-			dto.Set(UpdateFields.PLAYER_GUILDID, obj.GuildId);
-			dto.Set(UpdateFields.PLAYER_GUILDRANK, obj.GuildRank);
+		    dto.Set(UpdateFields.PLAYER_GUILDID, obj.GuildMember.With(x => x.Guild.Id));
+		    dto.Set(UpdateFields.PLAYER_GUILDRANK, obj.GuildMember.With(x => x.Rank));
 			dto.Set(UpdateFields.PLAYER_BYTES,
 			        obj.Skin,
 			        obj.Face,
@@ -273,7 +274,7 @@ namespace Hazzik.Objects.Update {
 			        obj.PlayerBytes3_3,
 			        obj.PvPRank);
 			dto.Set(UpdateFields.PLAYER_DUEL_TEAM, obj.DuelTeam);
-			dto.Set(UpdateFields.PLAYER_GUILD_TIMESTAMP, obj.GuildTimestamp);
+		    dto.Set(UpdateFields.PLAYER_GUILD_TIMESTAMP, obj.GuildMember.With(x => x.Timestamp));
 			for(int i = 0; i < 25; i++) {
 			    SetQuestInfo(dto, obj.GetQuestInfo(i), i);
 			}

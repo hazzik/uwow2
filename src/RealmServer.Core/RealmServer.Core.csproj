@@ -67,6 +67,8 @@
     <Compile Include="GameObjects\UseHandlers\ChairHandler.cs" />
     <Compile Include="GameObjects\GameObjectTemplate.cs" />
     <Compile Include="Gossip\GossipMessage.cs" />
+    <Compile Include="Guilds\Guild.cs" />
+    <Compile Include="Guilds\GuildMember.cs" />
     <Compile Include="Net\AsyncWorldPaketReceiver.cs" />
     <Compile Include="Net\Cryptor.cs" />
     <Compile Include="Net\IPacketDispatcherFactory.cs" />
@@ -221,6 +223,7 @@
     <Compile Include="Trade\TradeContext.cs" />
     <Compile Include="Trade\TradeException.cs" />
     <Compile Include="Trade\TradeStatus.cs" />
+    <Compile Include="Utils\Monads.cs" />
     <Compile Include="WMSG.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WorldServerHandlers.cs" />

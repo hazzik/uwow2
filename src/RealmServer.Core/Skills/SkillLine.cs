@@ -45,7 +45,7 @@ namespace Hazzik.Skills
             return new Skill(player, GetCap())
                        {
                            Id = (ushort) Id,
-                           Value = MinValue()
+                           Value = MinValue(),
                        };
         }
     }

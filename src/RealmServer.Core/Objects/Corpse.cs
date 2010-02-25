@@ -1,4 +1,5 @@
 using System;
+using Hazzik.Utils;
 
 namespace Hazzik.Objects {
 	public partial class Corpse : Positioned {
@@ -30,7 +31,7 @@ namespace Hazzik.Objects {
 				HairStyle = player.HairStyle,
 				HairColor = player.HairColor,
 				FacialHair = player.FacialHair,
-				GuildId = player.GuildId,
+				GuildId = player.GuildMember.With(x=>x.Guild.Id),
 				//Flags = CorpseFlags.Bones,
 				DynamicFlags = CorpseDynamicFlags.None,
 			};

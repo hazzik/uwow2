@@ -6,6 +6,7 @@ using System.Xml.Serialization;
 using Hazzik.IO;
 using Hazzik.Net;
 using Hazzik.Objects;
+using Hazzik.Utils;
 
 namespace Hazzik {
 	public class AccpuntData {
@@ -89,7 +90,7 @@ namespace Hazzik {
 				w.Write(player.PosX);
 				w.Write(player.PosY);
 				w.Write(player.PosZ);
-				w.Write(player.GuildId);
+			    w.Write(player.GuildMember.With(x => x.Guild.Id));
 
 				uint flag = 0x00000000;
 				w.Write(flag);

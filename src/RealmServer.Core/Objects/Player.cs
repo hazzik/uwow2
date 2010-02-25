@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Hazzik.Annotations;
 using Hazzik.Dbc;
+using Hazzik.Guilds;
 using Hazzik.Items;
 using Hazzik.Items.Inventories;
 using Hazzik.Map;
@@ -31,6 +32,7 @@ namespace Hazzik.Objects {
 			_keyRing = new KeyRingInventory(this);
 		}
 
+        public GuildMember GuildMember { get; set; }
 
 		public override ObjectTypeId TypeId {
 			get { return ObjectTypeId.Player; }
