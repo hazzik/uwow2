@@ -12,7 +12,7 @@ using Hazzik.Skills;
 
 namespace Hazzik.Objects {
 	public partial class Player : Unit, IContainer {
-		private readonly IInventory _inventory;
+		private readonly IInventory inventory;
 		private readonly IList<QuestInfo> quests = new List<QuestInfo>();
 		private readonly IList<Skill> skills = new List<Skill>();
 		private readonly IList<int> spells = new List<int>();
@@ -23,7 +23,7 @@ namespace Hazzik.Objects {
 
 		public Player() {
 			Type |= ObjectTypes.Player;
-			_inventory = new PlayerInventory(this, (UpdateFields.PLAYER_FARSIGHT - UpdateFields.PLAYER_FIELD_INV_SLOT_HEAD) / 2);
+			inventory = new PlayerInventory(this, (UpdateFields.PLAYER_FARSIGHT - UpdateFields.PLAYER_FIELD_INV_SLOT_HEAD) / 2);
 			_equipment = new EquipmentInventory(this);
 			_backPack = new BackPackInventory(this);
 			_bank = new BankInventory(this);
@@ -87,13 +87,13 @@ namespace Hazzik.Objects {
 		}
 
 		public IInventory Inventory {
-			get { return _inventory; }
+			get { return inventory; }
 		}
 
 		#endregion
 
-		public void TrainSpell(IEnumerable<int> spells) {
-			foreach(int id in spells) {
+		public void TrainSpell(params int[] spellsForTrain) {
+			foreach(int id in spellsForTrain) {
 				TrainSpell(id);
 			}
 		}
@@ -117,15 +117,18 @@ namespace Hazzik.Objects {
 			return container != null ? container.Inventory : null;
 		}
 
-		public void TrainSpell(int spellId) {
-			SkillLineAbility sla = new SkillLineAbilityRepository().FindBySpellId(spellId);
-			if(sla != null) {
-				AddSkill(new Skill { Id = (ushort)sla.SkillId, Value = 1, Cap = 1 });
-			}
-			Spells.Add(spellId);
-		}
+        public void TrainSpell(int spellId)
+        {
+            SkillLineAbility sla = new SkillLineAbilityRepository().FindBySpellId(spellId);
+            if (sla != null)
+            {
+                var sl = new SkillLineRepository().FindById(sla.SkillId);
+                AddSkill(sl.CreateSkill(this));
+            }
+            Spells.Add(spellId);
+        }
 
-		private void RemoveSpell(int spellId) {
+	    private void RemoveSpell(int spellId) {
 			Spells.Remove(spellId);
 		}
 
@@ -157,5 +160,14 @@ namespace Hazzik.Objects {
                 return Quests[questIndex];
             return QuestInfo.Empty;
         }
+
+	    [NotNull]
+	    public Skill GetSkillAt(int skillIndex)
+	    {
+            if (Skills.Count <= skillIndex)
+                return Skill.Empty;
+	        return Skills[skillIndex];
+	    }
 	}
+
 }

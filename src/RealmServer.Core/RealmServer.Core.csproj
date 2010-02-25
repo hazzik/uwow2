@@ -63,6 +63,7 @@
     <Compile Include="Chat\MessageType.cs" />
     <Compile Include="Data\Fake\Templates\MiningPick2901.cs" />
     <Compile Include="Data\IGameObjectTemplateRepository.cs" />
+    <Compile Include="Dbc\SkillLineRepository.cs" />
     <Compile Include="GameObjects\UseHandlers\ChairHandler.cs" />
     <Compile Include="GameObjects\GameObjectTemplate.cs" />
     <Compile Include="Gossip\GossipMessage.cs" />
@@ -124,6 +125,9 @@
     <Compile Include="Data\IItemTemplateRepository.cs" />
     <Compile Include="Data\INpcTextRepository.cs" />
     <Compile Include="Net\IPacketDispatcher.cs" />
+    <Compile Include="Skills\SkillCap.cs" />
+    <Compile Include="Skills\SkillCategory.cs" />
+    <Compile Include="Skills\SkillLine.cs" />
     <Compile Include="Skills\SkillLineAbility.cs" />
     <Compile Include="Dbc\SkillLineAbilityRepository.cs" />
     <Compile Include="Gossip\GossipMenuIcon.cs" />

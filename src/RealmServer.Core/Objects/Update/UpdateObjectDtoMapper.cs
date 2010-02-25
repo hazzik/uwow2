@@ -306,20 +306,15 @@ namespace Hazzik.Objects.Update {
 			dto.Set(UpdateFields.PLAYER_FIELD_KNOWN_CURRENCIES, obj.KnownCurrenciesGuid);
 			dto.Set(UpdateFields.PLAYER_XP, obj.Xp);
 			dto.Set(UpdateFields.PLAYER_NEXT_LEVEL_XP, obj.NextLevelXp);
-			for(int i = 0; i < 128; i++) {
-				Skill skill;
-				if((i < obj.Skills.Count) && (skill = obj.Skills[i]) != null) {
-					dto.Set(UpdateFields.PLAYER_SKILL_INFO_1_1 + (i * 3), skill.Id, skill.Flags);
-					dto.Set(UpdateFields.PLAYER_SKILL_INFO_1_1 + (i * 3) + 1, skill.Value, skill.Cap);
-					dto.Set(UpdateFields.PLAYER_SKILL_INFO_1_1 + (i * 3) + 2, skill.Modifier, skill.Modifier2);
-				}
-				else {
-					dto.Set(UpdateFields.PLAYER_SKILL_INFO_1_1 + (i * 3), 0);
-					dto.Set(UpdateFields.PLAYER_SKILL_INFO_1_1 + (i * 3) + 1, 0);
-					dto.Set(UpdateFields.PLAYER_SKILL_INFO_1_1 + (i * 3) + 2, 0);
-				}
-			}
-			dto.Set(UpdateFields.PLAYER_CHARACTER_POINTS1, obj.CharacterPoints1);
+            for (int skillIndex = 0; skillIndex < 128; skillIndex++)
+            {
+                Skill skill = obj.GetSkillAt(skillIndex);
+                var index = UpdateFields.PLAYER_SKILL_INFO_1_1 + skillIndex*3;
+                dto.Set(index, skill.Id, skill.Flags);
+                dto.Set(index + 1, skill.Value, skill.Cap());
+                dto.Set(index + 2, skill.Modifier, skill.Modifier2);
+            }
+		    dto.Set(UpdateFields.PLAYER_CHARACTER_POINTS1, obj.CharacterPoints1);
 			dto.Set(UpdateFields.PLAYER_CHARACTER_POINTS2, obj.CharacterPoints2);
 			dto.Set(UpdateFields.PLAYER_TRACK_CREATURES, obj.TrackCreatures);
 			dto.Set(UpdateFields.PLAYER_TRACK_RESOURCES, obj.TrackResources);
@@ -371,10 +366,11 @@ namespace Hazzik.Objects.Update {
 		}
 
 	    private static void SetQuestInfo(UpdateValuesDto dto, QuestInfo questInfo, int questIndex) {
-	        dto.Set(UpdateFields.PLAYER_QUEST_LOG_1_1 + questIndex, questInfo.Id);
-	        dto.Set(UpdateFields.PLAYER_QUEST_LOG_1_2 + questIndex, questInfo.FinishTime);
-	        dto.Set(UpdateFields.PLAYER_QUEST_LOG_1_3 + questIndex, questInfo.Short1, questInfo.Short2);
-	        dto.Set(UpdateFields.PLAYER_QUEST_LOG_1_3 + questIndex + 1, questInfo.Short3, questInfo.Short4);
+	        var index = UpdateFields.PLAYER_QUEST_LOG_1_1 + questIndex;
+	        dto.Set(index, questInfo.Id);
+	        dto.Set(index + 1, questInfo.FinishTime);
+	        dto.Set(index + 2, questInfo.Short1, questInfo.Short2);
+	        dto.Set(index + 3, questInfo.Short3, questInfo.Short4);
 	    }
 
 	    private static void SetVisibleItem(UpdateValuesDto dto, UpdateFields field, Item item) {
