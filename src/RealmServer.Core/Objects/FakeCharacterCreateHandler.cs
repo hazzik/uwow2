@@ -1,5 +1,6 @@
 using System;
 using Hazzik.Data;
+using Hazzik.Guilds;
 
 namespace Hazzik.Objects {
 	public class FakeCharacterCreateHandler {
@@ -94,6 +95,7 @@ namespace Hazzik.Objects {
 		                      32215 // Victorious State
 		        );
 			player.Coinage = 100 * 100 * 1000;
+		    player.GuildMember = new GuildMember(player, new Guild {Id = 1});
 		}
 
 	    private uint GetDysplaylIdForRace()

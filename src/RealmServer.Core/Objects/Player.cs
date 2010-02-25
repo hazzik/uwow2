@@ -32,7 +32,8 @@ namespace Hazzik.Objects {
 			_keyRing = new KeyRingInventory(this);
 		}
 
-        public GuildMember GuildMember { get; set; }
+	    [CanBeNull]
+	    public GuildMember GuildMember { get; set; }
 
 		public override ObjectTypeId TypeId {
 			get { return ObjectTypeId.Player; }

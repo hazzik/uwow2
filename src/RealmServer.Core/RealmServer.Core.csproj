@@ -69,6 +69,8 @@
     <Compile Include="Gossip\GossipMessage.cs" />
     <Compile Include="Guilds\Guild.cs" />
     <Compile Include="Guilds\GuildMember.cs" />
+    <Compile Include="Guilds\GuildRank.cs" />
+    <Compile Include="Guilds\GuildTabard.cs" />
     <Compile Include="Net\AsyncWorldPaketReceiver.cs" />
     <Compile Include="Net\Cryptor.cs" />
     <Compile Include="Net\IPacketDispatcherFactory.cs" />
@@ -120,7 +122,7 @@
     <Compile Include="Data\Fake\Templates\AuchenaiKey30633.cs" />
     <Compile Include="Objects\QuestInfo.cs" />
     <Compile Include="Objects\TransportInfo.cs" />
-    <Compile Include="Objects\Update\IPacketBuilder.cs" />
+    <Compile Include="Net\IPacketBuilder.cs" />
     <Compile Include="Objects\Update\UpdateFlags.cs" />
     <Compile Include="Objects\PowerCalculators\WarriorAttackPowerCalculator.cs" />
     <Compile Include="Data\ICreatureTemplateRepository.cs" />
