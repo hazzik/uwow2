@@ -24,16 +24,16 @@ namespace Hazzik.Objects {
 			writer.Write((byte)TypeId);
 			writer.Write((ushort)(!self ? UpdateFlag : UpdateFlag | UpdateFlags.Self));
 			WriteCreateBlock(writer);
-			if(UpdateFlag.Has(UpdateFlags.LowGuid)) {
+			if(UpdateFlag.HasFlag(UpdateFlags.LowGuid)) {
 				writer.Write((uint)0x00);
 			}
-			if(UpdateFlag.Has(UpdateFlags.HighGuid)) {
+			if(UpdateFlag.HasFlag(UpdateFlags.HighGuid)) {
 				writer.Write((uint)0x00);
 			}
-			if(UpdateFlag.Has(UpdateFlags.TargetGuid)) {
+			if(UpdateFlag.HasFlag(UpdateFlags.TargetGuid)) {
 				writer.WritePackGuid(0x00);
 			}
-			if(UpdateFlag.Has(UpdateFlags.Transport)) {
+			if(UpdateFlag.HasFlag(UpdateFlags.Transport)) {
 				writer.Write((uint)0x00);
 			}
 		}

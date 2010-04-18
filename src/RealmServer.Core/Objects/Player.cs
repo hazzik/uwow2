@@ -52,15 +52,18 @@ namespace Hazzik.Objects {
 
 		public ISession Session { get; protected internal set; }
 
+	    [NotNull]
 	    public IList<QuestInfo> Quests {
 			get { return quests; }
 		}
 
-		public IList<Skill> Skills {
+	    [NotNull]
+	    public IList<Skill> Skills {
 			get { return skills; }
 		}
 
-		public IList<int> Spells {
+	    [NotNull]
+	    public IList<int> Spells {
 			get { return spells; }
 		}
 
@@ -81,7 +84,8 @@ namespace Hazzik.Objects {
 			}
 		}
 
-		public Corpse Corpse { get; set; }
+	    [CanBeNull]
+	    public Corpse Corpse { get; set; }
 
 		#region IContainer Members
 

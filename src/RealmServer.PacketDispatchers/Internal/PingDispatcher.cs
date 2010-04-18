@@ -13,11 +13,8 @@ namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 
 		#endregion
 
-		public static IPacket GetPongPkt(uint ping) {
-			IPacket result = WorldPacketFactory.Create(WMSG.SMSG_PONG);
-			BinaryWriter w = result.CreateWriter();
-			w.Write(ping);
-			return result;
+		public static IPacketBuilder GetPongPkt(uint ping) {
+		    return WorldPacketFactory.Build(WMSG.SMSG_PONG, w => w.Write(ping));
 		}
 	}
 }

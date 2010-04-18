@@ -1,5 +1,4 @@
 ﻿using System;
-using Hazzik.Skills;
 
 namespace Hazzik.Objects {
 	public partial class Player {

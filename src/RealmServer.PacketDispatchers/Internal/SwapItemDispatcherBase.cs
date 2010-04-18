@@ -4,7 +4,7 @@ using Hazzik.Objects;
 
 namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 	internal class SwapItemDispatcherBase {
-		protected void SwapItems(IInventory srcInventory, int srcSlot, IInventory dstInventory, int dstSlot) {
+		protected static void SwapItems(IInventory srcInventory, int srcSlot, IInventory dstInventory, int dstSlot) {
 			Item srcItem = srcInventory[srcSlot];
 			Item dstItem = dstInventory[dstSlot];
 

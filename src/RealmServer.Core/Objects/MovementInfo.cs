@@ -42,21 +42,21 @@ namespace Hazzik.Objects {
                 w.Write(Y);
                 w.Write(Z);
                 w.Write(O);
-                if(Flags.Has(MovementFlags.OnTransport)) {
+                if(Flags.HasFlag(MovementFlags.OnTransport)) {
                     Transport.Write(w);
                 }
-                if(Flags.Has(MovementFlags.Swimming | MovementFlags.Flying) ||
-                   Flags2.Has(MovementFlags2.AlwaysAllowPitching)) {
+                if(Flags.HasFlag(MovementFlags.Swimming | MovementFlags.Flying) ||
+                   Flags2.HasFlag(MovementFlags2.AlwaysAllowPitching)) {
                     w.Write(SwimmPitch);
                 }
                 w.Write(FallTime);
-                if(Flags.Has(MovementFlags.Falling)) {
+                if(Flags.HasFlag(MovementFlags.Falling)) {
                     w.Write(JumpUnk1);
                     w.Write(JumpSin);
                     w.Write(JumpCos);
                     w.Write(JumpSpeed);
                 }
-                if(Flags.Has(MovementFlags.SplineElevation)) {
+                if(Flags.HasFlag(MovementFlags.SplineElevation)) {
                     w.Write(SplineElevation);
                 }
             }
@@ -71,7 +71,7 @@ namespace Hazzik.Objects {
                 Y = r.ReadSingle();
                 Z = r.ReadSingle();
                 O = r.ReadSingle();
-                if(Flags.Has(MovementFlags.OnTransport)) {
+                if(Flags.HasFlag(MovementFlags.OnTransport)) {
                     if(Transport == null) {
                         Transport = new TransportInfo();
                     }
@@ -80,18 +80,18 @@ namespace Hazzik.Objects {
                 else {
                     Transport = null;
                 }
-                if(Flags.Has(MovementFlags.Swimming | MovementFlags.Flying) ||
-                   Flags2.Has(MovementFlags2.AlwaysAllowPitching)) {
+                if(Flags.HasFlag(MovementFlags.Swimming | MovementFlags.Flying) ||
+                   Flags2.HasFlag(MovementFlags2.AlwaysAllowPitching)) {
                     SwimmPitch = r.ReadSingle();
                 }
                 FallTime = r.ReadUInt32();
-                if(Flags.Has(MovementFlags.Falling)) {
+                if(Flags.HasFlag(MovementFlags.Falling)) {
                     JumpUnk1 = r.ReadSingle();
                     JumpSin = r.ReadSingle();
                     JumpCos = r.ReadSingle();
                     JumpSpeed = r.ReadSingle();
                 }
-                if(Flags.Has(MovementFlags.SplineElevation)) {
+                if(Flags.HasFlag(MovementFlags.SplineElevation)) {
                     SplineElevation = r.ReadSingle();
                 }
             }

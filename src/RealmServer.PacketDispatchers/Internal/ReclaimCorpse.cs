@@ -8,8 +8,9 @@ namespace Hazzik.RealmServer.PacketDispatchers.Internal {
 		#region IPacketDispatcher Members
 
 		public void Dispatch(ISession session, IPacket packet) {
-			session.Player.Corpse.Flags |= CorpseFlags.IsClaimed;
-			session.Player.Ghost = false;
+		    if (session.Player.Corpse != null)
+		        session.Player.Corpse.Flags |= CorpseFlags.IsClaimed;
+		    session.Player.Ghost = false;
 			session.Player.Health = 100;
 		}
 
