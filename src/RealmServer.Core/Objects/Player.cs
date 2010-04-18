@@ -53,17 +53,20 @@ namespace Hazzik.Objects {
 		public ISession Session { get; protected internal set; }
 
 	    [NotNull]
-	    public IList<QuestInfo> Quests {
+        public IEnumerable<QuestInfo> Quests
+        {
 			get { return quests; }
 		}
 
 	    [NotNull]
-	    public IList<Skill> Skills {
+        public IEnumerable<Skill> Skills
+        {
 			get { return skills; }
 		}
 
 	    [NotNull]
-	    public IList<int> Spells {
+        public IEnumerable<int> Spells
+        {
 			get { return spells; }
 		}
 
@@ -107,7 +110,7 @@ namespace Hazzik.Objects {
 
 		public void AddSkill(Skill skill) {
 			if(!HasSkill(skill.Id)) {
-				Skills.Add(skill);
+				skills.Add(skill);
 			}
 		}
 
@@ -132,11 +135,11 @@ namespace Hazzik.Objects {
                 var sl = new SkillLineRepository().FindById(sla.SkillId);
                 AddSkill(sl.CreateSkill(this));
             }
-            Spells.Add(spellId);
+            spells.Add(spellId);
         }
 
 	    private void RemoveSpell(int spellId) {
-			Spells.Remove(spellId);
+			spells.Remove(spellId);
 		}
 
 		public void HeartBeat() {
@@ -163,17 +166,17 @@ namespace Hazzik.Objects {
         public QuestInfo GetQuestInfo(int questIndex) {
             if(questIndex < 0 && questIndex >= 25)
                 throw new ArgumentOutOfRangeException("questIndex", questIndex, "questIndex must be between 0 and 25");
-            if(questIndex < Quests.Count && Quests[questIndex] != null)
-                return Quests[questIndex];
+            if(questIndex < quests.Count && quests[questIndex] != null)
+                return quests[questIndex];
             return QuestInfo.Empty;
         }
 
 	    [NotNull]
 	    public Skill GetSkillAt(int skillIndex)
 	    {
-            if (Skills.Count <= skillIndex)
+            if (skills.Count <= skillIndex)
                 return Skill.Empty;
-	        return Skills[skillIndex];
+	        return skills[skillIndex];
 	    }
 	}
 

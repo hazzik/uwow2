@@ -18,17 +18,17 @@ namespace Hazzik {
 
 	[XmlType("account")]
 	public class Account {
-		private IList<AccpuntData> datas = new List<AccpuntData>();
-		private IList<Player> players = new List<Player>();
+		private readonly IList<AccpuntData> datas = new List<AccpuntData>();
+		private readonly IList<Player> players = new List<Player>();
 
-		public IList<Player> Players {
-			get { return players; }
-			protected set { players = value; }
-		}
+        public IEnumerable<Player> Players
+        {
+            get { return players; }
+        }
 
-		public IList<AccpuntData> Datas {
+        public IEnumerable<AccpuntData> Datas
+        {
 			get { return datas; }
-			protected set { datas = value; }
 		}
 
 		public virtual int Id { get; set; }
@@ -48,7 +48,7 @@ namespace Hazzik {
 			players.Add(player);
 		}
 
-		public void DelPlayer(Player player) {
+		public void RemovePlayer(Player player) {
 			players.Remove(player);
 		}
 
@@ -71,8 +71,8 @@ namespace Hazzik {
 		public IPacket GetCharEnumPkt() {
 			IPacket p = WorldPacketFactory.Create(WMSG.SMSG_CHAR_ENUM);
 			BinaryWriter w = p.CreateWriter();
-			w.Write((byte)Players.Count);
-			foreach(Player player in Players) {
+			w.Write((byte)players.Count);
+			foreach(Player player in players) {
 				w.Write(player.Guid);
 				w.WriteCString(player.Name);
 				w.Write((byte)player.Race);

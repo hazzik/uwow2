@@ -4,12 +4,12 @@ using Hazzik.Items.Inventories;
 
 namespace Hazzik.Objects {
 	public partial class Container : Item, IContainer {
-		private readonly IInventory _inventory;
+		private readonly IInventory inventory;
 
 		public Container(ItemTemplate template)
 			: base(template) {
 			Type |= ObjectTypes.Container;
-			_inventory = new ContainerInventory(this, (uint)template.ContainerSlots);
+			inventory = new ContainerInventory(this, (uint)template.ContainerSlots);
 		}
 
 		public override ObjectTypeId TypeId {
@@ -19,7 +19,7 @@ namespace Hazzik.Objects {
 		#region IContainer Members
 
 		public IInventory Inventory {
-			get { return _inventory; }
+			get { return inventory; }
 		}
 
 		#endregion

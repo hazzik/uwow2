@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using Hazzik.Creatures;
 using Hazzik.Data;
 using Hazzik.GameObjects;
@@ -211,7 +212,7 @@ namespace Hazzik.Net {
 			IPacket packet = WorldPacketFactory.Create(WMSG.SMSG_INITIAL_SPELLS);
 			BinaryWriter writer = packet.CreateWriter();
 			writer.Write((byte)0);
-			writer.Write((ushort)Player.Spells.Count);
+			writer.Write((ushort)Player.Spells.Count());
 			foreach(int i in Player.Spells) {
 				writer.Write(i);
 				writer.Write((ushort)0);
