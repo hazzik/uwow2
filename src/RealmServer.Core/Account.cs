@@ -99,7 +99,7 @@ namespace Hazzik {
 				w.Write(player.PetLevel);
 				w.Write(player.PetCreatureFamily);
 				w.Write(0);
-				for(int i = 0; i < 20; i++) {
+				for(int i = 0; i < 23; i++) {
 					Item item = player.Inventory[i];
 					if(item != null) {
 						w.Write(item.Template.DisplayId);
