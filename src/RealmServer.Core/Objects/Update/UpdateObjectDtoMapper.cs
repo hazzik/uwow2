@@ -68,7 +68,7 @@ namespace Hazzik.Objects.Update {
 			//Set(UpdateFields.ITEM_FIELD_ENCHANTMENT_1_1,);
 			dto.Set(UpdateFields.ITEM_FIELD_PROPERTY_SEED, obj.PropertySeed);
 			dto.Set(UpdateFields.ITEM_FIELD_RANDOM_PROPERTIES_ID, obj.RandomPropertiesId);
-			dto.Set(UpdateFields.ITEM_FIELD_ITEM_TEXT_ID, obj.ItemTextId);
+			//dto.Set(UpdateFields.ITEM_FIELD_ITEM_TEXT_ID, obj.ItemTextId);
 			dto.Set(UpdateFields.ITEM_FIELD_DURABILITY, obj.Durability);
 			dto.Set(UpdateFields.ITEM_FIELD_MAXDURABILITY, obj.MaxDurability);
 			dto.Set(UpdateFields.ITEM_FIELD_CREATE_PLAYED_TIME, obj.CreatePlayedTime);
@@ -156,7 +156,8 @@ namespace Hazzik.Objects.Update {
 			dto.Set(UpdateFields.UNIT_FIELD_SUMMONEDBY, obj.SummonedByGuid);
 			dto.Set(UpdateFields.UNIT_FIELD_TARGET, obj.TargetGuid);
 			dto.Set(UpdateFields.UNIT_FIELD_CHANNEL_OBJECT, obj.ChannelObjectGuid);
-			dto.Set(UpdateFields.UNIT_FIELD_BYTES_0,
+            dto.Set(UpdateFields.UNIT_CHANNEL_SPELL, obj.ChannelSpell);
+            dto.Set(UpdateFields.UNIT_FIELD_BYTES_0,
 			        (byte)obj.Race,
 			        (byte)obj.Classe,
 			        (byte)obj.Gender,
@@ -207,7 +208,6 @@ namespace Hazzik.Objects.Update {
 			dto.Set(UpdateFields.UNIT_FIELD_PETEXPERIENCE, obj.PetXp);
 			dto.Set(UpdateFields.UNIT_FIELD_PETNEXTLEVELEXP, obj.PetNextLevelXp);
 			dto.Set(UpdateFields.UNIT_DYNAMIC_FLAGS, obj.DynamicFlags);
-			dto.Set(UpdateFields.UNIT_CHANNEL_SPELL, obj.ChannelSpell);
 			dto.Set(UpdateFields.UNIT_MOD_CAST_SPEED, obj.ModCastSpeed);
 			dto.Set(UpdateFields.UNIT_CREATED_BY_SPELL, obj.CreatedBySpell);
 			dto.Set(UpdateFields.UNIT_NPC_FLAGS, (uint)obj.NpcFlags);
