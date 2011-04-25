@@ -23,3 +23,5 @@
 /tests/Tests/obj/*
 /src/*.suo
 /src/*.user
+/src/Helper/obj/*
+/src/Helper/bin/*

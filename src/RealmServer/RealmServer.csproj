@@ -75,7 +75,7 @@
     <Compile Include="DependencyResolver.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\lib\Helper\Helper.csproj">
+    <ProjectReference Include="..\Helper\Helper.csproj">
       <Project>{5BEC7A4C-7CB1-4D6B-B0E5-FD1860168494}</Project>
       <Name>Helper</Name>
     </ProjectReference>
