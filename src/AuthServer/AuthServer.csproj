@@ -98,10 +98,9 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Data.SQLite, Version=1.0.60.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
+    <Reference Include="System.Data.SQLite, Version=1.0.66.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\System.Data.SQLite.DLL</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\System.Data.SQLite.1.0.66.0\lib\System.Data.SQLite.DLL</HintPath>
     </Reference>
     <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
@@ -151,6 +150,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="hazzik.snk" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="account.hbm.xml" />
