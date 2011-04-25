@@ -50,13 +50,13 @@ namespace Tests {
 		[Fact]
 		public void SetItemOnNegativeSlotThrowException() {
 			TestInventory inventory = CreateInventory();
-			Assert.Throws<ArgumentOutOfRangeException>(() => inventory.SetItem(-1, null));
+			Xunit.Assert.Throws<ArgumentOutOfRangeException>(() => inventory.SetItem(-1, null));
 		}
 
 		[Fact]
 		public void SetItemOnSlotGraterThenSlotsCountThrowException() {
 			TestInventory inventory = CreateInventory(99);
-			Assert.Throws<ArgumentOutOfRangeException>(() => inventory.SetItem(100, null));
+            Xunit.Assert.Throws<ArgumentOutOfRangeException>(() => inventory.SetItem(100, null));
 		}
 
 		[Fact]

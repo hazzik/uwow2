@@ -16,7 +16,7 @@ namespace Tests {
 		public void BegintradeWithNullPlayerThrownTradeException() {
 			var player = new Player();
 			var context = new TradeContext(player);
-			var exception = Assert.Throws<TradeException>(() => context.BeginTrade(null));
+			var exception = Xunit.Assert.Throws<TradeException>(() => context.BeginTrade(null));
 			Assert.Equal(TradeStatus.PlayerNotFound, exception.Code);
 		}
 	}
