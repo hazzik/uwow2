@@ -478,6 +478,7 @@ namespace Hazzik.Net {
 			writer.Write(template.ArmorModifier);
 			writer.Write(0);
 			writer.Write(0);
+			writer.Write(0);
 			return packet;
 		}
 
