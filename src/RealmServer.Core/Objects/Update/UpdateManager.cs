@@ -39,15 +39,15 @@ namespace Hazzik.Objects.Update {
 		}
 
 		private IUpdateBlock GetOutOfRange() {
-			Dictionary<ulong, UpdateBlockBuilder> updateBuilders = GetObjectsForUpdate().ToDictionary(x => x.Guid, x => GetBuilder(x));
+			Dictionary<ulong, UpdateBlockBuilder> updateBuilders = GetObjectsForUpdate().ToDictionary(x => x.Guid, GetBuilder);
 			List<ulong> outOfRange = updateBlockBuilders.Keys.Except(updateBuilders.Keys).ToList();
 			updateBlockBuilders = updateBuilders;
 			return new OutOfRangeBlockWriter(outOfRange);
 		}
 
 		private IEnumerable<WorldObject> GetObjectsForUpdate() {
-			IEnumerable<WorldObject> items = session.Player.Inventory.Cast<WorldObject>();
-			IEnumerable<WorldObject> seenObjects = ObjectManager.GetSeenObjectsNear(session.Player).Cast<WorldObject>();
+			IEnumerable<WorldObject> items = session.Player.Inventory;
+			IEnumerable<WorldObject> seenObjects = ObjectManager.GetSeenObjectsNear(session.Player);
 			return items.Concat(seenObjects);
 		}
 

@@ -65,6 +65,8 @@ namespace Hazzik.Net {
 			uint unk = r.ReadUInt32();
 			uint clientSeed = r.ReadUInt32();
 			ulong unk3 = r.ReadUInt64();
+		    uint unk4 = r.ReadUInt32();
+		    ulong unk5 = r.ReadUInt64();
 			byte[] clientDigest = r.ReadBytes(20);
 
 			session.Account = IoC.Resolve<IAccountRepository>().FindByName(accountName);
