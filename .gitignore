@@ -28,9 +28,3 @@
 /src/packages
 /src/**/bin
 /src/**/obj
-/src/AuthServer/x64/SQLite.Interop.dll
-/src/AuthServer/x86/SQLite.Interop.dll
-/src/RealmServer.Data.NH/x64/SQLite.Interop.dll
-/src/RealmServer.Data.NH/x86/SQLite.Interop.dll
-/src/RealmServer/x64/SQLite.Interop.dll
-/src/RealmServer/x86/SQLite.Interop.dll

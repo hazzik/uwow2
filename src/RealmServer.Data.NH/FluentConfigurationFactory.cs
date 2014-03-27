@@ -1,7 +1,6 @@
 using System;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
-using NHibernate.ByteCode.Castle;
 using NHibernate.Cfg;
 
 namespace Hazzik.Data.NH {
@@ -14,7 +13,6 @@ namespace Hazzik.Data.NH {
                 .Database(SQLiteConfiguration
                               .Standard
                               .ConnectionString(@"Data Source=\uwow2\uwow2\src\uwow.s3db;Version=3")
-                              .ProxyFactoryFactory<ProxyFactoryFactory>()
                               .ShowSql())
                 .Mappings(m => m.FluentMappings
                                    .AddFromAssemblyOf<FluentConfigurationFactory>()
