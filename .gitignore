@@ -25,3 +25,6 @@
 /src/*.user
 /src/Helper/obj/*
 /src/Helper/bin/*
+/src/packages
+/src/**/bin
+/src/**/obj
